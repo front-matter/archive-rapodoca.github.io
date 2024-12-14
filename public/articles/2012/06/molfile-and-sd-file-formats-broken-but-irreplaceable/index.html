@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Molfile and SD File Formats: Broken But Irreplaceable? | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Compared to many areas of computer science, cheminforamtics is a backwater. Consider our &ldquo;standard&rdquo; file formats Molfile and SD File. These formats, collectively referred to as &ldquo;CTfile Formats&rdquo; were first described in the peer review literature in 1992, and had been in use for years prior to that. CTfile is an 80-character, line-based text file format that bears little resemblance to the standard information interchange formats XML and JSON in wide use everywhere else.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2012/06/molfile-and-sd-file-formats-broken-but-irreplaceable/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2012/06/molfile-and-sd-file-formats-broken-but-irreplaceable/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Molfile and SD File Formats: Broken But Irreplaceable?">
+  <meta property="og:description" content="Compared to many areas of computer science, cheminforamtics is a backwater. Consider our “standard” file formats Molfile and SD File. These formats, collectively referred to as “CTfile Formats” were first described in the peer review literature in 1992, and had been in use for years prior to that. CTfile is an 80-character, line-based text file format that bears little resemblance to the standard information interchange formats XML and JSON in wide use everywhere else.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2012-06-07T00:00:00+00:00">
+    <meta property="article:modified_time" content="2012-06-07T00:00:00+00:00">
+
+  <meta itemprop="name" content="Molfile and SD File Formats: Broken But Irreplaceable?">
+  <meta itemprop="description" content="Compared to many areas of computer science, cheminforamtics is a backwater. Consider our “standard” file formats Molfile and SD File. These formats, collectively referred to as “CTfile Formats” were first described in the peer review literature in 1992, and had been in use for years prior to that. CTfile is an 80-character, line-based text file format that bears little resemblance to the standard information interchange formats XML and JSON in wide use everywhere else.">
+  <meta itemprop="datePublished" content="2012-06-07T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2012-06-07T00:00:00+00:00">
+  <meta itemprop="wordCount" content="585">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Molfile and SD File Formats: Broken But Irreplaceable?">
+  <meta name="twitter:description" content="Compared to many areas of computer science, cheminforamtics is a backwater. Consider our “standard” file formats Molfile and SD File. These formats, collectively referred to as “CTfile Formats” were first described in the peer review literature in 1992, and had been in use for years prior to that. CTfile is an 80-character, line-based text file format that bears little resemblance to the standard information interchange formats XML and JSON in wide use everywhere else.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Molfile and SD File Formats: Broken But Irreplaceable?</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2012-06-07T00:00:00Z">June 7, 2012</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Compared to many areas of computer science, cheminforamtics is a backwater. Consider our &ldquo;standard&rdquo; file formats Molfile and SD File. These formats, collectively referred to as &ldquo;<a href="http://accelrys.com/products/informatics/cheminformatics/ctfile-formats/no-fee.php">CTfile Formats</a>&rdquo; were first described in the peer review literature in <a href="http://pubs.acs.org/doi/abs/10.1021/ci00007a012">1992</a>, and had been in use for years prior to that. CTfile is an 80-character, line-based text file format that bears little resemblance to the standard information interchange formats XML and JSON in wide use everywhere else.</p>
+<p>But make no mistake. This quaint but <a href="http://molmatinf.com/whynotmolsdf.html">broken</a> method of moving data around is just as relevant today as it was in 1992 - likely more so.</p>
+<p>Why do we in cheminformatics continue to use CTfile formats to the exclusion of all others? This was the question <a href="https://twitter.com/itdaniher/status/210397975741079552">posed to me</a> by Ian Daniher (<a href="https://twitter.com/#!/itdaniher">@itdaniher</a>) of <a href="http://www.nonolithlabs.com/">Nonolith Labs</a>. Ian has developed <a href="https://github.com/itdaniher/PyChEBI">PyChEBI</a> - &ldquo;a Python script to convert the quasi-obsolete SDF file format into a sane (Pythonic) datastructure.&rdquo;</p>
+<p>I&rsquo;ve come up with these reasons why CTfile remains the go-to data format in chemistry:</p>
+<ol>
+<li><strong>CTfile is good enough.</strong> The CTfile format offers enough functionality to solve most problems involving data exchange in chemistry.</li>
+<li><strong>CTfile is relatively well-documented.</strong> <a href="http://accelrys.com/products/informatics/cheminformatics/ctfile-formats/no-fee.php">A single PDF</a> contains everything you&rsquo;ll need to implement a CTfile reader and writer. The documentation has been updated regularly for many years now.</li>
+<li><strong>CTfile is easy to understand.</strong> Although the specification has grown a number of odd whiskers over time, the core concepts remain very easy to understand and implement.</li>
+<li><strong>Lack of compelling alternatives.</strong> <a href="http://www.xml-cml.org/">Chemical Markup Language</a> (CML), an XML-based format, has been in development for many years. Yet it still fails to attract attention outside of a limited audience in cheminformatics. Lack of good <a href="http://www.xml-cml.org/documentation/index.html">documentation</a> coupled with constantly-evolving schema and tooling are two reasons, but this list is evidence of many others.</li>
+<li><strong>Lack of a competing standard used by must-have software.</strong> CTfile formats were developed by <a href="http://en.wikipedia.org/wiki/MDL_Information_Systems">MDL Information Systems</a> for use with its suite of user-focused chemistry tools. MDL recognized that CTfile was key to making its business work - and so dedicated the resources necessary to develop and document it. Similar statements apply to the <a href="/articles/2010/09/13/a-brief-introduction-to-the-chemdraw-cdx-file-format/">ChemDraw CDX format</a>.</li>
+<li><strong>Open Standard.</strong> Software that reads and writes CTfiles can be created without paying license fees to MDL or its successor companies. Combined with freely-available documentation, this is about as close as we get in cheminformatics to an open standard.</li>
+<li><strong>Databases rule.</strong> Demand for chemical information interchange formats is driven in large part by <a href="/articles/2011/10/12/sixty-four-free-chemistry-databases/">chemical databases</a>, free and otherwise. When these databases offer the ability to perform mass downloads, they generally use a CTfile format. CTfile is the only format these services can rely on their users being able to open.</li>
+<li><strong>Software.</strong> Molfile and SD File are the only file formats for which stable, well-tested readers and writers have been universally implemented. No other file format enjoys such privilege and this is unlikely to change anytime soon.</li>
+<li><strong><a href="http://www.codinghorror.com/blog/2004/08/worse-is-better.html">Worse is better.</a></strong> Enough said.</li>
+</ol>
+<p>Will CTfile ever be replaced by another standard? Of course. I suspect that the replacement will address one or more of the points above. The replacement for CTfile will also likely start out by gaining a foothold at the periphery of chemistry/cheminformatics and will be ignored by the mainstream for some time. Given the seeming insurmountability of the task, I further suspect that the standard that replaces CTfile will be developed by a group of relative outsiders - they would be the only ones who would think such a thing is even possible.</p>
+<p>So, Ian, I salute your initiative. You may be onto something.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

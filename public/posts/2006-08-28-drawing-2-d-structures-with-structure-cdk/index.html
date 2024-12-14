@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Drawing 2-D Structures with Structure-CDK | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Rendering 2-D molecular structures is a fundamental part of chemical informatics. It&rsquo;s used in building end user systems, and more immediately, it can be critical for creating and debugging developer tools.
+The Chemistry Development Kit (CDK) is a highly-functional chemical informatics library written in Java. Although it provides built-in 2-D rendering capabilities through the org.openscience.cdk.renderer package, I wanted something a little easier for me to customize. The result is Structure-CDK, a 37K add-on library for the CDK. This article discusses the main features of Structure-CDK with some screenshots and code.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/posts/2006-08-28-drawing-2-d-structures-with-structure-cdk/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/posts/2006-08-28-drawing-2-d-structures-with-structure-cdk/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="Drawing 2-D Structures with Structure-CDK">
+  <meta property="og:description" content="Rendering 2-D molecular structures is a fundamental part of chemical informatics. It’s used in building end user systems, and more immediately, it can be critical for creating and debugging developer tools.
+The Chemistry Development Kit (CDK) is a highly-functional chemical informatics library written in Java. Although it provides built-in 2-D rendering capabilities through the org.openscience.cdk.renderer package, I wanted something a little easier for me to customize. The result is Structure-CDK, a 37K add-on library for the CDK. This article discusses the main features of Structure-CDK with some screenshots and code.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2006-08-28T00:00:00+00:00">
+    <meta property="article:modified_time" content="2006-08-28T00:00:00+00:00">
+
+  <meta itemprop="name" content="Drawing 2-D Structures with Structure-CDK">
+  <meta itemprop="description" content="Rendering 2-D molecular structures is a fundamental part of chemical informatics. It’s used in building end user systems, and more immediately, it can be critical for creating and debugging developer tools.
+The Chemistry Development Kit (CDK) is a highly-functional chemical informatics library written in Java. Although it provides built-in 2-D rendering capabilities through the org.openscience.cdk.renderer package, I wanted something a little easier for me to customize. The result is Structure-CDK, a 37K add-on library for the CDK. This article discusses the main features of Structure-CDK with some screenshots and code.">
+  <meta itemprop="datePublished" content="2006-08-28T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2006-08-28T00:00:00+00:00">
+  <meta itemprop="wordCount" content="436">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Drawing 2-D Structures with Structure-CDK">
+  <meta name="twitter:description" content="Rendering 2-D molecular structures is a fundamental part of chemical informatics. It’s used in building end user systems, and more immediately, it can be critical for creating and debugging developer tools.
+The Chemistry Development Kit (CDK) is a highly-functional chemical informatics library written in Java. Although it provides built-in 2-D rendering capabilities through the org.openscience.cdk.renderer package, I wanted something a little easier for me to customize. The result is Structure-CDK, a 37K add-on library for the CDK. This article discusses the main features of Structure-CDK with some screenshots and code.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Drawing 2-D Structures with Structure-CDK</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2006-08-28T00:00:00Z">August 28, 2006</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Rendering 2-D molecular structures is a fundamental part of chemical informatics. It&rsquo;s used in building end user systems, and more immediately, it can be critical for creating and debugging developer tools.</p>
+<p>The <!-- raw HTML omitted -->Chemistry Development Kit<!-- raw HTML omitted --> (CDK) is a highly-functional chemical informatics library written in Java. Although it provides built-in 2-D rendering capabilities through the <code>org.openscience.cdk.renderer</code> package, I wanted something a little easier for me to customize. The result is <!-- raw HTML omitted -->Structure-CDK<!-- raw HTML omitted -->, a 37K add-on library for the CDK. This article discusses the main features of Structure-CDK with some screenshots and code.</p>
+<p>To begin using Structure-CDK, <!-- raw HTML omitted -->download<!-- raw HTML omitted --> the current release. This package contains a complete copy of the most recent CDK release, so there is nothing else to install or download. Structure-CDK was developed with JDK-1.5.0. Because it contains no 1.5-specific features, it may work on earlier Java versions. <!-- raw HTML omitted -->Ant<!-- raw HTML omitted --> is useful, but not essential.</p>
+<p>The packages contains an interactive viewing application, which can be invoked with the &ldquo;vis&rdquo; Ant task:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ant vis
+</span></span></code></pre></div><p>Two types of molecules can be viewed. The first consists of those defined in <code>org.openscience.cdk.templates.MoleculeFactory</code>, which can be found under the <strong>Structure</strong> menu. 2-D coordinates are provided by CDK&rsquo;s <code>StructureDiagramGenerator</code>. Additionally, molecules can be opened as molfiles (<strong>File-&gt;Open</strong>), several samples of which are contained in the distribution&rsquo;s <strong>molfiles</strong> directory. Let&rsquo;s take a look at oseltamivir (Tamiflu).</p>
+<p>This view can be changed in a couple of ways. Resizing the window automatically resizes and centers the image, while maintaining proportionality of all measurements. This feature, when used with antialiasing, results in the image staying readable regardless of its size. Additionally, <strong>Edit-&gt;Preferences</strong> produces a dialog for changing the rendering settings.</p>
+<p>Now let&rsquo;s see some code that will read a molecule from a molfile and write a 2-D PNG image to disk. This can be done via the static convenience methods found in <code>ImageKit</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.io.FileReader;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.openscience.cdk.io.MDLReader;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.openscience.cdk.interfaces.IMolecule;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.openscience.cdk.Molecule;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> net.sf.structure.cdk.util.ImageKit;
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">writePNG</span>(String pathToMolfile, String pathToPNG) <span style="color:#66d9ef">throws</span> Exception
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  MDLReader mdlReader <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> MDLReader(<span style="color:#66d9ef">new</span> FileReader(pathToMolfile));
+</span></span><span style="display:flex;"><span>  IMolecule mol <span style="color:#f92672">=</span> (IMolecule) mdlReader.<span style="color:#a6e22e">read</span>(<span style="color:#66d9ef">new</span> Molecule());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  ImageKit.<span style="color:#a6e22e">writePNG</span>(mol, 300, 300, pathToPNG);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The above code fragment creates a 300x300 PNG image from the contents of the molfile specified by <code>pathToMolfile</code>.</p>
+<p>Although several rendering features, both aesthetic and functional, are supported, some are missing. Most importantly, atom labels are only rendered without hydrogen atoms and there is no stereochemistry support. Performance has not been optimized at all. Future versions of Structure-CDK will be aimed at addressing these issues.</p>
+<p>Given the central nature of 2-D structure rendering, it&rsquo;s nice to have options. Structure-CDK provides a convenient, interactive solution. Future articles will discuss the integration of Structure-CDK into more complex chemical informatics systems.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  My New Hugo Site 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

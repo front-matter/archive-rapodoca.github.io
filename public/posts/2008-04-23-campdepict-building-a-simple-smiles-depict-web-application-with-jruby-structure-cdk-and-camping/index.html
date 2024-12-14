@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>CampDepict: Building a Simple SMILES Depict Web Application With JRuby, Structure CDK, and Camping | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Today&rsquo;s tribute to the power of simplicity comes by way of John Jaeger, who has built one of the simplest cheminformatics Web applications ever written. His creation, CampDepict, interactively produces a raster image of a 2D chemical structure given a SMILES string, not unlike Daylight&rsquo;s Depict application.
+CampDepict uses the Ruby Web microframework Camping. From the README:
+
+Camping is a web framework which consistently stays at less than 4kb of code. You can probably view the complete source code on a single page. But, you know, it‘s so small that, if you think about it, what can it really do?">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/posts/2008-04-23-campdepict-building-a-simple-smiles-depict-web-application-with-jruby-structure-cdk-and-camping/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/posts/2008-04-23-campdepict-building-a-simple-smiles-depict-web-application-with-jruby-structure-cdk-and-camping/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="CampDepict: Building a Simple SMILES Depict Web Application With JRuby, Structure CDK, and Camping">
+  <meta property="og:description" content="Today’s tribute to the power of simplicity comes by way of John Jaeger, who has built one of the simplest cheminformatics Web applications ever written. His creation, CampDepict, interactively produces a raster image of a 2D chemical structure given a SMILES string, not unlike Daylight’s Depict application.
+CampDepict uses the Ruby Web microframework Camping. From the README:
+Camping is a web framework which consistently stays at less than 4kb of code. You can probably view the complete source code on a single page. But, you know, it‘s so small that, if you think about it, what can it really do?">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2008-04-23T00:00:00+00:00">
+    <meta property="article:modified_time" content="2008-04-23T00:00:00+00:00">
+
+  <meta itemprop="name" content="CampDepict: Building a Simple SMILES Depict Web Application With JRuby, Structure CDK, and Camping">
+  <meta itemprop="description" content="Today’s tribute to the power of simplicity comes by way of John Jaeger, who has built one of the simplest cheminformatics Web applications ever written. His creation, CampDepict, interactively produces a raster image of a 2D chemical structure given a SMILES string, not unlike Daylight’s Depict application.
+CampDepict uses the Ruby Web microframework Camping. From the README:
+Camping is a web framework which consistently stays at less than 4kb of code. You can probably view the complete source code on a single page. But, you know, it‘s so small that, if you think about it, what can it really do?">
+  <meta itemprop="datePublished" content="2008-04-23T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2008-04-23T00:00:00+00:00">
+  <meta itemprop="wordCount" content="196">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CampDepict: Building a Simple SMILES Depict Web Application With JRuby, Structure CDK, and Camping">
+  <meta name="twitter:description" content="Today’s tribute to the power of simplicity comes by way of John Jaeger, who has built one of the simplest cheminformatics Web applications ever written. His creation, CampDepict, interactively produces a raster image of a 2D chemical structure given a SMILES string, not unlike Daylight’s Depict application.
+CampDepict uses the Ruby Web microframework Camping. From the README:
+Camping is a web framework which consistently stays at less than 4kb of code. You can probably view the complete source code on a single page. But, you know, it‘s so small that, if you think about it, what can it really do?">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">CampDepict: Building a Simple SMILES Depict Web Application With JRuby, Structure CDK, and Camping</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2008-04-23T00:00:00Z">April 23, 2008</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Today&rsquo;s tribute to the power of simplicity comes by way of <a href="http://goeslightly.blogspot.com/">John Jaeger</a>, who has built one of the simplest cheminformatics Web applications ever written. His creation, <a href="http://goeslightly.blogspot.com/2008/04/campdepict-jruby-cdk-and-camping.html">CampDepict</a>, interactively produces a raster image of a 2D chemical structure given a SMILES string, not unlike <a href="http://www.daylight.com/daycgi/depict">Daylight&rsquo;s Depict application</a>.</p>
+<p>CampDepict uses the Ruby Web microframework <a href="http://redhanded.hobix.com/bits/campingAMicroframework.html">Camping</a>. From the <a href="http://camping.rubyforge.org/files/README.html">README</a>:</p>
+<blockquote>
+<p>Camping is a web framework which consistently stays at less than 4kb of code. You can probably view the complete source code on a single page. But, you know, it‘s so small that, if you think about it, what can it really do?</p>
+<p>The idea here is to store a complete fledgling web application in a single file like many small CGIs. But to organize it as a Model-View-Controller application like Rails does. You can then easily move it to Rails once you‘ve got it going.</p>
+</blockquote>
+<p>John&rsquo;s application is loosely-based on the <a href="http://depth-first.com/articles/2006/12/04/anatomy-of-a-cheminformatics-web-application-ajaxifying-depict">Rails Depict</a> application first described in 2006 here on Depth-First. His code makes use of <a href="http://cdk.sf.net">CDK</a> and <a href="http://sf.net/projects/structure">Structure CDK</a>, and it runs on <a href="http://jruby.codehaus.org/">JRuby</a>.</p>
+<p>If you&rsquo;ve ever been curious about what Ruby has to offer cheminformatics, CampDepict could be just the application to get your feet wet.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  My New Hugo Site 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

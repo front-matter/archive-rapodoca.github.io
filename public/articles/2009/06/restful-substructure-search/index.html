@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>RESTful Substructure Search | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="REST is an architectural style for Web applications that emphasizes regularity and discoverability. Unlike most other approaches, REST exploits the full power of HTTP, both in terms of expression and performance optimization. This article explores REST from the perspective of cheminformatics Web services, using the specific example of substructure search.
+REST and Chemical Information Services
+Chemical information systems have a lot to gain from using RESTful architectures. As the number of free chemistry databases continues to increase, interoperability can serve as a potent tool in counteracting confusion and fatigue on the part of end users. REST offers a low-energy pathway to achieve interoperability among the growing number independent chemical information services.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2009/06/restful-substructure-search/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2009/06/restful-substructure-search/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="RESTful Substructure Search">
+  <meta property="og:description" content="REST is an architectural style for Web applications that emphasizes regularity and discoverability. Unlike most other approaches, REST exploits the full power of HTTP, both in terms of expression and performance optimization. This article explores REST from the perspective of cheminformatics Web services, using the specific example of substructure search.
+REST and Chemical Information Services Chemical information systems have a lot to gain from using RESTful architectures. As the number of free chemistry databases continues to increase, interoperability can serve as a potent tool in counteracting confusion and fatigue on the part of end users. REST offers a low-energy pathway to achieve interoperability among the growing number independent chemical information services.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2009-06-03T00:00:00+00:00">
+    <meta property="article:modified_time" content="2009-06-03T00:00:00+00:00">
+
+  <meta itemprop="name" content="RESTful Substructure Search">
+  <meta itemprop="description" content="REST is an architectural style for Web applications that emphasizes regularity and discoverability. Unlike most other approaches, REST exploits the full power of HTTP, both in terms of expression and performance optimization. This article explores REST from the perspective of cheminformatics Web services, using the specific example of substructure search.
+REST and Chemical Information Services Chemical information systems have a lot to gain from using RESTful architectures. As the number of free chemistry databases continues to increase, interoperability can serve as a potent tool in counteracting confusion and fatigue on the part of end users. REST offers a low-energy pathway to achieve interoperability among the growing number independent chemical information services.">
+  <meta itemprop="datePublished" content="2009-06-03T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2009-06-03T00:00:00+00:00">
+  <meta itemprop="wordCount" content="855">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="RESTful Substructure Search">
+  <meta name="twitter:description" content="REST is an architectural style for Web applications that emphasizes regularity and discoverability. Unlike most other approaches, REST exploits the full power of HTTP, both in terms of expression and performance optimization. This article explores REST from the perspective of cheminformatics Web services, using the specific example of substructure search.
+REST and Chemical Information Services Chemical information systems have a lot to gain from using RESTful architectures. As the number of free chemistry databases continues to increase, interoperability can serve as a potent tool in counteracting confusion and fatigue on the part of end users. REST offers a low-energy pathway to achieve interoperability among the growing number independent chemical information services.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">RESTful Substructure Search</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2009-06-03T00:00:00Z">June 3, 2009</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p><a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">REST</a> is an architectural style for Web applications that emphasizes regularity and discoverability. Unlike most other approaches, REST exploits the full power of HTTP, both in terms of expression and performance optimization. This article explores REST from the perspective of cheminformatics Web services, using the specific example of substructure search.</p>
+<h1 id="rest-and-chemical-information-services">REST and Chemical Information Services</h1>
+<p>Chemical information systems have a lot to gain from using RESTful architectures. As the number of <a href="http://zusammen.metamolecular.com/2009/03/09/sixty-four-free-chemistry-databases-serialized">free chemistry databases</a> continues to increase, interoperability can serve as a potent tool in counteracting confusion and fatigue on the part of end users. REST offers a low-energy pathway to achieve interoperability among the growing number independent chemical information services.</p>
+<h1 id="restful-substructure-search">RESTful Substructure Search</h1>
+<p>Let&rsquo;s say we run a chemical database that offers programmatic access to substructure search. How should the API to this feature be designed?</p>
+<p>We could start by thinking of a substructure search as being a kind of resource:</p>
+<blockquote>
+<p>The key abstraction of information in REST is a resource. Any information that can be named can be a resource: a document or image, a temporal service (e.g. &ldquo;today&rsquo;s weather in Los Angeles&rdquo;), a collection of other resources, a non-virtual object (e.g. a person), and so on. In other words, any concept that might be the target of an author&rsquo;s hypertext reference must fit within the definition of a resource. A resource is a conceptual mapping to a set of entities, not the entity that corresponds to the mapping at any particular point in time.</p>
+<p><!-- raw HTML omitted -->Roy Fielding <a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">PhD Dissertation</a><!-- raw HTML omitted --></p>
+</blockquote>
+<p>We might call our substructure search resource &ldquo;Query.&rdquo; Using four HTTP verbs, we could create (POST), read (GET), update (PUT), and destroy (DELETE) queries:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>POST   /queries      <span style="color:#75715e"># create a new Query</span>
+</span></span><span style="display:flex;"><span>GET    /queries/<span style="color:#f92672">{</span>id<span style="color:#f92672">}</span> <span style="color:#75715e"># read the results of a Query</span>
+</span></span><span style="display:flex;"><span>PUT    /queries/<span style="color:#f92672">{</span>id<span style="color:#f92672">}</span> <span style="color:#75715e"># edit a previously-created Query</span>
+</span></span><span style="display:flex;"><span>DELETE /queries/<span style="color:#f92672">{</span>id<span style="color:#f92672">}</span> <span style="color:#75715e"># delete a Query </span>
+</span></span></code></pre></div><p>Notice that all four basic HTTP verbs are used. Also notice that specific parameters of a new query are encoded in a formatted payload within the body of a POST request - not in the URL itself.</p>
+<p>A POST request against /queries returns a response body containing the Query {id} that would be the key to future use of the results. It may also contain the full content of the Query results, depending on our goals for the system.</p>
+<p>A Query results set would consist of an array of Structure identifiers. Because Structures are also resources, we operate on them the same way we operate on Queries:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>POST   /structures      <span style="color:#75715e"># create a new Structure</span>
+</span></span><span style="display:flex;"><span>GET    /structures/<span style="color:#f92672">{</span>id<span style="color:#f92672">}</span> <span style="color:#75715e"># display a Structure</span>
+</span></span><span style="display:flex;"><span>PUT    /structures/<span style="color:#f92672">{</span>id<span style="color:#f92672">}</span> <span style="color:#75715e"># edit a previously-created Structure</span>
+</span></span><span style="display:flex;"><span>DELETE /structures/<span style="color:#f92672">{</span>id<span style="color:#f92672">}</span> <span style="color:#75715e"># delete a Structure </span>
+</span></span></code></pre></div><p>Workflows in such a system become quite easy to understand and implement. For example, how would we delete all Structures containing a naphthalene ring? The answer should be apparent even with the limited discussion presented here.</p>
+<p>Building our Web API entirely out of resources and the four verbs that act on them results in a system that&rsquo;s easier to maintain, document, understand, and use.</p>
+<h1 id="implications">Implications</h1>
+<p>Defining Query as a full-fledged resource in our system offers some intriguing possibilities for better serving our users.</p>
+<p>For example, Joe might be especially interested in the quinoxalines contained in our heterocycle synthetic methods database. Whenever a new method for preparing quinoxalines appears, he wants to know about it immediately.</p>
+<p>Using our RESTful architecture, Joe can create his query, and then build a custom RSS feed from it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>GET  /queries/1234.rss <span style="color:#75715e">#Query results in RSS format</span>
+</span></span></code></pre></div><p>Now, whenever a new quinoxaline preparation appears, Joe gets instant, unobtrusive notification in his feed reader. Our system may also allow Queries to be shared among users, creating opportunities for users with no previous contact to discover other chemists who share their interest in a particular structural motif.</p>
+<p>Still more interesting possibilities exist for users of our Web API. Our RESTful architecture will be easily understandable by other developers, so the barrier to interoperating will be reduced. A marine natural products database (&ldquo;AquaBase&rdquo;) may decide to link its structure collection to ours. Whenever a new natural product is added that contains an interesting heterocyclic ring system, AquaBase uses our Web API to find possible syntheses for display to its users.</p>
+<h1 id="examples">Examples</h1>
+<p><a href="http://chemcaster.com">Chemcaster</a>, the cheminformatics Web services platform, has implemented a <a href="http://products.metamolecular.com/2009/05/26/substructure-search-with-the-chemcaster-web-api">RESTful substructure search API</a> that works as described here. Users maintain collections of Structures, against which Queries can be run. Queries can be stored and re-used. One application could be a chemical supplier catalog in which the goal is to automatically create and maintain product categories based on substructure, for example: &ldquo;indoles&rdquo;; &ldquo;imidazoles&rdquo;; &ldquo;pyrroles&rdquo;; and &ldquo;pyrimidines.&rdquo;</p>
+<p>PubChem&rsquo;s <a href="http://pubchem.ncbi.nlm.nih.gov/pug_soap/pug_soap_help.html">Power User Gateway</a> (PUG) is a cheminformatics Web API that allows substructure searches and is based on SOAP. Even a cursory reading of the documentation will reveal differences with the approach described here. As such, PUG affords an opportunity to assess the tradeoffs between SOAP and REST in cheminformatics.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>Disconnected chemical databases live life well below their potential. By designing services with RESTful APIs, the utility of these services can be extended significantly. Even concepts as abstract as &ldquo;substructure search&rdquo; can be modeled as resources for use in RESTful systems.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

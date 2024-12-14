@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Hydrogen Suppression in Cheminformatics | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="The fine art of dealing with what isn&rsquo;t there.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/posts/2020-05-18-hydrogen-suppression-in-cheminformatics/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/posts/2020-05-18-hydrogen-suppression-in-cheminformatics/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="Hydrogen Suppression in Cheminformatics">
+  <meta property="og:description" content="The fine art of dealing with what isn’t there.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-05-18T16:00:00+00:00">
+    <meta property="article:modified_time" content="2020-05-18T16:00:00+00:00">
+
+  <meta itemprop="name" content="Hydrogen Suppression in Cheminformatics">
+  <meta itemprop="description" content="The fine art of dealing with what isn’t there.">
+  <meta itemprop="datePublished" content="2020-05-18T16:00:00+00:00">
+  <meta itemprop="dateModified" content="2020-05-18T16:00:00+00:00">
+  <meta itemprop="wordCount" content="1747">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Hydrogen Suppression in Cheminformatics">
+  <meta name="twitter:description" content="The fine art of dealing with what isn’t there.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Hydrogen Suppression in Cheminformatics</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-05-18T16:00:00Z">May 18, 2020</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Hydrogen bears the distinction of being both the most common element in the universe and one of the most predicable elements on the periodic table. Outnumbering carbon in many organic molecules, hydrogen rarely participates in anything more exciting than hydrogen bonding or acid-base reactions. For the most part, the monovalent hydrogen atoms studding the average organic molecule are ignored. This article describes some problems that can arise from treating hydrogens in this way, and some solutions.</p>
+<h1 id="hydrogen-suppression">Hydrogen Suppression</h1>
+<p><em>Hydrogen suppression</em> is the practice of omitting some or all hydrogen atoms from a molecular graph. Despite its removal, a suppressed hydrogen and the bonds to its parent atom are still understood to be present. A molecular graph using hydrogen suppression is considered fully equivalent to one in which all hydrogens are present as atomic nodes.</p>
+<p>Hydrogen suppression is one of those unglamorous topics that doesn&rsquo;t get much attention. This is unfortunate, because ambiguous or incorrectly-implemented hydrogen suppression schemes account for many of the errors encountered when exchanging information within and between scientific teams.</p>
+<p>Organic chemists have used hydrogen suppression for almost as long as they&rsquo;ve been studying organic molecules. How long? As early as 1872, Augustus Kekulé <a href="https://doi.org/10.1002/jlac.18721620110">used the technique</a> to depict three possible structures of benzene:</p>
+<!-- raw HTML omitted -->
+<p>Although used for at least a century and a half, it took many decades for hydrogen suppression to become standardized in journals. During the 1930s, for example, the same journal might run an article whose figures <a href="https://doi.org/10.1021/jo01233a002">used hydrogen suppression</a> in the same issue with one whose figures <a href="https://doi.org/10.1021/jo01233a004">did not</a>.</p>
+<!-- raw HTML omitted -->
+<p>Today, organic chemists routinely draw hydrogen suppressed molecular graphs in both formal and informal settings. The rules are deceptively simple (although not without <a href="https://syntheticremarks.com/hiding-implicit-hydrogens-is-just-stupid/">controversy</a>). Hydrogens attached to most carbon atoms may be suppressed, but hydrogens attached to heteroatoms appear as a hydrogen count.</p>
+<!-- raw HTML omitted -->
+<p>The distinction between completely invisible hydrogens and a hydrogen count associated with an atom plays a central role in cheminformatics as well.</p>
+<h1 id="implicit-hydrogen">Implicit Hydrogen</h1>
+<p>An <em>implicit hydrogen</em> is a suppressed hydrogen that can be reconstituted through a set of rules. The hydrogen atom and the bond to its parent are wiped away from the graph. They still exist, but can only be reconstituted through a set of conventions.</p>
+<p>These conventions are collectively referred to as <em>valence rules</em> or a <em>valence model</em>. In the best case, these rules have been exhaustively enumerated, are widely-available, and are not subject to change. As we&rsquo;ll see, practice leaves much room for improvement.</p>
+<p>Application of a valence model begins by computing an atom&rsquo;s <em>bonding electron count</em>, or the number of electrons it has contributed to bonding relationships. This value is equal to the sum of all the atom&rsquo;s formal bond orders. Mathematically, the relationship is expressed as:</p>
+<pre tabindex="0"><code class="language-asciimath" data-lang="asciimath">e_x = 1/2sum_(b∈B_x)n(b)
+</code></pre><p>where:</p>
+<ul>
+<li><del>e_x</del> is bonding electron count for atom <del>x</del></li>
+<li><del>b</del> is a bond terminating at atom <del>x</del></li>
+<li><del>B_{x}</del> is the set of all bonds terminating at atom <del>x</del></li>
+<li><del>n(b)</del> is the electron count of bond <del>b</del></li>
+</ul>
+<p>Also required is a <em>target valence</em>. A target valence is the maximum allowable bonding electron count for an atom hosting a given element. For example, the target valence for carbon is usually four. The target valence for oxygen is usually two. And so on.</p>
+<p>To compute the implicit hydrogen count subtract the bonding electron count from the target valence.</p>
+<pre tabindex="0"><code class="language-asciimath" data-lang="asciimath">h_x = v_x - e_x
+</code></pre><p>where:</p>
+<ul>
+<li><del>h_x</del> is the hydrogen count for atom <del>x</del></li>
+<li><del>v_x</del> is the target valence for atom <del>x</del></li>
+</ul>
+<p>A similar approach applies in systems using <a href="/articles/2020/04/27/multi-atom-bonding-in-cheminformatics/">multi-atom bonding</a>.</p>
+<p>Things get complicated with atoms that can support multiple target valences. For example, nitrogen may be considered to support a target valence of only three. In some applications, however, nitrogen also supports a target valence of five. Depending on the situation, sulfur can support as many as three target valences (2, 4, and 6). In general, the further one proceeds down the rows of the periodic table, the more complicated the target valence situation becomes.</p>
+<p>The popular exchange formats V2000 Molfile and SMILES both support implicit hydrogens. In SMILES, valence rules apply to atoms not wrapped by the left and right bracket symbols (<code>[</code> and <code>]</code>, respectively). In Molfile, <a href="/articles/2020/04/13/hydrogen-suppression-in-molfiles/">valence rules</a> apply to all atoms except those explicitly identified with a custom target valence.</p>
+<h1 id="the-problem-with-implicit-hydrogens">The Problem with Implicit Hydrogens</h1>
+<p>Rules-based implicit hydrogen schemes are useful in that they eliminate the need to explicitly encode atomic hydrogens or hydrogen counts. But this convenience and efficiency come with a price tag: valence rules must be easy to obtain, understand, and implement. If they are not, confusion and data mangling will result.</p>
+<p>A case in point recently occurred with the Molfile format. In 2017, the corporate sponsor, BIOVIA, modified the target valences of several elements. This event, dubbed <a href="https://www.nextmovesoftware.com/talks/Mayfield_BuildingOnSand_InChI_201708.pdf">&ldquo;MDL Valence-Mageddon,&rdquo;</a> in one fell swoop changed the constitution of untold millions of chemical structures previously stored in databases around the world. But even prior to this event, the Molfile valence rules were anything but consistently-applied because the crucial documentation explaining them was only available to paying customers.</p>
+<p>To a lesser extent, SMILES users also suffer the ill-effects of a poorly-understood valence model. A perpetual source of confusion is <a href="https://www.slideshare.net/baoilleach/we-need-to-talk-about-kekulization-aromaticity-and-smiles">pyrrole nitrogen</a>. Such atoms may not appear outside of brackets, but often do. A lesser-known example is <a href="https://nextmovesoftware.com/blog/2018/06/06/can-we-agree-on-the-structure-represented-by-a-smiles-string/">tetrasubstituted nitrogen</a> which, unless placed within a bracket, will have a target valence of five and therefore <em>one</em> implicit hydrogen.</p>
+<h1 id="virtual-hydrogen">Virtual Hydrogen</h1>
+<p>A much less problematic form of hydrogen suppression is <a href="/articles/2019/11/06/virtual-hydrogens/"><em>virtual hydrogen</em></a>. A virtual hydrogen replaces an atomic hydrogen and its connecting bond with an integer hydrogen count on the parent atom.</p>
+<p>Unlike implicit hydrogens, virtual hydrogens require no valence model. All information needed to assign a hydrogen count is encoded explicitly as an atomic attribute. With no valence model to consult, what you see is what you get.</p>
+<p>Both V2000 Molfile and SMILES support virtual hydrogens. In SMILES, all bracket atoms must provide a virtual hydrogen count that defaults to zero. Support for virtual hydrogens in Molfiles is <a href="/articles/2020/04/13/hydrogen-suppression-in-molfiles/">more indirect</a>. Rather than specifying a hydrogen count, a custom target valence can be assigned to each atom separately. The virtual hydrogen count is then deduced from the custom target valence. This indirection, coupled with poor availability of the relevant documentation, has led to ignorance about the feature and erroneous but understandable claims that V2000 Molfiles do not allow virtual hydrogen counts to be set.</p>
+<h1 id="reification-and-virtualization">Reification and Virtualization</h1>
+<p>It&rsquo;s sometimes useful to interconvert a molecular graph using hydrogen suppression with one that doesn&rsquo;t. I call the process of replacing atomic hydrogens with virtual hydrogens <em>virtualization</em>. I call the reverse process of converting virtual hydrogens into atomic hydrogens <em>reification</em>.</p>
+<p>Full reification, replacing all implicit and virtual hydrogens with atomic hydrogens, is sometimes applied when an environment&rsquo;s valence model is either poorly-documented or poorly understood. As an example of full reification, consider <a href="https://pubchem.ncbi.nlm.nih.gov">PubChem</a> molfiles. In Compound records, every hydrogen, virtual or implicit, it explicitly present in atomic form. This sets all virtual hydrogen counts to zero. The cost is verbosity and possibly extra resource requirements when processing these files.</p>
+<p>It&rsquo;s more common to reify a small subset of hydrogens. In particular, hydrogens attached to stereocenters are reified to increase clarity. This is often seen with hydrogens attached to fused ring systems. Without reification, a stereo bond would need to be placed within the ring, which breaks widely-used drawing conventions. Reification allows a bond to hydrogen to carry the stereo decoration (wedge or hash). Likewise, reification can prevent the confusing placement of a stereo decoration between two stereocenters.</p>
+<!-- raw HTML omitted -->
+<p>A function accepting a molecular representation as an argument must account for all valid hydrogen suppression states. For example, atomic connectivity measurements may or may not require suppressed hydrogens to be counted the same as atomic nodes. Failure to provide the correct equivalency can lead to errors.</p>
+<p>For these reasons, special care is called for when working with molecules allowing hydrogen suppression. Reification elevates virtual hydrogens to the first class atomic status, but the presence of atomic hydrogen can confound algorithms and human expectation.</p>
+<h1 id="toolkits">Toolkits</h1>
+<p>In addition to exchange formats, hydrogen suppression also figures prominently within cheminformatics toolkits. Toolkits tend to support reading an atom&rsquo;s virtual hydrogen count. However, they can vary greatly in how or even whether a virtual hydrogen count can be set. Some go further by imposing a valence model.</p>
+<p>A sampling of approaches to hydrogen suppression in toolkits is given below.</p>
+<ul>
+<li><strong><a href="https://cdk.github.io">CDK</a>.</strong> Virtual hydrogen count can be set with <code>Atom#setImplicitHydrogenCount</code>. Automated saturation under the control of a valence model is provided by <code>CDKHydrogenAdder</code>.</li>
+<li><strong><a href="http://openbabel.org/api/2.3/">Open Babel 2</a>.</strong> Hydrogen count may be read with <code>OBAtom#ImplicitHydrogenCount</code>, which uses a toolkit-wide valence model behind the scenes. Custom hydrogen counts are not allowed.</li>
+<li><strong><a href="https://open-babel.readthedocs.io/en/latest/UseTheLibrary/migration.html#handling-of-implicit-hydrogens">Open Babel 3</a>.</strong> Virtual hydrogen count can be set via <code>OBAtom#SetImplicitHCount</code>.</li>
+<li><strong><a href="https://www.rdkit.org">RDKit</a>.</strong> Virtual hydrogen count can be read with <a href="https://www.rdkit.org/docs/source/rdkit.Chem.rdchem.html#rdkit.Chem.rdchem.Mol"><code>Atom#getNumImplicitHs</code></a>. No corresponding ability to set hydrogen count appears to be present, although  new molecules saturated under the control of a valence model can be constructed with <a href="https://www.rdkit.org/docs/source/rdkit.Chem.rdchem.html#rdkit.Chem.rdchem.Mol"><code>AddHs</code></a>.</li>
+</ul>
+<p>Toolkits that offer their own default or mandatory valence models face a potential dilemma with regard to interchange formats like Molfile and SMILES. The valence models built into those formats must be respected. However, doing so may conflict with the native valence model. Even if such dilemmas can be navigated for the most part, the crevices provide a happy home to a variety of bugs.</p>
+<h1 id="minimal-molecule-api">Minimal Molecule API</h1>
+<p>Previous posts described a <a href="/articles/2020/04/06/a-minimal-molecule-api/">minimal molecule API</a> and an <a href="/articles/2020/05/11/cheminformatics-in-rust-implementing-a-minimal-molecule-api/">implementation in Rust</a>. The API supports reading a virtual hydrogen count attribute through the <code>Molecule#hydrogens</code> method. This arrangement allows for unambiguous representation of both saturated and partially unsaturated atoms such as radicals. Virtual hydrogen counts are set at the time of a molecule&rsquo;s creation through a specification object.</p>
+<p>Such a system precludes implicit hydrogens by definition. Nevertheless, it&rsquo;s still possible to support automatic hydrogen assignment under the direction of a valence model. The important difference with implicit hydrogen systems is that the virtual hydrogen count is considered the single source of truth regarding hydrogen suppression. Hydrogen counts can be determined from the Molecule alone, without reference to the valence model.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>Hydrogen suppression has a long history in chemistry and cheminformatics. In cheminformatics, hydrogen suppression takes two forms: virtual hydrogens and implicit hydrogens. Whereas a virtual hydrogen is represented by an explicit value, an implicit hydrogen count must be computed using a valence model. Many systems support both virtual and implicit hydrogens. To avoid errors, it&rsquo;s crucial to understand which form of hydrogen suppression is in play before attempting to use a toolkit or file format.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  My New Hugo Site 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

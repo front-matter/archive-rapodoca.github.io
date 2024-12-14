@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>One of These Things is Not Like The Others | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="You can&rsquo;t get very far in cheminformatics without the ability to compare one molecule to another to find either an exact structure or substructure match. For example, if you want to build chemical databases, a good substructure matcher comes in very handy. As luck would have it, the substructure match problem (a variant of the subgraph isomorphism problem) is both computationally expensive and difficult implement. This article discusses one approach to the problem.
+Background
+Recently, Rajarshi Guha described some benchmarking studies suggesting that it was possible to greatly improve the speed of the Chemistry Development Kit (CDK) substructure matching code. His code employed the widely-used Ullmann algorithm.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/posts/2008-11-13-one-of-these-things-is-not-like-the-other/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/posts/2008-11-13-one-of-these-things-is-not-like-the-other/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="One of These Things is Not Like The Others">
+  <meta property="og:description" content="You can’t get very far in cheminformatics without the ability to compare one molecule to another to find either an exact structure or substructure match. For example, if you want to build chemical databases, a good substructure matcher comes in very handy. As luck would have it, the substructure match problem (a variant of the subgraph isomorphism problem) is both computationally expensive and difficult implement. This article discusses one approach to the problem.
+Background Recently, Rajarshi Guha described some benchmarking studies suggesting that it was possible to greatly improve the speed of the Chemistry Development Kit (CDK) substructure matching code. His code employed the widely-used Ullmann algorithm.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2008-11-13T00:00:00+00:00">
+    <meta property="article:modified_time" content="2008-11-13T00:00:00+00:00">
+
+  <meta itemprop="name" content="One of These Things is Not Like The Others">
+  <meta itemprop="description" content="You can’t get very far in cheminformatics without the ability to compare one molecule to another to find either an exact structure or substructure match. For example, if you want to build chemical databases, a good substructure matcher comes in very handy. As luck would have it, the substructure match problem (a variant of the subgraph isomorphism problem) is both computationally expensive and difficult implement. This article discusses one approach to the problem.
+Background Recently, Rajarshi Guha described some benchmarking studies suggesting that it was possible to greatly improve the speed of the Chemistry Development Kit (CDK) substructure matching code. His code employed the widely-used Ullmann algorithm.">
+  <meta itemprop="datePublished" content="2008-11-13T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2008-11-13T00:00:00+00:00">
+  <meta itemprop="wordCount" content="1039">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="One of These Things is Not Like The Others">
+  <meta name="twitter:description" content="You can’t get very far in cheminformatics without the ability to compare one molecule to another to find either an exact structure or substructure match. For example, if you want to build chemical databases, a good substructure matcher comes in very handy. As luck would have it, the substructure match problem (a variant of the subgraph isomorphism problem) is both computationally expensive and difficult implement. This article discusses one approach to the problem.
+Background Recently, Rajarshi Guha described some benchmarking studies suggesting that it was possible to greatly improve the speed of the Chemistry Development Kit (CDK) substructure matching code. His code employed the widely-used Ullmann algorithm.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">One of These Things is Not Like The Others</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2008-11-13T00:00:00Z">November 13, 2008</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>You can&rsquo;t get very far in cheminformatics without the ability to compare one molecule to another to find either an exact structure or substructure match. For example, if you want to build <a href="/articles/2007/01/24/thirty-two-free-chemistry-databases">chemical databases</a>, a good substructure matcher <a href="/articles/2008/10/02/fast-substructure-search-using-open-source-tools-part-1-fingerprints-and-databases">comes in very handy</a>. As luck would have it, the substructure match problem (a variant of the <a href="http://en.wikipedia.org/wiki/Subgraph_isomorphism_problem">subgraph isomorphism problem</a>) is both <a href="http://en.wikipedia.org/wiki/NP-complete">computationally expensive</a> and difficult implement. This article discusses one approach to the problem.</p>
+<h1 id="background">Background</h1>
+<p>Recently, <a href="http://rguha.wordpress.com/">Rajarshi Guha</a> described some <a href="http://rguha.wordpress.com/2008/09/19/faster-substructure-search-in-the-cdk">benchmarking studies</a> suggesting that it was possible to greatly improve the speed of the <a href="http:/cdk.sf.net">Chemistry Development Kit</a> (CDK) substructure matching code. His code employed the widely-used <a href="http://portal.acm.org/citation.cfm?id=321925">Ullmann algorithm</a>.</p>
+<p>There&rsquo;s just one problem: the Ullmann algorithm detects edge-induced isomporphisms. This means, for example, that if your query molecule is propane and your test molecule is cyclopropane, you won&rsquo;t find a match with an Ullmann-backed tool. I&rsquo;m still not sure if it&rsquo;s possible to modify an Ullmann implementation to make its matches node-induced. Based on the implementations I&rsquo;ve seen, the answer appears to be &ldquo;no.&rdquo;</p>
+<p>For substructure matching, we need an atom-induced isomorphism algorithm.</p>
+<h1 id="whats-wrong-with-existing-implementations">What&rsquo;s Wrong with Existing Implementations?</h1>
+<p>To begin with, it must be pointed out that working isomorphism code is valuable and hard-won.</p>
+<p>Having said that, many Java implementations are written in a way that makes optimization difficult at best. Some start out as C code that then gets ported, mostly verbatim. Other are written with an understandable emphasis on speed over readability. For developers used to working with classes, objects, shallow loops, and short methods with expressive names, the impedance mismatch can be jarring to say the least.</p>
+<p>Here&rsquo;s an example, taken from the CDK, that while functional, would take a great deal of time to understand well enough to change:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> List <span style="color:#a6e22e">makeAtomsMapOfBondsMap</span>(List l, IAtomContainer g1, IAtomContainer g2) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(l<span style="color:#f92672">==</span><span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(l);
+</span></span><span style="display:flex;"><span>  List result <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0; i <span style="color:#f92672">&amp;</span>lt; l.<span style="color:#a6e22e">size</span>(); i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    IBond bond1 <span style="color:#f92672">=</span> g1.<span style="color:#a6e22e">getBond</span>(((RMap) l.<span style="color:#a6e22e">get</span>(i)).<span style="color:#a6e22e">getId1</span>());
+</span></span><span style="display:flex;"><span>    IBond bond2 <span style="color:#f92672">=</span> g2.<span style="color:#a6e22e">getBond</span>(((RMap) l.<span style="color:#a6e22e">get</span>(i)).<span style="color:#a6e22e">getId2</span>());
+</span></span><span style="display:flex;"><span>    IAtom<span style="color:#f92672">[]</span> atom1 <span style="color:#f92672">=</span> BondManipulator.<span style="color:#a6e22e">getAtomArray</span>(bond1);
+</span></span><span style="display:flex;"><span>    IAtom<span style="color:#f92672">[]</span> atom2 <span style="color:#f92672">=</span> BondManipulator.<span style="color:#a6e22e">getAtomArray</span>(bond2);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> 0; j <span style="color:#f92672">&amp;</span>lt; 2; j<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>      List bondsConnectedToAtom1j <span style="color:#f92672">=</span> g1.<span style="color:#a6e22e">getConnectedBondsList</span>(atom1<span style="color:#f92672">[</span>j<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> 0; k <span style="color:#f92672">&amp;</span>lt; bondsConnectedToAtom1j.<span style="color:#a6e22e">size</span>(); k<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (bondsConnectedToAtom1j.<span style="color:#a6e22e">get</span>(k) <span style="color:#f92672">!=</span> bond1) {
+</span></span><span style="display:flex;"><span>          IBond testBond <span style="color:#f92672">=</span> (IBond)bondsConnectedToAtom1j.<span style="color:#a6e22e">get</span>(k);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> m <span style="color:#f92672">=</span> 0; m <span style="color:#f92672">&amp;</span>lt; l.<span style="color:#a6e22e">size</span>(); m<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>              IBond testBond2;
+</span></span><span style="display:flex;"><span>              <span style="color:#66d9ef">if</span> (((RMap) l.<span style="color:#a6e22e">get</span>(m)).<span style="color:#a6e22e">getId1</span>() <span style="color:#f92672">==</span> g1.<span style="color:#a6e22e">getBondNumber</span>(testBond)) {
+</span></span><span style="display:flex;"><span>                testBond2 <span style="color:#f92672">=</span> g2.<span style="color:#a6e22e">getBond</span>(((RMap) l.<span style="color:#a6e22e">get</span>(m)).<span style="color:#a6e22e">getId2</span>());
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> 0; n <span style="color:#f92672">&amp;</span>lt; 2; n<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>                  List bondsToTest <span style="color:#f92672">=</span> g2.<span style="color:#a6e22e">getConnectedBondsList</span>(atom2<span style="color:#f92672">[</span>n<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>                  <span style="color:#66d9ef">if</span> (bondsToTest.<span style="color:#a6e22e">contains</span>(testBond2)) {
+</span></span><span style="display:flex;"><span>                    RMap map;
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> (j <span style="color:#f92672">==</span> n) {
+</span></span><span style="display:flex;"><span>                      map <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> RMap(g1.<span style="color:#a6e22e">getAtomNumber</span>(atom1<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>), g2.<span style="color:#a6e22e">getAtomNumber</span>(atom2<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>));
+</span></span><span style="display:flex;"><span>                    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                      map <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> RMap(g1.<span style="color:#a6e22e">getAtomNumber</span>(atom1<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>), g2.<span style="color:#a6e22e">getAtomNumber</span>(atom2<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>));
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>result.<span style="color:#a6e22e">contains</span>(map)) {
+</span></span><span style="display:flex;"><span>                      result.<span style="color:#a6e22e">add</span>(map);
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                    RMap map2;
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> (j <span style="color:#f92672">==</span> n) {
+</span></span><span style="display:flex;"><span>                      map2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> RMap(g1.<span style="color:#a6e22e">getAtomNumber</span>(atom1<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>), g2.<span style="color:#a6e22e">getAtomNumber</span>(atom2<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>));
+</span></span><span style="display:flex;"><span>                    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                      map2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> RMap(g1.<span style="color:#a6e22e">getAtomNumber</span>(atom1<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>), g2.<span style="color:#a6e22e">getAtomNumber</span>(atom2<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>));
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>result.<span style="color:#a6e22e">contains</span>(map2)) {
+</span></span><span style="display:flex;"><span>                      result.<span style="color:#a6e22e">add</span>(map2);
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                  }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>              }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>          }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (result);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="vflib">VFLib</h1>
+<p>Rajarshi&rsquo;s implementation of substructure search was based on a Java port of the <a href="http://amalfi.dis.unina.it/graph/db/vflib-2.0/doc/vflib.html">VFLib</a> C++ library. VFLib was developed by an Italian group to compare the performance of the VF algorithm with that of Ullmann.</p>
+<p>VFLib defines a single interface (<a href="http://amalfi.dis.unina.it/graph/db/vflib-2.0/doc/vflib-7.html">State</a>) that a variety of subgraph isomorphism matchers can implement in order to work interchangeably.</p>
+<p>What makes this so interesting is that when you can boil a software problem down to implementing an interface, it can become orders of magnitude simpler. But more on that later.</p>
+<p>Another interesting aspect of VFLib is that the code can be easily converted from an edge-induced implementation to a node-induced implementation. In other words, if we had a Java port of the VFLib2 code, we could begin to build families of Java-based substructure matchers that could be easily compared and optimized.</p>
+<h1 id="the-view-from-10000-feet">The View from 10,000 Feet</h1>
+<p>One of the difficult aspects of implementing subgraph isomorphism algorithms is dividing the process up into understandable chunks. One way forward might be to look for commonalities among all of the approaches currently used. What might those be? Here are some possibilities:</p>
+<ul>
+<li><strong>Recursion.</strong> At the heart of any implementation typically lives a method that repeatedly calls itself (without creating a stack overflow).</li>
+<li><strong>Gradual accumulation of state.</strong>  What&rsquo;s that recursive method doing? Building up a map of the atoms from a query structure to a target structure, one pair of atoms at a time. Sometimes it fails and needs to go back to the last successful match. Sometimes it succeeds and needs to report that information to avoid accessing an out-of-bounds index. At every stage, the accumulated state must be sufficient to finish the mapping attempt.</li>
+<li><strong>Mapping comes for free.</strong> The implementation typically uses an internal map to keep track of what it&rsquo;s done, so getting one mapping (or more) of the query structure onto the target tends to be as easy as simply detecting that a match exists.</li>
+<li><strong>Optimization heuristics.</strong> Where to begin, what order to compare structural features, and what features should be compared anyway? The possibilities for taking advantage of simple optimization rules are significant. It should, therefore, be easy to run many implementations side-by-side in performance tests.</li>
+</ul>
+<p>A <a href="http://amalfi.dis.unina.it/graph/db/papers/vf-algorithm.pdf">paper</a> describing the VF algorithm, and the way VFLib implements it is freely available.</p>
+<p>In it, a high-level overview of the VF algorithm is presented:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>PROCEDURE Match<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  INPUT: an intermediate state s; the initial state s0 has M<span style="color:#f92672">(</span>s0<span style="color:#f92672">)=</span>∅
+</span></span><span style="display:flex;"><span>  OUTPUT: the mappings between the two graphs
+</span></span><span style="display:flex;"><span>  IF M<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> covers all the nodes of G2 THEN
+</span></span><span style="display:flex;"><span>    OUTPUT M<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  ELSE
+</span></span><span style="display:flex;"><span>    Compute the set P<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> of the pairs candidate <span style="color:#66d9ef">for</span> inclusion in M<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    FOREACH <span style="color:#f92672">(</span>n, m<span style="color:#f92672">)</span>∈ P<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      IF F<span style="color:#f92672">(</span>s, n, m<span style="color:#f92672">)</span> THEN
+</span></span><span style="display:flex;"><span>        Compute the state s<span style="color:#e6db74">&#39; obtained by adding (n, m) to M(s)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        CALL Match(s&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      END IF
+</span></span><span style="display:flex;"><span>    END FOREACH
+</span></span><span style="display:flex;"><span>     Restore data structures
+</span></span><span style="display:flex;"><span>  END IF
+</span></span><span style="display:flex;"><span>END PROCEDURE
+</span></span></code></pre></div><p>The <code>Match(s)</code> procedure plays the role of recursive function, while <code>s</code> and <code>s'</code> play the dual roles of state accumulators and feature comparators.</p>
+<p>VFLib, together with the paper describing it, does a good job of breaking the process up into manageable chunks from which unit tests, interface definitions, and ultimately working code can created in a variety of languages.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>Substructure matching is one of the most difficult and most useful cheminformatics tasks. Although many Java cheminformatics toolkits support substructure search, their implementations can be difficult to understand, modify, and optimize. VFLib has some interesting features that could help to change that.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  My New Hugo Site 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

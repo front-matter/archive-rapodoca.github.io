@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>MX Snippets Part 1: Generate Molecular Fingerprints From the Command Line | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Molecular fingerprints play an important role in cheminformatics. MX, the high-performance cheminformatics toolkit written in Java, comes complete with the ability to generate molecular fingerprints. This article, the first of a new series discussing MX through compilable snippets of Java code, shows how to interactively test fingerprints in MX through a simple command-line utility.
+What the Program Does
+From the command line, the program accepts a SMILES string as input and returns the indices of all bits set using the MX PathFingerprinter:">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2010/01/mx-snippets-part-1-generate-molecular-fingerprints-from-the-command-line/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2010/01/mx-snippets-part-1-generate-molecular-fingerprints-from-the-command-line/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="MX Snippets Part 1: Generate Molecular Fingerprints From the Command Line">
+  <meta property="og:description" content="Molecular fingerprints play an important role in cheminformatics. MX, the high-performance cheminformatics toolkit written in Java, comes complete with the ability to generate molecular fingerprints. This article, the first of a new series discussing MX through compilable snippets of Java code, shows how to interactively test fingerprints in MX through a simple command-line utility.
+What the Program Does From the command line, the program accepts a SMILES string as input and returns the indices of all bits set using the MX PathFingerprinter:">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2010-01-11T00:00:00+00:00">
+    <meta property="article:modified_time" content="2010-01-11T00:00:00+00:00">
+
+  <meta itemprop="name" content="MX Snippets Part 1: Generate Molecular Fingerprints From the Command Line">
+  <meta itemprop="description" content="Molecular fingerprints play an important role in cheminformatics. MX, the high-performance cheminformatics toolkit written in Java, comes complete with the ability to generate molecular fingerprints. This article, the first of a new series discussing MX through compilable snippets of Java code, shows how to interactively test fingerprints in MX through a simple command-line utility.
+What the Program Does From the command line, the program accepts a SMILES string as input and returns the indices of all bits set using the MX PathFingerprinter:">
+  <meta itemprop="datePublished" content="2010-01-11T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2010-01-11T00:00:00+00:00">
+  <meta itemprop="wordCount" content="332">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="MX Snippets Part 1: Generate Molecular Fingerprints From the Command Line">
+  <meta name="twitter:description" content="Molecular fingerprints play an important role in cheminformatics. MX, the high-performance cheminformatics toolkit written in Java, comes complete with the ability to generate molecular fingerprints. This article, the first of a new series discussing MX through compilable snippets of Java code, shows how to interactively test fingerprints in MX through a simple command-line utility.
+What the Program Does From the command line, the program accepts a SMILES string as input and returns the indices of all bits set using the MX PathFingerprinter:">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">MX Snippets Part 1: Generate Molecular Fingerprints From the Command Line</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2010-01-11T00:00:00Z">January 11, 2010</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p><a href="/articles/2008/10/02/fast-substructure-search-using-open-source-tools-part-1-fingerprints-and-databases">Molecular fingerprints</a> play an important role in cheminformatics. <a href="http://metamolecular.com/mx">MX</a>, the high-performance cheminformatics toolkit written in Java, comes complete with the ability to generate molecular fingerprints. This article, the first of a new series discussing MX through compilable snippets of Java code, shows how to interactively test fingerprints in MX through a simple command-line utility.</p>
+<h1 id="what-the-program-does">What the Program Does</h1>
+<p>From the command line, the program accepts a SMILES string as input and returns the indices of all bits set using the MX PathFingerprinter:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ java -cp .:mx-1.0-beta-2.jar FPTest
+</span></span><span style="display:flex;"><span>&gt; CCCCC
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>185, 293, 595, 742, 927<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>&gt; CCCCCC
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>185, 293, 338, 595, 742, 927<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>&gt; C1CCCCC1 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>185, 194, 293, 338, 595, 742, 927<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>&gt; exit
+</span></span></code></pre></div><p>After entering a SMILES string, the program prints out the indices of all of the bits set in a 1024-bit fingerprint. As you can see, each fingerprint in the progression pentane &gt;hexane &gt;cyclohexane is a superset of its predecessors. This is, of course, the feature that makes fingerprints so useful for <a href="/articles/2008/10/02/fast-substructure-search-using-open-source-tools-part-1-fingerprints-and-databases">substructure search</a>.</p>
+<p>Note: the MX SMILES parser is only partially implemented at the moment and will not accept isotopes, stereochemistry, or lower-case atom labels.</p>
+<h1 id="create-a-workspace">Create a Workspace</h1>
+<p>Create a workspace and download the <a href="http://cloud.github.com/downloads/metamolecular/mx/mx-1.0-beta-2.jar">MX jarfile</a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ mkdir fptest
+</span></span><span style="display:flex;"><span>$ cd fptest
+</span></span><span style="display:flex;"><span>$ wget http://cloud.github.com/downloads/metamolecular/mx/mx-1.0-beta-2.jar
+</span></span></code></pre></div><h1 id="the-code">The Code</h1>
+<p>Create a file called &lsquo;FPTest.java&rsquo; containing:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.io.BufferedReader;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.io.InputStreamReader;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.io.IOException;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.BitSet;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> com.metamolecular.mx.io.daylight.SMILESReader;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> com.metamolecular.mx.model.Molecule;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> com.metamolecular.mx.fingerprint.PathFingerprinter;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FPTest</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> PathFingerprinter fingerprinter <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> PathFingerprinter();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>      BufferedReader in <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BufferedReader(<span style="color:#66d9ef">new</span> InputStreamReader(System.<span style="color:#a6e22e">in</span>));
+</span></span><span style="display:flex;"><span>      String str <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">while</span> (str <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>          System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;&gt; &#34;</span>);
+</span></span><span style="display:flex;"><span>          str <span style="color:#f92672">=</span> in.<span style="color:#a6e22e">readLine</span>();
+</span></span><span style="display:flex;"><span>          processInput(str);
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">catch</span> (IOException e) {
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">processInput</span>(String input) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#e6db74">&#34;exit&#34;</span>.<span style="color:#a6e22e">equals</span>(input)) {
+</span></span><span style="display:flex;"><span>      System.<span style="color:#a6e22e">exit</span>(0);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    Molecule molecule <span style="color:#f92672">=</span> SMILESReader.<span style="color:#a6e22e">read</span>(input);
+</span></span><span style="display:flex;"><span>    BitSet fp <span style="color:#f92672">=</span> fingerprinter.<span style="color:#a6e22e">getFingerprint</span>(molecule);
+</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(fp);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="compile">Compile</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>javac -cp mx-1.0-beta-2.jar FPTest.java
+</span></span></code></pre></div><h1 id="conclusions">Conclusions</h1>
+<p>A good fingerprint generator is a powerful item in any cheminformatics toolbox. This tutorial has shown a simple method for getting started with fingerprints using MX.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

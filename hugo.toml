@@ -1,0 +1,17 @@
+baseURL = 'https://depth-first.com/'
+languageCode = 'en-us'
+title = 'Depth-First'
+theme = ["github.com/theNewDynamic/gohugo-theme-ananke/v2"]
+[permalinks]
+  [permalinks.page]
+    articles = '/articles/:year/:month/:day/:slug/'
+  [permalinks.section]
+    posts = '/articles/'
+[pagination]
+  pagerSize = 10
+defaultContentLanguage = "en"
+enableRobotsTXT = true
+[services]
+  [services.rss]
+    limit = -1
+ignoreLogs = ['warning-goldmark-raw-html']

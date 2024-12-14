@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Decoding IUPAC Names With OPSIN | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="IUPAC chemical nomenclature is everywhere. It can be found in journal articles, both new and old, on the Web, in databases, on Material Safety Data Sheets (MSDS), in chemical catalogs, and just about anywhere chemical information is found. The rules of this nomenclature are one of the first things taught in Organic Chemistry classes, and entire books are devoted to the subject. Although software for IUPAC nomenclature translation has been researched since the 1970s, it has only become widespread within the last ten years. As is typical, IUPAC nomenclature developer toolkits are closed, proprietary, very expensive, and not customizable - with one notable exception.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2006/10/14/decoding-iupac-names-with-opsin/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2006/10/14/decoding-iupac-names-with-opsin/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Decoding IUPAC Names With OPSIN">
+  <meta property="og:description" content="IUPAC chemical nomenclature is everywhere. It can be found in journal articles, both new and old, on the Web, in databases, on Material Safety Data Sheets (MSDS), in chemical catalogs, and just about anywhere chemical information is found. The rules of this nomenclature are one of the first things taught in Organic Chemistry classes, and entire books are devoted to the subject. Although software for IUPAC nomenclature translation has been researched since the 1970s, it has only become widespread within the last ten years. As is typical, IUPAC nomenclature developer toolkits are closed, proprietary, very expensive, and not customizable - with one notable exception.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2006-10-14T00:00:00+00:00">
+    <meta property="article:modified_time" content="2006-10-14T00:00:00+00:00">
+
+  <meta itemprop="name" content="Decoding IUPAC Names With OPSIN">
+  <meta itemprop="description" content="IUPAC chemical nomenclature is everywhere. It can be found in journal articles, both new and old, on the Web, in databases, on Material Safety Data Sheets (MSDS), in chemical catalogs, and just about anywhere chemical information is found. The rules of this nomenclature are one of the first things taught in Organic Chemistry classes, and entire books are devoted to the subject. Although software for IUPAC nomenclature translation has been researched since the 1970s, it has only become widespread within the last ten years. As is typical, IUPAC nomenclature developer toolkits are closed, proprietary, very expensive, and not customizable - with one notable exception.">
+  <meta itemprop="datePublished" content="2006-10-14T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2006-10-14T00:00:00+00:00">
+  <meta itemprop="wordCount" content="419">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Decoding IUPAC Names With OPSIN">
+  <meta name="twitter:description" content="IUPAC chemical nomenclature is everywhere. It can be found in journal articles, both new and old, on the Web, in databases, on Material Safety Data Sheets (MSDS), in chemical catalogs, and just about anywhere chemical information is found. The rules of this nomenclature are one of the first things taught in Organic Chemistry classes, and entire books are devoted to the subject. Although software for IUPAC nomenclature translation has been researched since the 1970s, it has only become widespread within the last ten years. As is typical, IUPAC nomenclature developer toolkits are closed, proprietary, very expensive, and not customizable - with one notable exception.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Decoding IUPAC Names With OPSIN</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2006-10-14T00:00:00Z">October 14, 2006</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>IUPAC chemical nomenclature is everywhere. It can be found in journal articles, both new and old, on the Web, in databases, on Material Safety Data Sheets (MSDS), in chemical catalogs, and just about anywhere chemical information is found. The rules of this nomenclature are one of the first things taught in Organic Chemistry classes, and entire books are devoted to the subject. Although software for IUPAC nomenclature translation has been researched <!-- raw HTML omitted -->since the 1970s<!-- raw HTML omitted -->, it has only become widespread within the last ten years. As is typical, IUPAC nomenclature developer toolkits are closed, proprietary, very expensive, and not customizable - <!-- raw HTML omitted -->with one notable exception<!-- raw HTML omitted -->.</p>
+<p>A little software package called OPSIN may be set to change this. Read on to see how you can use OPSIN to begin programatically decoding IUPAC chemical nomenclature today.</p>
+<h1 id="meet-opsin">Meet OPSIN</h1>
+<p>OPSIN is an Open Source Java library for parsing IUPAC nomenclature. Despite its early development status, OPSIN can decode a variety of difficult features in basic IUPAC nomenclature, including bicyclo systems, nested substitution, saturated heterocycles, and a variety of arenes and heteroarenes. OPSIN currently doesn&rsquo;t handle stereochemistry, organometallics, or a variety of other advanced IUPAC nomenclature features.</p>
+<h1 id="brief-background">Brief Background</h1>
+<p>OPSIN was written by <!-- raw HTML omitted -->Peter Corbett<!-- raw HTML omitted --> at the University of Cambridge. Until recently, OPSIN was an integral part of of the innovative chemical data checker <!-- raw HTML omitted -->OSCAR<!-- raw HTML omitted -->. One of the exciting uses of OSCAR is in the <!-- raw HTML omitted -->automated validation<!-- raw HTML omitted --> of experimental data.</p>
+<h1 id="getting-opsin">Getting OPSIN</h1>
+<p>Recently, OPSIN was factored out of OSCAR. It can now be downloaded as two standalone packages from SourceForge:</p>
+<!-- raw HTML omitted -->
+<h1 id="what-opsin-does">What OPSIN Does</h1>
+<p>OPSIN accepts an IUPAC name, encoded as a <!-- raw HTML omitted -->String<!-- raw HTML omitted --> object, as input and provides a <!-- raw HTML omitted -->Chemical Markup Language<!-- raw HTML omitted --> (CML) document object model as output. The main point of entry into the library is the <!-- raw HTML omitted -->NameToStructure<!-- raw HTML omitted --> class and its two overloaded <!-- raw HTML omitted -->parseToCML<!-- raw HTML omitted --> methods.</p>
+<p>OPSIN&rsquo;s output is the root node in a <!-- raw HTML omitted -->XOM<!-- raw HTML omitted --> XML <!-- raw HTML omitted -->Element<!-- raw HTML omitted --> hierarchy. XOM&rsquo;s <!-- raw HTML omitted -->Element<!-- raw HTML omitted --> class provides a convenience method, <!-- raw HTML omitted -->toXML<!-- raw HTML omitted --> that conveniently prints the text-based XML representation for itself and all <!-- raw HTML omitted -->Elements<!-- raw HTML omitted --> below it.</p>
+<p>Because its output is pure XML, OPSIN does not depend on any chemical informatics toolkit to do its job. This makes OPSIN ideal for use within larger chemical informatics systems. Provided your software can interpret CML, you should be able to manipulate OPSIN&rsquo;s output in a variety of useful ways.</p>
+<h1 id="whats-next">What&rsquo;s Next?</h1>
+<p>Future articles will discuss OPSIN&rsquo;s capabilities and limitations in more detail. As has become customary for Depth-First&rsquo;s tutorials, <!-- raw HTML omitted -->Ruby<!-- raw HTML omitted --> and the excellent <!-- raw HTML omitted -->Ruby Java Bridge<!-- raw HTML omitted --> will be used to illustrate the important points.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

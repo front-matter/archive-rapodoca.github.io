@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>A Molecular Language for Modern Chemistry: Reading FlexMol Documents with Octet | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="An XML language is only as useful as the software tools that take advantage of it. Previous articles have discussed how the XML language FlexMol can solve a variety of molecular representation problems ranging from the multiatom bonding of metallocenes to the axial chirality of biaryls. Octet is a framework written in Java that speaks FlexMol natively. In this article, I&rsquo;ll show how Octet can be used to read a sample FlexMol document.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/posts/2007-01-31-a-molecular-language-for-modern-chemistry-reading-flexmol-documents-with-octet/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/posts/2007-01-31-a-molecular-language-for-modern-chemistry-reading-flexmol-documents-with-octet/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="A Molecular Language for Modern Chemistry: Reading FlexMol Documents with Octet">
+  <meta property="og:description" content="An XML language is only as useful as the software tools that take advantage of it. Previous articles have discussed how the XML language FlexMol can solve a variety of molecular representation problems ranging from the multiatom bonding of metallocenes to the axial chirality of biaryls. Octet is a framework written in Java that speaks FlexMol natively. In this article, I’ll show how Octet can be used to read a sample FlexMol document.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2007-01-31T00:00:00+00:00">
+    <meta property="article:modified_time" content="2007-01-31T00:00:00+00:00">
+
+  <meta itemprop="name" content="A Molecular Language for Modern Chemistry: Reading FlexMol Documents with Octet">
+  <meta itemprop="description" content="An XML language is only as useful as the software tools that take advantage of it. Previous articles have discussed how the XML language FlexMol can solve a variety of molecular representation problems ranging from the multiatom bonding of metallocenes to the axial chirality of biaryls. Octet is a framework written in Java that speaks FlexMol natively. In this article, I’ll show how Octet can be used to read a sample FlexMol document.">
+  <meta itemprop="datePublished" content="2007-01-31T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2007-01-31T00:00:00+00:00">
+  <meta itemprop="wordCount" content="363">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="A Molecular Language for Modern Chemistry: Reading FlexMol Documents with Octet">
+  <meta name="twitter:description" content="An XML language is only as useful as the software tools that take advantage of it. Previous articles have discussed how the XML language FlexMol can solve a variety of molecular representation problems ranging from the multiatom bonding of metallocenes to the axial chirality of biaryls. Octet is a framework written in Java that speaks FlexMol natively. In this article, I’ll show how Octet can be used to read a sample FlexMol document.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">A Molecular Language for Modern Chemistry: Reading FlexMol Documents with Octet</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2007-01-31T00:00:00Z">January 31, 2007</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>An XML language is only as useful as the software tools that take advantage of it. <!-- raw HTML omitted -->Previous articles<!-- raw HTML omitted --> have discussed how the XML language FlexMol can solve a variety of molecular representation problems ranging from the <!-- raw HTML omitted -->multiatom bonding of metallocenes<!-- raw HTML omitted --> to the <!-- raw HTML omitted -->axial chirality of biaryls<!-- raw HTML omitted -->. <!-- raw HTML omitted -->Octet<!-- raw HTML omitted --> is a framework written in Java that speaks FlexMol natively. In this article, I&rsquo;ll show how Octet can be used to read a sample FlexMol document.</p>
+<h1 id="prerequisites">Prerequisites</h1>
+<p>For this tutorial, you&rsquo;ll need <!-- raw HTML omitted -->Ruby Java Bridge<!-- raw HTML omitted --> (RJB). Previous articles have discussed the installation and use of RJB on <!-- raw HTML omitted -->Windows<!-- raw HTML omitted --> and <!-- raw HTML omitted -->Linux<!-- raw HTML omitted -->.</p>
+<h1 id="a-sample-molecule">A Sample Molecule</h1>
+<p><img src="/images/posts/20070131/s_monolaterol.png" alt="(S)-Monolaterol" title="(S)-Monolaterol"></p>
+<p>A <!-- raw HTML omitted -->recent article<!-- raw HTML omitted --> disused a FlexMol representation of the chiral natural product monolaterol. Using a slightly modified numbering system for this molecule (shown above), we can construct a <a href="/images/posts/20070131/s_monolaterol.xml">complete FlexMol representation</a>. In this case, we simply start numbering at index zero, subtracting one from every index in the previous example to match the zero-based indices used in Octet.</p>
+<h1 id="a-demonstration-package">A Demonstration Package</h1>
+<p>To illustrate the process of reading a FlexMol document, I&rsquo;ve prepared a small package (<!-- raw HTML omitted -->demo-20070131.tar.gz<!-- raw HTML omitted -->) that can be <!-- raw HTML omitted -->downloaded from SourceForge<!-- raw HTML omitted -->. In it, you&rsquo;ll find an Octet jarfile (<!-- raw HTML omitted -->octet-0.8.2.jar<!-- raw HTML omitted -->), a FlexMol representation of monolaterol (<!-- raw HTML omitted -->s_monolaterol.xml<!-- raw HTML omitted -->), a Ruby library (<!-- raw HTML omitted -->reader.rb<!-- raw HTML omitted -->), and some Ruby test code (<!-- raw HTML omitted -->test.rb<!-- raw HTML omitted -->). Inflate this archive and make it your working directory.</p>
+<h1 id="a-simple-test">A Simple Test</h1>
+<p>The following sequence of commands will run the test included with the demonstration package:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export CLASSPATH<span style="color:#f92672">=</span>./octet-0.8.2.jar
+</span></span><span style="display:flex;"><span>ruby test.rb
+</span></span></code></pre></div><p>You should see several lines of output terminated with the line:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>The exact mass of monolaterol is 276.115029755.
+</span></span></code></pre></div><p>You can get more hands-on experience with loading and processing the monolaterol FlexMol document using interactive Ruby (irb). For example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>irb
+</span></span><span style="display:flex;"><span>irb<span style="color:#f92672">(</span>main<span style="color:#f92672">)</span>:001:0&gt; require <span style="color:#e6db74">&#39;reader&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=</span>&gt; true
+</span></span><span style="display:flex;"><span>irb<span style="color:#f92672">(</span>main<span style="color:#f92672">)</span>:002:0&gt; r<span style="color:#f92672">=</span>Reader.new
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=</span>&gt; <span style="color:#75715e">#&lt;Reader:0x2b9ab173a1f0 @xml_reader=#&lt;#&lt;Class:0x2b9ab1741680&gt;:0x2b9ab1736690&gt;, @handler=#&lt;#&lt;Class:0x2b9ab1741680&gt;:0x2b9ab1736e10&gt;, @builder=#&lt;#&lt;Class:0x2b9ab1741680&gt;:0x2b9ab1736b90&gt;&gt;</span>
+</span></span><span style="display:flex;"><span>irb<span style="color:#f92672">(</span>main<span style="color:#f92672">)</span>:003:0&gt; mol<span style="color:#f92672">=</span>r.read_file <span style="color:#e6db74">&#39;s_monolaterol.xml&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=</span>&gt; <span style="color:#75715e">#&lt;#&lt;Class:0x2b9ab1741680&gt;:0x2b9ab172cd48&gt;</span>
+</span></span><span style="display:flex;"><span>irb<span style="color:#f92672">(</span>main<span style="color:#f92672">)</span>:004:0&gt; mol.countAtoms
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=</span>&gt; <span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span>irb<span style="color:#f92672">(</span>main<span style="color:#f92672">)</span>:005:0&gt; mol.countBondingSystems
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=</span>&gt; <span style="color:#ae81ff">24</span>
+</span></span></code></pre></div><p>Of course, this is just scratching the surface of what can be done once a FlexMol document has been loaded by Octet.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>Octet makes it possible to convert FlexMol documents into Java object representations that can be accessed through Ruby. With an object representation, the possibilities are limitless. Some simple examples have been provided here. Future articles will illustrate more advanced uses.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  My New Hugo Site 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

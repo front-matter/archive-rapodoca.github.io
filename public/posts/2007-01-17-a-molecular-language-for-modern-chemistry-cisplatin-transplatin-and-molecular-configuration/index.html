@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>A Molecular Language for Modern Chemistry - Cisplatin, Transplatin, and Molecular Configuration | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Recent articles have discussed FlexMol as a new language capable of representing many of today&rsquo;s most difficult molecules: metallocenes; axially-chiral biaryls; and other forms of axial chirality. FlexMol can also encode more common molecular features such as E/Z alkene geometrical isomerism. So far, discussions of stereochemistry have been limited to molecular conformation. In this article, I&rsquo;ll demonstrate how FlexMol encodes molecular configuration, using cisplatin and transplatin as examples.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/posts/2007-01-17-a-molecular-language-for-modern-chemistry-cisplatin-transplatin-and-molecular-configuration/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/posts/2007-01-17-a-molecular-language-for-modern-chemistry-cisplatin-transplatin-and-molecular-configuration/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="A Molecular Language for Modern Chemistry - Cisplatin, Transplatin, and Molecular Configuration">
+  <meta property="og:description" content="Recent articles have discussed FlexMol as a new language capable of representing many of today’s most difficult molecules: metallocenes; axially-chiral biaryls; and other forms of axial chirality. FlexMol can also encode more common molecular features such as E/Z alkene geometrical isomerism. So far, discussions of stereochemistry have been limited to molecular conformation. In this article, I’ll demonstrate how FlexMol encodes molecular configuration, using cisplatin and transplatin as examples.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2007-01-17T00:00:00+00:00">
+    <meta property="article:modified_time" content="2007-01-17T00:00:00+00:00">
+
+  <meta itemprop="name" content="A Molecular Language for Modern Chemistry - Cisplatin, Transplatin, and Molecular Configuration">
+  <meta itemprop="description" content="Recent articles have discussed FlexMol as a new language capable of representing many of today’s most difficult molecules: metallocenes; axially-chiral biaryls; and other forms of axial chirality. FlexMol can also encode more common molecular features such as E/Z alkene geometrical isomerism. So far, discussions of stereochemistry have been limited to molecular conformation. In this article, I’ll demonstrate how FlexMol encodes molecular configuration, using cisplatin and transplatin as examples.">
+  <meta itemprop="datePublished" content="2007-01-17T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2007-01-17T00:00:00+00:00">
+  <meta itemprop="wordCount" content="812">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="A Molecular Language for Modern Chemistry - Cisplatin, Transplatin, and Molecular Configuration">
+  <meta name="twitter:description" content="Recent articles have discussed FlexMol as a new language capable of representing many of today’s most difficult molecules: metallocenes; axially-chiral biaryls; and other forms of axial chirality. FlexMol can also encode more common molecular features such as E/Z alkene geometrical isomerism. So far, discussions of stereochemistry have been limited to molecular conformation. In this article, I’ll demonstrate how FlexMol encodes molecular configuration, using cisplatin and transplatin as examples.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">A Molecular Language for Modern Chemistry - Cisplatin, Transplatin, and Molecular Configuration</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2007-01-17T00:00:00Z">January 17, 2007</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Recent articles have discussed FlexMol as a new language capable of representing many of today&rsquo;s most difficult molecules: <!-- raw HTML omitted -->metallocenes<!-- raw HTML omitted -->; <!-- raw HTML omitted -->axially-chiral biaryls<!-- raw HTML omitted -->; and <!-- raw HTML omitted -->other forms of axial chirality<!-- raw HTML omitted -->. FlexMol can also encode more common molecular features such as <!-- raw HTML omitted -->E/Z alkene geometrical isomerism<!-- raw HTML omitted -->. So far, discussions of stereochemistry have been limited to molecular <!-- raw HTML omitted -->conformation<!-- raw HTML omitted -->. In this article, I&rsquo;ll demonstrate how FlexMol encodes molecular <!-- raw HTML omitted -->configuration<!-- raw HTML omitted -->, using cisplatin and transplatin as examples.</p>
+<h1 id="the-difference-between-configuration-and-conformation">The Difference Between Configuration and Conformation</h1>
+<p>FlexMol&rsquo;s distinction between configuration and conformation is a simple one: if two isomers can&rsquo;t be interconverted by bond rotations, then configuration is used to describe them. Otherwise, conformation is used. The geometrical isomers of dichlorodiamino platinum fall into the former category. For more rigorous definitions, see Dietz&rsquo; <!-- raw HTML omitted -->original specification<!-- raw HTML omitted --> on which FlexMol is built.</p>
+<h1 id="cisplatin">Cisplatin</h1>
+<p><img src="/images/posts/20070117/cisplatin.png" alt="Cisplatin" title="Cisplatin"></p>
+<p>Cisplatin consists of a central platinum atom surrounded by two chloro ligands and two ammonia ligands arranged at the corners of a square. Using the numbering system present in the structure above, we can construct a <a href="/images/posts/20070117/cisplatin.xml">complete FlexMol representation</a>. Rather than reproduce the entire document here, I&rsquo;ll just highlight the stereochemical aspects. In contrast to the other FlexMol examples covered on Depth-First to date, this example contains a <code>configuration</code> element:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- snip --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;configuration&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;Pt0&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;N4&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;center</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;Cl2&#34;</span><span style="color:#f92672">&gt;&lt;/center&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;center</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;N3&#34;</span><span style="color:#f92672">&gt;&lt;/center&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;Pt0&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;N3&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;center</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;N4&#34;</span><span style="color:#f92672">&gt;&lt;/center&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;center</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;Cl1&#34;</span><span style="color:#f92672">&gt;&lt;/center&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;Pt0&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;Cl1&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;center</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;N3&#34;</span><span style="color:#f92672">&gt;&lt;/center&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;center</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;Cl2&#34;</span><span style="color:#f92672">&gt;&lt;/center&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;Pt0&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;Cl2&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;center</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;Cl1&#34;</span><span style="color:#f92672">&gt;&lt;/center&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;center</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;N4&#34;</span><span style="color:#f92672">&gt;&lt;/center&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/configuration&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- snip --&gt;</span>
+</span></span></code></pre></div><p>Notice that the most of the subelements of cisplatin&rsquo;s <code>configuration</code> were also used in the context of conformation. The three main differences are:</p>
+<ul>
+<li>The element <code>configurationWheel</code> is used in place of <code>conformationWheel</code>;</li>
+<li>Instead of a <code>gammaSequence</code> each chiral axis is described by an <code>atomPair</code> only;</li>
+<li>There are as many <code>configurationWheels</code> as neighbors on a configurational atom. In this case, platinum is the configurational atom. It has four neighbors, and so four <code>configurationWheels</code> appear. Each neighbor is in turn placed at the <code>target</code> of the chiral axis.</li>
+</ul>
+<p>To better visualize cisplatin&rsquo;s configuration, consider the four diagrams below, each of which represents one <code>configurationalWheel</code>. Given the cisplatin&rsquo;s square-planar geometry, each &ldquo;wheel&rdquo; in this case consists of only two opposing <code>halfPlanes</code>.</p>
+<p><img src="/images/posts/20070117/cisplatin_planes.png" alt="Cisplatin Planes" title="Cisplatin Planes"></p>
+<p>There are a few things to notice. First, each configurational <code>halfPlane</code> is divided into three sections: <code>lower</code>; <code>upper</code>; and <code>center</code>. A <code>center</code> designation means that an atom sits precisely on the line bisecting a given half-plane. As with conformational half-planes, <code>upper</code> means the part of the half-plane closest to the axis endpoint; <code>lower</code> means the part of the half-plane furthest from this atom. Second, notice that an atom oriented 180 degrees from the direction of the chiral axis is not assigned to a <code>halfPlane</code> because it occupies none. As we shall see, this is not a limitation.</p>
+<h1 id="transplatin">Transplatin</h1>
+<p><img src="/images/posts/20070117/transplatin.png" alt="Transplatin" title="Transplatin"></p>
+<p>How does this system allow us to distinguish cisplatin from transplatin? Given the atom numbering as shown above, we can construct the <a href="/images/posts/20070117/transplatin.xml">complete FlexMol representation</a>. The <code>configuration</code> element is shown below:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- snip --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;configuration&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;Pt0&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;Cl2&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;center</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;N3&#34;</span><span style="color:#f92672">&gt;&lt;/center&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;center</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;N4&#34;</span><span style="color:#f92672">&gt;&lt;/center&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;Pt0&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;N3&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;center</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;Cl1&#34;</span><span style="color:#f92672">&gt;&lt;/center&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;center</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;Cl2&#34;</span><span style="color:#f92672">&gt;&lt;/center&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;Pt0&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;Cl1&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;center</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;N3&#34;</span><span style="color:#f92672">&gt;&lt;/center&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;center</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;N4&#34;</span><span style="color:#f92672">&gt;&lt;/center&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;Pt0&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;N4&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;center</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;Cl1&#34;</span><span style="color:#f92672">&gt;&lt;/center&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;center</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;Cl2&#34;</span><span style="color:#f92672">&gt;&lt;/center&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/configuration&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- snip --&gt;</span>
+</span></span></code></pre></div><p>The arrangement of planes can be represented by the diagram below:</p>
+<p><img src="/images/posts/20070117/transplatin_planes.png" alt="Transplatin Planes" title="Transplatin Planes"></p>
+<p>As you can see, the cisplatin and transplatin configurations are clearly distinguishable by inspection. Notice that we have not resorted to chiral flags, atom parities, or any form of stereochemical template. When a new atom geometry is desired, for example trigonal bipyramidal, octahedral, t-shaped, or otherwise, exactly the same rules apply.</p>
+<h1 id="a-software-implementation">A Software Implementation</h1>
+<p>It&rsquo;s not difficult to write software designed to compare stereochemical configurations in the same way as it is done manually. For example, this has been fully implemented in <!-- raw HTML omitted -->Octet<!-- raw HTML omitted -->.</p>
+<h1 id="so-what">So What?</h1>
+<p>At least one other language shares FlexMol&rsquo;s ability to encode square planar stereochemistry: <!-- raw HTML omitted -->SMILES<!-- raw HTML omitted -->. The difference is that FlexMol uses no templates, resulting in a rule-based, extensible language. SMILES, on the other hand, uses chiral templates. If your molecule doesn&rsquo;t fit one of these pre-defined templates, you can&rsquo;t encode its stereochemistry with SMILES and expect a third party to be able to understand it. This is the unavoidable consequence of a template-based stereochemistry encoding system such as the one used by SMILES.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>FlexMol offers a completely new way to think about encoding stereochemistry with computers. The method is both flexible and systematic. It does away with the need for inherently confusing and limited constructs such as atom parities, chiral flags, and stereochemical templates in favor of actually describing the stereochemical environment of atoms in a molecule. One stop remains on this introductory tour of FlexMol and stereochemistry: tetrahedral chirality.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  My New Hugo Site 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

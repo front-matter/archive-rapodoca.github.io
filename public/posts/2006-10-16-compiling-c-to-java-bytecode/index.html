@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Compiling C to Java Bytecode | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="In the ideal world for many Java developers, all software would be written in Java. The reality is that a great deal of software is written in other languages, one of the most widespread of which is C. This article discusses a unique approach to working with C code from Java, producing 100% pure Java bytecode that runs anywhere Java does.
+JNI - The Standard Solution
+The standard solution to working with C code from Java has been the Java Native Interface (JNI). In this approach, the Java Virtual Machine (JVM) is able to treat a native binary library as if it were written in Java. This is a clever solution that does what it claims to.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/posts/2006-10-16-compiling-c-to-java-bytecode/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/posts/2006-10-16-compiling-c-to-java-bytecode/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="Compiling C to Java Bytecode">
+  <meta property="og:description" content="In the ideal world for many Java developers, all software would be written in Java. The reality is that a great deal of software is written in other languages, one of the most widespread of which is C. This article discusses a unique approach to working with C code from Java, producing 100% pure Java bytecode that runs anywhere Java does.
+JNI - The Standard Solution The standard solution to working with C code from Java has been the Java Native Interface (JNI). In this approach, the Java Virtual Machine (JVM) is able to treat a native binary library as if it were written in Java. This is a clever solution that does what it claims to.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2006-10-16T00:00:00+00:00">
+    <meta property="article:modified_time" content="2006-10-16T00:00:00+00:00">
+
+  <meta itemprop="name" content="Compiling C to Java Bytecode">
+  <meta itemprop="description" content="In the ideal world for many Java developers, all software would be written in Java. The reality is that a great deal of software is written in other languages, one of the most widespread of which is C. This article discusses a unique approach to working with C code from Java, producing 100% pure Java bytecode that runs anywhere Java does.
+JNI - The Standard Solution The standard solution to working with C code from Java has been the Java Native Interface (JNI). In this approach, the Java Virtual Machine (JVM) is able to treat a native binary library as if it were written in Java. This is a clever solution that does what it claims to.">
+  <meta itemprop="datePublished" content="2006-10-16T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2006-10-16T00:00:00+00:00">
+  <meta itemprop="wordCount" content="901">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Compiling C to Java Bytecode">
+  <meta name="twitter:description" content="In the ideal world for many Java developers, all software would be written in Java. The reality is that a great deal of software is written in other languages, one of the most widespread of which is C. This article discusses a unique approach to working with C code from Java, producing 100% pure Java bytecode that runs anywhere Java does.
+JNI - The Standard Solution The standard solution to working with C code from Java has been the Java Native Interface (JNI). In this approach, the Java Virtual Machine (JVM) is able to treat a native binary library as if it were written in Java. This is a clever solution that does what it claims to.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Compiling C to Java Bytecode</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2006-10-16T00:00:00Z">October 16, 2006</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>In the ideal world for many Java developers, all software would be written in Java. The reality is that a great deal of software is written in other languages, one of the most widespread of which is C. This article discusses a unique approach to working with C code from Java, producing 100% pure Java bytecode that runs anywhere Java does.</p>
+<h1 id="jni---the-standard-solution">JNI - The Standard Solution</h1>
+<p>The standard solution to working with C code from Java has been the Java Native Interface (JNI). In this approach, the Java Virtual Machine (JVM) is able to treat a native binary library as if it were written in Java. This is a clever solution that does what it claims to.</p>
+<p>Unfortunately, JNI introduces a platform dependency - the very thing Java was designed to avoid. Depending on the details of the native library, this platform dependency may effectively banish your software from platforms that it would otherwise run on without modification. The Eclipse team, for example, has had to deal with the platform dependence issues of the Standard Widget Toolkit (SWT) for some time now. Even if a workable solution is developed, deployment is an order of magnitude more complex when native libraries are involved.</p>
+<p>It doesn&rsquo;t have to be this way. What if it were possible to compile C source code directly into Java bytecode?</p>
+<h1 id="a-better-way">A Better Way</h1>
+<p><!-- raw HTML omitted -->Axiomatic Solutions<!-- raw HTML omitted --> has an answer to this problem called Axiomatic Multi-Platform C (AMPC). This software can compile C source files directly into Java class files.</p>
+<p>Axiomatic offers a free demo version of AMPC, which can be downloaded <!-- raw HTML omitted -->here<!-- raw HTML omitted -->. The demo is rather limited; it expires after fifteen days and lacks certain key features available in the full version, such as multiplication and division.</p>
+<p>For those serious about AMPC, the full version can be had for $2999.00. This is a hefty sum. But depending on who you are and what you&rsquo;re trying to do, AMPC may be the most cost-effective solution available.</p>
+<p>AMPC is not the only C to Java conversion option. Another program, <!-- raw HTML omitted -->C2J<!-- raw HTML omitted --> is free (as in beer) software from <!-- raw HTML omitted -->Novasoft<!-- raw HTML omitted --> that translates C source into Java source. <!-- raw HTML omitted -->Jazillian<!-- raw HTML omitted --> also converts C source into Java source, with an emphasis on readability. Links to more C to Java solutions are available from <!-- raw HTML omitted -->this page<!-- raw HTML omitted -->.</p>
+<h1 id="a-simple-demo">A Simple Demo</h1>
+<p>To learn more about AMPC, I downloaded and installed the Demo version 1.5.1. It installed without a hitch.</p>
+<p>AMPC actually consists of two components - a command-line utility and an IDE. Those of you used to <!-- raw HTML omitted -->Eclipse<!-- raw HTML omitted --> will be somewhat disappointed with AMPC&rsquo;s IDE, which is based on <!-- raw HTML omitted -->SciTE<!-- raw HTML omitted -->. For this reason, I spent most of my time with the command-line utility.</p>
+<p>I decided the venerable Hello World application should be my first stop. I saved this version to a file called <!-- raw HTML omitted -->hello.c<!-- raw HTML omitted -->:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;Hello World - From C!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>From a DOS prompt, I then issued:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>compile hello.c
+</span></span></code></pre></div><p>This produced the file <!-- raw HTML omitted -->hello.class<!-- raw HTML omitted -->. Running this class with Java confirmed that this process does indeed work:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>java hello
+</span></span><span style="display:flex;"><span>Hello World - From C!
+</span></span></code></pre></div><h1 id="a-more-complex-demo">A More Complex Demo</h1>
+<p>One of the key differences between C and Java is that C has pointers and Java does not. So how does AMPC handle a simple program that uses pointers? Very well, it turns out. For this test, I used the following source code, which I lifted from <!-- raw HTML omitted -->this tutorial<!-- raw HTML omitted -->:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> j, k;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>ptr;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    j <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    k <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>    ptr <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>k;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;j has the value %d and is stored at %p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, j, (<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>j);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;k has the value %d and is stored at %p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, k, (<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>k);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;ptr has the value %p and is stored at %p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, ptr, (<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>ptr);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;The value of the integer pointed to by ptr is %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#f92672">*</span>ptr);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Compiling this code and running it analogously to the Hello World example above produced the following output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>j has the value <span style="color:#ae81ff">1</span> and is stored at 0x2824
+</span></span><span style="display:flex;"><span>k has the value <span style="color:#ae81ff">2</span> and is stored at 0x2826
+</span></span><span style="display:flex;"><span>ptr has the value 0x2826 and is stored at 0x2c78
+</span></span><span style="display:flex;"><span>The value of the integer pointed to by ptr is <span style="color:#ae81ff">2</span>
+</span></span></code></pre></div><h1 id="so-what">So What?</h1>
+<p>Libraries written in C are of course quite common in chemical informatics and computational chemistry. Although most of these are legacy libraries developed long ago, some are more recent.</p>
+<p>A case in point is the <!-- raw HTML omitted -->InChI library<!-- raw HTML omitted -->, the only implementation of which is written in C. It has been suggested that the best solution to using InChI from Java is JNI. However, for the reasons outlined above, this is not really the solution that Java developers want. I, and others, have argued that a pure Java implementation is the best solution - but porting is an expensive proposition, given the complexity of the InChI code.</p>
+<p>Perhaps applying AMPC, C2J, Jazillian, or similar software to the InChI library would offer the best of both worlds. That is, assuming these approaches can be made to work.</p>
+<p>A future article will detail my attempts to translate the InChI library to Java with C2J.</p>
+<h1 id="the-final-word">The Final Word</h1>
+<p>The limited nature of AMPC demo prevents me from evaluating whether the full version can be used to compile real libraries, like InChI, directly into Java bytecode. However, if my experiences with the demo version are predictive, AMPC may well be a viable option for chemical informatics integration efforts.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  My New Hugo Site 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

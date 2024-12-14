@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Cheminformatics in Any Language with MX Part 1 - Scala | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="One of the best ways to keep current with new developments in programming is to try new languages. Fortunately, there are so many to choose from that finding an unfamiliar language is less of a problem than finding one that&rsquo;s interesting enough to make the effort worthwhile.
+In this new series of articles, we&rsquo;ll explore many of the most interesting programming languages through the lense of cheminformatics. Our test subject will be MX, the lightweight, cross-platform, cross-language cheminformatics toolkit written in Java. These tutorials are not designed to teach you a new language. Instead, they will focus on quickly getting you to the point of being able to perform basic cheminformatics operations within the target language.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2009/04/cheminformatics-in-any-language-with-mx-part-1-scala/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2009/04/cheminformatics-in-any-language-with-mx-part-1-scala/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Cheminformatics in Any Language with MX Part 1 - Scala">
+  <meta property="og:description" content="One of the best ways to keep current with new developments in programming is to try new languages. Fortunately, there are so many to choose from that finding an unfamiliar language is less of a problem than finding one that’s interesting enough to make the effort worthwhile.
+In this new series of articles, we’ll explore many of the most interesting programming languages through the lense of cheminformatics. Our test subject will be MX, the lightweight, cross-platform, cross-language cheminformatics toolkit written in Java. These tutorials are not designed to teach you a new language. Instead, they will focus on quickly getting you to the point of being able to perform basic cheminformatics operations within the target language.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2009-04-02T00:00:00+00:00">
+    <meta property="article:modified_time" content="2009-04-02T00:00:00+00:00">
+
+  <meta itemprop="name" content="Cheminformatics in Any Language with MX Part 1 - Scala">
+  <meta itemprop="description" content="One of the best ways to keep current with new developments in programming is to try new languages. Fortunately, there are so many to choose from that finding an unfamiliar language is less of a problem than finding one that’s interesting enough to make the effort worthwhile.
+In this new series of articles, we’ll explore many of the most interesting programming languages through the lense of cheminformatics. Our test subject will be MX, the lightweight, cross-platform, cross-language cheminformatics toolkit written in Java. These tutorials are not designed to teach you a new language. Instead, they will focus on quickly getting you to the point of being able to perform basic cheminformatics operations within the target language.">
+  <meta itemprop="datePublished" content="2009-04-02T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2009-04-02T00:00:00+00:00">
+  <meta itemprop="wordCount" content="519">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Cheminformatics in Any Language with MX Part 1 - Scala">
+  <meta name="twitter:description" content="One of the best ways to keep current with new developments in programming is to try new languages. Fortunately, there are so many to choose from that finding an unfamiliar language is less of a problem than finding one that’s interesting enough to make the effort worthwhile.
+In this new series of articles, we’ll explore many of the most interesting programming languages through the lense of cheminformatics. Our test subject will be MX, the lightweight, cross-platform, cross-language cheminformatics toolkit written in Java. These tutorials are not designed to teach you a new language. Instead, they will focus on quickly getting you to the point of being able to perform basic cheminformatics operations within the target language.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Cheminformatics in Any Language with MX Part 1 - Scala</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2009-04-02T00:00:00Z">April 2, 2009</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>One of the best ways to keep current with new developments in programming is to try new languages. Fortunately, there are so many to choose from that finding an unfamiliar language is less of a problem than finding one that&rsquo;s interesting enough to make the effort worthwhile.</p>
+<p>In this new series of articles, we&rsquo;ll explore many of the most interesting programming languages through the lense of cheminformatics. Our test subject will be <a href="http://code.google.com/p/mx-java/">MX</a>, the lightweight, cross-platform, cross-language cheminformatics toolkit written in Java. These tutorials are not designed to teach you a new language. Instead, they will focus on quickly getting you to the point of being able to perform basic cheminformatics operations within the target language.</p>
+<h1 id="why-scala">Why Scala?</h1>
+<p>Scala is a general purpose programming language <a href="http://www.artima.com/weblogs/viewpost.jsp?thread=163733">developed</a> by Martin Odersky and first released in 2003. It was designed to ebrace two important programming paradigms: object-oriented programming and functional programming. Scala, like many other languages, has been implemented on the Java Virtual Machine (JVM), positioning it to take full advantage of a rich selection of useful libraries.</p>
+<p>For Web developers, Scala comes complete with a few interesting frameworks, the most popular of which appears to be <a href="http://liftweb.net/">Lift</a>. Because the entire framework runs on a standard JVM, there&rsquo;s no need to change the way you&rsquo;ve come to rely on deploying Java-based web applications. Apparently, Twitter is finding Scala to be <a href="http://www.slideshare.net/al3x/why-scala-presentation">very useful</a> as a platform for creating Web applications that scale.</p>
+<p>As will be true of most of the languages in this series, my knowledge of Scala is extremely limited and pieced together from Web resources assembled on the spur of the moment and in great haste. Your comments, corrections, and suggestions are welcome.</p>
+<h1 id="getting-started">Getting Started</h1>
+<p>Scala can be installed by <a href="http://www.scala-lang.org/downloads">downloading the current version</a> and following <a href="http://www.scala-lang.org/node/166">these instructions</a>. Make sure to update your environment variables. On my Ubuntu Linux system, the installation worked without a hitch. <a href="http://www.scala-lang.org/node/166">This tutorial</a> will guide you through the basics of the language and its toolset.</p>
+<h1 id="working-with-mx">Working With MX</h1>
+<p>Let&rsquo;s begin by creating a molecule with Scala using MX. To do this, we&rsquo;ll need to let Scala know where to find the MX library. Download the current <a href="http://mx-java.googlecode.com/files/mx-0.108.1.jar">MX jarfile</a> and place it in your working directory. We can then invoke an interactive Scala shell with MX support through:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>scala -classpath mx-0.108.1.jar
+</span></span></code></pre></div><p>We can now load benzene and verify that it has the correct number of atoms.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>scala&gt; import com.metamolecular.mx.io.Molecules         
+</span></span><span style="display:flex;"><span>import com.metamolecular.mx.io.Molecules
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>scala&gt; val benzene <span style="color:#f92672">=</span> Molecules.createBenzene            
+</span></span><span style="display:flex;"><span>benzene: com.metamolecular.mx.model.Molecule <span style="color:#f92672">=</span> com.metamolecular.mx.model.DefaultMolecule@2d5534
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>scala&gt; benzene.countBonds                               
+</span></span><span style="display:flex;"><span>res0: Int <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>
+</span></span></code></pre></div><p>We can also determine that benzene has one ring, as expected:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>scala&gt; import com.metamolecular.mx.io.Molecules         
+</span></span><span style="display:flex;"><span>import com.metamolecular.mx.io.Molecules
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>scala&gt; val benzene <span style="color:#f92672">=</span> Molecules.createBenzene            
+</span></span><span style="display:flex;"><span>benzene: com.metamolecular.mx.model.Molecule <span style="color:#f92672">=</span> com.metamolecular.mx.model.DefaultMolecule@117b450
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>scala&gt; import com.metamolecular.mx.ring.HanserRingFinder
+</span></span><span style="display:flex;"><span>import com.metamolecular.mx.ring.HanserRingFinder
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>scala&gt; val finder <span style="color:#f92672">=</span> new HanserRingFinder                
+</span></span><span style="display:flex;"><span>finder: com.metamolecular.mx.ring.HanserRingFinder <span style="color:#f92672">=</span> com.metamolecular.mx.ring.HanserRingFinder@1c0cb76
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>scala&gt; val rings <span style="color:#f92672">=</span> finder.findRings<span style="color:#f92672">(</span>benzene<span style="color:#f92672">)</span>            
+</span></span><span style="display:flex;"><span>rings: java.util.Collection<span style="color:#f92672">[</span>java.util.List<span style="color:#f92672">[</span>com.metamolecular.mx.model.Atom<span style="color:#f92672">]]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">[[</span>com.metamolecular.mx.model.DefaultMolecule$AtomImpl@fe087b, com.metamolecular.mx.model.DefaultMolecule$AtomImpl@1def3f5, com.metamolecular.mx.model.DefaultMolecule$AtomImpl@62974e, com.metamolecular.mx.model.DefaultMolecule$AtomImpl@bbaa16, com.metamolecular.mx.model.DefaultMolecule$AtomImpl@9ba045, com.m...
+</span></span><span style="display:flex;"><span>scala&gt; rings.size
+</span></span><span style="display:flex;"><span>res0: Int <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><h1 id="conclusions">Conclusions</h1>
+<p>Scala is a neat little language with a lot to offer. With MX and interactive Scala, it&rsquo;s possible to quickly explore ways this new language can be used in cheminformatics.</p>
+<p><em>Credit: thanks to <a href="http://blog.rguha.net/">Rajarshi Guha</a> for <a href="http://blog.rguha.net/?p=133">inspiration</a> for this series.</em></p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

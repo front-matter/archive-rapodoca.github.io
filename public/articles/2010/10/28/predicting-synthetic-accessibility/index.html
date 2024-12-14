@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Predicting Synthetic Accessibility | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="After screening a panel of substances for activity, one of the most important questions to answer revolves around the relative synthetic accessibility of the most interesting hits. Synthetic accessibility is critical in both re-synthesis of hits and in preparing analogs around a hit of interest. Although synthetic accessibility isn&rsquo;t the only factor to consider when prioritizing hits for follow-up, it&rsquo;s one of the most important and figures decisively in the success or failure of many lead optimization efforts.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2010/10/28/predicting-synthetic-accessibility/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2010/10/28/predicting-synthetic-accessibility/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Predicting Synthetic Accessibility">
+  <meta property="og:description" content="After screening a panel of substances for activity, one of the most important questions to answer revolves around the relative synthetic accessibility of the most interesting hits. Synthetic accessibility is critical in both re-synthesis of hits and in preparing analogs around a hit of interest. Although synthetic accessibility isn’t the only factor to consider when prioritizing hits for follow-up, it’s one of the most important and figures decisively in the success or failure of many lead optimization efforts.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2010-10-28T00:00:00+00:00">
+    <meta property="article:modified_time" content="2010-10-28T00:00:00+00:00">
+
+  <meta itemprop="name" content="Predicting Synthetic Accessibility">
+  <meta itemprop="description" content="After screening a panel of substances for activity, one of the most important questions to answer revolves around the relative synthetic accessibility of the most interesting hits. Synthetic accessibility is critical in both re-synthesis of hits and in preparing analogs around a hit of interest. Although synthetic accessibility isn’t the only factor to consider when prioritizing hits for follow-up, it’s one of the most important and figures decisively in the success or failure of many lead optimization efforts.">
+  <meta itemprop="datePublished" content="2010-10-28T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2010-10-28T00:00:00+00:00">
+  <meta itemprop="wordCount" content="695">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Predicting Synthetic Accessibility">
+  <meta name="twitter:description" content="After screening a panel of substances for activity, one of the most important questions to answer revolves around the relative synthetic accessibility of the most interesting hits. Synthetic accessibility is critical in both re-synthesis of hits and in preparing analogs around a hit of interest. Although synthetic accessibility isn’t the only factor to consider when prioritizing hits for follow-up, it’s one of the most important and figures decisively in the success or failure of many lead optimization efforts.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Predicting Synthetic Accessibility</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2010-10-28T00:00:00Z">October 28, 2010</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>After screening a panel of substances for activity, one of the most important questions to answer revolves around the relative <em>synthetic accessibility</em> of the most interesting hits. Synthetic accessibility is critical in both re-synthesis of hits and in preparing analogs around a hit of interest. Although synthetic accessibility isn&rsquo;t the only factor to consider when prioritizing hits for follow-up, it&rsquo;s one of the most important and figures decisively in the success or failure of many lead optimization efforts.</p>
+<h1 id="why-synthetic-accessibility-matters">Why Synthetic Accessibility Matters</h1>
+<p>Given the choice between starting a program with hits possessing undesirable logP or low synthetic accessibility, most experienced medicinal chemists would choose undesirable logP. The reason is simple: a synthetically accessible target affords the opportunity to formulate and test multiple hypotheses in designing your way around undesirable properties - to conduct a real scientific study in other words. A target with low synthetic accessibility is a crapshoot - take your best guess and then move on because you&rsquo;ll be out of bullets after preparing only a few analogs.</p>
+<h1 id="wheres-the-software">Where&rsquo;s the Software?</h1>
+<p>Still, there are dozens of ways to cheaply calculate logP and other properties that play a minor role in the early phases of an optimization effort, and almost none to calculate synthetic accessibility.</p>
+<p>What makes an accessible synthetic target and how should synthetic accessibility be quantified? A recent paper by Peter Ertl and Ansgar Schuffenhauer attempts to answer these questions: <a href="http://dx.doi.org/10.1186/1758-2946-1-8">Estimation of synthetic accessibility score of drug-like molecules
+based on molecular complexity and fragment contributions</a>.</p>
+<h1 id="sa-score">SA Score</h1>
+<p>The Ertl and Schuffenhauer paper is noteworthy for two main reasons: (1) it uses a fragment-based approach to derive a synthetic accessibility (SA) score; and (2) the SA score was independently validated against the estimation of experienced medicinal chemists.</p>
+<p>The way SA scores were derived is quite clever. A subset of one million structures from PubChem was fragmented. Fragments were scored according to their frequency of occurrence, with most common fragments receiving higher scores.</p>
+<p>The idea behind the fragment component of SA is that PubChem primarily represents a collection of substances that have actually been made, tested in an assay, or sold commercially. When a fragment appears repeatedly in PubChem across multiple entries, it suggests that this fragment is relatively easy to come by.</p>
+<p>Other factors besides this fragment contribution were taken into account when assigning SA, such as ring complexity. At the end of the process, a system capable assigning an SA score (on a scale of 1 to 10) to any structure had been created.</p>
+<h1 id="proof-of-the-pudding">Proof of the Pudding</h1>
+<p>Great - Ertl and Schuffenhauer can rank structures by synthetic accessibility - but how well do they actually predict synthetic accessibility?</p>
+<p>To answer this question, a selection of 40 PubChem structures not in the SA training set were included in a Web-based survey and this survey was administered to nine experienced medicinal chemists at Novartis. The chemists were asked to rank each structure on a scale of 1 to 10 for synthetic accessibility.</p>
+<p>The results are shown below:</p>
+<p><a href="http://dx.doi.org/10.1186/1758-2946-1-8"><img src="/images/posts/synthetic-accessibility.png" alt="Synthetic Accessibility" title="Synthetic Accessibility"></a></p>
+<p>Red circles are automatically-generated SA scores and blue circles are SA scores as determined by the nine Novartis medicinal chemists. The error bars reveal significant disagreement among the medicinal chemists on the SA of several structures.</p>
+<p>Overall agreement was reasonably good between the two methods, given the variability of chemist responses and the novelty of of the SA algorithm. The authors note two important outliers (marked &ldquo;A&rdquo; and &ldquo;B&rdquo;). &ldquo;A&rdquo; is a structure that the SA algorithm predicted lower synthetic accessibility for, but the medicinal chemists correctly determined would be easy to make based on its symmetry. &ldquo;B&rdquo; is a structure of high synthetic accessibility due to the commercial availability of an advanced precursor, a point the medicinal chemists failed to recognize. (The ring system was present in over 39,000 PubChem structures).</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>The approach described in this paper on synthetic accessibility is important because of its simplicity and low cost compared to previous attempts. Using nothing more than a free public dataset and some simple calculations, a predictor of synthetic accessibility was derived that performed well against a panel of trained medicinal chemists. The basic approach should lend itself well to further experimentation and refinement.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

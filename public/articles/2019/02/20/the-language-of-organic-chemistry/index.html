@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>The Language of Organic Chemistry | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="If chemical structures constitute a language, what are its words and what can be done with that knowledge?">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2019/02/20/the-language-of-organic-chemistry/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2019/02/20/the-language-of-organic-chemistry/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="The Language of Organic Chemistry">
+  <meta property="og:description" content="If chemical structures constitute a language, what are its words and what can be done with that knowledge?">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2019-02-20T09:16:00+00:00">
+    <meta property="article:modified_time" content="2019-02-20T09:16:00+00:00">
+
+  <meta itemprop="name" content="The Language of Organic Chemistry">
+  <meta itemprop="description" content="If chemical structures constitute a language, what are its words and what can be done with that knowledge?">
+  <meta itemprop="datePublished" content="2019-02-20T09:16:00+00:00">
+  <meta itemprop="dateModified" content="2019-02-20T09:16:00+00:00">
+  <meta itemprop="wordCount" content="1774">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="The Language of Organic Chemistry">
+  <meta name="twitter:description" content="If chemical structures constitute a language, what are its words and what can be done with that knowledge?">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">The Language of Organic Chemistry</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2019-02-20T09:16:00Z">February 20, 2019</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Molecular structures are sometimes thought of a possessing language-like properties. Smaller units (atoms and bonds) are assembled into larger units according to well-defined rules of syntax and semantics. These smaller units form molecules, molecules aggregate together into supramolecular assemblies, and so on.</p>
+<p>Until a few years ago, however, no attempt was made to apply the rapidly-developing quantitative tools of computational linguistics to study one of science&rsquo;s oldest special-purpose languages. This article discusses the first study to do so.</p>
+<h1 id="computational-linguistics-for-organic-chemical-structures">Computational Linguistics for Organic Chemical Structures</h1>
+<p><a href="https://doi.org/10.1002/anie.201403708">A 2014 paper</a> from Northwestern University and the Polish Academy of Sciences explores mathematical relationships between molecular structures and spoken languages. The study first develops the concept of a chemical word. Then, this concept is applied to the problems of symmetry perception and retrosynthesis.</p>
+<h1 id="zipfs-law">Zipf&rsquo;s Law</h1>
+<p>The authors begin by noting the wide applicability of <a href="https://en.wikipedia.org/wiki/Zipf%27s_law">Zipf&rsquo;s Law</a> to spoken languages. This empirical relationship states that the frequency with which a word will occur within a corpus is inversely proportional to its rank. For example, the second ranked word in terms of occurrence will appear half as often as the top word. Likewise, the third ranked word will appear 1/3 as often as the top ranked word. And so on. Not only does Zipf&rsquo;s Law work across languages, it works in domains far removed from languages. Such relationships are broadly known as &ldquo;power laws.&rdquo;</p>
+<!-- raw HTML omitted -->
+<p>Given its importance for spoken languages, attempts to treat organic chemical structures linguistically should be compatible with Zipf&rsquo;s Law.</p>
+<h1 id="functional-groups-are-not-the-answer">Functional Groups Are Not the Answer</h1>
+<p>If organic chemistry is a language, what are its words?</p>
+<p>One obvious answer is &ldquo;functional groups.&rdquo; This well-known concept, corresponding to a reactive assembly of atoms, serves as the foundation on which the art and science of organic synthesis have been learned for decades. If functional groups were organic chemistry&rsquo;s words, then the frequency of functional group appearances should follow Zipf&rsquo;s law.</p>
+<p>To test this idea the authors applied the following procedure:</p>
+<ol>
+<li>Identify a collection of organic molecules.</li>
+<li>Identify a <a href="https://doi.org/10.1039/C2SC00011C">functional group dictionary</a>.</li>
+<li>Using the dictionary, count the number of occurrences of each functional group in the molecule collection.</li>
+<li>For each functional group, plot rank vs. count on logarithmic axes.</li>
+</ol>
+<p><a href="https://doi.org/10.1002/anie.201403708"><img src="/images/posts/20190220/rank-vs-count.png" alt="Rank vs. Count" title="Rank vs. Count"></a></p>
+<p>This procedure led to a plot that deviated noticeably from the relationship obtained for English text. Unfortunately, this plot was only reported on linear axes, not the double log scale customarily used. In addition to the English/functional group comparison, the plot above contains a series (blue circles) composed of data generated from the more sophisticated approach discussed in the next section.</p>
+<h1 id="maximum-common-substructure">Maximum Common Substructure</h1>
+<p>Word counts are just one way to analyze texts. An alternative method uses longest common substring (LCS). An LCS is the longest continuous run of common characters found within two sentences. For some pairs of sentences, the LCS may consist of just a single character. For other pairs, words and even entire phrases may appear in the LCS. Dictionaries compiled from LCSs show power law distributions similar to word-based dictionaries.</p>
+<p>The authors note that LCS roughly translates to the chemical concept of maximum common substructure (MCS). An MCS is obtained by finding the largest substructure shared between two molecules. This procedure is <a href="https://www.aaai.org/ocs/index.php/AAAI/AAAI17/paper/viewPaper/14948">computationally-expensive</a>.</p>
+<p><a href="https://doi.org/10.1002/anie.201403708"><img src="/images/posts/20190220/maximum-common-substructure.png" alt="Maximum Common Substructure" title="Maximum Common Substructure"></a></p>
+<p>To test the idea that MCS could define a unit obeying a power law distribution, an adaptation of the original procedure was used:</p>
+<ol>
+<li>Obtain a collection of organic molecules.</li>
+<li>For each pair of molecules, compute an MCS, adding the result to a dictionary.</li>
+<li>Using the dictionary, count the number of occurrences of each MCS in every molecule. A single molecule may contain multiple MCSs.</li>
+<li>For each MCS, plot rank vs count on logarithmic axes.</li>
+</ol>
+<p>This procedure yielded the following plot:</p>
+<p><a href="https://doi.org/10.1002/anie.201403708"><img src="/images/posts/20190220/log-rank-vs-log-probability.png" alt="Log Rank vs. Probability" title="Log Rank vs. Log Probability"></a></p>
+<p>This plot includes the rank vs. probability curves for seven MCS fragments (dots) and the correspondingly-ranked and identically colored LCS (crosses). The similarity between English, a spoken language, and chemical structures, a language grounded in graph theory and natural science, is striking.</p>
+<h1 id="tf-idf-scoring">TF-IDF Scoring</h1>
+<p>The more highly-represented a word across sentences or documents, the less information it tends to carry. For example, consider the relative information content of two words, &ldquo;the&rdquo; and &ldquo;dentist,&rdquo; both of which appear in the same sentence. The less common word conveys more information due to its rarity.</p>
+<p>We can account for these differences with a weighted scoring system known as term frequency-inverse document frequency (TF-IDF):</p>
+<p>$$score = tf * idf$$</p>
+<p>where <em>tf</em> is the count of words in a sentence and <em>idf</em> is a weight that decreases as the number of occurrences <em>across</em> documents increases. <em>idf</em> is usually expressed as a logarithm, for example, the negative log of the fraction of documents containing the word. In this way, TF-IDF ensures that words that rarely appear within a corpus will receive a higher score when found within a member text.</p>
+<p>The authors developed expressions for <em>tf</em> and <em>idf</em> that can be used with MCS fragment counts. For a given molecule, <em>tf</em> is computed as:</p>
+<p>$$tf = \frac{F_i}{F_{mol}}$$</p>
+<p>where <!-- raw HTML omitted -->F<!-- raw HTML omitted -->i<!-- raw HTML omitted --><!-- raw HTML omitted --> is the count for fragment <em>i</em> and <!-- raw HTML omitted -->F<!-- raw HTML omitted -->mol<!-- raw HTML omitted --><!-- raw HTML omitted --> is the total number of fragments found in the molecule. For example, if a molecule contains 25 different fragments, 5 of which are acetyl, then <!-- raw HTML omitted -->F<!-- raw HTML omitted -->i<!-- raw HTML omitted --><!-- raw HTML omitted --> for this fragment equals 5/25, or 0.2.</p>
+<p>Similarly, <em>idf</em> is computed as:</p>
+<p>$$idf = -\log(\frac{M_i}{M_{dict}})$$</p>
+<p>where <!-- raw HTML omitted -->M<!-- raw HTML omitted -->i<!-- raw HTML omitted --><!-- raw HTML omitted --> is the number of molecules containing MCS fragment <em>i</em> and <!-- raw HTML omitted -->M<!-- raw HTML omitted -->dict<!-- raw HTML omitted --><!-- raw HTML omitted --> is the number of MCS fragments in the dictionary.</p>
+<h1 id="bond-information-content-and-score">Bond Information Content and Score</h1>
+<p>Given that the words of a sentence vary in the quantity of information they carry, does the same also apply to the bonds (or atoms) of a molecule? If so, of what practical or theoretical consequence might this variability be?</p>
+<p>Answering these questions requires a linguistic bond metric.
+The discussion above suggests starting with the TF-IDF fragment score. From there, a number of scoring functions are feasible. The authors chose one consisting of the average TF-IDF score for each fragment the bond participates in:</p>
+<p>$$score_{bond} = \frac{\sum_{j=0}^m tf(j) * idf(j)}{m}$$</p>
+<p>where <em>m</em> is the number of fragments in the global MCS dictionary.</p>
+<p><a href="https://doi.org/10.1002/anie.201403708"><img src="/images/posts/20190220/bond-scoring.png" alt="Bond Scoring fig 3" title="Bond Scoring"></a></p>
+<p>Visual inspection of highly-scored bonds (light green &gt; dark green &gt; yellow&gt; red ~ brown) revealed many of them to be associated with symmetry elements. This observation raised the question of what role highly-scored bonds might play elsewhere.</p>
+<h1 id="bond-score-and-retrosynthesis">Bond Score and Retrosynthesis</h1>
+<p>Many forms of chemical computation predict bond properties, one of the oldest of which attempts to identify <a href="https://doi.org/10.3389/fchem.2018.00199">strategic retrosynthetic bonds</a>. Given that these bonds often join two relatively abundant fragments, and may be associated with important symmetry elements, the application of linguistic bond scoring to retrosynthesis was examined.</p>
+<p>68 molecules from the <a href="http://dnp.chemnetbase.com">Dictionary of Natural Products</a> were selected. Bonds were color coded according to their linguistic score as described above (light green &gt; dark green &gt; yellow &gt; brown ~ red). These annotated 2D structures were then given to a panel of ten Ph.D. organic chemists for evaluation. In 75% of cases, linguistic bond scores were chosen preferentially over random color coding. Success did, however, depend on the molecule&rsquo;s bond count. Best results were obtained for molecules with more than 19 bonds.</p>
+<p><a href="https://doi.org/10.1002/anie.201403708"><img src="/images/posts/20190220/human-vs-machine-scoring.png" alt="Human vs. Machine Scoring" title="Human vs. Machine Scoring"></a></p>
+<p>The role of human experts in this study is worth considering in detail. The Supporting Information explains the procedure:</p>
+<blockquote>
+<p>A quiz was designed to test the quality of the tf-idf predictions as to which bonds are the most suitable loci for retrosynthetic disconnection. 68 molecules chosen at random from a natural product database (CRC Dictionary of Natural Products, <a href="http://dnp.chemnetbase.com/tour/">http://dnp.chemnetbase.com/tour/</a>) were analyzed and all bonds (between non-H atoms) in these molecules were automatically scored according to the tf-idf scores. The top-three ranking bonds were colored, respectively, light green, dark green, and yellow. The two lowest scoring bonds were colored brown and red. These molecules were inspected by Nchem = 10 (9 on some molecules) Ph.D. level (and above) organic chemists from the Institute of Organic Chemistry of the Polish Academy of Sciences in Warsaw. <strong>Without any prior explanation of the color coding, each chemist was asked to independently choose the bond that would be his/her choice for disconnection</strong> (+/- potential protection/deprotection); if none of the colored bonds matched the choice, the chemists were asked to specify another bond (atom#-atom#) that they would suggest cutting. These predictions by expert chemists were the true positives against which the performance of the algorithm was compared. &hellip; [my emphasis]</p>
+</blockquote>
+<p>In other words, the 2D structures given to human experts contained color-coded bonds — but why? To minimize bias, it seems reasonable to give human experts 2D structures devoid of special markings. Beyond the issues of this particular study lies the broader question of why human experts are required at all to establish ground truth for strategic bond disconnection. A fully-automated system would allow broader evaluation and better reproducibility.</p>
+<p>The authors note that some highly contraindicated bonds were identified for disconnection (e.g., phenyl C-C). One factor that could be at play is that the Dictionary of Natural Products contains an unusually-high number of benzene ring-containing molecules relative to the database from which the fragment dictionary was compiled (Beilstein). This could result in higher than justified fragment score for the aromatic rings that are present, thus boosting the score for bonds within these groups.</p>
+<p>Aside from minimum bond count, reliance on human-based ground truth, and sensitivity to test set composition, linguistic bond scoring faces another limitation when applied to retrosynthesis: only single bond disconnections are possible. Disconnections whose reverse sense leads to multi-center reactions such as Diels-Alder, epoxidation, and dihydroxylyation won&rsquo;t be detected.</p>
+<h1 id="extension--application">Extension &amp; Application</h1>
+<p>The work described here is an island of sorts. A 2018 paper described the application of MCS-based linguistic analysis to the <a href="https://doi.org/10.1038/s41598-018-25440-6">evaluation of molecular diversity</a>. Beyond this, no extensions or applications appear to have been published, despite several viable opportunities. Two factors may be at play. For one, human subject matter experts are required to test retrosynthetic bond scorings. This requirement vastly complicates the evaluation of predictive models. For another MCS, upon which the linguistic analysis depends, is a computation for which no polynomial-time algorithms are known. Obtaining large fragment dictionaries could be challenging, although <a href="https://www.nextmovesoftware.com/smallworld.html">perhaps not prohibitively so</a>. The work has been cited in a few studies noting its theoretical importance as a bridge between computational linguistics and chemistry. As can be seen here, however, that connection depends on the procedure used to generate the fragment dictionary.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>An array of powerful tools awaits problems that can be recast in terms of computational linguistics. But as the work highlighted here shows, finding the right interface and working at scale could prove tricky. Nevertheless, maximum common substructure has been established as a linguistic unit in organic chemistry, and as such could offer a roadmap for travellers wanting to make the journey.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

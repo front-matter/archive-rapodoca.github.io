@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>A Molecular Language for Modern Chemistry: FlexMol, Tetrahedral Chirality, and Monolaterol | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Models of structure and bonding play a critical role in guiding chemical research. These models also define the scope and limitations of any cheminformatics system. Within the last several years, the gap between the structure and bonding models used by chemical information systems and by the chemists who use them has been widening. On this front, chemistry is moving much faster than cheminformatics. Sooner or later the difference must be reconciled.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2007/01/25/a-molecular-language-for-modern-chemistry-flexmol-tetrahedral-chirality-and-monolaterol/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2007/01/25/a-molecular-language-for-modern-chemistry-flexmol-tetrahedral-chirality-and-monolaterol/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="A Molecular Language for Modern Chemistry: FlexMol, Tetrahedral Chirality, and Monolaterol">
+  <meta property="og:description" content="Models of structure and bonding play a critical role in guiding chemical research. These models also define the scope and limitations of any cheminformatics system. Within the last several years, the gap between the structure and bonding models used by chemical information systems and by the chemists who use them has been widening. On this front, chemistry is moving much faster than cheminformatics. Sooner or later the difference must be reconciled.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2007-01-25T00:00:00+00:00">
+    <meta property="article:modified_time" content="2007-01-25T00:00:00+00:00">
+
+  <meta itemprop="name" content="A Molecular Language for Modern Chemistry: FlexMol, Tetrahedral Chirality, and Monolaterol">
+  <meta itemprop="description" content="Models of structure and bonding play a critical role in guiding chemical research. These models also define the scope and limitations of any cheminformatics system. Within the last several years, the gap between the structure and bonding models used by chemical information systems and by the chemists who use them has been widening. On this front, chemistry is moving much faster than cheminformatics. Sooner or later the difference must be reconciled.">
+  <meta itemprop="datePublished" content="2007-01-25T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2007-01-25T00:00:00+00:00">
+  <meta itemprop="wordCount" content="875">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="A Molecular Language for Modern Chemistry: FlexMol, Tetrahedral Chirality, and Monolaterol">
+  <meta name="twitter:description" content="Models of structure and bonding play a critical role in guiding chemical research. These models also define the scope and limitations of any cheminformatics system. Within the last several years, the gap between the structure and bonding models used by chemical information systems and by the chemists who use them has been widening. On this front, chemistry is moving much faster than cheminformatics. Sooner or later the difference must be reconciled.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">A Molecular Language for Modern Chemistry: FlexMol, Tetrahedral Chirality, and Monolaterol</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2007-01-25T00:00:00Z">January 25, 2007</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Models of structure and bonding play a critical role in guiding chemical research. These models also define the scope and limitations of any cheminformatics system. Within the last several years, the gap between the structure and bonding models used by chemical information systems and by the chemists who use them has been widening. On this front, chemistry is moving much faster than cheminformatics. Sooner or later the difference must be reconciled.</p>
+<h1 id="a-looming-problem">A Looming Problem</h1>
+<p>Models of structure and bonding in cheminformatics, although adequate for organic chemistry in the 1970s, are outdated today. As <!-- raw HTML omitted -->recently discussed<!-- raw HTML omitted -->, some of the most interesting molecules in organic chemistry can&rsquo;t be adequately represented by 99% of the available cheminformatics tools. This may not be a problem if your clients never work with these molecules (but they probably are already). It may not be a problem if your system never interacts with the outside world where these molecules are prevalent (but it will eventually). A quick fix is likely to produce even bigger problems down the road. What&rsquo;s needed is a comprehensive solution.</p>
+<p>FlexMol is a molecular language designed to solve this problem. For example, recent articles have demonstrated how FlexMol is capable of representing some of today&rsquo;s most difficult structural motifs: <!-- raw HTML omitted -->metallocenes<!-- raw HTML omitted -->; <!-- raw HTML omitted -->biaryl axial chirality<!-- raw HTML omitted -->; <!-- raw HTML omitted -->non-biaryl axial chirality<!-- raw HTML omitted -->; <!-- raw HTML omitted -->planar chirality<!-- raw HTML omitted -->; and <!-- raw HTML omitted -->non-tetrahedral stereochemical configuration<!-- raw HTML omitted -->.</p>
+<p>Although FlexMol handles these tough cases, it&rsquo;s not merely a specialty language for &ldquo;weird&rdquo; molecules. Rather, FlexMol provides a basic set of elements and principles that can be applied to any molecule, regardless of its peculiarities or lack thereof. For example, FlexMol defines a clean system for the representation for <!-- raw HTML omitted -->alkene geometry<!-- raw HTML omitted -->. This basic level of functionality is not even provided by the industry-standard Molfile format, which requires 2-D atom coordinates.</p>
+<p>In this demonstration, we&rsquo;ll turn our attention to one of the most basic problems in cheminformatics - the representation of tetrahedral chirality. Using an example molecule from the recent literature, we&rsquo;ll see how the principles outlined in previous FlexMol examples also apply to stereogenic carbons.</p>
+<h1 id="conformation-or-configuration">Conformation or Configuration?</h1>
+<p>We need to answer a basic question before we can represent tetrahedral chirality: should we use configuration or conformation? Following the simple principle that isomers interconvertible by bond rotation are conformational isomers and all others are configurational isomers, it&rsquo;s clear that we&rsquo;ll be using configuration. More rigorous definitions are offered by <!-- raw HTML omitted -->Dietz<!-- raw HTML omitted -->.</p>
+<h1 id="an-example">An Example</h1>
+<p><img src="/images/posts/20070125/molecule.png" alt="Molecule" title="Molecule"></p>
+<p>A <!-- raw HTML omitted -->recent paper<!-- raw HTML omitted --> describes the isolation of the plant natural product Monolaterol and the assignment of its absolute configuration. Using the structure and atom numbering system shown above, we can construct a <a href="/images/posts/20070125/molecule.xml">complete FlexMol representation</a> of Monolaterol. Rather than reproduce it here, let&rsquo;s just consider the stereochemically-relevant part:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- snip --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;configuration&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;15&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;16&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;lower</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;14&#34;</span><span style="color:#f92672">&gt;&lt;/lower&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;lower</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;12&#34;</span><span style="color:#f92672">&gt;&lt;/lower&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;15&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;12&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;lower</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;16&#34;</span><span style="color:#f92672">&gt;&lt;/lower&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;lower</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;14&#34;</span><span style="color:#f92672">&gt;&lt;/lower&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;15&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;14&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;lower</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;12&#34;</span><span style="color:#f92672">&gt;&lt;/lower&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;lower</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;16&#34;</span><span style="color:#f92672">&gt;&lt;/lower&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/configurationWheel&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/configuration&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- snip --&gt;</span>
+</span></span></code></pre></div><p>Three <code>configurationWheels</code> are defined. As in the case of representing the <!-- raw HTML omitted -->configuration of square-planar species<!-- raw HTML omitted -->, each substituent of the chiral center is in turn placed along a wheel&rsquo;s axis, giving three wheels in total for Monolaterol. The relationships among atoms, planes, and axes is represented in the following cartoon:</p>
+<p><img src="/images/posts/20070125/configuration.png" alt="Configuration" title="Configuration"></p>
+<p>Notice also that there are two empty half-planes in each <code>conformationWheel</code>. Half-planes occur in pairs spaced 180 degrees apart. Given that there are two neighboring atoms to place into half-planes, two half-planes will be empty. We nevertheless must include them as placeholders. Notice that virtual hydrogens (those hydrogens not explicitly defined as part of the <code>atoms</code> element) are not placed into half-planes.</p>
+<p>It should be clear that the FlexMol representation of Monolaterol&rsquo;s (<!-- raw HTML omitted -->R<!-- raw HTML omitted -->)-enantiomer is distinguishable by visual inspection or by software. Each <code>configurationWheel</code> would be enantiomeric. As a result, the ordering of half-planes about their respective axes would be inverted.</p>
+<h1 id="so-what">So What?</h1>
+<p>Most cheminformatics tools can represent tetrahedral chirality. In nearly every case, this is accomplished with stereodescriptors, atom parities, or chiral flags. Extending these systems to non-tetrahedral chirality requires more templates - a difficult, if not impossible, task in most cases. Worse still, such systems are often based on poorly-documented conventions, resulting in a great deal of confusion when writing software implementations.</p>
+<p>FlexMol takes a completely different approach by actually describing the chiral environment around an atom in terms of a simple system of axes and planes. The rules governing these elements are applied regardless of the kind of chirality being represented. This results in a system that works consistently for known forms of chirality, and which can be extended as new forms of chirality are encountered.</p>
+<h1 id="a-software-implementation">A Software Implementation</h1>
+<p>Any new molecular language requires a software implementation. For FlexMol, that implementation is provided by the <!-- raw HTML omitted -->Octet Framework<!-- raw HTML omitted -->. Octet is open source software written in Java that provides a FlexMol reader, a FlexMol writer, and many tools for working with molecular representations.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>Although not often discussed, models of bonding and structure figure prominently in the ability of cheminformatics software to solve relevant problems. This is especially true in the increasingly important area of molecular chirality. In this area, FlexMol offers a system with unprecedented flexibility; it works just as well with stereogenic carbon as with numerous, less common forms of chirality.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

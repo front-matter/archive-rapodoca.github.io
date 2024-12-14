@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>ChemCore: A Cheminformatics Toolkit for Rust | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Design, implementation, and future prospects.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+      <meta name="author" content = "Richard L. Apodaca">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://depth-first.com:1313/articles/2020-06-01-chemcore-a-cheminformatics-toolkit-for-rust/">
+    
+
+    <meta property="og:url" content="https://depth-first.com:1313/articles/2020-06-01-chemcore-a-cheminformatics-toolkit-for-rust/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="ChemCore: A Cheminformatics Toolkit for Rust">
+  <meta property="og:description" content="Design, implementation, and future prospects.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2020-06-01T16:00:00+00:00">
+    <meta property="article:modified_time" content="2020-06-01T16:00:00+00:00">
+
+  <meta itemprop="name" content="ChemCore: A Cheminformatics Toolkit for Rust">
+  <meta itemprop="description" content="Design, implementation, and future prospects.">
+  <meta itemprop="datePublished" content="2020-06-01T16:00:00+00:00">
+  <meta itemprop="dateModified" content="2020-06-01T16:00:00+00:00">
+  <meta itemprop="wordCount" content="1830">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ChemCore: A Cheminformatics Toolkit for Rust">
+  <meta name="twitter:description" content="Design, implementation, and future prospects.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">ChemCore: A Cheminformatics Toolkit for Rust</h1>
+      
+      <p class="tracked">
+        By <strong>Richard L. Apodaca</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-06-01T16:00:00Z">June 1, 2020</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Chemistry imposes formidable requirements on application developers. One of the toughest is the manipulation of chemical structures as first-class data structures. General purpose programming language don&rsquo;t fulfil this requirement, so the responsibility falls to a peculiar layer of software. That layer goes by various names, but is usually called a &ldquo;cheminformatics toolkit.&rdquo; This article introduces ChemCore, a new cheminformatics toolkit written in Rust.</p>
+<h1 id="the-code">The Code</h1>
+<p>The ChemCore repository is hosted on <a href="https://github.com/rapodaca/chemcore">GitHub</a>. Using it will require a <a href="https://rustup.rs">Rust installation</a>.</p>
+<p>Clone the repository and run its test suite with the following commands:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>git clone https://github.com/rapodaca/chemcore
+</span></span><span style="display:flex;"><span>cd chemcore
+</span></span><span style="display:flex;"><span>cargo test
+</span></span></code></pre></div><p>Use ChemCore as a dependency in your project by adding this to your <code>Cargo.toml</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[<span style="color:#a6e22e">dependencies</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">chemcore</span> = <span style="color:#e6db74">&#34;0.1&#34;</span>
+</span></span></code></pre></div><h1 id="examples">Examples</h1>
+<p>ChemCore should be considered a proof-of-concept at this point. The following examples illustrate the scope of the current capabilities.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> gamma::graph::Graph;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> chemcore::molecule::DefaultMolecule;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// build a Molecule using a specification object
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> ethanol <span style="color:#f92672">=</span> DefaultMolecule::build(spec::Molecule {
+</span></span><span style="display:flex;"><span>        atoms: <span style="color:#a6e22e">vec</span><span style="color:#f92672">!</span>[
+</span></span><span style="display:flex;"><span>            spec::Atom {
+</span></span><span style="display:flex;"><span>                element: <span style="color:#a6e22e">Element</span>::O, hydrogens: <span style="color:#ae81ff">1</span>, <span style="color:#f92672">..</span>Default::default()
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            spec::Atom {
+</span></span><span style="display:flex;"><span>                element: <span style="color:#a6e22e">Element</span>::C, hydrogens: <span style="color:#ae81ff">2</span>, <span style="color:#f92672">..</span>Default::default()
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            spec::Atom {
+</span></span><span style="display:flex;"><span>                element: <span style="color:#a6e22e">Element</span>::C, hydrogens: <span style="color:#ae81ff">3</span>, <span style="color:#f92672">..</span>Default::default()
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        ],
+</span></span><span style="display:flex;"><span>        bonds: <span style="color:#a6e22e">vec</span><span style="color:#f92672">!</span>[
+</span></span><span style="display:flex;"><span>            spec::Bond { sid: <span style="color:#ae81ff">0</span>, tid: <span style="color:#ae81ff">1</span>, <span style="color:#f92672">..</span>Default::default() },
+</span></span><span style="display:flex;"><span>            spec::Bond { sid: <span style="color:#ae81ff">1</span>, tid: <span style="color:#ae81ff">2</span>, <span style="color:#f92672">..</span>Default::default() }
+</span></span><span style="display:flex;"><span>        ]
+</span></span><span style="display:flex;"><span>    }).unwrap();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    assert_eq!(ethane.element(<span style="color:#f92672">&amp;</span><span style="color:#ae81ff">0</span>), Element::O);
+</span></span><span style="display:flex;"><span>    assert_eq!(ethane.degree(<span style="color:#f92672">&amp;</span><span style="color:#ae81ff">1</span>), Ok(<span style="color:#ae81ff">2</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The above example builds a molecule using the ChemCore native method <code>DefaultMolecule::build</code>. The result inherits the traits <code>Graph</code> (from <a href="">Gamma</a>) and <code>Molecule</code> (from ChemCore).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> gamma::graph::Graph;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> chemcore::daylight::Molecule;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// build a molecule from SMILES
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> ethanol <span style="color:#f92672">=</span> Molecule::build(<span style="color:#f92672">&amp;</span><span style="color:#e6db74">&#34;OCC&#34;</span>).unwrap();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    assert_eq!(ethane.element(<span style="color:#f92672">&amp;</span><span style="color:#ae81ff">0</span>), Element::O);
+</span></span><span style="display:flex;"><span>    assert_eq!(ethane.degree(<span style="color:#f92672">&amp;</span><span style="color:#ae81ff">1</span>), Ok(<span style="color:#ae81ff">2</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>ChemCore supports reading SMILES through the <code>build</code> method of <code>daylight::Molecule</code>. The result is a ChemCore <code>Molecule</code> and so can be treated identically to a <code>Molecule</code> built natively (listing above).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> chemcore::daylight::Molecule;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> gamma::traversal::depth_first;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// build a molecule from SMILES and traverse it in depth-first order
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> molecule <span style="color:#f92672">=</span> daylight::Molecule::build(<span style="color:#f92672">&amp;</span><span style="color:#e6db74">&#34;C1CC1&#34;</span>).unwrap();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> traversal <span style="color:#f92672">=</span> depth_first(<span style="color:#f92672">&amp;</span>molecule, <span style="color:#f92672">&amp;</span><span style="color:#ae81ff">0</span>).unwrap();
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    assert_eq!(traversal.collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span>_<span style="color:#f92672">&gt;&gt;</span>(), vec![
+</span></span><span style="display:flex;"><span>        (<span style="color:#f92672">&amp;</span><span style="color:#ae81ff">0</span>, <span style="color:#f92672">&amp;</span><span style="color:#ae81ff">2</span>, <span style="color:#66d9ef">false</span>),
+</span></span><span style="display:flex;"><span>        (<span style="color:#f92672">&amp;</span><span style="color:#ae81ff">2</span>, <span style="color:#f92672">&amp;</span><span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">false</span>),
+</span></span><span style="display:flex;"><span>        (<span style="color:#f92672">&amp;</span><span style="color:#ae81ff">1</span>, <span style="color:#f92672">&amp;</span><span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex;"><span>    ]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Because the <code>Molecule</code> trait extends the <code>Graph</code> trait, all Gamma traversals are available to <code>Molecules</code> as well. In the listing above, cyclopropane is traversed in depth-first order.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> chemcore::daylight::Molecule;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> gamma::traversal::breadth_first;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// build a molecule from SMILES and traverse it in breadth-first order
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> molecule <span style="color:#f92672">=</span> Molecule::build(<span style="color:#f92672">&amp;</span><span style="color:#e6db74">&#34;C1CC1&#34;</span>).unwrap();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> traversal <span style="color:#f92672">=</span> breadth_first(<span style="color:#f92672">&amp;</span>molecule, <span style="color:#f92672">&amp;</span><span style="color:#ae81ff">0</span>).unwrap();
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    assert_eq!(traversal.collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span>_<span style="color:#f92672">&gt;&gt;</span>(), vec![
+</span></span><span style="display:flex;"><span>        (<span style="color:#f92672">&amp;</span><span style="color:#ae81ff">0</span>, <span style="color:#f92672">&amp;</span><span style="color:#ae81ff">2</span>, <span style="color:#66d9ef">false</span>),
+</span></span><span style="display:flex;"><span>        (<span style="color:#f92672">&amp;</span><span style="color:#ae81ff">0</span>, <span style="color:#f92672">&amp;</span><span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">false</span>),
+</span></span><span style="display:flex;"><span>        (<span style="color:#f92672">&amp;</span><span style="color:#ae81ff">2</span>, <span style="color:#f92672">&amp;</span><span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex;"><span>    ]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Breadth-first traversal is also supported (listing above). <code>Molecule</code> will work out of the box with all current and future functions taking a <code>Graph</code>.</p>
+<h1 id="yet-another-toolkit">Yet Another Toolkit?</h1>
+<p>Before getting into details, it&rsquo;s reasonable to ask why and whether the world needs another cheminformatics toolkit. After all, Wikipedia lists <a href="https://en.wikipedia.org/wiki/Cheminformatics_toolkits">two dozen of them</a>. Given this abundance, why not just use something that already exists?</p>
+<p>Many of the existing toolkits work well for the problems they were designed to solve. However, each has been designed to address a specific set of needs for a particular audience. As a result, every toolkit has committed itself to certain decisions that may not suit every project.</p>
+<p>The most important of these decisions is language. An obvious constraint that follows is deployment platform. A toolkit written in Java would be a suboptimal choice for applications targeting iOS or the Web browser. Likewise, a toolkit written in C or C++ would be a suboptimal choice for applications targeting a Web server. It&rsquo;s not that such things can&rsquo;t be made to happen so much as the difficulties programmers will endure along the way.</p>
+<p>The consequences of language choice extend beyond syntax and deployment. A programming language occupies the center of its own universe of tooling in the form of: package managers; debugging; concurrency; compilers; IDE support; build systems; and runtime environment. Moreover, the community around a language plays a pivotal role in supporting development efforts.</p>
+<p>Performance also follows from language choice. Both speed and memory usage are important axes here. Sometimes, all that&rsquo;s needed to turn a slow language into a fast one is time (e.g., Java and JavaScript). Some languages such as Python make up for poor runtime performance through native extensions. Python has become such a popular language in cheminformatics that a toolkit written in any other language should have a clear path to Python support.</p>
+<p>Most of the currently-available cheminformatics toolkits are written in one of three languages: C; C++; or Java. The newest of these, Java, was first released almost 25 years ago. A lot has been learned about programming languages in the intervening time, so it makes sense to explore what newer languages bring to the table.</p>
+<p>Beyond language, the most important decision a toolkit commits to is the Molecule layer. Ultimately, all of a toolkit&rsquo;s functionality and ergonomics flow from this source. The more expressive the Molecule layer, the wider the scope of known chemistry that will become accessible to application developers. The simpler this layer, the easier it will be to learn and extend.</p>
+<p>Recent posts on this blog have covered the topic of <code>Molecule</code> API at length. Available toolkits tend to favor wide APIs with lots of methods. I have come to the opposite conclusion: <a href="/articles/2020/04/06/a-minimal-molecule-api/">the Molecule API should be narrow</a>. The API should in particular not hinder extension to <a href="/articles/2020/04/27/multi-atom-bonding-in-cheminformatics/">multi-atom bonding</a> or multiple implementation. Moreover, the Molecule API should be based on an <a href="/articles/2020/01/06/a-minimal-graph-api/">equally minimal Graph API</a>. A toolkit embracing this approach would offer developers a powerful set of options that don&rsquo;t currently exist.</p>
+<p>In addition to APIs, each cheminformatics toolkit brings a design aesthetic. One of the most basic decisions is what to include and what to leave out. Many of the twenty-odd existing cheminformatics toolkits have adopted a &ldquo;big tent&rdquo; approach that includes functionality well beyond the creation and low-level manipulation of molecular graphs. An alternative approach would be to restrict the toolkit to the creation and manipulation of molecular graphs only. Higher-level functionality could then be added through semi-independent modules. There are no right or wrong approaches here — merely choices and tradeoffs.</p>
+<p>Beyond technology lies the sometimes heated topic of licensing. Fortunately, many of the cheminformatics toolkits Wikipedia lists are distributed under Open Source license. But these license vary greatly in what users can do with their own modifications and other works using the toolkits. More permissive open source licensing is a clear trend here that should be supported whenever possible.</p>
+<h1 id="rust-as-a-language-for-cheminformatics">Rust as a Language for Cheminformatics</h1>
+<p>ChemCore is implemented in Rust. An earlier article on this blog explored the idea of using <a href="/articles/2020/01/20/cheminformatics-in-rust/">Rust as a language for cheminformatics</a>. To recap, Rust offers a number of attractive features, a small selection of which includes:</p>
+<ul>
+<li><em>Speed.</em> Benchmarks <a href="https://benchmarksgame-team.pages.debian.net/benchmarksgame/fastest/rust.html">usually</a> put the performance of idiomatic Rust very close to, or better than the performance of idiomatic C or C++. The usual caveats apply.</li>
+<li><em>Minimal runtime and no garbage collector.</em> Rust uses compile time memory management, a powerful feature unique to this language.</li>
+<li><em>Type safety.</em> Unless specifically opted out of, the Rust compiler prevents the compilation of any program with undefined behavior.</li>
+<li><em>Thread safety.</em> Takes advantage of the same features that allow type safety.</li>
+<li><em>Functional and Object Paradigms.</em> Unlike other languages, Rust does not conflate type with class.</li>
+<li><em>Type Inference.</em> Types can often be elided, giving Rust a distinctly high-level feel.</li>
+<li><em>Package Management and Build System.</em> <a href="https://doc.rust-lang.org/cargo/">Cargo</a> performs both tasks.</li>
+</ul>
+<h1 id="python">Python</h1>
+<p>A few projects focus on enabling tight integration between Rust code and a Python interpreter. A popular choice is <a href="https://github.com/PyO3/pyo3">pyo3</a>. <a href="https://github.com/thesketh/oxmol">Python bindings</a> for ChemCore&rsquo;s precursor, <a href="https://github.com/rapodaca/molecule.rs">Molecule.rs</a> have been released. The success of this project suggests a clear path to adding similar Python bindings to ChemCore.</p>
+<h1 id="webassembly">WebAssembly</h1>
+<p>WebAssembly&rsquo;s 1.0 proof-of-concept gives the Web browser its first new first-class language since the 1990s. It&rsquo;s very likely that 1.0 will be followed by a series of releases integrating WebAssembly ever more tightly into the browser. At the same time, the <a href="https://wasi.dev">WebAssembly System Interface (WASI)</a> can offer a safe execution environment outside the browser. Several posts on this blog have highlighted the use of WebAssembly for cheminformatics (<a href="/articles/2020/03/02/compiling-inchi-to-webassembly-part-2-from-molfile-to-inchi/">example</a>).</p>
+<p><a href="https://github.com/rustwasm/wasm-bindgen">wasm-bindgen</a> gives Rust a powerful suite of tools for compilation to WebAssembly. Auto-generated two-way bindings of both objects and functions are available.</p>
+<h1 id="minimal-molecule-api">Minimal Molecule API</h1>
+<p>ChemCore&rsquo;s <code>Molecule</code> trait is based on a <a href="/articles/2020/04/06/a-minimal-molecule-api/">minimal Molecule API</a>, which itself is based on a <a href="/articles/2020/01/06/a-minimal-graph-api/">minimal Graph API</a>. The main takeaway is that a fully functional <code>Molecule</code> can be implemented with just 19 simple methods. ChemCore includes two <code>Molecule</code> implementations, one in the <code>molecule</code> package and the other in the <code>daylight</code> package. Although restricted to two-atom bonding at this stage, the minimal Molecule API was designed to be compatible with <a href="/articles/2020/04/27/multi-atom-bonding-in-cheminformatics/">multi-atom bonding</a> extensions.</p>
+<h1 id="hydrogen-suppression">Hydrogen Suppression</h1>
+<p><a href="/articles/2020/05/18/hydrogen-suppression-in-cheminformatics/">Hydrogen suppression</a> is a surprisingly complex topic that leads to enormous confusion. Most of it results form the conflation of two related but distinct forms of hydrogen suppression: implicit hydrogen and <a href="/articles/2019/11/06/virtual-hydrogens/">virtual hydrogen</a>. ChemCore simplifies the situation by using virtual hydrogen exclusively. This approach allows interchange formats used by ChemCore to support readers and writers that operate with 100% fidelity.</p>
+<h1 id="smiles">SMILES</h1>
+<p>ChemCore&rsquo;s <code>Molecule</code> should be compatible with both SMILES and Molfile. Currently, ChemCore only supports SMILES input through the <code>daylight::Molecule.build</code> method. <a href="/articles/2020/02/10/a-comprehensive-treatment-of-aromaticity-in-the-smiles-language/">Kekulization</a> is not yet supported, so SMILES encoding aromaticity features result in panic. Given <a href="/articles/2019/04/02/the-maximum-matching-problem/">maximum Graph matching</a> support, it should be straightforward to add kekulization to the SMILES reader.</p>
+<h1 id="modules-not-monoliths">Modules, Not Monoliths</h1>
+<p>ChemCore has adopted a core module approach, meaning that it will focus on an essential set of cheminformatics functionality related to creating <code>Molecule</code> objects and manipulating them as graphs. Rust&rsquo;s package manager, Cargo, will enable ChemCore to both depend on low-level functionality and become a dependency for higher-level crates. For examples of the former kind of composition, see the <a href="https://crates.io/crates/gamma">Gamma</a> and <a href="https://crates.io/crates/purr">Purr</a> crates. Gamma is a graph library that defines a <code>Graph</code> trait and functions operating over it. Purr is a SMILES/SMARTS library focused on low-level i/o and supporting data structures. For an example of what a crate using ChemCore as a dependency might look like, see <a href="https://github.com/thesketh/oxmol">oxmol</a>, Python bindings for ChemCore&rsquo;s precursor.</p>
+<h1 id="roadmap">Roadmap</h1>
+<p>Even at this proof-of-concept stage, ChemCore offers the outlines of a unique cheminformatics platform. The next several releases will focus on putting in place robust support for cheminformatics&rsquo; two standard input/output formats SMILES and Molfile. After that, ChemCore will begin to offer capabilities to support application-level features including 2D substructure search; coordinate generation; fingerprints; and molecular descriptors.</p>
+<p>Along the way, it&rsquo;s very likely that APIs will break and things could get chaotic for a time. If that kind of thing isn&rsquo;t a problem and you&rsquo;d like to try using ChemCore to build a pet project, I&rsquo;d be happy to help get you up to speed.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>ChemCore is a new cheminformatics toolkit for Rust. The software was created to fill a need for a compact, fast, easy-to-build, easy-to-deploy, permissively-licensed toolkit that works well in many application scenarios. Integrating several new ideas about molecule and graph APIs, ChemCore&rsquo;s focus is forward-looking. ChemCore can currently read SMILES without aromatic features, and will support input/output with both SMILES and Molfile. Further releases will focus on supporting higher-level cheminformatics functionality with an eye toward advanced desktop and Web applications.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://depth-first.com:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

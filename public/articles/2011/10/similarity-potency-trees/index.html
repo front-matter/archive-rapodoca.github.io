@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Similarity-Potency Trees | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="A colleague has just sent you a 500-record SD File containing structure-activity relationships (SAR) that you&rsquo;ve never seen before. What are the first steps you take to begin to make sense of it?
+The approach a medicinal chemist would take might involve:
+
+opening the file in a chemical spreadsheet
+sorting the records by potency
+compiling a series of reports derived from substructure or similarity searches
+printing the entire dataset for offline browsing and note-taking
+using one or more of a variety of multidimensional plotting tools to spot trends and outliers
+
+If you talk to ten medicinal chemists, you might get ten different opinions on the utility of the activities listed above. Although this problem is best framed in the context of new datasets, aspects can be seen at every stage of a drug discovery program.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2011/10/similarity-potency-trees/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2011/10/similarity-potency-trees/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Similarity-Potency Trees">
+  <meta property="og:description" content="A colleague has just sent you a 500-record SD File containing structure-activity relationships (SAR) that you’ve never seen before. What are the first steps you take to begin to make sense of it?
+The approach a medicinal chemist would take might involve:
+opening the file in a chemical spreadsheet sorting the records by potency compiling a series of reports derived from substructure or similarity searches printing the entire dataset for offline browsing and note-taking using one or more of a variety of multidimensional plotting tools to spot trends and outliers If you talk to ten medicinal chemists, you might get ten different opinions on the utility of the activities listed above. Although this problem is best framed in the context of new datasets, aspects can be seen at every stage of a drug discovery program.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2011-10-18T00:00:00+00:00">
+    <meta property="article:modified_time" content="2011-10-18T00:00:00+00:00">
+
+  <meta itemprop="name" content="Similarity-Potency Trees">
+  <meta itemprop="description" content="A colleague has just sent you a 500-record SD File containing structure-activity relationships (SAR) that you’ve never seen before. What are the first steps you take to begin to make sense of it?
+The approach a medicinal chemist would take might involve:
+opening the file in a chemical spreadsheet sorting the records by potency compiling a series of reports derived from substructure or similarity searches printing the entire dataset for offline browsing and note-taking using one or more of a variety of multidimensional plotting tools to spot trends and outliers If you talk to ten medicinal chemists, you might get ten different opinions on the utility of the activities listed above. Although this problem is best framed in the context of new datasets, aspects can be seen at every stage of a drug discovery program.">
+  <meta itemprop="datePublished" content="2011-10-18T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2011-10-18T00:00:00+00:00">
+  <meta itemprop="wordCount" content="594">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Similarity-Potency Trees">
+  <meta name="twitter:description" content="A colleague has just sent you a 500-record SD File containing structure-activity relationships (SAR) that you’ve never seen before. What are the first steps you take to begin to make sense of it?
+The approach a medicinal chemist would take might involve:
+opening the file in a chemical spreadsheet sorting the records by potency compiling a series of reports derived from substructure or similarity searches printing the entire dataset for offline browsing and note-taking using one or more of a variety of multidimensional plotting tools to spot trends and outliers If you talk to ten medicinal chemists, you might get ten different opinions on the utility of the activities listed above. Although this problem is best framed in the context of new datasets, aspects can be seen at every stage of a drug discovery program.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Similarity-Potency Trees</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2011-10-18T00:00:00Z">October 18, 2011</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>A colleague has just sent you a 500-record SD File containing structure-activity relationships (SAR) that you&rsquo;ve never seen before. What are the first steps you take to begin to make sense of it?</p>
+<p>The approach a medicinal chemist would take might involve:</p>
+<ul>
+<li>opening the file in a <a href="/articles/2008/09/12/your-favorite-chemical-spreadsheet/">chemical spreadsheet</a></li>
+<li>sorting the records by potency</li>
+<li>compiling a series of reports derived from substructure or similarity searches</li>
+<li>printing the entire dataset for offline browsing and note-taking</li>
+<li>using one or more of a variety of multidimensional plotting tools to spot trends and outliers</li>
+</ul>
+<p>If you talk to ten medicinal chemists, you might get ten different opinions on the utility of the activities listed above. Although this problem is best framed in the context of new datasets, aspects can be seen at every stage of a drug discovery program.</p>
+<p>Surprisingly, there aren&rsquo;t a lot of good tools for dealing with this problem.</p>
+<h1 id="similarity-potency-trees">Similarity-Potency Trees</h1>
+<p>A recent publication from Wawer and <a href="http://www.limes.uni-bonn.de/forschung/abteilungen/Bajorath/labwebsite">Bajorath</a> introduces an intriguing solution. The <a href="http://dx.doi.org/10.1021/ci100197b">Similarity-potency tree</a> (SPT) is both a new visualization technique and a new data structure specifically designed to help chemists quickly identify and interactively build mental models of complex SAR. Here&rsquo;s an example, taken from the publication:</p>
+<p><img src="/images/posts/simple-spt.png" alt="Simple SPT" title="Simple SPT"></p>
+<p>Each node (dot) represents a structure and its associated data point - a binding assay result, for example. An edge (line) between two nodes means that the two underlying structures are similar enough to meet a pre-determined cutoff.</p>
+<p>The root node (top) of the tree represents a structure-potency pair chosen at random from the dataset. Structural similarity to the root node decreases in the downward direction. In other words, the further down a node appears, the less structural similarity is shares with the root structure.</p>
+<p>For a given parent node, potency of its children increases from left to right. Because each node is color coded according to absolute potency, the children of each node tend to take on the appearance of a rainbow in those instances in which deep SAR can be found.</p>
+<p>Although this analysis may not appear on face value to offer much, consider the two cases below:</p>
+<p><img src="/images/posts/left-spt.png" alt="Left SPT" title="Left SPT"></p>
+<p>Although overall the data show relatively few actives, comparing the structures each of the two or three red nodes with its immediate parent could give key insights for making more potent compounds. Likewise, the SPT offers a well-defined path to trace how potency increases (or decreases). SPTs don&rsquo;t generate SAR models, but they appear to be useful tool to help chemists quickly deduce them.</p>
+<p><img src="/images/posts/right-spt.png" alt="Right SPT" title="Right SPT"></p>
+<p>In contrast, to the previous tree, this one above shows many active compounds to the right (near &ldquo;4&rdquo;). Despite big structural differences, all of the compounds in this grouping maintain high potency. The SAR is flat. This insight was gained by doing nothing more than inspecting a simple 2d diagram.</p>
+<h1 id="software">Software</h1>
+<p>A Java-based tool for building Structure-Potency trees is <a href="http://www.limes.uni-bonn.de/forschung/abteilungen/Bajorath/labwebsite/downloads/similarity-potency-trees-tool-and-sample-data/view">available  for download</a>. I was able to run the software on my OS X system using the following command (note the required output filename):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>java -jar spt.jar sampleInput.sdf  out.txt
+</span></span></code></pre></div><h1 id="industrial-interest">Industrial Interest</h1>
+<p>In a recent presentation, Lisa Peltason of Hoffmann-La Roche described the company&rsquo;s efforts to integrate SPTs into an in-house tool called <a href="http://www.youtube.com/watch?v=gFIfyrBtvPo">SAR Analyzer</a>.</p>
+<!-- raw HTML omitted -->
+<h1 id="conclusions">Conclusions</h1>
+<p>There&rsquo;s a lot more to SPTs than what&rsquo;s been presented here, including a method for scoring them to provide the best starting points for further analysis. Although the examples I&rsquo;ve seen with small datasets are interesting, I&rsquo;m curious about how usability holds up with thousands of datapoints. Although SPTs are simple in concept, the practical utility of SPTs will likely depend on the availability of good user interfaces.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>A Guide to Molecular Standardization | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Toward practical rules for improved data quality in cheminformatics.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/posts/2020-07-27-a-guide-to-molecular-standardization/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/posts/2020-07-27-a-guide-to-molecular-standardization/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="A Guide to Molecular Standardization">
+  <meta property="og:description" content="Toward practical rules for improved data quality in cheminformatics.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-07-27T19:00:00+00:00">
+    <meta property="article:modified_time" content="2020-07-27T19:00:00+00:00">
+
+  <meta itemprop="name" content="A Guide to Molecular Standardization">
+  <meta itemprop="description" content="Toward practical rules for improved data quality in cheminformatics.">
+  <meta itemprop="datePublished" content="2020-07-27T19:00:00+00:00">
+  <meta itemprop="dateModified" content="2020-07-27T19:00:00+00:00">
+  <meta itemprop="wordCount" content="1931">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="A Guide to Molecular Standardization">
+  <meta name="twitter:description" content="Toward practical rules for improved data quality in cheminformatics.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">A Guide to Molecular Standardization</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-07-27T19:00:00Z">July 27, 2020</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>What set of features uniquely characterize a given molecule? What modes of representation should be fixed or rejected, and under what conditions? Given that machine-based molecular encodings have been in use for more than sixty years, it might seem that such questions have long since been resolved. Nevertheless, the topic casts a long shadow to this day, particularly when dataset curation or property prediction come into play. Increased reliance on automation and the ever-expanding datasets that drive it ratchet the stakes ever higher. This article offers some signposts for a seemingly boundless thicket.</p>
+<h1 id="garbage-in-garbage-out">Garbage in, Garbage out</h1>
+<p>Computational chemistry and cheminformatics can be thought of at a basic level as fields that transform <a href="/articles/2020/04/06/a-minimal-molecule-api/">molecular graphs</a> and associated data into predictions and insights. The quality of the input sets an upper limit on the value of the output. In other words, the familiar adage &ldquo;garbage in, garbage out&rdquo; applies.</p>
+<p>It&rsquo;s relatively simple to define &ldquo;garbage&rdquo; in the context of <a href="https://doi.org/10.1080/10629360902949567">numerical data associated with molecular graphs</a>. Well-defined tolerances for accuracy and precision play a role, as does adherence to standard experimental practices. Scrutiny of the suitability of the dataset as a whole to the question being asked is also crucial. The list goes on.</p>
+<p>But what does &ldquo;garbage&rdquo; mean when applied to individual molecular graphs or collections of them? To be clear, I&rsquo;m not talking about molecular graphs deemed inappropriate for certain datasets due to unfavorable properties (e.g., <a href="https://en.wikipedia.org/wiki/Pan-assay_interference_compounds">Pan-Assay Interference Compounds</a>, aka PAINS). Instead, I&rsquo;m talking about molecular graphs encoded in such a way as to hinder the extraction of valuable insights and predictions.</p>
+<p>Failure to address this problem risks a range of negative consequences, including: erroneous property prediction; incomplete substructure search; misclassification during model training and/or use; and duplication within an allegedly unique collection such as a registration system.</p>
+<h1 id="a-taxonomy-of-molecular-garbage">A Taxonomy of Molecular Garbage</h1>
+<p>Until recently, the formulation of general guidelines and protocols around molecular graph encoding was rarely considered in the literature. As evidence, consider that a <a href="https://dx.doi.org/10.1021%2Fci100176x">pivotal 2010 review</a> by the Tropsha group stated:</p>
+<blockquote>
+<p>Surprisingly, the investigations into how the primary data quality influences the performances of cheminformatics models are almost absent in the published literature. &hellip;</p>
+</blockquote>
+<p>The authors went on to identify the <a href="https://doi.org/10.1002/qsar.200810084">one previous study</a> that had up to that point been published. It found both a high incidence of low-fidelity molecular graphs (see below) in popular datasets and a non-negligible effect of those errors on QSAR model accuracy. The authors cite a second study that treats the problem more tangentially.</p>
+<p>Since then, several reports have been published that could be placed under the heading &ldquo;detection, repair, and removal of garbage molecular graphs,&rdquo; including:</p>
+<ul>
+<li><em><a href="https://doi.org/10.21203/rs.3.rs-34715/v1">An Open Source Chemical Structure Curation Pipeline using RDKit</a></em> (2020). Describes a &ldquo;chemical curation pipeline&rdquo; that has been used to &ldquo;standardise the nearly 2 million compounds in the ChEMBL database&rdquo; and &ldquo;identify compounds with the most serious issues so that they can be prioritised for manual curation.&rdquo;</li>
+<li><em><a href="https://doi.org/10.1186/s13321-018-0293-8">PubChem chemical structure standardization</a></em> (2018). Describes &ldquo;an effective and efficient tool to account for molecular diversity and to eliminate invalid/incomplete structures,&rdquo; which is currently <a href="https://pubchem.ncbi.nlm.nih.gov/standardize/standardize.cgi">available online</a>.</li>
+<li><em><a href="https://jcheminf.biomedcentral.com/articles/10.1186/s13321-015-0072-8">The Chemical Validation and Standardization Platform (CVSP): large-scale automated validation of chemical structure datasets</a></em> (2015). Describes <a href="https://blogs.rsc.org/chemspider/2018/11/30/chemical-validation-and-standardization-platform-cvsp/">a platform</a> developed by ChemSpider to &ldquo;detect issues with submitted molecular representations using pre-defined or user-defined dictionary-based molecular patterns that are chemically suspicious or potentially requiring manual review.&rdquo;</li>
+</ul>
+<p>A number of smaller relevant studies have also appeared in the last ten years. This burst of activity likely reflects the increased availability and use of large, publicly-available datasets - a phenomenon noted on this blog <a href="/articles/2006/08/12/changes/">many years ago</a>. With greater interdependence mediated by these datasets comes a heightened need for community guidelines.</p>
+<p>Two points emerge from this work when viewed as a whole: (1) the problems to be solved are deeply nuanced; and (2) at least three distinct problems too often get lumped into one. It seems plausible that fixing (2) would go a long way toward mitigating (1).</p>
+<p>Given that a dataset contains a molecular graph, what factors can interfere with the production of valuable predictions and insights? Three categories have emerged from the literature so far, in increasing order of subtlety:</p>
+<ol>
+<li><strong>Validity.</strong> Does the encoding break one or more syntactical rules in a file format or in-memory representation? For example, a molfile may use an invalid bond type. Likewise, a SMILES may fail to place a metallic element within brackets.</li>
+<li><strong>Fidelity.</strong> How consistent is the graph with other information provided in the dataset? For example, data fields may include a systematic name, InChI,  CAS number, or internal ID. How faithfully does the molecular graph reflect the known features implied by those identifiers?</li>
+<li><strong>Uniformity.</strong> Does the molecular graph break any rules for representation form, style, or semantics? As a simple example, consider a molfile encoding no atoms or bonds. Although it may not violate syntax rules or create any conflicts with external identifiers, it may nevertheless not be appropriate for inclusion within certain datasets.</li>
+</ol>
+<p>This list suggests a high-level workflow. First, an encoding is read. The resulting in-memory graph representation is then cross-referenced with any identifiers that may be present within the dataset or external to it. Finally, the molecular graph is transformed to become consistent with existing standards of representation. Records producing errors should at a minimum be reviewed before proceeding.</p>
+<p>The first two factors are relatively simple (if not inexpensive) to address. Cheminformatics toolkits should report file format errors while at the same time following published standards to the greatest extent possible. It could be argued that fidelity is not really a cheminformatics problem at all. To the extent that a molecular graph can be generated from an identifier, this renders alternative encodings such as Molfile or SMILES redundant. This points to a more generic normalization issue, not a specific cheminformatics problem.</p>
+<p>But the third factor, uniformity, is both ubiquitous and complex.</p>
+<h1 id="uniformity-through-molecular-standardization">Uniformity through Molecular Standardization</h1>
+<p>The use of any externally-generated chemical dataset brings with it the implicit need for <em>standardization</em>. Standardization is the process of filtering and/or transforming the molecular graphs in a dataset according to a set of well-defined and self-consistent rules.</p>
+<p>Standardization policies can vary by organization, team, or even project. The simplest standardization policy is a no-op: accept all molecular graphs exactly as encoded. More interventionist policies can perform sweeping changes such as the reinterpretation of interchange format semantics, the introduction of new chemical elements, bonding arrangements, or even the rejection of most molecular graphs entirely. Most projects will find themselves somewhere in the middle most of the time.</p>
+<p>Clearly, no single size fits all. Does this mean that nothing remains to be done? Far from it.</p>
+<p>Perhaps the most acute need at the moment is to catalog and categorize all of the operations used in molecular standardization. Although dataset-specific studies like the ones cited in the previous section have appeared, what&rsquo;s lacking are studies that cut across toolkits, vendors, datasets, and organizations.</p>
+<p>Given the specific work published to date, it should be possible to begin constructing a generalized guide to molecular graph standardization.</p>
+<h1 id="a-guide-to-molecular-standardization">A Guide to Molecular Standardization</h1>
+<p>An important component of any guide would be a complete catalog of operations performed during molecular standardization. The reasons behind the operations are less important than documenting the operations themselves. As explained previously, a hard requirement in one organization may be just a nice-to-have in another. The main goal of exhaustively cataloging standardization operations is to provide those using datasets with the richest possible set of options for their specific case. A secondary goal would be to provide software teams with a complete feature set to aid dataset curators.</p>
+<p>Standardization can be thought of as a sequence of steps, each of which follows the pattern:</p>
+<ol>
+<li><strong>Check</strong>: look for the presence of a feature; and</li>
+<li><strong>Remedy</strong>: apply one or more graph transformations, if available, to eliminate the feature.</li>
+</ol>
+<p>This view suggests that the guide should be divided into two parts: a set of transformations; and a set of tests with associated remedies. The ordering of standardization steps clearly matters, so a third section could enumerate the ways in which transformations interact.</p>
+<p>To be more specific, consider the set of primitive transformations. It might include the following procedures, among others:</p>
+<ul>
+<li><a href="/articles/2020/05/18/hydrogen-suppression-in-cheminformatics/">Reify and virtualize hydrogens</a>;</li>
+<li>Move stereo bond out of ⟷ into ring;</li>
+<li>Move stereo bond away from ⟷ toward stereocenter;</li>
+<li>Wavy ⟷ plain single bond;</li>
+<li>Plain double bond ⟷ crossed double bond;</li>
+<li>Increase distance between atoms;</li>
+<li>Linearize triple bonds and cumulene systems;</li>
+<li>Mark unspecified double bond geometry;</li>
+<li>No bond ⟷ zero-valent bond;</li>
+<li>Covalent bond ⟷ ionic bond;</li>
+<li>Zwitterion ⟷ covalent bond;</li>
+<li>Diradical ⟷ covalent bond;</li>
+<li>split ⟷ combine connected components;</li>
+<li>protonate ⟷ deprotonate charged atom</li>
+<li>1,3-hydrogen shift;</li>
+</ul>
+<p>These primitives can be incorporated into more complex transformations. For example, tautomer generation and/or canonicalization can be thought of as involving a guided sequence of 1,3-hydrogen shifts with the simplest implementation consisting of a single shift. (Tautomerism is rightly viewed more as an entire field unto itself, as <a href="https://doi.org/10.1021/acs.jcim.9b01080">this recent paper highlights</a>.) Transformation of the wedge/hash environment around an atom follows a similar pattern, with reification/virtualization, and wedge/hash interconversion coming into play.</p>
+<p>The set of primitives can then be used to correct non-uniform features after checking. Some checks won&rsquo;t be correctable. Others may use one or more transformations. Moreover, the same transformation might be used by one or more checks. The guide could distinguish among these cases.</p>
+<p>The set of checks without remedies might include:</p>
+<ul>
+<li>Empty graph. The graph contains no atoms.</li>
+<li>Unsupported element. Some systems reject most of the periodic table due to lack of support for <a href="/articles/2020/04/27/multi-atom-bonding-in-cheminformatics/">multi-atom bonding</a> and other restrictions.</li>
+<li>Unsupported element quantity. For example, more than seven borons may suggest a cluster.</li>
+<li>Impossible isotope. The atomic number exceeds the mass number.</li>
+<li>Unsupported isotope. An isotope may either be feasible but unknown, known but unstable, or too short lived.</li>
+<li>Non-stereocenter stereo specification. <a href="/articles/2009/09/15/stereoisomer-generation/">Automorphism</a> or Morgan-derived symmetry classes can be used.</li>
+<li>Impossible configuration. For example, three wedges originating from the same atom.</li>
+<li>Subvalent atom. <a href="/articles/2020/05/18/hydrogen-suppression-in-cheminformatics/">Virtual hydrogens</a> are supported by both <a href="/articles/2020/04/13/hydrogen-suppression-in-molfiles/">Molfile</a> and <a href="/articles/2020/06/08/hydrogen-suppression-in-smiles/">SMILES</a>. It&rsquo;s possible to use these features (or the built-in support for radicals by Molfile) to encode unsupported subvalent electronic configurations.</li>
+<li>Hypervalent atom. Bonding electrons, charges, or other features deplete the available valence electron count for an element and leave it negative.</li>
+<li>Unusual valence. For example, pentacoordinate nitrogen does not result in a negative valence electron count, but it does put nitrogen into an unusual valence state.</li>
+<li>Unsupported feature. Both Molfile and SMILES support features that may make little sense in certain datasets. For example, OpenSMILES supports &ldquo;<a href="http://opensmiles.org/opensmiles.html">wildcard atoms</a>.&rdquo;</li>
+</ul>
+<p>Checks with remedies might include:</p>
+<ul>
+<li>hypervalent nitrogen, sulfur, phosphorous, etc? A very broad class of checks/remedies that include N-oxides, nitro compounds, sulfoxides, sulfones, phosphates, and phosphites.
+<ul>
+<li>zwitterion → covalent bond</li>
+</ul>
+</li>
+<li>metal-nonmetal bond?
+<ul>
+<li>covalent bond ⟷ ionic bond</li>
+</ul>
+</li>
+<li>metal-metal bond?
+<ul>
+<li>covalent bond → diradical</li>
+</ul>
+</li>
+<li>hydrogen on non-stereocenter?
+<ul>
+<li>virtualize hydrogen</li>
+</ul>
+</li>
+<li>stereo bond in ring?
+<ul>
+<li>reify hydrogen</li>
+<li>move stereo bond out of ring</li>
+</ul>
+</li>
+<li>stereo bond between chiral centers?
+<ul>
+<li>reify hydrogen</li>
+<li>move stereo bond away from stereocenter</li>
+</ul>
+</li>
+<li>overlapping atoms?
+<ul>
+<li>increase distance between atoms</li>
+</ul>
+</li>
+<li>ambiguous double bond conformation?
+<ul>
+<li>plain double bond → crossed double bond</li>
+</ul>
+</li>
+<li>tautomerizable group?
+<ul>
+<li>compute canonical tautomer or enumerate tautomers</li>
+</ul>
+</li>
+<li>salt cation or anion?
+<ul>
+<li>split connected components</li>
+<li>protonate or deprotonate parent ion</li>
+</ul>
+</li>
+</ul>
+<h1 id="conclusion">Conclusion</h1>
+<p>The last ten years have seen a surge of interest in the problem of molecular graph standardization. This interest has been fed by increasing use of large, public datasets. The studies published to date have been centered on the ways a single organization, group, or toolkit have addressed the problem. What&rsquo;s missing is a synthesis of these efforts into a broadly-applicable whole. This article takes the first step in that direction.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  My New Hugo Site 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

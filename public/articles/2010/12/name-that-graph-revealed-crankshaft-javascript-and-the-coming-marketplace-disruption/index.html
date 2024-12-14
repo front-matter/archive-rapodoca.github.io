@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Name That Graph Revealed - Crankshaft, JavaScript and the Coming Marketplace Disruption | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="
+As some of you have guessed already, the graph from yesterday depicted benchmark data on the Chrome browser&rsquo;s JavaScript engine performance. The spike at the far-right of the graph is due to a newly added JavaScript compilation infrastructure called &lsquo;Crankshaft&rsquo;.
+But to really appreciate what&rsquo;s happening with JavaScript performance, it helps to keep these benchmarks in mind:
+
+If you&rsquo;ve been involved in Web development for more than ten years, the graphs above are nothing short of astounding. JavaScript, a technology long loathed, ignored, and generally disparaged by developers, is now viewed as a serious programming language with significant resource commitment by large software companies.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2010/12/name-that-graph-revealed-crankshaft-javascript-and-the-coming-marketplace-disruption/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2010/12/name-that-graph-revealed-crankshaft-javascript-and-the-coming-marketplace-disruption/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Name That Graph Revealed - Crankshaft, JavaScript and the Coming Marketplace Disruption">
+  <meta property="og:description" content="As some of you have guessed already, the graph from yesterday depicted benchmark data on the Chrome browser’s JavaScript engine performance. The spike at the far-right of the graph is due to a newly added JavaScript compilation infrastructure called ‘Crankshaft’.
+But to really appreciate what’s happening with JavaScript performance, it helps to keep these benchmarks in mind:
+If you’ve been involved in Web development for more than ten years, the graphs above are nothing short of astounding. JavaScript, a technology long loathed, ignored, and generally disparaged by developers, is now viewed as a serious programming language with significant resource commitment by large software companies.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2010-12-09T00:00:00+00:00">
+    <meta property="article:modified_time" content="2010-12-09T00:00:00+00:00">
+
+  <meta itemprop="name" content="Name That Graph Revealed - Crankshaft, JavaScript and the Coming Marketplace Disruption">
+  <meta itemprop="description" content="As some of you have guessed already, the graph from yesterday depicted benchmark data on the Chrome browser’s JavaScript engine performance. The spike at the far-right of the graph is due to a newly added JavaScript compilation infrastructure called ‘Crankshaft’.
+But to really appreciate what’s happening with JavaScript performance, it helps to keep these benchmarks in mind:
+If you’ve been involved in Web development for more than ten years, the graphs above are nothing short of astounding. JavaScript, a technology long loathed, ignored, and generally disparaged by developers, is now viewed as a serious programming language with significant resource commitment by large software companies.">
+  <meta itemprop="datePublished" content="2010-12-09T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2010-12-09T00:00:00+00:00">
+  <meta itemprop="wordCount" content="451">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Name That Graph Revealed - Crankshaft, JavaScript and the Coming Marketplace Disruption">
+  <meta name="twitter:description" content="As some of you have guessed already, the graph from yesterday depicted benchmark data on the Chrome browser’s JavaScript engine performance. The spike at the far-right of the graph is due to a newly added JavaScript compilation infrastructure called ‘Crankshaft’.
+But to really appreciate what’s happening with JavaScript performance, it helps to keep these benchmarks in mind:
+If you’ve been involved in Web development for more than ten years, the graphs above are nothing short of astounding. JavaScript, a technology long loathed, ignored, and generally disparaged by developers, is now viewed as a serious programming language with significant resource commitment by large software companies.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Name That Graph Revealed - Crankshaft, JavaScript and the Coming Marketplace Disruption</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2010-12-09T00:00:00Z">December 9, 2010</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p><a href="http://blog.chromium.org/2010/12/new-crankshaft-for-v8.html"><img src="/images/posts/crankshaft-benchmark.png" alt="Crankshaft Benchmark" title="Crankshaft Benchmark"></a></p>
+<p>As some of you have guessed already, <a href="http://depth-first.com/articles/2010/12/08/name-that-graph/">the graph from yesterday</a> depicted <a href="http://blog.chromium.org/2010/12/new-crankshaft-for-v8.html">benchmark data on the Chrome browser&rsquo;s JavaScript engine performance</a>. The spike at the far-right of the graph is due to a newly added JavaScript compilation infrastructure called &lsquo;Crankshaft&rsquo;.</p>
+<p>But to really appreciate what&rsquo;s happening with JavaScript performance, it helps to keep these benchmarks in mind:</p>
+<p><a href="http://blogs.msdn.com/b/ie/archive/2010/03/18/the-new-javascript-engine-in-internet-explorer-9.aspx"><img src="/images/posts/ie9-benchmark.png" alt="IE9 Benchmark" title="IE9 Benchmark"></a></p>
+<p>If you&rsquo;ve been involved in Web development for more than ten years, the graphs above are nothing short of astounding. JavaScript, a technology long loathed, ignored, and generally disparaged by developers, is now viewed as a serious programming language with significant resource commitment by large software companies.</p>
+<p>Now combine this buildup in performance firepower with the acceptance of all browser vendors that <a href="http://ie.microsoft.com/testdrive/">HTML 5 is here to stay</a>. What do we get?</p>
+<p>A classic <a href="http://en.wikipedia.org/wiki/Disruptive_technology">marketplace disruption</a>.</p>
+<p>Clayton Christensen developed a framework for thinking about why large companies fail by doing the &ldquo;right thing&rdquo;. He&rsquo;s studied a number of industries where dominant players were overtaken by new entrants riding a disruptive wave. It&rsquo;s important to realize that disruptive innovations enter the market with severe handicaps that prevent them from being useful to the broad marketplace. As a result, prudent business practice demands that they be ignored. As Christensen puts it succinctly in his book, <a href="http://www.amazon.com/Innovators-Dilemma-Revolutionary-Business-Essentials/dp/0060521996">The Innovators&rsquo; Dilemma</a>:</p>
+<blockquote>
+<p>Disruptive technologies bring to the market a very different value proposition than had been available previously. Generally, disruptive technologies underperform established products in mainstream markets. But they have other features that a few fringe (and generally new) customers value. Products based on disruptive technologies are typically cheaper, simpler, smaller, and frequently, more convenient to use. &hellip;</p>
+</blockquote>
+<p>If this were all there was to the framework, it wouldn&rsquo;t be very useful, but something strange happens with disruptive technologies:</p>
+<blockquote>
+<p>&hellip; technologies can progress faster than market demand&hellip; in their efforts to provide better products than their competitors and earn higher prices and margins, suppliers often &ldquo;overshoot&rdquo; their market: They give customers more than they need or ultimately are willing to pay for. And more importantly, it means that disruptive technologies that may underperform today, relative to what users in the market demand, may be fully performance-competitive in that same market tomorrow.</p>
+</blockquote>
+<p>Or to <a href="http://web.mit.edu/6.933/www/Fall2000/teradyne/clay.html">put it graphically</a>:</p>
+<p><a href="http://web.mit.edu/6.933/www/Fall2000/teradyne/clay.html"><img src="/images/posts/disruptive.jpg" alt="Disruptive" title="Disruptive"></a></p>
+<p>JavaScript has now found a stable foothold on the lower horizontal line in the above graph - the line defining the least-demanding applications. With impetus from auxiliary technologies like HTML5, universal vector graphics, web storage, and backing from the likes of browser vendors Google, Apple, and Microsoft, JavaScript will steadily progress to the northeast quadrant of the above graph - toward the most demanding applications.</p>
+<p>Whether JavaScript makes it to the northeast quadrant is anybody&rsquo;s guess, but it&rsquo;s going to be an exciting ride.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

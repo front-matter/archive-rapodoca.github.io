@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>A Molecular Language for Modern Chemistry: FlexMol and Planar-Chiral Metacyclophanes | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="
+Previous articles have highlighted FlexMol&rsquo;s ability to represent nearly all forms of molecular chirality, including many that are alien to popular cheminformatics tools. FlexMol provides just a few basic elements and rules for their combination, resulting in a system that is both extensible and systematic. For example, similar elements are used to represent the axial chirality of biaryls, the geometrical isomerism of alkenes, and the configuration of square-planar metal complexes. In this article, we&rsquo;ll see how FlexMol can encode an example from the very recent literature: planar-chiral metacyclophanes as described by Tanaka and coworkers.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+      <meta name="author" content = "Richard L. Apodaca">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://depth-first.com:1313/articles/2007-01-22-a-molecular-language-for-modern-chemistry-flexmol-and-planar-chiral-metacyclophanes/">
+    
+
+    <meta property="og:url" content="https://depth-first.com:1313/articles/2007-01-22-a-molecular-language-for-modern-chemistry-flexmol-and-planar-chiral-metacyclophanes/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="A Molecular Language for Modern Chemistry: FlexMol and Planar-Chiral Metacyclophanes">
+  <meta property="og:description" content="Previous articles have highlighted FlexMol’s ability to represent nearly all forms of molecular chirality, including many that are alien to popular cheminformatics tools. FlexMol provides just a few basic elements and rules for their combination, resulting in a system that is both extensible and systematic. For example, similar elements are used to represent the axial chirality of biaryls, the geometrical isomerism of alkenes, and the configuration of square-planar metal complexes. In this article, we’ll see how FlexMol can encode an example from the very recent literature: planar-chiral metacyclophanes as described by Tanaka and coworkers.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2007-01-22T00:00:00+00:00">
+    <meta property="article:modified_time" content="2007-01-22T00:00:00+00:00">
+
+  <meta itemprop="name" content="A Molecular Language for Modern Chemistry: FlexMol and Planar-Chiral Metacyclophanes">
+  <meta itemprop="description" content="Previous articles have highlighted FlexMol’s ability to represent nearly all forms of molecular chirality, including many that are alien to popular cheminformatics tools. FlexMol provides just a few basic elements and rules for their combination, resulting in a system that is both extensible and systematic. For example, similar elements are used to represent the axial chirality of biaryls, the geometrical isomerism of alkenes, and the configuration of square-planar metal complexes. In this article, we’ll see how FlexMol can encode an example from the very recent literature: planar-chiral metacyclophanes as described by Tanaka and coworkers.">
+  <meta itemprop="datePublished" content="2007-01-22T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2007-01-22T00:00:00+00:00">
+  <meta itemprop="wordCount" content="405">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="A Molecular Language for Modern Chemistry: FlexMol and Planar-Chiral Metacyclophanes">
+  <meta name="twitter:description" content="Previous articles have highlighted FlexMol’s ability to represent nearly all forms of molecular chirality, including many that are alien to popular cheminformatics tools. FlexMol provides just a few basic elements and rules for their combination, resulting in a system that is both extensible and systematic. For example, similar elements are used to represent the axial chirality of biaryls, the geometrical isomerism of alkenes, and the configuration of square-planar metal complexes. In this article, we’ll see how FlexMol can encode an example from the very recent literature: planar-chiral metacyclophanes as described by Tanaka and coworkers.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">A Molecular Language for Modern Chemistry: FlexMol and Planar-Chiral Metacyclophanes</h1>
+      
+      <p class="tracked">
+        By <strong>Richard L. Apodaca</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2007-01-22T00:00:00Z">January 22, 2007</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p><img src="/images/posts/20070122/abstract.gif" alt="Abstract" title="Abstract"></p>
+<p>Previous articles have highlighted FlexMol&rsquo;s ability to represent nearly all forms of molecular chirality, including many that are alien to popular cheminformatics tools. FlexMol provides just a few basic elements and rules for their combination, resulting in a system that is both extensible and systematic. For example, similar elements are used to represent <!-- raw HTML omitted -->the axial chirality of biaryls<!-- raw HTML omitted -->, <!-- raw HTML omitted -->the geometrical isomerism of alkenes<!-- raw HTML omitted -->, and <!-- raw HTML omitted -->the configuration of square-planar metal complexes<!-- raw HTML omitted -->. In this article, we&rsquo;ll see how FlexMol can encode an example from the very recent literature: planar-chiral metacyclophanes as described by Tanaka and coworkers.</p>
+<h1 id="configuration-or-conformation">Configuration or Conformation?</h1>
+<p>The question we have to answer is what form of stereochemistry needs to be represented - configuration or conformation. We follow the simple rule that isomers interconvertable through bond rotations are treated as conformations and conclude that to represent a metacyclophane, we&rsquo;ll be dealing with conformation. See the <!-- raw HTML omitted -->original Dietz specification<!-- raw HTML omitted --> for a more rigorous analysis.</p>
+<h1 id="a-flexmol-representation">A FlexMol Representation</h1>
+<p><img src="/images/posts/20070122/molecule.png" alt="Molecule" title="Molecule"></p>
+<p>Let&rsquo;s choose a specific molecule to encode in FlexMol (Y,Z=CH<!-- raw HTML omitted -->2<!-- raw HTML omitted -->) . Using the atom numbering given in the figure above, we can construct <a href="/images/posts/20070122/molecule.xml">this complete FlexMol representation</a>. Rather than reproduce it completely here, I&rsquo;ll just highlight the stereochemically-relevant part:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- snip --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;conformation&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;conformationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;gammaSequence</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;17&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;8&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;connections&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;17&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;8&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/connections&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/gammaSequence&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;lower</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;16&#34;</span><span style="color:#f92672">&gt;&lt;/lower&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;upper</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;9&#34;</span><span style="color:#f92672">&gt;&lt;/upper&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;upper</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;7&#34;</span><span style="color:#f92672">&gt;&lt;/upper&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/conformationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;conformationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;gammaSequence</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;11&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;10&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;connections&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;11&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;10&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/connections&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/gammaSequence&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;lower</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;12&#34;</span><span style="color:#f92672">&gt;&lt;/lower&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;upper</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/upper&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;upper</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;9&#34;</span><span style="color:#f92672">&gt;&lt;/upper&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/conformationWheel&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/conformation&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- snip --&gt;</span>
+</span></span></code></pre></div><p>This <code>conformation</code> contains two <code>conformationWheels</code>, each corresponding to one of the two bonds about which rotation is restricted. Notice the similarity of this FlexMol code compared to the examples for <!-- raw HTML omitted -->BINOL<!-- raw HTML omitted -->, and an <!-- raw HTML omitted -->N-arylacrylanilide<!-- raw HTML omitted -->. To better visualize the relationships among atoms, axes, and half-planes, consider the following cartoons:</p>
+<p><img src="/images/posts/20070122/conformation_planes.png" alt="Conformation Planes" title="Conformation Planes"></p>
+<p>The enantiomeric representation of our molecule would produce an arrangement of half-planes that was the inverse of those shown here, and distinguishable by manual inspection or software implementation. One such implementation is contained in the open source framework <!-- raw HTML omitted -->Octet<!-- raw HTML omitted -->.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>As the example in this article demonstrates, FlexMol can fully encode the planar-chirality of the new class of axially-chiral metacyclophanes reported in a recent <!-- raw HTML omitted -->J. Am. Chem. Soc.<!-- raw HTML omitted --> article. Exactly the same FlexMol elements were used as in previous examples illustrating axial chirality and alkene geometry. Systematic and extensible methods for encoding diverse forms of chirality are not only feasible - one of them already exists.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://depth-first.com:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

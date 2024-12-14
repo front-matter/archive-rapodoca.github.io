@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Demystifying Java Applets Part 3 - Failing Gracefully When Your Users Don&#39;t Have Java | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Contrary to popular misconception, Java applets are a mature technology ideally suited for building highly interactive Web content. Although this hasn&rsquo;t always been the case, a lot has changed since Sun&rsquo;s introduction of Java over a decade ago. Previous articles in this series have discussed why the object tag alone can and should be used to deploy applets and how using the Javay deployment method can make life easier if you do. This article will address one of the most important questions of all when using applets: what happens if your user doesn&rsquo;t have Java?">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2008/03/demystifying-java-applets-part-3-failing-gracefully-when-your-users-dont-have-java/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2008/03/demystifying-java-applets-part-3-failing-gracefully-when-your-users-dont-have-java/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Demystifying Java Applets Part 3 - Failing Gracefully When Your Users Don&#39;t Have Java">
+  <meta property="og:description" content="Contrary to popular misconception, Java applets are a mature technology ideally suited for building highly interactive Web content. Although this hasn’t always been the case, a lot has changed since Sun’s introduction of Java over a decade ago. Previous articles in this series have discussed why the object tag alone can and should be used to deploy applets and how using the Javay deployment method can make life easier if you do. This article will address one of the most important questions of all when using applets: what happens if your user doesn’t have Java?">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2008-03-12T00:00:00+00:00">
+    <meta property="article:modified_time" content="2008-03-12T00:00:00+00:00">
+
+  <meta itemprop="name" content="Demystifying Java Applets Part 3 - Failing Gracefully When Your Users Don&#39;t Have Java">
+  <meta itemprop="description" content="Contrary to popular misconception, Java applets are a mature technology ideally suited for building highly interactive Web content. Although this hasn’t always been the case, a lot has changed since Sun’s introduction of Java over a decade ago. Previous articles in this series have discussed why the object tag alone can and should be used to deploy applets and how using the Javay deployment method can make life easier if you do. This article will address one of the most important questions of all when using applets: what happens if your user doesn’t have Java?">
+  <meta itemprop="datePublished" content="2008-03-12T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2008-03-12T00:00:00+00:00">
+  <meta itemprop="wordCount" content="887">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Demystifying Java Applets Part 3 - Failing Gracefully When Your Users Don&#39;t Have Java">
+  <meta name="twitter:description" content="Contrary to popular misconception, Java applets are a mature technology ideally suited for building highly interactive Web content. Although this hasn’t always been the case, a lot has changed since Sun’s introduction of Java over a decade ago. Previous articles in this series have discussed why the object tag alone can and should be used to deploy applets and how using the Javay deployment method can make life easier if you do. This article will address one of the most important questions of all when using applets: what happens if your user doesn’t have Java?">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Demystifying Java Applets Part 3 - Failing Gracefully When Your Users Don&#39;t Have Java</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2008-03-12T00:00:00Z">March 12, 2008</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Contrary to popular misconception, Java applets are a mature technology ideally suited for building highly interactive Web content. Although this hasn&rsquo;t always been the case, a lot has changed since Sun&rsquo;s introduction of Java over a decade ago. Previous articles in this series have discussed why <a href="/articles/2008/02/20/demystifying-java-applets-part-1-cross-browser-standards-compliant-pure-html-deployment-using-the-object-tag">the object tag alone can and should be used to deploy applets</a> and how <a href="/articles/2008/03/10/demystifying-java-applets-part-2-dry-deployment-with-the-javay-method">using the Javay deployment method</a> can make life easier if you do. This article will address one of the most important questions of all when using applets: what happens if your user doesn&rsquo;t have Java?</p>
+<h1 id="assume-your-users-wont-have-java">Assume Your Users Won&rsquo;t Have Java</h1>
+<p>Java is ubiquitous, but it&rsquo;s not universal. Some users simply won&rsquo;t have a Java Virtual Machine (JVM) installed at all on their systems. Some will have one, but it will be disabled. Still others may have been browsing the Web for years, never realizing that Microsoft <a href="http://java.sun.com/j2se/1.4.2/docs/guide/deployment/deployment-guide/upgrade-guide/">installed a hopelessly obsolete JVM</a> on their machines without their knowledge, rendering useless a large amount of Web content.</p>
+<p>Regardless of why they might not have the JVM your applet requires, assume that a good number of your users won&rsquo;t and plan accordingly.</p>
+<p>But how?</p>
+<h1 id="the-javay-method-and-deployment-failsafes">The Javay Method and Deployment Failsafes</h1>
+<p><a href="/articles/2008/03/10/demystifying-java-applets-part-2-dry-deployment-with-the-javay-method">The Javay method</a> for applet deployment can be broken down into three main parts:</p>
+<ol>
+<li>Using the HTML 4 <code>&lt;object&gt;</code> tag - period. Neither <code>&lt;applet&gt;</code>, which is deprecated, nor <code>&lt;embed&gt;</code>, which isn&rsquo;t even part of HTML, are needed any longer.</li>
+<li>Using Microsoft&rsquo;s conditional comments to create an opening object tag that will work with its browsers, but keeping it DRY by re-using the rest of the tag.</li>
+<li>Suppressing the ridiculous &ldquo;Click to activate&rdquo; message in IE 6/7 with <a href="http://jactivating.sourceforge.net/en/">jActivating</a>.</li>
+</ol>
+<p>In contrast to other approaches, with the Javay method, we can:</p>
+<ul>
+<li>
+<p>Know our applet will instantiate on all major browsers, and many niche browsers as well.</p>
+</li>
+<li>
+<p>Work only with standards-compliant HTML from start to finish.</p>
+</li>
+<li>
+<p>Stop using <code>document.write</code> to create tags, a method which unless properly trapped will silently fail without any indication of what&rsquo;s wrong when JavaScript is disabled or if the script fails for some other reason.
+But perhaps the biggest advantages of the Javay method are the ones most often overlooked:</p>
+</li>
+<li>
+<p>It offers a cross-browser method to display failsafe content should Java be disabled or not installed.</p>
+</li>
+<li>
+<p>It provides a highly effective, cross-browser method for users to install Java directly from the page displaying the applet.</p>
+</li>
+</ul>
+<h1 id="how-the-failsafe-works">How the Failsafe Works</h1>
+<p>When modern browsers such as Firefox and Internet Explorer encounter an <code>&lt;object&gt;</code> tag requesting a plugin they don&rsquo;t understand, they do two very useful things:</p>
+<ol>
+<li>They render any valid HTML appearing after the <code>&lt;object&gt;</code> tag&rsquo;s child <code>&lt;param&gt;</code> elements.</li>
+<li>They prompt the user to install the correct plugin to view the content - without redirecting them to another page.</li>
+</ol>
+<p>These two behaviors give us everything we need to gracefully fail if the Java plugin is unavailable. When the Java plugin is installed and enabled, users see the applet as planned. When the Java plugin is either not installed or disabled, users see both a placeholder of our choosing and a prompt, created by the browser itself, offering to install the missing plugin.</p>
+<p>The <code>&lt;object&gt;</code> tag lets us take this even further. We can specify, down to the revision level, the exact version of Java needed to run an applet. If that requirement changes, all we need to do is change the <code>&lt;object&gt;</code> tag and users will be prompted to upgrade their JVM the next time they see our applet - if necessary.</p>
+<h1 id="live-demo">Live Demo</h1>
+<p>Here&rsquo;s my company&rsquo;s 2D chemical structure editor, <a href="http://metamolecular.com/chemwriter">ChemWriter</a>, deployed with the Javay method:</p>
+<p>[Java content scrubbed]</p>
+<p>And here&rsquo;s what the failsafe code looks like when it&rsquo;s rendered:</p>
+<p>[Image scrubbed]</p>
+<h1 id="one-more-thing">One More Thing</h1>
+<p>We can take failsafes to yet another level, if we&rsquo;d like. Let&rsquo;s say Joe comes to our site without the an installed Java plugin. Internet Explorer 6 informs him via a popup that Java is needed. Impatient to see the site&rsquo;s content, he closes the dialog. Without being redirected, Joe can see all of the site&rsquo;s content, except for the parts requiring Java, for which he sees a custom &ldquo;Plugin Not Found&rdquo; placeholder. Discovering that the site&rsquo;s content consists of highly-relevant information, he decides he wants to install the Java plugin after all. Clicking on placeholder image takes him to a Java installation page.</p>
+<p>Unlike other Java installation pages Joe may have seen, this one is specific to his browser, Internet Explorer 6.</p>
+<p>This approach work very well in practice. For example, my company&rsquo;s website, <a href="http://metamolecular.com">metamolecular.com</a> uses it. Try visiting the <a href="http://metamolecular.com/java/">default Java installation page</a>, and if your browser is included below, you&rsquo;ll be redirected to the browser-specific Java installation page:</p>
+<ul>
+<li><a href="http://metamolecular.com/java">Default Page</a></li>
+<li><a href="http://metamolecular.com/java/firefox">Firefox Page</a></li>
+<li><a href="http://metamolecular.com/java/ie6">Internet Explorer 6 Page</a></li>
+<li><a href="http://metamolecular.com/java/ie7">Internet Explorer 7 Page</a></li>
+<li><a href="http://metamolecular.com/java/safari">Safari Page</a></li>
+</ul>
+<p>More information can be found in <a href="http://metamolecular.com/articles/chemwriter-deployment">this article on deploying ChemWriter</a>.</p>
+<h1 id="last-thoughts">Last Thoughts</h1>
+<p>Java applets gained a deserved reputation in the late &rsquo;90s for being difficult to deploy, a view that&rsquo;s now worth reconsidering. Using some simple techniques, Web applications can fail gracefully if Java is unavailable and then take steps to quickly get users back on track.</p>
+<p>Getting software reliably and securely installed on any client system is difficult, especially on the open Web. But the Java plugin and the Javay deployment method make it about as straightforward as it can possibly be.</p>
+<p>It&rsquo;s time reconsider applets.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

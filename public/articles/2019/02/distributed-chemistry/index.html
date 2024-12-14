@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Distributed Chemistry | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="A recent paper describes the design, assembly, and operation of a network of robotic lab assistants.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2019/02/distributed-chemistry/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2019/02/distributed-chemistry/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Distributed Chemistry">
+  <meta property="og:description" content="A recent paper describes the design, assembly, and operation of a network of robotic lab assistants.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2019-02-11T23:00:00+00:00">
+    <meta property="article:modified_time" content="2019-02-11T23:00:00+00:00">
+
+  <meta itemprop="name" content="Distributed Chemistry">
+  <meta itemprop="description" content="A recent paper describes the design, assembly, and operation of a network of robotic lab assistants.">
+  <meta itemprop="datePublished" content="2019-02-11T23:00:00+00:00">
+  <meta itemprop="dateModified" content="2019-02-11T23:00:00+00:00">
+  <meta itemprop="wordCount" content="1210">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Distributed Chemistry">
+  <meta name="twitter:description" content="A recent paper describes the design, assembly, and operation of a network of robotic lab assistants.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Distributed Chemistry</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2019-02-11T23:00:00Z">February 11, 2019</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Distributed systems pervade modern computer technology. Examples include multi-core CPUs, GPUs, computer clusters, and the Internet itself. Although many forms of distributed computing have been developed, their main purpose is to increase the utility of individual resources through cooperation, often involving some form of parallelization. For example, a large computational job can broken down into smaller jobs, which are then distributed among semi-independent workers. Each worker performs its task, then returns the result over a communication channel. Assembling the responses yields the final result.</p>
+<p>What specific roles could a distributed, fully-automated system play in chemical research? That&rsquo;s the topic of a recent study from the <a href="http://www.chem.gla.ac.uk/cronin/">Cronin group</a>.</p>
+<h1 id="meet-the-robots">Meet the Robots</h1>
+<p><a href="https://chemrxiv.org/articles/Networking_Chemical_Robots_Using_Twitter_for_RealTimeChem/5952655">The Cronin system</a> consists of two or more chemistry processing units (&ldquo;ChemPUs&rdquo;) connected via a computer network. Each ChemPU solves part of a larger chemical problem while in communication with the other.</p>
+<p><a href="https://chemrxiv.org/articles/Networking_Chemical_Robots_Using_Twitter_for_RealTimeChem/5952655"><img src="/images/posts/20190211/chempu.png" alt="ChemPU" title="ChemPU"></a></p>
+<p>The current ChemPU implementation is built from low-cost computer hardware (pcDuino3, power supply), open source software (python, opencv, gpio), commodity lab equipment (peristaltic pumps, Tygon tubing, 14 mL glass vials) and sensors (webcams). The paper claims that a ChemPU can be assembled in a few hours.</p>
+<p><a href="https://chemrxiv.org/articles/Networking_Chemical_Robots_Using_Twitter_for_RealTimeChem/5952655"><img src="/images/posts/20190211/chempu-parts.png" alt="ChemPU Parts" title="ChemPU Parts"></a></p>
+<p>ChemPUs communicate over a computer network. Peer-to-peer communication is in principle possible, but this requires custom software and significant effort to implement. To economize, the team explored a far simpler communication protocol running over Twitter. Another study used a custom client-server protocol to build and maintain global state.</p>
+<h1 id="why">Why?</h1>
+<p>The first mass marketed computers lacked a modem as standard equipment. Early adopters (mainly techie hobbyists) found enough value in an isolated computer that the thought of connecting to other computers occurred much less often than it might seem. It took years to build a sufficiently large online user base that bulletin board services and FidoNet, primordial versions of today&rsquo;s Web, began to emerge.</p>
+<!-- raw HTML omitted -->
+<p>In that spirit, it may not be clear today why two or more ChemPUs working together would be useful. The reasons, much like the motivations behind distributed computing, come down to improved resource use. Two ChemPUs can work in parallel on the same problem, returning an answer in less time than it would take one working in isolation. Otherwise idle equipment can be put to use as needed. Costs can be distributed among multiple centers. Problems of increasing complexity can be scaled up by adding more units.</p>
+<p>Effective use of a distributed system requires some care in designing protocols. The Cronin team considered three prototypical ChemPU strategies:</p>
+<ol>
+<li><strong>Random.</strong> Each ChemPu has no memory of what experiments it (or the others) previously ran. This poor choices is probably included for comparison only.</li>
+<li><strong>Individual.</strong> Each ChemPU remembers its own experiments, but not those of the other ChemPUs. Duplication of effort will occur, requiring more experiments.</li>
+<li><strong>Collaborative.</strong> Each ChemPU remembers its own experiments and those of other ChemPUs. Any given experiment will only be run once across the network. If only one ChemPu is on a network, then the Collaborative approach simplifies to the Indivudal approach.</li>
+</ol>
+<p>Plotting the number of searches per robot against the number of robots illustrates how each additional robot needs to perform fewer experiments to achieve the same outcome.</p>
+<p><a href="https://chemrxiv.org/articles/Networking_Chemical_Robots_Using_Twitter_for_RealTimeChem/5952655"><img src="/images/posts/20190211/simulations.png" alt="Simulations" title="Simulations"></a></p>
+<p>The plot on the left compares the number of searches per ChemPU, normalized to the worst case of random search. Consider the case of one ChemPU operating in isolation. The individual strategy yields a 50% reduction in the number of experiments per unit compared to a random strategy. As expected, increasing the number of ChemPUs to two leads to fewer per-unit experiments for the collaborative strategy compared to the individual. Unfortunately, the mathematical model was not discussed in the paper.</p>
+<h1 id="better-optimization-through-parallelization">Better Optimization through Parallelization</h1>
+<p>Some chemistry problems inherently resist parallelization. For example, a linear organic synthesis requires as input a starting material made in previous steps. Throwing more automated resources at such a problem will not increase efficiency. More problematic, however, is the need to physically transport samples. A parallelizable problem in which only data is exchanged is the best fit for a ChemPU network.</p>
+<p>For this reason the Cronin group chose its model studies carefully. There were three, all of which could fall into the general category of &ldquo;optimization.&rdquo;</p>
+<h1 id="structure-property-optimization">Structure-Property Optimization</h1>
+<p>Azo dyes are made by reacting an aniline with a diazonium salt in acidic medium. Using this process as a model for structure-property optimization, where color is the property of interest, a study with two ChemPUs working collaboratively was performed. On completion of an experiment, a ChemPU tweeted the color it obtained, encoded as an RGB value recorded from an onboard camera. Each robot updated its own internal copy of a data matrix based on the real-time Twitter feed of the other.</p>
+<p><a href="https://chemrxiv.org/articles/Networking_Chemical_Robots_Using_Twitter_for_RealTimeChem/5952655"><img src="/images/posts/20190211/azo-dye-optimization.png" alt="Azo Dye Optimization" title="Azo Dye Optimization"></a></p>
+<p>In an intriguing twist on this process, the authors investigated an alternative protocol based on the game Hex. A server running a simulation linked two ChemPUs together as each attempted to play the game by mixing reagents, merging information on winning strategies into the next round. The main advantage of casting the optimization in this particular form appears to be access to a number of existing Hex simulators.</p>
+<h1 id="synthesis-optimization">Synthesis Optimization</h1>
+<p>Synthesis optimization is in many ways an ideal candidate for lab automation. It&rsquo;s tedious to perform, not in general well-modeled theoretically, and therefore highly empirical. The Cronin group used the synthesis of tungsten polyoxometallate clusters as a model for the kind of synthetic optimization that could be performed by a network of ChemPUs working collaboratively.</p>
+<p><a href="https://chemrxiv.org/articles/Networking_Chemical_Robots_Using_Twitter_for_RealTimeChem/5952655"><img src="/images/posts/20190211/tungsten-polyoxometallate-optimization.png" alt="Tungsten Polyoxometallate"></a></p>
+<p>A network of two ChemPUs varied reaction pH and metal ratio, using the formation of crystals (automatically monitored by webcam) as an endpoint. Here the goal wasn&rsquo;t to find novel parameters, but rather to confirm the reproducibility of published parameters.</p>
+<h1 id="chemical-synchronization">Chemical Synchronization</h1>
+<p>One of the most intriguing aspects of the Cronin system is how it opens up new areas for study. Consider the problem of synchronizing two instances of the same chemical oscillator. In particular, the team&rsquo;s goal was to get two ChemPUs to end up with the same frequency for their individual instances of the Belousov-Zhabotinsky (BZ) oscillator. Here, ChemPUs were instructed to follow a leader-follower protocol. One ChemPu would establish an oscillation frequency. Observing this over the network, the other ChemPU attempted to replicate the frequency through real-time image processing and a computer-controlled algorithm. The approach yielded such precision (90 minutes with ± 2 second error) that the authors were able to encode messages by modulating the oscillator frequency.</p>
+<p><a href="https://chemrxiv.org/articles/Networking_Chemical_Robots_Using_Twitter_for_RealTimeChem/5952655"><img src="/images/posts/20190211/chemical-encoding.png" alt="Chemical Encoding"> &ldquo;Chemical Encoding&rdquo;</a></p>
+<p>Although this study doesn&rsquo;t appear to have much practical utility, it does point to a mode of distributed chemistry that&rsquo;s hard to achieve in any other way. It also nicely demonstrates a method whereby a ChemFP can adapt its operation to prevailing network conditions under purely machine control.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>Lab automation is a good match for any problem that can be reduced to a parallelizable search through some well-understood space. For years, the majority of such efforts have centered on analytical chemistry and biochemistry. Although a network of ChemPU units optimizing azo dye colors is a far cry from a graduate student optimizing a palladium-coupling reaction, it&rsquo;s not that far off. The availability of platforms like ChemPU, built from cheap, off-the-shelf components, infinitely hackable, and under the control of potentially very sophisticated software, could help transform those areas of experimental chemistry that have so far resisted automation.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

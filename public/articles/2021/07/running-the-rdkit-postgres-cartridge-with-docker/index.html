@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Running the RDKit Postgres Cartridge with Docker | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Build structure-searchable databases on a versatile foundation.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2021/07/running-the-rdkit-postgres-cartridge-with-docker/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2021/07/running-the-rdkit-postgres-cartridge-with-docker/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Running the RDKit Postgres Cartridge with Docker">
+  <meta property="og:description" content="Build structure-searchable databases on a versatile foundation.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2021-07-28T14:50:00+00:00">
+    <meta property="article:modified_time" content="2021-07-28T14:50:00+00:00">
+
+  <meta itemprop="name" content="Running the RDKit Postgres Cartridge with Docker">
+  <meta itemprop="description" content="Build structure-searchable databases on a versatile foundation.">
+  <meta itemprop="datePublished" content="2021-07-28T14:50:00+00:00">
+  <meta itemprop="dateModified" content="2021-07-28T14:50:00+00:00">
+  <meta itemprop="wordCount" content="2086">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Running the RDKit Postgres Cartridge with Docker">
+  <meta name="twitter:description" content="Build structure-searchable databases on a versatile foundation.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Running the RDKit Postgres Cartridge with Docker</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2021-07-28T14:50:00Z">July 28, 2021</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Chemical structure databases have the odd distinction of being both ubiquitous and often non-trivial to implement. The defining characteristic of these systems is that records can be fetched based on exact- or substructure queries. Structure-searchable databases pops up in all kinds of contexts ranging from individual research projects to on-off data processing tasks to drug discovery efforts to analytical labs to small chemical businesses. The need for a proper chemical database can sneak up on you rather quickly. This article addresses the problem by demonstrating a simple, fast method to get up and running with a structure-searchable database.</p>
+<h1 id="preview">Preview</h1>
+<p>By the end of this article, you&rsquo;ll be able to quickly query a database of over one million records using SMILES queries like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> id, molecule
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">from</span> molecules
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">where</span> molecule <span style="color:#f92672">@&gt;</span> <span style="color:#e6db74">&#39;c1ccccc1&#39;</span>;
+</span></span></code></pre></div><h1 id="database-cartridges">Database Cartridges</h1>
+<p>The single most popular tool for building a chemical structure database at scale is the <em>database cartridge</em>. A database cartridge (aka &ldquo;extension&rdquo;) is a piece of software that operates within a general-purpose database system, orchestrating inputs and outputs relating to chemical information. Examples of general-purpose database systems include: <a href="https://www.postgresql.org">Postgres</a>; <a href="https://www.mysql.com">MySQL</a>; <a href="https://mariadb.com">MariaDB</a>; Oracle; and <a href="https://www.mongodb.com">MongoDB</a>. All except the last of these are considered <a href="https://en.wikipedia.org/wiki/Relational_database">relational database management systems</a> (RDBMSs).</p>
+<p>A cartridge extends a general-purpose database system in two main ways: (1) with new data types; and (2) with new functions operating over the new data types. The most important new datatype supported by a cartridge is likely to be a molecular representation. With it, a variety of new functions can be performed, including exact- and substructure comparisons. Supporting data types such as molecular fingerprints and functions for using them are also likely to be included.</p>
+<p>Cartridges aren&rsquo;t the only game in town. For example, databases are rarely used in isolation. Typically they&rsquo;re controlled by other software such as an application layer. So one alternative to a cartridge would be to locate the chemistry-specific code within the application layer. Alternatively a dedicated chemical database system could be used, with the application layer orchestrating the interaction between it and a general-purpose database.</p>
+<p>There are, however, a few reasons to favor a database cartridge over the alternatives. The main one is simplicity. With no chemistry-specific data manipulation to perform, the application layer can focus on business logic and user interface. This separation of concerns can lead to cleaner code and separation of concerns. The end result can be better long-term maintainability.</p>
+<p>Typically, a cartridge pairs a cheminformatics toolkit with a database implementation. Examples include:</p>
+<ul>
+<li><a href="http://bioinfo.uochb.cas.cz/sachem/">Sachem</a>. Postgres/CDK.</li>
+<li><a href="https://lifescience.opensource.epam.com/bingo/index.html">Bingo</a>. Postgres and SQL Server/Indigo.</li>
+<li><a href="https://docs.chemaxon.com/display/docs/jchem-cartridge.md">JChem Cartridge</a>. Oracle and Postgres/JChem.</li>
+<li><a href="https://mychem.github.io">Mychem</a> MariaDB/Open Babel.</li>
+<li><a href="http://orchem.sourceforge.net">OrChem</a>. Oracle/CDK.</li>
+<li><a href="https://www.rdkit.org/docs/Cartridge.html">RDkit Postgres</a>. Postgres/RDKit.</li>
+</ul>
+<p>The last option, RDKit Postgres, is the topic of today&rsquo;s article. Most of the documentation, including <a href="https://www.rdkit.org/docs/Cartridge.html">the homepage</a>, assumes an installation. But what if you don&rsquo;t have one? Depending on your target operating system, compiling the RDKit Postgres cartridge from source and installing it is likely to pose challenges. This is especially true of your system holds configurations you&rsquo;d rather not disturb.</p>
+<p>Fortunately, there&rsquo;s a solution to this problem.</p>
+<h1 id="docker">Docker</h1>
+<p><a href="https://www.docker.com">Docker</a> is a deployment utility designed for complex, multi-component software projects. In other words, it can solve exactly the problem faced by those who want to install the RDKit Postgres cartridge. With Docker, the entire database system, including Postgres and RDKit, and all required dependencies, can be bundled into a single &ldquo;container.&rdquo; What&rsquo;s more, that same container will run, unmodified, on any host operating system. You can use exactly the same version and configuration of RDKit/Postgres on a local development machine as you deploy to the cloud.</p>
+<p>What&rsquo;s the tradeoff? Docker may be simple to use by following tutorials like this one, but it&rsquo;s not easy to understand. If you plan on using Docker for any production work, I recommend learning the theory behind Docker through a book or online course. Even if you&rsquo;re just experimenting, learning broadly about Docker can ultimately save you time and effort you&rsquo;d otherwise spend reinventing the wheel. Using Docker effectively means knowing something about how it works, Linux system administration, and the many options that are available for automating deployment workflows. A free excerpt of a paid course I found especially helpful can be found on YouTube.</p>
+<!-- raw HTML omitted -->
+<p>On the Docker website can be found a page explaining <a href="https://docs.docker.com/get-docker/">how to install docker for your platform</a>.</p>
+<h1 id="the-rdkit-postgres-docker-image">The RDKit Postgres Docker Image</h1>
+<p>A <a href="https://hub.docker.com/r/mcs07/postgres-rdkit">Docker image</a> including a complete RDKit Postgres installation has been built and distributed by <a href="https://matt-swain.com">Matt Swain</a>. Before using it, however, there&rsquo;s one more thing you&rsquo;ll need.</p>
+<h1 id="postgres-client">Postgres Client</h1>
+<p>To interact with the RDKit/Postgres container, you&rsquo;ll need a <a href="https://wiki.postgresql.org/wiki/PostgreSQL_Clients">Postgres client</a>. You can check for its presence with the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>psql --help
+</span></span></code></pre></div><p>If you receive version information, the client is already installed. Otherwise, you&rsquo;ll need to install one.</p>
+<h1 id="quickstart">Quickstart</h1>
+<p>The simplest way to start is to launch the RDKit cartridge container from the command line:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run --name mypostgres -p 5432:5432 -e POSTGRES_PASSWORD<span style="color:#f92672">=</span>mypassword -d mcs07/postgres-rdkit
+</span></span></code></pre></div><p>The following options are used:</p>
+<ul>
+<li><code>run</code>. Tells Docker to run the image.</li>
+<li><code>--name</code>. Sets the name of the container that will be running to <code>mypostgres</code>.</li>
+<li><code>-p</code>. Exposes port 5432 of the container as port 5432 on your local machine.</li>
+<li><code>-e</code>. Allows the environment variable <code>POSTGRES_PASSWORD</code> to be set. This will become the password you&rsquo;ll need when using the Postgres client to connect to the database.</li>
+<li><code>-d</code>. Return without blocking the terminal, allowing you to continue with the session.</li>
+</ul>
+<p>After the container is running, open a new terminal and connect to the database with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>psql -h localhost -U postgres -p <span style="color:#ae81ff">5432</span>
+</span></span></code></pre></div><p>When prompted, use the same password used to run the container, &ldquo;mypassword&rdquo;. You should see a Postgres prompt.</p>
+<pre tabindex="0"><code>psql -h localhost -U postgres
+Password for user postgres: 
+psql (13.3, server 12.3 (Debian 12.3-1.pgdg100+1))
+Type &#34;help&#34; for help.
+
+postgres=#
+</code></pre><p>The Postgres session can be exited by pressing <code>ctrl-d</code>.</p>
+<p>The RDkit cartridge container can be run even if Postgres is currently installed. However, if a Postgres server is already running, you&rsquo;ll see an error message. There are two ways to proceed: (1) stop the Postgres server on your system; or (2) use a port other than the default Postgres port of 5432.</p>
+<p>You can stop the Postgres cartridge Docker container at any time with the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker container stop &lt;id&gt;
+</span></span></code></pre></div><p>where <code>&lt;id&gt;</code> is the identifier of the running container. To get it, use <code>docker ps</code>. For example, here&rsquo;s the output on my system:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> docker ps
+</span></span><span style="display:flex;"><span>CONTAINER ID   IMAGE                  COMMAND                  CREATED          STATUS          PORTS                                       NAMES
+</span></span><span style="display:flex;"><span>fe320ea9182f   mcs07/postgres-rdkit   <span style="color:#e6db74">&#34;docker-entrypoint.s…&#34;</span>   <span style="color:#ae81ff">10</span> minutes ago   Up <span style="color:#ae81ff">10</span> minutes   0.0.0.0:5432-&gt;5432/tcp, :::5432-&gt;5432/tcp   mypostgres
+</span></span></code></pre></div><p>To stop the container I started 10 minutes ago, I can use the value under <code>CONTAINER ID</code>, or the first few digits:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker container stop fe3
+</span></span></code></pre></div><p>Everything possible in Docker can be accomplished through the command line. However, things can get complicated very quickly, especially when multiple containers need to be managed and work together. Enter <a href="https://docs.docker.com/compose/">Docker Compose</a>, an orchestration utility that uses simple configuration files to &ldquo;compose&rdquo; containers. I point this out only because the RDKit Postgres container documentation mentions it. For now, Docker Compose is overkill so let&rsquo;s continue to use the command line.</p>
+<h1 id="a-simplification">A Simplification</h1>
+<p>In the following section, we&rsquo;ll be issuing a number of commands to the Postgres server running on the container. The server will require the entry of a password for each one, which can get tiring very fast. Other information will need to be passed on the command line. We can avoid this inconvenience by setting the following environment variables:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export PGPASSWORD<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mypassword&#34;</span>
+</span></span><span style="display:flex;"><span>export PGHOST<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;localhost&#34;</span>
+</span></span><span style="display:flex;"><span>export PGUSER<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;postgres&#34;</span>
+</span></span></code></pre></div><p>Now we can connect to the server with the much simpler command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>psql
+</span></span><span style="display:flex;"><span>psql (13.3, server 12.3 (Debian 12.3-1.pgdg100+1))
+</span></span><span style="display:flex;"><span>Type &#34;help&#34; for help.
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>postgres=#
+</span></span></code></pre></div><p>In the next section we&rsquo;ll be working outside of Postgres. Exit your <code>psql</code> session with <code>ctrl-d</code>.</p>
+<h1 id="searching-a-million-molecules">Searching a Million Molecules</h1>
+<p>As a test of Postgres and its cartridge, let&rsquo;s add a million molecules to a database and then perform a substructure search. The <a href="https://www.rdkit.org/docs/Cartridge.html">RDKit Cartridge documentation</a> shows one way to do this that will be adapted here.</p>
+<p>The process starts by creating a database using the <code>createdb</code> utility that comes with the Postgres client. Postgres won&rsquo;t install the cartridge on new databases by default, so we&rsquo;ll create one in a bash session.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>createdb emolecules
+</span></span><span style="display:flex;"><span>psql -c <span style="color:#e6db74">&#39;create extension rdkit&#39;</span> emolecules
+</span></span><span style="display:flex;"><span>psql -c <span style="color:#e6db74">&#39;create table raw_data (id SERIAL, smiles text, version_id integer, parent_id integer)&#39;</span> emolecules
+</span></span></code></pre></div><p>The <code>-c</code> option tells Postgres to issue the commands that follow in quotes. Alternatively, the commands could be issued from within a <code>psql</code> session. However, it&rsquo;s convenient work this way because of what comes next.</p>
+<p><a href="https://www.emolecules.com">eMolecules</a> provides <a href="https://downloads.emolecules.com/free/2021-07-01/">downloads</a> of its public database in several formats. For the purposes of this demonstration, the most convenient format is a SMILES file containing records whose fields include a SMILES structure and two corresponding identifiers (&ldquo;VERSION_ID&rdquo; and &ldquo;PARENT_ID&rdquo;). Download and expand as follows.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget https://downloads.emolecules.com/free/2021-07-01/version.smi.gz
+</span></span><span style="display:flex;"><span>gunzip version.smi.gz
+</span></span></code></pre></div><p>This generates the file <code>version.smi</code>, which contains many millions of records. We want only the first million, which can be done with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>head -n <span style="color:#ae81ff">1000001</span> version.smi &gt;&gt; emolecules-1m.smi
+</span></span></code></pre></div><p>The resulting file, <code>emolecules-1m.smi</code> contains the first million records. We take the first 1,000,001 of them because the first row is a header. The new file can be imported into the <code>emolecules</code> Postgres database as follows.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat &lt; ./emolecules-1m.smi | sed <span style="color:#e6db74">&#39;1d; s/\\/\\\\/g&#39;</span> | psql -c <span style="color:#e6db74">&#34;copy raw_data (smiles,version_id,parent_id) from stdin with delimiter &#39; &#39;&#34;</span> emolecules
+</span></span></code></pre></div><p>Here we&rsquo;re reading the <code>emolecules-1m.smi</code>, replacing input inline, and piping the result into the Postgres <code>emolecules</code> database. The <code>sed</code> parameter <code>1d'</code> strips the first line of input, which is a header. The remaining <code>sed</code> input (<code>s/\\/\\\\/g</code>) replaces backslash characters in the SMILES strings with escaped backslash characters so that Postgres can process them. The command takes a few seconds to execute on my system.</p>
+<p>Confirm that the <code>raw_data</code> table has been created with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>psql emolecules
+</span></span><span style="display:flex;"><span>psql (13.3, server 12.3 (Debian 12.3-1.pgdg100+1))
+</span></span><span style="display:flex;"><span>Type &#34;help&#34; for help.
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>emolecules=# select count(*) from raw_data;
+</span></span><span style="display:flex;"><span>  count  
+</span></span><span style="display:flex;"><span>---------
+</span></span><span style="display:flex;"><span> 1000000
+</span></span><span style="display:flex;"><span>(1 row)
+</span></span></code></pre></div><p>To keep things efficient, we&rsquo;re using a two-step strategy. The purpose of the first step is to replicate the data found in the <code>emolecules-1m.smi</code> file within the Postgres table <code>raw_data</code>. Having moved the data into Postgres, we then process it with the RDKit cartridge. We&rsquo;re going to be moving a lot of data around, so it helps to first move the raw data into Postgres, from where it can be dispatched efficiently. We can always drop the <code>raw_data</code> table later. The following query, executed within a Postgres session (<code>psql emolecules</code>) will create a new table <code>molecules</code> with searchable structures.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">INTO</span> molecules
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">FROM</span> (<span style="color:#66d9ef">SELECT</span> id, mol_from_smiles(smiles::cstring) <span style="color:#66d9ef">structure</span> <span style="color:#66d9ef">FROM</span> raw_data) tmp
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">structure</span> <span style="color:#66d9ef">IS</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>;
+</span></span></code></pre></div><p>This step, which creates RDKit binary molecular representations, will take several minutes. You should see some output similar to:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>WARNING:  could not create molecule from SMILES &#39;Br[Br]Br.c1ccncc1&#39;
+</span></span><span style="display:flex;"><span>WARNING:  could not create molecule from SMILES &#39;Br[Br-]Br.C[N+](C)(C)c1ccccc1&#39;
+</span></span><span style="display:flex;"><span>... and so on
+</span></span></code></pre></div><p>Here the cartridge is informing us that RDKit was not able to read the indicated SMILES.</p>
+<p>After the command returns, a new table, <code>molecules</code>, will have been created. It contains two columns (<code>id</code>, <code>structure</code>), which can be confirmed with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>\d+ molecules;
+</span></span><span style="display:flex;"><span>                                   Table &#34;public.molecules&#34;
+</span></span><span style="display:flex;"><span>  Column   |  Type   | Collation | Nullable | Default | Storage  | Stats target | Description 
+</span></span><span style="display:flex;"><span>-----------+---------+-----------+----------+---------+----------+--------------+-------------
+</span></span><span style="display:flex;"><span> id        | integer |           |          |         | plain    |              | 
+</span></span><span style="display:flex;"><span> structure | mol     |           |          |         | extended |              | 
+</span></span><span style="display:flex;"><span>Access method: heap
+</span></span></code></pre></div><p>Notice the type of the <code>structure</code> field: <code>mol</code>. This is a custom data type that the cartridge can read, write, and process.</p>
+<p>Searching this table by structure is going to be slow (something that&rsquo;s worth confirming for yourself). To speed things up, we can create an index. This index is created with help from the cartridge, which knows about the <code>mol</code> data type and can use it in various ways.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">INDEX</span> molecules_structure <span style="color:#66d9ef">ON</span> molecules <span style="color:#66d9ef">USING</span> gist(<span style="color:#66d9ef">structure</span>);
+</span></span></code></pre></div><p>This step again takes about ten minutes on my system. Finally, we can search by structure:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> id, <span style="color:#66d9ef">structure</span> <span style="color:#66d9ef">FROM</span> molecules <span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">structure</span><span style="color:#f92672">@&gt;</span><span style="color:#e6db74">&#39;c1cccnc1&#39;</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">100</span>;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- returns results like the following
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--    id   |                           structure                            
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- --------+----------------------------------------------------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- 312845 | Cc1nc(C)c(C(=O)N/N=C/c2cccnc2)cc1C(=O)N/N=C/c1cccnc1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- 319086 | CCOC(=O)CCSc1nc(-c2ccc(C)cc2)cc(-c2ccc(OC)cc2)c1C#N
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- 319094 | COc1ccc(-c2cc(-c3ccc(C)cc3)nc(SCC(=O)Nc3ccc(C)cc3C)c2C#N)cc1OC
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- 319095 | COc1ccc(-c2cc(-c3ccc(C)cc3)nc(SCC(=O)Nc3c(C)cccc3C)c2C#N)cc1OC
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- and so on...
+</span></span></span></code></pre></div><p>As you experiment with the <code>LIMIT</code> parameter and other SQL features, you may find yourself wanting to know how long various queries take. This can be accomplished by turning timings on:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>\timing
+</span></span></code></pre></div><h1 id="conclusion">Conclusion</h1>
+<p>Setting up a robust, substructure-searchable database can be a big technical challenge. In many situations, a database cartridge like RDKit Postgres offers an excellent option. This article describes a simple, unobtrusive method using Docker to run the RDKit cartridge on most systems.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

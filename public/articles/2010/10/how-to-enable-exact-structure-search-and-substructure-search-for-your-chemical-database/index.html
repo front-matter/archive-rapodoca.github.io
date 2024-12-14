@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>How to Enable Exact Structure Search and Substructure Search for Your Chemical Database | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="It&rsquo;s a simple and increasingly common question: how can I enable users to search my website by chemical structure? Text search can be done relatively easily, but chemical exact structure and substructure search are considerably more complex. This article offers a high-level overview for non-experts of what&rsquo;s needed to create a structure-searchable chemical database.
+The Components
+
+Web Application Framework. This is the high-level software on which your current site is built or will be built. Popular packages include: PHP; Ruby on Rails; ASP .NET; and Django.
+A Database. There are many varieties to choose from. SQL flavors include MySQL and PostgreSQL. NoSQL flavors include CouchDB.
+Machine-Readable Structure Representations. A number of formats have been developed over the years. Due to its nearly universal support by software packages, one of the most widely-used is molfile.
+Structure Canonicalizer.  This software is used for fast exact structure search. A canonicalizer converts a chemical structure into a unique string of text that can be stored and searched using standard database technologies. InChI should be the default choice.
+Fingerprint Generator. Converting chemical structures into fixed-length binary fingerprints, this software is used to pre-screen structures during substructure search. The reason is simple: substructure search is computationally expensive and good fingerprints can eliminate many unnecessary substructure searches. A number of open source packages are suitable, including: MX; CDK; OpenBabel; RDKit and a few closed-source offerings.
+Substructure Matcher. Performs substructure matching through atom-by-atom search (ABAS). This software is used after an initial fingerprint screen. Although fingerprints never generate a false negative, they can and do generate false positives. A substructure matcher ensures no false positives get presented to your users. Packages that can generate fingerprints can usually perform substructure matches as well.
+Chemical Structure Editor. Allows chemists to draw structures to be searched. A few free structure editors are available. One ergonomic and fast-loading commercial product is ChemWriter, which is sold by my company.
+
+Workflow
+Felix, a user of your site, wants to search for indole substructures. Browsing to the &ldquo;search&rdquo; page, he draws indole using a structure editor and clicks the &ldquo;Substructure Search&rdquo; button. A JavaScript handler extracts the structure Felix drew into a hidden text field, then the form gets POSTED to your server. For details, see Posting a Molfile in a Form.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2010/10/how-to-enable-exact-structure-search-and-substructure-search-for-your-chemical-database/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2010/10/how-to-enable-exact-structure-search-and-substructure-search-for-your-chemical-database/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="How to Enable Exact Structure Search and Substructure Search for Your Chemical Database">
+  <meta property="og:description" content="It’s a simple and increasingly common question: how can I enable users to search my website by chemical structure? Text search can be done relatively easily, but chemical exact structure and substructure search are considerably more complex. This article offers a high-level overview for non-experts of what’s needed to create a structure-searchable chemical database.
+The Components Web Application Framework. This is the high-level software on which your current site is built or will be built. Popular packages include: PHP; Ruby on Rails; ASP .NET; and Django. A Database. There are many varieties to choose from. SQL flavors include MySQL and PostgreSQL. NoSQL flavors include CouchDB. Machine-Readable Structure Representations. A number of formats have been developed over the years. Due to its nearly universal support by software packages, one of the most widely-used is molfile. Structure Canonicalizer. This software is used for fast exact structure search. A canonicalizer converts a chemical structure into a unique string of text that can be stored and searched using standard database technologies. InChI should be the default choice. Fingerprint Generator. Converting chemical structures into fixed-length binary fingerprints, this software is used to pre-screen structures during substructure search. The reason is simple: substructure search is computationally expensive and good fingerprints can eliminate many unnecessary substructure searches. A number of open source packages are suitable, including: MX; CDK; OpenBabel; RDKit and a few closed-source offerings. Substructure Matcher. Performs substructure matching through atom-by-atom search (ABAS). This software is used after an initial fingerprint screen. Although fingerprints never generate a false negative, they can and do generate false positives. A substructure matcher ensures no false positives get presented to your users. Packages that can generate fingerprints can usually perform substructure matches as well. Chemical Structure Editor. Allows chemists to draw structures to be searched. A few free structure editors are available. One ergonomic and fast-loading commercial product is ChemWriter, which is sold by my company. Workflow Felix, a user of your site, wants to search for indole substructures. Browsing to the “search” page, he draws indole using a structure editor and clicks the “Substructure Search” button. A JavaScript handler extracts the structure Felix drew into a hidden text field, then the form gets POSTED to your server. For details, see Posting a Molfile in a Form.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2010-10-20T00:00:00+00:00">
+    <meta property="article:modified_time" content="2010-10-20T00:00:00+00:00">
+
+  <meta itemprop="name" content="How to Enable Exact Structure Search and Substructure Search for Your Chemical Database">
+  <meta itemprop="description" content="It’s a simple and increasingly common question: how can I enable users to search my website by chemical structure? Text search can be done relatively easily, but chemical exact structure and substructure search are considerably more complex. This article offers a high-level overview for non-experts of what’s needed to create a structure-searchable chemical database.
+The Components Web Application Framework. This is the high-level software on which your current site is built or will be built. Popular packages include: PHP; Ruby on Rails; ASP .NET; and Django. A Database. There are many varieties to choose from. SQL flavors include MySQL and PostgreSQL. NoSQL flavors include CouchDB. Machine-Readable Structure Representations. A number of formats have been developed over the years. Due to its nearly universal support by software packages, one of the most widely-used is molfile. Structure Canonicalizer. This software is used for fast exact structure search. A canonicalizer converts a chemical structure into a unique string of text that can be stored and searched using standard database technologies. InChI should be the default choice. Fingerprint Generator. Converting chemical structures into fixed-length binary fingerprints, this software is used to pre-screen structures during substructure search. The reason is simple: substructure search is computationally expensive and good fingerprints can eliminate many unnecessary substructure searches. A number of open source packages are suitable, including: MX; CDK; OpenBabel; RDKit and a few closed-source offerings. Substructure Matcher. Performs substructure matching through atom-by-atom search (ABAS). This software is used after an initial fingerprint screen. Although fingerprints never generate a false negative, they can and do generate false positives. A substructure matcher ensures no false positives get presented to your users. Packages that can generate fingerprints can usually perform substructure matches as well. Chemical Structure Editor. Allows chemists to draw structures to be searched. A few free structure editors are available. One ergonomic and fast-loading commercial product is ChemWriter, which is sold by my company. Workflow Felix, a user of your site, wants to search for indole substructures. Browsing to the “search” page, he draws indole using a structure editor and clicks the “Substructure Search” button. A JavaScript handler extracts the structure Felix drew into a hidden text field, then the form gets POSTED to your server. For details, see Posting a Molfile in a Form.">
+  <meta itemprop="datePublished" content="2010-10-20T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2010-10-20T00:00:00+00:00">
+  <meta itemprop="wordCount" content="638">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to Enable Exact Structure Search and Substructure Search for Your Chemical Database">
+  <meta name="twitter:description" content="It’s a simple and increasingly common question: how can I enable users to search my website by chemical structure? Text search can be done relatively easily, but chemical exact structure and substructure search are considerably more complex. This article offers a high-level overview for non-experts of what’s needed to create a structure-searchable chemical database.
+The Components Web Application Framework. This is the high-level software on which your current site is built or will be built. Popular packages include: PHP; Ruby on Rails; ASP .NET; and Django. A Database. There are many varieties to choose from. SQL flavors include MySQL and PostgreSQL. NoSQL flavors include CouchDB. Machine-Readable Structure Representations. A number of formats have been developed over the years. Due to its nearly universal support by software packages, one of the most widely-used is molfile. Structure Canonicalizer. This software is used for fast exact structure search. A canonicalizer converts a chemical structure into a unique string of text that can be stored and searched using standard database technologies. InChI should be the default choice. Fingerprint Generator. Converting chemical structures into fixed-length binary fingerprints, this software is used to pre-screen structures during substructure search. The reason is simple: substructure search is computationally expensive and good fingerprints can eliminate many unnecessary substructure searches. A number of open source packages are suitable, including: MX; CDK; OpenBabel; RDKit and a few closed-source offerings. Substructure Matcher. Performs substructure matching through atom-by-atom search (ABAS). This software is used after an initial fingerprint screen. Although fingerprints never generate a false negative, they can and do generate false positives. A substructure matcher ensures no false positives get presented to your users. Packages that can generate fingerprints can usually perform substructure matches as well. Chemical Structure Editor. Allows chemists to draw structures to be searched. A few free structure editors are available. One ergonomic and fast-loading commercial product is ChemWriter, which is sold by my company. Workflow Felix, a user of your site, wants to search for indole substructures. Browsing to the “search” page, he draws indole using a structure editor and clicks the “Substructure Search” button. A JavaScript handler extracts the structure Felix drew into a hidden text field, then the form gets POSTED to your server. For details, see Posting a Molfile in a Form.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">How to Enable Exact Structure Search and Substructure Search for Your Chemical Database</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2010-10-20T00:00:00Z">October 20, 2010</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>It&rsquo;s a simple and increasingly common question: how can I enable users to search my website by chemical structure? Text search can be done relatively easily, but chemical exact structure and substructure search are considerably more complex. This article offers a high-level overview for non-experts of what&rsquo;s needed to create a structure-searchable chemical database.</p>
+<h1 id="the-components">The Components</h1>
+<ol>
+<li><strong>Web Application Framework.</strong> This is the high-level software on which your current site is built or will be built. Popular packages include: <a href="http://www.php.net/">PHP</a>; <a href="http://rubyonrails.org/">Ruby on Rails</a>; <a href="http://www.asp.net/">ASP .NET</a>; and <a href="http://www.djangoproject.com/">Django</a>.</li>
+<li><strong>A Database.</strong> There are many varieties to choose from. SQL flavors include <a href="http://mysql.com/">MySQL</a> and <a href="http://www.postgresql.org/">PostgreSQL</a>. NoSQL flavors include <a href="/articles/2009/04/22/couchdb-for-chemistry/">CouchDB</a>.</li>
+<li><strong>Machine-Readable Structure Representations.</strong> A number of formats have been developed over the years. Due to its nearly universal support by software packages, one of the most widely-used is <a href="/articles/2010/06/28/latest-ctfile-formats-specification-available-now-from-symyx/">molfile</a>.</li>
+<li><strong>Structure Canonicalizer.</strong>  This software is used for fast exact structure search. A canonicalizer converts a chemical structure into a unique string of text that can be stored and searched using standard database technologies. <a href="http://en.wikipedia.org/wiki/International_Chemical_Identifier">InChI</a> should be the default choice.</li>
+<li><strong>Fingerprint Generator.</strong> Converting chemical structures into fixed-length binary fingerprints, this software is used to pre-screen structures during substructure search. The reason is simple: substructure search is computationally expensive and good fingerprints can eliminate many unnecessary substructure searches. A number of open source packages are suitable, including: <a href="http://metamolecular.com/mx">MX</a>; <a href="http://sourceforge.net/apps/mediawiki/cdk/index.php?title=Main_Page">CDK</a>; <a href="http://openbabel.org/wiki/Main_Page">OpenBabel</a>; <a href="http://rdkit.org/">RDKit</a> and a few closed-source offerings.</li>
+<li><strong>Substructure Matcher.</strong> Performs substructure matching through atom-by-atom search (ABAS). This software is used after an initial fingerprint screen. Although fingerprints never generate a false negative, they can and do generate false positives. A substructure matcher ensures no false positives get presented to your users. Packages that can generate fingerprints can usually perform substructure matches as well.</li>
+<li><strong>Chemical Structure Editor.</strong> Allows chemists to draw structures to be searched. A few <a href="/articles/2006/08/21/four-free-2-d-structure-editors-for-web-applications/">free structure editors</a> are available. One ergonomic and fast-loading commercial product is <a href="http://chemwriter.com">ChemWriter</a>, which is sold by <a href="http://metamolecular.com">my company</a>.</li>
+</ol>
+<h1 id="workflow">Workflow</h1>
+<p>Felix, a user of your site, wants to search for indole substructures. Browsing to the &ldquo;search&rdquo; page, he draws indole using a structure editor and clicks the &ldquo;Substructure Search&rdquo; button. A JavaScript handler extracts the structure Felix drew into a hidden text field, then the form gets POSTED to your server. For details, see <a href="http://chemwriter.com/articles/posting-a-molfile-in-a-form">Posting a Molfile in a Form</a>.</p>
+<p>Your server receives the POST request and extracts the &ldquo;molfile&rdquo; field contained in the form data. This is a substructure search, so the first thing your server will do is generate a fingerprint of the query structure. Then, your application will perform a <a href="/articles/2008/10/02/fast-substructure-search-using-open-source-tools-part-1-fingerprints-and-databases/">binary match of the query fingerprint to the fingerprints stored in your database</a>.</p>
+<p>A list of all candidate structures will be generated based on fingerprint matching. The members of this list will then be retained only if they pass the <a href="/articles/2008/11/17/substructure-search-from-scratch-in-java-part-1-the-atom-mapping-problem/">atom-by-atom search test performed by your Substructure Matcher</a>.</p>
+<p>After all structures have been tested with the Substructure Matcher, you&rsquo;ll now have a list of hits. Using your Web Application Framework, the server will prepare a view of the results and render it for Felix.</p>
+<p>Now let&rsquo;s say Felix wants to search for Donepezil. Browsing to the &ldquo;search&rdquo; page, he draws Donepezil using the structure editor and clicks the &ldquo;Exact Structure Search&rdquo; button. Like the substructure search example, a JavaScript handler copies the structure into a hidden text field and the form gets POSTed to your server.</p>
+<p>Your server receives a POST request and extracts the &ldquo;molfile&rdquo; field from the form data. Using the Structure Canonicalizer, a unique string is generated for Donepezil. Your application searches the database for one exact match to the string. Your Web Application framework then prepares a view and renders it for Felix.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>Enabling exact structure search and substructure search takes a number of components working together. Although not extremely complicated, assembling the right software packages and integrating them is no trivial task.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

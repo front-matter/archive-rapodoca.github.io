@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>ChemCell - Easily Convert Names and CAS Numbers to Chemical Structures in Excel | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Note: the same functionality described in this article is now available on Google Spreadsheets.
+Chemical databases often start as a list of names or Chemical Abstracts Service (CAS) Registry numbers contained in an Excel spreadsheet. But as more and more expectations get placed on these ad hoc datasets, a point inevitably comes when the assignment of chemical structures becomes necessary. Whether for the purpose of performing substructure search, generating structure images, clustering, or assigning molecular weight, generating chemical structures from common names and CAS Numbers can be a major problem. Given the task of doing so for hundreds of structures, many organizations resort to manual data entry. But what if there were an inexpensive, quick alternative? This article discusses one solution.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2010/11/chemcell-easily-convert-names-and-cas-numbers-to-chemical-structures-in-excel/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2010/11/chemcell-easily-convert-names-and-cas-numbers-to-chemical-structures-in-excel/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="ChemCell - Easily Convert Names and CAS Numbers to Chemical Structures in Excel">
+  <meta property="og:description" content="Note: the same functionality described in this article is now available on Google Spreadsheets.
+Chemical databases often start as a list of names or Chemical Abstracts Service (CAS) Registry numbers contained in an Excel spreadsheet. But as more and more expectations get placed on these ad hoc datasets, a point inevitably comes when the assignment of chemical structures becomes necessary. Whether for the purpose of performing substructure search, generating structure images, clustering, or assigning molecular weight, generating chemical structures from common names and CAS Numbers can be a major problem. Given the task of doing so for hundreds of structures, many organizations resort to manual data entry. But what if there were an inexpensive, quick alternative? This article discusses one solution.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2010-11-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2010-11-01T00:00:00+00:00">
+
+  <meta itemprop="name" content="ChemCell - Easily Convert Names and CAS Numbers to Chemical Structures in Excel">
+  <meta itemprop="description" content="Note: the same functionality described in this article is now available on Google Spreadsheets.
+Chemical databases often start as a list of names or Chemical Abstracts Service (CAS) Registry numbers contained in an Excel spreadsheet. But as more and more expectations get placed on these ad hoc datasets, a point inevitably comes when the assignment of chemical structures becomes necessary. Whether for the purpose of performing substructure search, generating structure images, clustering, or assigning molecular weight, generating chemical structures from common names and CAS Numbers can be a major problem. Given the task of doing so for hundreds of structures, many organizations resort to manual data entry. But what if there were an inexpensive, quick alternative? This article discusses one solution.">
+  <meta itemprop="datePublished" content="2010-11-01T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2010-11-01T00:00:00+00:00">
+  <meta itemprop="wordCount" content="525">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ChemCell - Easily Convert Names and CAS Numbers to Chemical Structures in Excel">
+  <meta name="twitter:description" content="Note: the same functionality described in this article is now available on Google Spreadsheets.
+Chemical databases often start as a list of names or Chemical Abstracts Service (CAS) Registry numbers contained in an Excel spreadsheet. But as more and more expectations get placed on these ad hoc datasets, a point inevitably comes when the assignment of chemical structures becomes necessary. Whether for the purpose of performing substructure search, generating structure images, clustering, or assigning molecular weight, generating chemical structures from common names and CAS Numbers can be a major problem. Given the task of doing so for hundreds of structures, many organizations resort to manual data entry. But what if there were an inexpensive, quick alternative? This article discusses one solution.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">ChemCell - Easily Convert Names and CAS Numbers to Chemical Structures in Excel</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2010-11-01T00:00:00Z">November 1, 2010</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p><em>Note: the same functionality described in this article is <a href="http://blog.metamolecular.com/articles/2011/02/22/gchem-easily-convert-names-and-cas-numbers-to-chemical-structures-in-google-spreadsheets/">now available on Google Spreadsheets</a>.</em></p>
+<p>Chemical databases often start as a list of names or <a href="http://metamolecular.com/cheminformatics/what-is-a-cas-number/">Chemical Abstracts Service (CAS) Registry numbers</a> contained in an Excel spreadsheet. But as more and more expectations get placed on these ad hoc datasets, a point inevitably comes when the assignment of chemical structures becomes necessary. Whether for the purpose of performing <a href="/articles/2008/10/02/fast-substructure-search-using-open-source-tools-part-1-fingerprints-and-databases/">substructure search</a>, <a href="/articles/2008/09/11/imaging-chemical-structures-with-chemphoto-wysiwyg-drawing-settings/">generating structure images</a>, clustering, or assigning molecular weight, generating chemical structures from common names and CAS Numbers can be a major problem. Given the task of doing so for hundreds of structures, many organizations resort to manual data entry. But what if there were an inexpensive, quick alternative? This article discusses one solution.</p>
+<h1 id="chemcell">ChemCell</h1>
+<p><a href="http://github.com/cdd/chemcell">ChemCell</a> is a macro that enables Microsoft Excel to convert columns of chemical names and CAS Numbers into <a href="http://en.wikipedia.org/wiki/Simplified_molecular_input_line_entry_specification">SMILES strings</a>. A poster I gave at the <a href="/articles/2010/10/12/poster-at-the-cdd-communit-meeting/">4th annual Collaborative Drug Discovery (CDD) Community Meeting</a> describes <a href="/images/posts/cdd-poster.pdf">ChemCell in more detail</a>:</p>
+<p><img src="/images/posts/cdd-poster.png" alt="CDD Poster" title="CDD Poster"></p>
+<h1 id="using-chemcell">Using ChemCell</h1>
+<p>After <a href="http://github.com/cdd/chemcell">downloading ChemCell</a>, extract the archive, double-click on the file <strong>chemcell.xls</strong>, then open your spreadsheet containing trivial names, IUPAC names, or CAS Numbers.</p>
+<p>To generate a SMILES string for a name contained in cell A4, click in any empty table cell and use this formula:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">=</span>getSMILES<span style="color:#f92672">(</span>A4<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p><code>getSMILES</code> works just like any other Excel formula: it can be pasted down every row in a column, the resulting values can be sorted, and other calculations can be based off of it.</p>
+<h1 id="how-it-works">How it Works</h1>
+<p>ChemCell uses <a href="http://cactus.nci.nih.gov/chemical/structure/">Chemical Structure Lookup Service</a> (CSLS), a web service created for the purpose of providing structural information based on chemical names. By invoking the <code>getSMILES</code> function, your spreadsheet is calling CSLS and parsing the result.</p>
+<p>Although it&rsquo;s possible to use PubChem to perform <a href="/articles/2007/05/21/simple-cas-number-lookup-with-pubchem/">one-off structure lookup based on CAS Number and/or name</a>, the CSLS Web API is implemented in such a way so as to easily enable the exposure of this functionality through Excel.</p>
+<h1 id="limitations">Limitations</h1>
+<p>ChemCell&rsquo;s recall and accuracy were tested against a random sample of 1,000 name/structure pairings found in the <a href="http://www.ebi.ac.uk/chebi/downloadsForward.do">ChEBI 3-star dataset</a>. Rate of recall was found to be 70% (structures found) with 76% accuracy (exact matches). Most mismatches were due to unassigned stereochemistry in CSLS that was assigned in ChEBI. In other words, agreement between ChEBI and CSLS in terms of molecular atom connectivity was high.</p>
+<h1 id="just-the-beginning">Just the Beginning</h1>
+<p>Converting names and CAS numbers to structures is but one possible use of the underlying ChemCell software. The core system could be used for a number of purposes, including: generation of Standard InChI Key (currently supoported); returning structure images; calculating logP, finding molecular weight, assigning IUPAC Name; and a number of other capabilities.</p>
+<p>As more cheminformatics Web services like CSLS start to pop up, they could be integrated through Excel by making some very simple changes to the ChemCell code.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>ChemCell is a very small piece of software that exposes cheminformatics Web services through the familiar and ubiquitous interface of Microsoft Excel. Although the initial proof of concept succeeds relatively well in assigning structures to arbitrary names and CAS Numbers, the underlying approach could be adapted to expose a number of other interesting cheminformatics services.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

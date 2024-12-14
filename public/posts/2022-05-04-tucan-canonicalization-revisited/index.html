@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>TUCAN Canonicalization Revisited | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="A revised first-principles approach to canonicalization of a new molecular identifier.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/posts/2022-05-04-tucan-canonicalization-revisited/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/posts/2022-05-04-tucan-canonicalization-revisited/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="TUCAN Canonicalization Revisited">
+  <meta property="og:description" content="A revised first-principles approach to canonicalization of a new molecular identifier.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-05-04T17:30:00+00:00">
+    <meta property="article:modified_time" content="2022-05-04T17:30:00+00:00">
+
+  <meta itemprop="name" content="TUCAN Canonicalization Revisited">
+  <meta itemprop="description" content="A revised first-principles approach to canonicalization of a new molecular identifier.">
+  <meta itemprop="datePublished" content="2022-05-04T17:30:00+00:00">
+  <meta itemprop="dateModified" content="2022-05-04T17:30:00+00:00">
+  <meta itemprop="wordCount" content="2558">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="TUCAN Canonicalization Revisited">
+  <meta name="twitter:description" content="A revised first-principles approach to canonicalization of a new molecular identifier.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">TUCAN Canonicalization Revisited</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2022-05-04T17:30:00Z">May 4, 2022</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Molecular identifiers, also known as &ldquo;chemical names,&rdquo; underpin modern chemistry. A <a href="https://doi.org/10.21203/rs.3.rs-1466562/v1">recent paper</a> introduced TUCAN, a new molecular identifier. As noted in my <a href="/articles/2022/04/06/molecular-identification-with-tucan/">overview</a>, TUCAN could one day play a similar role in molecular identification as canonical SMILES and IUPAC nomenclature. An important point along the way is canonicalization, or the selection of one representation out of many possible for a given molecule. This article approaches the topic of TUCAN canonicalization from first principles, distinguishing required from optional steps.</p>
+<h1 id="tucan-syntax">TUCAN Syntax</h1>
+<p>It might seem odd to start a discussion of canonicalization with syntax. After all, isn&rsquo;t canonicalization just the reproducible assignment of indexes to the nodes of a graph? Yes and no. As we&rsquo;ll see, the syntax used by string representations can be exploited during canonicalization as an integral component of algorithm development. If nothing else syntax can constrain index assignment and so must be considered prior to canonicalization.</p>
+<p>A TUCAN string consists of two components, a formula and an ordered bond list. The syntax can be generalized as the template <code>{formula}{bonds}</code>. The formula component is expressed using <a href="https://en.wikipedia.org/wiki/Chemical_formula#Hill_system">Hill Notation</a>. This notation lists an atom&rsquo;s elements starting with first carbon then hydrogen. The remaining elements are listed in alphabetical order. A numerical count follows each element if it exceeds one. If an element is not present, it is omitted from the the formula. An element symbol only appears once. For example, the Hill Formula for glucose is &ldquo;C6H12O6.&rdquo; The bond list is a concatenation of individual bond representations. A bond is represented by the template <code>/{source}-{target}</code>, where <code>{source}</code> is the bond&rsquo;s source index and <code>{target}</code> is the bond&rsquo;s target index.</p>
+<p>TUCAN imposes three additional constraints on syntax:</p>
+<ol>
+<li>Atoms must be indexed in order of ascending atomic number.</li>
+<li>A bond&rsquo;s target index must succeed its source index. In other words, a bond between atoms 5 and 3 must be written as &ldquo;/3-5&rdquo; and must not be written as &ldquo;/5-3&rdquo;.</li>
+<li>The bond list must be sorted in increasing numerical order. That order is determined by the value of the source index followed by the value of the target index. For example, the correct order for two bonds, one between atoms 7 and 3 and the other between atoms 4 and 3 is &ldquo;/3-4/3-7&rdquo;.</li>
+</ol>
+<p>A bond list can more generally be represented with <em>tuple notation</em>. This method represents bonds by their numerical indexes wrapped in parentheses and separated by a comma. For example, the bond list representations &ldquo;/3-4/3-7&rdquo; and <code>(3,4)(3,7)</code> are equivalent.</p>
+<h1 id="the-simplest-canonicalization-algorithm">The Simplest Canonicalization Algorithm</h1>
+<p>The simplest canonicalization algorithm consists of generating all possible representations and choosing the lexically minimal (or maximal) one. This procedure can be performed on a string, but also many other kinds representation. In TUCAN, the formula component does not change with atom indexing, so it can be disregarded for the purpose of canonicalization. This leaves just the bond list as a point of variation.</p>
+<p>Identifying the lexically minimal representation requires an <em>order</em> over them. Given two members of a set, an order makes it possible to determine which is greater or lesser. This information can be encapsulated by an operation called <code>compare</code> that accepts two set members and returns one of three values depending on whether the first input is greater than, less than, or equal to the second. The <code>compare</code> operation lays the foundation for algorithms that can <a href="https://en.wikipedia.org/wiki/Sorting_algorithm">sort</a> the members of a collection, and determine its minimal and maximal values.</p>
+<p>TUCAN&rsquo;s syntax provides a ready-made definition for the <code>compare</code> operation. If the source index of the first bond precedes the source index of the second bond, the first bond precedes the second. If both source indexes are equal, the first bond precedes the second bond if its target index precedes that of the second. Otherwise the two bonds are equal to each other. This simple <code>compare</code> procedure sorts the bonds within a single molecule from minimal to maximal. It can also be used to compare bond lists.</p>
+<p>Given a method to compare TUCAN representations, how many need to be considered? A molecular graph of <em>n</em> atoms can be indexed in <em>n</em>! different ways. TUCAN does not support <a href="/articles/2020/05/18/hydrogen-suppression-in-cheminformatics/">hydrogen suppression</a>, so every hydrogen atom must be represented as a node, which can drastically increase the value of <em>n</em>. For example, cyclopropane contains 9 atoms (3 carbons and 6 hydrogens). In general, there are 9! (362,880) different ways to index the atoms, ignoring symmetry. In practice, both symmetry and the syntax of an identifier limit the number of unique indexing permutations.</p>
+<p>TUCAN&rsquo;s syntax constrains the number of representations that need to be considered in two ways: (1) by limiting the indexes assignable to an atom; and (2) by sorting the bond list in ascending order. The next section explores the consequences of (1) in detail. Near the conclusion, we&rsquo;ll return to (2).</p>
+<h1 id="invariants-and-automorphism">Invariants and Automorphism</h1>
+<p>TUCAN&rsquo;s requirement for atoms to be indexed by increasing atomic number is an example of an <em>atomic invariant</em>.  An atomic invariant is a value computed on an atom that doesn&rsquo;t change when indexing changes. Numerous atomic invariants have been developed, and some are described in the TUCAN paper. For example, degree (neighbor count) is an atomic invariant, as is distance sum (the sum of shortest path lengths from a given atom to every other atom).</p>
+<p>The application of an invariant to the atoms of a molecular graph results in one or more <em>atom invariant classes</em> (&ldquo;invariant classes&rdquo;, aka &ldquo;partitions&rdquo;). Partitioning atoms among two or more invariant classes is useful because it reduces the number of possible indexings. For example, a single invariant class for the atoms of cyclopropane leads to 9! (362,880) possible indexings in the general case. However, partitioning atoms by atomic number leads to two invariant classes: one containing six atoms and the other three. The number of possible indexings is reduced to 6!*3!, or 4,320.</p>
+<!-- raw HTML omitted -->
+<p>This set reduction traces its origins to the concept of <em>automorphism</em>. Automorphism is an <a href="/articles/2008/11/13/one-of-these-things-is-not-like-the-other/">isomorphism</a> applied not between two different graphs, but between the same graph with two different indexings. The concept is closely related to molecular symmetry. When a symmetry operation can interconvert two nodes, they are automorphic. For example, the hydrogen atoms in cyclopropane are automorphic with each other, as are the carbon atoms. The atoms within each invariant class happen to be related by symmetry operations in this example and are therefore automorphic. By comparison, no atom will ever be automorphic with any atom outside of its invariant class. Carbon and hydrogen atoms can&rsquo;t map to each other under any symmetry operation.</p>
+<p>In practical terms, the atomic number invariant drastically reduces the number of unique indexings for cyclopropane from 9! (362,880) to 6!*3! (4,320). This nearly 100-fold reduction raises the question how to achieve further reductions. It&rsquo;s tempting at this point to generalize from specific examples, but that would be a mistake.</p>
+<h1 id="no-free-lunch">No Free Lunch</h1>
+<p>Atoms drawn from different partitions will never be automorphic. However, atoms drawn from the same partition may or may not be automorphic. Whether or not they are depends not only on the invariant but the graph itself.</p>
+<p>Consider propane. Application of the atomic number invariant leads to two invariant classes, one with eight hydrogens and the other with three carbons. Recall that we saw something similar with cyclopropane. As before, the hydrogens can never be automorphic with the carbons. However, some hydrogens are automorphic with certain hydrogens, but not others. The same applies to the carbons.</p>
+<!-- raw HTML omitted -->
+<p>Without proof, no atomic invariant can be assumed to have perfect discriminatory power. In other words, no atom within a partition can be assumed to be automorphic with any other member of the same partition. For the purpose of assigning a canonical string, the atoms within a partition must be treated as if they were not related by symmetry.</p>
+<p>This point bears repeating. No atom within a partition, regardless of how elaborate or compelling the invariant that gave rise to it may appear, can be assumed to be automorphic with its cohorts. The atoms within a partition must be assumed to be non-automorphic until proven otherwise.</p>
+<p>Every canonicalization algorithm, no matter how revolutionary its atomic invariant is portrayed, must include a step in which the atoms <em>within</em> a partition are exhaustively permuted. That step can be made less expensive by, for example, devising more sensitive invariants thereby minimizing the size of each partition. But the permutation step can not be eliminated. Nor should the efficiency of any canonicalization algorithm be judged without accounting for the cost of permutation.</p>
+<p>In his <a href="https://doi.org/10.1002/9783527618279.ch7a">review of molecular canonicalization</a>, Ivanciuc calls this step <em>canonical code generation by automorphism permutation</em> (CCAP). For an illustrated introduction to this review, see <a href="/articles/2021/10/06/molecular-graph-canonicalization/">my summary of it from last year</a>. Many of the terms and concepts developed by Ivanciuc have been adapted for use here. For convenience the terms &ldquo;CCAP&rdquo; and &ldquo;permutation&rdquo; will be used interchangeably.</p>
+<p>Unfortunately, several published canonicalization schemes fail to account for this point. As noted in <a href="https://doi.org/10.1186/s13321-020-00453-4">a paper by Kroto</a>:</p>
+<blockquote>
+<p>Since both published by Weininger et  al. and by Schneider, Sayle, and Landrum algorithms for canonicalizing of SMILES do not contain CCAP (canonical code generation by automorphism permutation) step, they are incomplete, i.e. for some molecular graphs they could give different canonical SMILES for the label permutations of one molecular graph. &hellip;</p>
+</blockquote>
+<p>For its part the <a href="https://dx.doi.org/10.1021/acs.jcim.5b00543">paper in question</a> by Schneider and coworkers admits the lack of a CCAP step while attempting to justify it:</p>
+<blockquote>
+<p>To rigorously prove that the atoms within one equivalence class [i.e., partition] obtained after the refinement phase are symmetry equivalent, which would make it valid to use our tie breaking procedure, a systematic test by renumbering using all permutations within the equivalence class would be required. More sophisticated approaches to this rather time-consuming brute-force process have been proposed in the literature. These include the use of generating sets — allowing many of the permutations to be skipped — and a combination of backtracking and comparison of candidate adjacency matrices to prune the backtracking tree. <strong>Since the use of appropriate atom invariants removes the need for this elaborate step in the canonicalization of almost all kinds of chemical graphs, we decided to not include it in our novel approach.</strong> [my emphasis] We believe that the successful results from the extensive renumbering and round-tripping tests on a large set of diverse molecules as well as on very symmetrical graphs demonstrate the robustness of our new method.</p>
+</blockquote>
+<p>From my reading, the Schneider paper offers no proof of perfect discriminatory power for the atomic invariant it presents. Nevertheless the algorithm explicitly excludes a permutation step. As such, the claim of a broadly-applicable canonicalization scheme, and the benchmarks presented for it, should be viewed with skepticism.</p>
+<h1 id="example-permutation">Example Permutation</h1>
+<p>A valid canonicalization of TUCAN strings requires a permutation (CCAP) step, regardless of the partitioning performed prior to it. What this means in the worst case is that the atoms in each partition are exhaustively reindexed and permuted with the others.</p>
+<p>Consider glyoxylic acid. Its seven atoms are split into three partitions by TUCAN&rsquo;s atomic number invariant. The count of atoms in each partition is hydrogen (2), carbon (2) and oxygen (3). Assuming no further partitioning (the worst case), which indexings must be considered? We know there will be 2!*2!*3!, or 24 of them, but what are they and how can they be enumerated?</p>
+<p>We start with a random indexing consistent with TUCAN syntax. The goal is to enumerate the 23 remaining indexings for a full set. One approach is to fix the indexes of one partition, then exhaustively permute the indexes of the remaining two partitions until all indexings have been enumerated.</p>
+<!-- raw HTML omitted -->
+<p>The first set of twelve permutations is obtained by fixing the members of the hydrogen partition and permuting the members of the remaining two partitions, yielding a total of 2!*3! (12) indexings.</p>
+<!-- raw HTML omitted -->
+<p>The next set of twelve permutations is obtained by swapping the hydrogen atom indexes (1 and 2) and permuting the remaining two partitions again for a total for 12 new indexings.</p>
+<!-- raw HTML omitted -->
+<p>This brute-force analysis reveals the lexically minimal string to be &ldquo;C2H2O3/1-3/2-5/3-4/3-6/4-5/4-7&rdquo;.</p>
+<h1 id="algorithm">Algorithm</h1>
+<p>Given small numbers of partitions with few atoms in each one, it&rsquo;s a simple matter to generate all permutations. But doing the same thing in the general sense with larger molecules is a different matter. What&rsquo;s needed for this step is an efficient method for generating permutations. This is, perhaps surprisingly, a non-trivial problem. What we&rsquo;re after is an algorithm that works with O(<em>n</em>!) time complexity. In other words, the algorithm should not enumerate anything it doesn&rsquo;t have to. Such algorithms have been reported, perhaps the best-known of which is <a href="http://ruslanledesma.com/2016/06/17/why-does-heap-work.html">Heap&rsquo;s Algorithm</a>.</p>
+<p>Based on Heap&rsquo;s Algorithm or something similar, the full set of TUCAN indexings for any molecule can be enumerated. There would be a clear recursive element to such an algorithm in that permutations within one partition would themselves be permuted with permutations within the remaining partitions.</p>
+<p>But such an algorithm, although rigorously correct, would be hopelessly impractical given its factorial complexity. What tools might be deployed to increase efficiency?</p>
+<h1 id="we-can-do-better">We Can Do Better</h1>
+<p>Two powerful approaches are available when devising canonicalization algorithms: (1) minimizing the size of partitions; and (2) exploiting the syntax of strings. Each offers its own palette of tools.</p>
+<p>Simple math and the glyoxylic acid example reveal that the size of the largest partition governs efficiency. A plethora of methods are available for expelling heteromorphic atoms from a partition. For example, atoms can be further partitioned based on their degree. Taking just this one step with glyoxylic acid reduces the number of permutations from 24 to 8 (2!*2!*2!\1!).</p>
+<p>TUCAN&rsquo;s syntax can also be exploited. Recall that the bond list is sorted. One consequence is that a permutation can only be minimal if its first bond is minimal. Looking back at the glyoxylic acid example, the minimal bond is (1,3). Rather than the random permutation in the example, a directed permutation could be used. We&rsquo;d start by forming the first minimal bond (1,3), then forming the next available minimal bond, and so on. In this manner search space can be organized into a tree.</p>
+<p>In some cases, it wouldn&rsquo;t be clear what the next bond should be. If so, we&rsquo;d try one branch and see where it led. Then we&rsquo;d backtrack to try the next branch, and so on. If a branch clearly could not result in a minimal permutation, it could be dropped, saving the time it would have taken to fully traverse the branch. In this way, the search space could be <em>pruned</em> without decreasing the rigor of the approach.</p>
+<p>Given that permutation (CCAP) is an unavoidable and potentially expensive step, time spent in optimization here would be well-rewarded.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>Although often described in very complex terms, canonicalization is not a conceptually complex process. Given some order of atomic indexings for a given molecule, we select the minimal (or maximal) one as the canonical form. The search space is factorial in size. Atomic invariant partitioning offers a powerful method for reducing search space. But because no invariant is perfectly discriminating, a second exhaustive permutation step will always be required. Fortunately, this step too can be made more efficient through careful consideration of the constraints imposed by syntax.</p>
+<h1 id="note">Note</h1>
+<p>This article supersedes <a href="/articles/2022/04/20/tucan-canonicalization/">the one published earlier</a>. That previous attempt to explain TUCAN canonicalization failed on several levels. It is nevertheless being preserved to highlight some of the pitfalls faced when developing canonicalization procedures.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  My New Hugo Site 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

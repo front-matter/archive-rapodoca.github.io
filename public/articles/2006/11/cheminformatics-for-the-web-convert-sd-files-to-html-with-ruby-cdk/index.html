@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Cheminformatics for the Web: Convert SD Files to HTML with Ruby CDK | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="The Structure Data File (SDF) format is the de facto standard for cheminformatics data exchange.  One of the problems that arises when working with SD Files, especially large ones like those distributed by PubChem, is &ldquo;seeing&rdquo; the structures they contain. Although commercial software packages are available for doing so, they are generally closed, unreasonably expensive, or overly complex. This article describes a simple solution to the SDF visualization problem that uses Open Source tools controlled from the elegant and agile Ruby programming language.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2006/11/cheminformatics-for-the-web-convert-sd-files-to-html-with-ruby-cdk/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2006/11/cheminformatics-for-the-web-convert-sd-files-to-html-with-ruby-cdk/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Cheminformatics for the Web: Convert SD Files to HTML with Ruby CDK">
+  <meta property="og:description" content="The Structure Data File (SDF) format is the de facto standard for cheminformatics data exchange. One of the problems that arises when working with SD Files, especially large ones like those distributed by PubChem, is “seeing” the structures they contain. Although commercial software packages are available for doing so, they are generally closed, unreasonably expensive, or overly complex. This article describes a simple solution to the SDF visualization problem that uses Open Source tools controlled from the elegant and agile Ruby programming language.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2006-11-13T00:00:00+00:00">
+    <meta property="article:modified_time" content="2006-11-13T00:00:00+00:00">
+
+  <meta itemprop="name" content="Cheminformatics for the Web: Convert SD Files to HTML with Ruby CDK">
+  <meta itemprop="description" content="The Structure Data File (SDF) format is the de facto standard for cheminformatics data exchange. One of the problems that arises when working with SD Files, especially large ones like those distributed by PubChem, is “seeing” the structures they contain. Although commercial software packages are available for doing so, they are generally closed, unreasonably expensive, or overly complex. This article describes a simple solution to the SDF visualization problem that uses Open Source tools controlled from the elegant and agile Ruby programming language.">
+  <meta itemprop="datePublished" content="2006-11-13T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2006-11-13T00:00:00+00:00">
+  <meta itemprop="wordCount" content="903">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Cheminformatics for the Web: Convert SD Files to HTML with Ruby CDK">
+  <meta name="twitter:description" content="The Structure Data File (SDF) format is the de facto standard for cheminformatics data exchange. One of the problems that arises when working with SD Files, especially large ones like those distributed by PubChem, is “seeing” the structures they contain. Although commercial software packages are available for doing so, they are generally closed, unreasonably expensive, or overly complex. This article describes a simple solution to the SDF visualization problem that uses Open Source tools controlled from the elegant and agile Ruby programming language.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Cheminformatics for the Web: Convert SD Files to HTML with Ruby CDK</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2006-11-13T00:00:00Z">November 13, 2006</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>The Structure Data File (SDF) format is the de facto standard for cheminformatics data exchange.  One of the problems that arises when working with SD Files, especially large ones like those distributed by <!-- raw HTML omitted -->PubChem<!-- raw HTML omitted -->, is &ldquo;seeing&rdquo; the structures they contain. Although commercial software packages are available for doing so, they are generally closed, unreasonably expensive, or overly complex. This article describes a simple solution to the SDF visualization problem that uses Open Source tools controlled from the elegant and agile <!-- raw HTML omitted -->Ruby<!-- raw HTML omitted --> programming language.</p>
+<h1 id="cut-to-the-chase">Cut to the Chase</h1>
+<p><a href="/images/posts/20061113/index.html">This page</a> shows the output produced by the software. You&rsquo;ll see a neatly arranged grid of colorful 2-D chemical structures in a Web page that was generated directly from a PubChem <!-- raw HTML omitted -->SDFGZ file<!-- raw HTML omitted -->. Each structure has a number below it, the PubChem Compound ID (CID). Both the structure and CID are hyperlinked to the Compound Summary page on PubChem. A partial screenshot is provided below.</p>
+<p><img src="/images/posts/20061113/screenshot.png" alt="SDFGZ" title="SDFGZ"></p>
+<h1 id="prerequisites">Prerequisites</h1>
+<p>For this tutorial, you&rsquo;ll need <!-- raw HTML omitted -->Ruby CDK<!-- raw HTML omitted --> (RCDK). A <!-- raw HTML omitted -->recent article<!-- raw HTML omitted --> described the small amount of system configuration required for RCDK on Linux. Another article showed how to <!-- raw HTML omitted -->install RCDK on Windows<!-- raw HTML omitted -->.</p>
+<h1 id="download-the-software">Download the Software</h1>
+<p>The software described in this article can be <!-- raw HTML omitted -->downloaded here<!-- raw HTML omitted -->. Inflate this file and make it your working directory. You should see a 14 MB SDFGZ file, a RHTML template, and three Ruby files.</p>
+<h1 id="ripping-pubchem-sd-files">Ripping PubChem SD Files</h1>
+<p>The software is designed to work with PubChem <!-- raw HTML omitted -->SDFGZ files<!-- raw HTML omitted -->. The SDFGZ format simply results from the application of the gzip compression algorithm to an ordinary SD file.</p>
+<p>Ripping the example SDFGZ file is just a matter of running <code>test.rb</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ruby test.rb
+</span></span></code></pre></div><p>You&rsquo;ll see some output indicating that various CIDs are being processed. On completion, the software has created a directory called <code>rip</code> containing a HTML file and an images directory.</p>
+<h1 id="the-little-engine-that-could-cdks-structurediagramgenerator">The Little Engine That Could: CDK&rsquo;s StructureDiagramGenerator</h1>
+<p>If you&rsquo;ve ever worked with PubChem&rsquo;s SD Files, you&rsquo;ll no doubt have noticed that the molfile section encodes all hydrogen atoms, which is not general practice. Rendering these hydrogens results in a very cluttered image.</p>
+<p>To solve this problem, the software creates its graphics from the <!-- raw HTML omitted -->PUBCHEM_OPENEYE_CAN_SMILES<!-- raw HTML omitted --> field encoded by the SDFGZ file. This SMILES string is converted into a molecular representation and coordinates are assigned by CDK&rsquo;s <!-- raw HTML omitted -->StructureDiagramGenerator<!-- raw HTML omitted -->.</p>
+<p>When an image can&rsquo;t be rendered in this way, it is left out. This was done for CIDs 18, 115, 147, 148, 222, and 223, for example. There are three common themes in these missing structures: metals, phosphorous, and molecules with a single heavy atom. The problem may, in fact, lie in the underlying Structure-CDK software, rather than with CDK. Stay tuned for more on this.</p>
+<h1 id="pubchem-for-debugging">PubChem for Debugging</h1>
+<p>In developing this SD File Ripper program, I realized that it could be used as a powerful debugging tool. Notice how the missing structures (and their SMILES strings) can easily be examined via PubChem by clicking the empty cell. The alternative would have been for the program to spit out a list of SMILES that didn&rsquo;t process properly and to then try to construct a mental image of what this string represents. With PubChem, we do away with this tedium altogether.</p>
+<p>I doubt the creators of PubChem envisioned this application of their work. Surely it&rsquo;s but one of many still to be discovered.</p>
+<h1 id="another-cool-thing-about-ruby-eruby-templates">Another Cool Thing About Ruby: eRuby Templates</h1>
+<p>Our SDF Ripper program creates HTML output, something for which Ruby is well-suited through its eRuby ERB library. Among other uses, ERB enables Ruby code to be embedded within HTML. This inside-out scripting capability resembles that of other templating languages such as PHP, ASP, and JSP (ERB is used extensively by the <!-- raw HTML omitted -->Ruby on Rails<!-- raw HTML omitted --> web application framework). The file <code>template.rhtml</code> contains the rippers&rsquo;s ERB template. The separation of program logic from presentation makes it very simple to customize the appearance of the output.</p>
+<h1 id="room-to-grow">Room to Grow</h1>
+<p>Our SDF Ripper only works with SDFGZ files from PubChem. The program is short enough that it should be simple to adapt it for your specific needs. It would not be much work at all, for example, to create an HTML table containing all fields encoded by the SDFGZ file. Similarly, adding support for non-compressed SD files is straightforward. If JavaScript is your medium, the possibilities become even more interesting. How about a pop-up menu showing an enlarged structure and data summary, <!-- raw HTML omitted -->a la Netflix<!-- raw HTML omitted --> when the user mouses over an image?</p>
+<p>Paging is a technique that divides large Web pages into smaller pages linked to one another. For example, Google&rsquo;s search results are divided into groups of ten by default. Adding paging support to the software described here would also not be difficult, and would enable the convenient browsing of much larger datasets.</p>
+<h1 id="other-software-that-does-this">Other Software That Does This</h1>
+<p>I am aware of no product, commercial or otherwise, that performs the SDF to HTML conversion in the way shown here. <!-- raw HTML omitted -->SciTegic<!-- raw HTML omitted --> does offer an <!-- raw HTML omitted -->HTML table component<!-- raw HTML omitted --> as part of its <!-- raw HTML omitted -->Pipeline Pilot<!-- raw HTML omitted --> framework, but as far as I know, no standalone version is available.</p>
+<p><!-- raw HTML omitted -->Rajarshi Guha<!-- raw HTML omitted -->, among his many other interesting projects, has written a <!-- raw HTML omitted -->Java SDF to PDF convertor<!-- raw HTML omitted --> that uses CDK.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>This article has demonstrated how the combination of RCDK and Ruby makes short work of converting the contents of an SD file into a Web-ready format. As usual, we&rsquo;ve only scratched the surface of what&rsquo;s easily within reach. Watch for future articles to build on the concepts outlined here.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

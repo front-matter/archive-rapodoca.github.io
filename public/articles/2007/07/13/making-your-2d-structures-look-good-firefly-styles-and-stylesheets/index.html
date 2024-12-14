@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Making Your 2D Structures Look Good: Firefly, Styles and Stylesheets | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Chemists can be very discerning when it comes to chemical structure aesthetics. This is not surprising, given the central role played by 2D chemical structures in the day-to-day work of many chemists. For example, consider the Wikipedia Chemistry/Structure drawing workgroup&rsquo;s ongoing discussion about achieving a consistent look for chemical structures on the online encyclopedia.
+Several articles have discussed Firefly, a 2D chemical structure editor specifically designed for the Web. With major work on the rendering engine and structure manipulation interface complete, recent efforts have turned toward exposing drawing settings through a graphical user interface. Here I&rsquo;ll provide some screenshots of an interface prototype along with sample structures. I&rsquo;ll also briefly discuss the larger question of making 2D structure drawing styles portable.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2007/07/13/making-your-2d-structures-look-good-firefly-styles-and-stylesheets/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2007/07/13/making-your-2d-structures-look-good-firefly-styles-and-stylesheets/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Making Your 2D Structures Look Good: Firefly, Styles and Stylesheets">
+  <meta property="og:description" content="Chemists can be very discerning when it comes to chemical structure aesthetics. This is not surprising, given the central role played by 2D chemical structures in the day-to-day work of many chemists. For example, consider the Wikipedia Chemistry/Structure drawing workgroup’s ongoing discussion about achieving a consistent look for chemical structures on the online encyclopedia.
+Several articles have discussed Firefly, a 2D chemical structure editor specifically designed for the Web. With major work on the rendering engine and structure manipulation interface complete, recent efforts have turned toward exposing drawing settings through a graphical user interface. Here I’ll provide some screenshots of an interface prototype along with sample structures. I’ll also briefly discuss the larger question of making 2D structure drawing styles portable.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2007-07-13T00:00:00+00:00">
+    <meta property="article:modified_time" content="2007-07-13T00:00:00+00:00">
+
+  <meta itemprop="name" content="Making Your 2D Structures Look Good: Firefly, Styles and Stylesheets">
+  <meta itemprop="description" content="Chemists can be very discerning when it comes to chemical structure aesthetics. This is not surprising, given the central role played by 2D chemical structures in the day-to-day work of many chemists. For example, consider the Wikipedia Chemistry/Structure drawing workgroup’s ongoing discussion about achieving a consistent look for chemical structures on the online encyclopedia.
+Several articles have discussed Firefly, a 2D chemical structure editor specifically designed for the Web. With major work on the rendering engine and structure manipulation interface complete, recent efforts have turned toward exposing drawing settings through a graphical user interface. Here I’ll provide some screenshots of an interface prototype along with sample structures. I’ll also briefly discuss the larger question of making 2D structure drawing styles portable.">
+  <meta itemprop="datePublished" content="2007-07-13T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2007-07-13T00:00:00+00:00">
+  <meta itemprop="wordCount" content="459">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Making Your 2D Structures Look Good: Firefly, Styles and Stylesheets">
+  <meta name="twitter:description" content="Chemists can be very discerning when it comes to chemical structure aesthetics. This is not surprising, given the central role played by 2D chemical structures in the day-to-day work of many chemists. For example, consider the Wikipedia Chemistry/Structure drawing workgroup’s ongoing discussion about achieving a consistent look for chemical structures on the online encyclopedia.
+Several articles have discussed Firefly, a 2D chemical structure editor specifically designed for the Web. With major work on the rendering engine and structure manipulation interface complete, recent efforts have turned toward exposing drawing settings through a graphical user interface. Here I’ll provide some screenshots of an interface prototype along with sample structures. I’ll also briefly discuss the larger question of making 2D structure drawing styles portable.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Making Your 2D Structures Look Good: Firefly, Styles and Stylesheets</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2007-07-13T00:00:00Z">July 13, 2007</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Chemists can be <a href="http://depth-first.com/articles/2007/07/11/waldorf-salad">very discerning</a> when it comes to chemical structure aesthetics. This is not surprising, given the <a href="http://depth-first.com/articles/2007/03/30/the-aesthetics-of-chemical-structure-diagrams">central role</a> played by 2D chemical structures in the day-to-day work of many chemists. For example, consider the <a href="http://en.wikipedia.org/wiki/Wikipedia_talk:WikiProject_Chemistry/Structure_drawing_workgroup/Archive_Apr_2007">Wikipedia Chemistry/Structure drawing workgroup&rsquo;s ongoing discussion</a> about achieving a consistent look for chemical structures on the online encyclopedia.</p>
+<p>Several articles have discussed <a href="http://depth-first.com/articles/tag/firefly">Firefly</a>, a 2D chemical structure editor specifically designed for the Web. With major work on the rendering engine and structure manipulation interface complete, recent efforts have turned toward exposing drawing settings through a graphical user interface. Here I&rsquo;ll provide some screenshots of an interface prototype along with sample structures. I&rsquo;ll also briefly discuss the larger question of making 2D structure drawing styles portable.</p>
+<p>Drawing styles are edited through a tabbed dialog containing a live preview window that uses the current structure or a default structure if none is available. The dialog is resizable, enabling users to immediately see the effects of changes on structures of varying sizes. Although this dialog could be bundled and deployed with the editor, its large footprint makes it more appropriate for use as an optional feature or as a standalone configuration tool in a Web application.</p>
+<p><img src="/images/posts/20070713/dialog.png" alt="Dialog" title="Dialog"></p>
+<p>Changes can be rolled back entirely (&ldquo;Reset&rdquo;), canceled (&ldquo;Cancel&rdquo;), or accepted (&ldquo;OK&rdquo;).</p>
+<p>Let&rsquo;s say we&rsquo;d like to apply a black background with white bonds, as used in some Power Point presentations:</p>
+<p><img src="/images/posts/20070713/black_background.png" alt="Black Background" title="Black Background"></p>
+<p>After applying this change, we decide that we&rsquo;d rather not use atom coloring:</p>
+<p><img src="/images/posts/20070713/no_colors.png" alt="No Colors" title="No Colors"></p>
+<p>After looking at this structure for a few seconds, we decide that narrower stereo bonds are needed:</p>
+<p><img src="/images/posts/20070713/thin_stereo.png" alt="Thin Stereo" title="Thin Stereo"></p>
+<p>After some experimentation, we find a more appropriate non-stereo bond width and double bond offset:</p>
+<p><img src="/images/posts/20070713/thin_lines.png" alt="Thin Lines" title="Thin Lines"></p>
+<p>What about a Serif font? No, I don&rsquo;t think so:</p>
+<p><img src="/images/posts/20070713/serif_font.png" alt="Serif Font" title="Serif Font"></p>
+<p>But we could certainly reduce the size of the atom labels:</p>
+<p><img src="/images/posts/20070713/small_labels.png" alt="Small Labels" title="Small Labels"></p>
+<p>On second thought, the original atom sizes were fine, although changing font may require us to reconsider the atom label heights:</p>
+<p><img src="/images/posts/20070713/thin_lines.png" alt="Thin Lines" title="Thin Lines"></p>
+<p>As you can see, the possibilities for customization are nearly endless. In practice, however, most chemists will adopt only two structure drawing styles that they re-use as needed: one for reports and manuscripts; and one for presentations. It will be interesting to see whether a third style makes it&rsquo;s way into the standard repertoire: Web.</p>
+<p>Each chemist will want a way to save their styles, possibly share them, and easily apply them. Although a few systems for doing so are feasible, the most practical approach would be a <a href="http://en.wikipedia.org/wiki/Stylesheet_language">stylesheet</a>. Applying a stylesheet to any structure diagram would change its appearance, offering a simple mechanism to achieve a consistent look across documents.</p>
+<p>Developing a universal (cross-editor) stylesheet system would be no easy task, given the wildly divergent capabilities of 2D structure rendering software. Despite the technical difficulty, the payoff for users is obvious.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

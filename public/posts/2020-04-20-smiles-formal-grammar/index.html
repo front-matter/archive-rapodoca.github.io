@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>SMILES Formal Grammar | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="A human- and machine readable blueprint for a popular cheminformatics language.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/posts/2020-04-20-smiles-formal-grammar/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/posts/2020-04-20-smiles-formal-grammar/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="SMILES Formal Grammar">
+  <meta property="og:description" content="A human- and machine readable blueprint for a popular cheminformatics language.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-04-20T18:00:00+00:00">
+    <meta property="article:modified_time" content="2020-04-20T18:00:00+00:00">
+
+  <meta itemprop="name" content="SMILES Formal Grammar">
+  <meta itemprop="description" content="A human- and machine readable blueprint for a popular cheminformatics language.">
+  <meta itemprop="datePublished" content="2020-04-20T18:00:00+00:00">
+  <meta itemprop="dateModified" content="2020-04-20T18:00:00+00:00">
+  <meta itemprop="wordCount" content="2569">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="SMILES Formal Grammar">
+  <meta name="twitter:description" content="A human- and machine readable blueprint for a popular cheminformatics language.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">SMILES Formal Grammar</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-04-20T18:00:00Z">April 20, 2020</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Three <a href="/articles/2007/03/14/eleven-qualities-of-the-perfect-line-notation-for-the-web/">line notations</a> find regular use in cheminformatics: SMILES; InChI; and IUPAC nomenclature. Of these three, only SMILES finds widespread use in machine-to-machine chemical structure exchange. That role depends on a set of well-defined syntactic rules. This article enumerates those rules using a formal grammar. Those familiar with the concepts behind formal grammars can skip to the end of the article, where a full SMILES grammar is presented.</p>
+<h1 id="formal-grammar">Formal Grammar</h1>
+<p>Wikipedia <a href="https://en.wikipedia.org/wiki/Formal_grammar">defines</a> formal grammar (aka &ldquo;grammar&rdquo;) as a tool that reveals:</p>
+<blockquote>
+<p>&hellip; how to form strings from a language&rsquo;s alphabet that are valid according to the language&rsquo;s syntax. A grammar does not describe the meaning of the strings or what can be done with them in whatever context—only their form. A formal grammar is defined as a set of production rules for strings in a formal language.</p>
+</blockquote>
+<p>In other words, a grammar enumerates all of the rules for producing valid strings in some language. At the same time, a grammar says nothing about what those strings mean.</p>
+<p>A grammar serves as a concise, comprehensive guide to a language. Beyond that, a grammar serves as a blueprint for writing a parser by hand. More interestingly, a grammar can be used as a template for machine-generated parsers.</p>
+<h1 id="ll1-grammars">LL(1) Grammars</h1>
+<p>Grammars have been the focus of much computer science research over the years. Some of that research has been devoted to categorizing languages by the kinds of grammars they produce. SMILES syntax can be expressed as an <a href="https://en.wikipedia.org/wiki/LL_grammar"><em>LL(1)</em> grammar</a>.</p>
+<p>LL(1) grammars can be parsed using a technique I call <a href="/articles/2019/01/22/scanner-driven-parser-development/">Scanner-Driven Parser Development</a>. To recap, an object of type <code>Scanner</code> encapsulates a string to be parsed through an API with three methods:</p>
+<ul>
+<li><code>cursor</code> returns the index of the cursor</li>
+<li><code>peek</code> returns the character at the cursor</li>
+<li><code>pop</code> returns the character at the cursor and increments the cursor</li>
+</ul>
+<p>Using a <code>Scanner</code> instance, a parser iterates one character at a time from a string. At each iteration, the parser has only one path open to it depending on the value returned from <code>peek</code>. As a result, the functions composing the parser assume the structure of the grammar itself. The result is known as a <a href="https://en.wikipedia.org/wiki/Recursive_descent_parser">recursive descent parser</a>. One of the most powerful features of such parsers is the lack of backtracking, which ensures a linear relationship between parse time and the number of tokens.</p>
+<h1 id="weininger-on-smiles-grammar">Weininger on SMILES Grammar</h1>
+<p>Dave Weininger, SMILES&rsquo; creator, wrote a <a href="http://doi.wiley.com/10.1002/9783527618279.ch5">description of the SMILES grammar</a> in 2008. Although his exact formalisms won&rsquo;t be used here, many of his definitions and terms will.</p>
+<p>In a noteworthy passage, Weininger described the SMILES grammar as follows:</p>
+<blockquote>
+<p>The formal grammar of the SMILES language is in a class of grammars (called “LR-1”) [sic] which is parsable with extreme efficiency and can be processed as a stream. One never needs to “back up” to figure out what is being represented.</p>
+</blockquote>
+<p>Weininger&rsquo;s characterization of the SMILES grammar as LR(1) (&ldquo;LR-1&rdquo;) may seem at odds with mine (LL(1)). Generally, the set of LR grammars encompasses the set of LL grammars so there&rsquo;s no inconsistency. One way to view the distinction is through the corresponding parser implementations. Both can be thought of as producing traversals over a tree. Whereas LR(1) parsers produce post-order traversals, LL(1) parsers produce pre-order traversals. For details, see <a href="http://blog.reverberate.org/2013/07/ll-and-lr-parsing-demystified.html">this article</a>. The bottom line is that LL(1) grammars are much simpler to parse than LR(1) grammars.</p>
+<h1 id="expressing-grammar">Expressing Grammar</h1>
+<p>Like any grammar, the one we&rsquo;ll define for SMILES is composed of a set of <em>production rules</em>. A production rule (or just &ldquo;production&rdquo;) defines a specific string transformation allowed by the grammar. In other words, a production rule can be thought of as a named string transformation.</p>
+<p>Over the years, several systems for representing grammars have been developed. One of the most popular is <a href="https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form">Backus–Naur form</a> (BNF). This notation will be used throughout this article.</p>
+<p>A production expressed in BNF consists of three parts. First, the name of the rule is given. Sometimes, angle brackets wrap the name and sometimes they don&rsquo;t. I&rsquo;ll be using angle brackets for the widest compatibility with automated tools. Next, an assignment operator appears. Apparently, <code>=</code>, <code>:=</code>, and <code>::=</code> are all valid, although the most broadly-supported is <code>::=</code>. Following the assignment operator are one or more <em>terminals</em> and <em>nonterminals</em>.</p>
+<p>A non-terminal is the name of a rule. These names appear on the left-hand side of the assignment operator for a given production. In other words, a non-terminal appearing on the right-hand side of the assignment operator can always be found as the name of some production rule elsewhere in the grammar.</p>
+<p>A terminal is an irreducible element of the language. In the case of SMILES, terminals include characters such as open parentheses (<code>(</code>), close parentheses (<code>)</code>), letters, and numbers.</p>
+<p>For example, consider a production rule for an explicit bond in SMILES. It can be expressed as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bnf" data-lang="bnf"><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">bond</span>&gt; <span style="color:#f92672">::=</span> &#34;-&#34; | &#34;=&#34; | &#34;#&#34; | &#34;$&#34; | &#34;/&#34; | &#34;\\&#34;
+</span></span></code></pre></div><p>Similar to regular expressions, the items in a list of alternatives are separated by the pipe symbol (<code>|</code>). The production rule called <code>&lt;bond&gt;</code> is satisfied by any of the six enumerated characters. Notice that <code>&lt;bond&gt;</code> does not include the dot (<code>.</code>) operator. The reason is that dot is not a bond at all. Rather, dot indicates the absence of a bond. Our grammar will include it as a separate production.</p>
+<p>As a more advanced example, consider the production for atomic charge in SMILES. We&rsquo;d like to allow atoms to assume any integer charge from -15 to -1, inclusive, and from +1 to +15, inclusive. Additionally, we&rsquo;d like to support the shorthand forms <code>+</code> (+1), <code>++</code> (+2), <code>-</code> (-1) and <code>--</code> (-2). All other charges, including nonsensical forms such as <code>+0</code>, <code>-0</code>, should be disallowed. The following production satisfies the requirements.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bnf" data-lang="bnf"><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">charge</span>&gt;  <span style="color:#f92672">::=</span> &#34;+&#34; ( &#34;+&#34; | &lt;<span style="color:#a6e22e">fifteen</span>&gt; )? | &#34;-&#34; ( &#34;-&#34; | &lt;<span style="color:#a6e22e">fifteen</span>&gt; )?
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">fifteen</span>&gt; <span style="color:#f92672">::=</span> &#34;1&#34; (&#34;0&#34; | &#34;1&#34; | &#34;2&#34; | &#34;3&#34; | &#34;4&#34; | &#34;5&#34;)?
+</span></span><span style="display:flex;"><span>            | ( &#34;2&#34; | &#34;3&#34; | &#34;4&#34; | &#34;5&#34; | &#34;6&#34; | &#34;7&#34; | &#34;8&#34; | &#34;9&#34; )
+</span></span></code></pre></div><p>The <code>&lt;charge&gt;</code> rule is defined in terms of a second rule, <code>&lt;fifteen&gt;</code>. Both rules acting together yield the desired behavior. Optionally, the <code>&lt;fifteen&gt;</code> production could be inlined into <code>&lt;charge&gt;</code>. However, the result would be unwieldy and hard to understand.</p>
+<p>Like computer programs, grammars can (and should be) refactored for clarity and performance.</p>
+<h1 id="playing-with-grammars">Playing with Grammars</h1>
+<p>One of the best ways to understand the core ideas around formal grammars is to use them. An easy way to do that is through online tools. I&rsquo;ve found one in particular to be both convenient and helpful.</p>
+<p>Browse over to <a href="https://mdkrajnak.github.io/ebnftest/">EBNF Test</a>. This web page hosts an automated grammar parser and compiler. Given an grammar in EBNF form and a test string, the EBNF Evaluator will tell you (a) if the grammar compiled; and (b) whether the test string is valid.</p>
+<!-- raw HTML omitted -->
+<p>Copying the production rules <code>&lt;charge&gt;</code> and <code>&lt;fifteen&gt;</code> above yields a parser that can distinguish valid and invalid SMILES charges.</p>
+<h1 id="the-opensmiles-grammar">The OpenSMILES Grammar</h1>
+<p>The <a href="http://opensmiles.org/opensmiles.html">OpenSMILES specification</a> defines a formal grammar for SMILES. It&rsquo;s a good starting point for studying the language. In its current form, however, there&rsquo;s room for improvement. For example:</p>
+<ul>
+<li><em>Not LL(1)</em>. <a href="https://en.wikipedia.org/wiki/Left_recursion">Left recursion</a> in the <code>chain</code> production means that the OpenSMILES grammar can&rsquo;t be used as a blueprint to write a hand-crafted recursive descent parser. Worse, many tools will reject such grammars outright, so automated parser generation will also not be feasible. Fortunately, left-recursion is unnecessary in SMILES, as will be demonstrated later in the article.</li>
+<li><em>Imprecise</em>. The OpenSMILES grammar supports charges from -99 to +99, inclusive, contradicting the written description.</li>
+<li><em>Missing element symbols</em>. Several new element symbols were adopted since the publication of the OpenSMILES formal grammar. It seems reasonable to include them now.</li>
+<li><em>Overinclusive</em>.  The OpenSMILES grammar supports uncommon forms of template-based stereochemistry. It might be better to leave those forms as extensions, and instead support just the two universally-used forms: <code>@</code> and <code>@@</code>. Similarly, the wildcard atom (<code>*</code>) might be better defined as an extension rather than a core language component.</li>
+</ul>
+<p>Combining the above points with the original OpenSMILES specification yields a good starting point for developing a new SMILES grammar.</p>
+<h1 id="a-toy-grammar">A Toy Grammar</h1>
+<p>We can think of a SMILES as a single line of text encoding at least one atom with possibly more following the first. These atoms can grouped into branches or chains of atoms optionally connected by a bond or dot (<code>.</code>). Additionally, cycles can be encoded with cuts represented as numerical indexes (&ldquo;rnum&rdquo;). These ideas are captured in the toy grammar shown below.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bnf" data-lang="bnf"><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">line</span>&gt;   <span style="color:#f92672">::=</span> &lt;<span style="color:#a6e22e">atom</span>&gt; ( &lt;<span style="color:#a6e22e">chain</span>&gt; | &lt;<span style="color:#a6e22e">branch</span>&gt; )*
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">chain</span>&gt;  <span style="color:#f92672">::=</span> ( &lt;<span style="color:#a6e22e">dot</span>&gt; &lt;<span style="color:#a6e22e">atom</span>&gt; | &lt;<span style="color:#a6e22e">bond</span>&gt;? ( &lt;<span style="color:#a6e22e">atom</span>&gt; | &lt;<span style="color:#a6e22e">rnum</span>&gt;) )+
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">branch</span>&gt; <span style="color:#f92672">::=</span> &#34;(&#34; ( ( &lt;<span style="color:#a6e22e">bond</span>&gt; | &lt;<span style="color:#a6e22e">dot</span>&gt; )? &lt;<span style="color:#a6e22e">line</span>&gt; )+ &#34;)&#34;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">rnum</span>&gt;   <span style="color:#f92672">::=</span> &lt;<span style="color:#a6e22e">digit</span>&gt; | &#34;%&#34; &lt;<span style="color:#a6e22e">digit</span>&gt; &lt;<span style="color:#a6e22e">digit</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">atom</span>&gt;   <span style="color:#f92672">::=</span> &#34;X&#34;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">bond</span>&gt;   <span style="color:#f92672">::=</span> &#34;-&#34; | &#34;=&#34; | &#34;#&#34; | &#34;$&#34; | &#34;/&#34; | &#34;\\&#34;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">dot</span>&gt;    <span style="color:#f92672">::=</span> &#34;.&#34;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">digit</span>&gt;  <span style="color:#f92672">::=</span> &#34;0&#34; | &#34;1&#34; | &#34;2&#34; | &#34;3&#34; | &#34;4&#34; | &#34;5&#34; | &#34;6&#34; | &#34;7&#34; | &#34;8&#34; | &#34;9&#34;
+</span></span></code></pre></div><p>In this language, the only allowed atomic representation is &ldquo;X&rdquo;.  In every other respect, this language is identical to the complete SMILES grammar.</p>
+<p>We can test this grammar by adding it to the <a href="https://mdkrajnak.github.io/ebnftest/">BNF Test</a> website. The following strings are valid, as expected:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>X
+</span></span><span style="display:flex;"><span>X(X)
+</span></span><span style="display:flex;"><span>X(X)X
+</span></span><span style="display:flex;"><span>X-X(-X)
+</span></span><span style="display:flex;"><span>X1X(XXX1)X
+</span></span><span style="display:flex;"><span>X.XX(=X)X
+</span></span></code></pre></div><p>Misplaced bonds (e.g., <code>X==X</code>), unbalanced and empty parentheses (e.g., <code>()</code>, <code>X(X(X)</code>), and invalid rnums (e.g., <code>X?XX?</code>) are all automatically detected as invalid.</p>
+<p>One noteworthy limitation of this approach is rnum matching. The grammar can&rsquo;t detect unbalanced rnums; this kind of validation transcends syntax and must be handled at the level of semantics. The same limitations apply to any SMILES grammar, and more generally will apply to any one-character lookahead grammar.</p>
+<h1 id="atoms">Atoms</h1>
+<p>Looking past the basic structure of the SMILES grammar, the most notable feature is the many options for representing atoms. The previous toy grammar defined the following <code>&lt;atom&gt;</code> production rule:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bnf" data-lang="bnf"><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">atom</span>&gt; <span style="color:#f92672">::=</span> &#34;X&#34;
+</span></span></code></pre></div><p>SMILES supports two forms of atoms: <em>organic symbol</em> and <em>bracket atom</em>.</p>
+<p>An organic symbol must be a member of the so-called &ldquo;organic subset&rdquo;. The organic subset consists of the following elements: &ldquo;B&rdquo;; &ldquo;C&rdquo;; &ldquo;N&rdquo;; &ldquo;O&rdquo;; &ldquo;P&rdquo;; &ldquo;S&rdquo;; and the halogens. Additionally, the following <a href="/articles/2020/02/10/a-comprehensive-treatment-of-aromaticity-in-the-smiles-language/">aromatic symbols</a> may appear as organic symbols: &ldquo;b&rdquo;; &ldquo;c&rdquo;; &ldquo;n&rdquo;; &ldquo;o&rdquo;; &ldquo;p&rdquo;; &ldquo;s&rdquo;. The set of all possible organic symbols can be formulated as:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bnf" data-lang="bnf"><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">organic_symbol</span>&gt; <span style="color:#f92672">::=</span> &#34;B&#34; &#34;r&#34;? | &#34;C&#34; &#34;l&#34;? | &#34;N&#34; | &#34;O&#34; | &#34;P&#34; | &#34;S&#34;
+</span></span><span style="display:flex;"><span>                   | &#34;F&#34; | &#34;I&#34; | &#34;At&#34; | &#34;Ts&#34;
+</span></span><span style="display:flex;"><span>                   | &#34;b&#34; | &#34;c&#34; | &#34;n&#34; | &#34;o&#34; | &#34;p&#34; | &#34;s&#34;
+</span></span></code></pre></div><p>A bracket atom is an atomic symbol with optional properties surrounded by left and right brackets (<code>[</code> and <code>]</code>). Available properties include: isotope; hydrogen count; charge; stereo flag; and map. The latter is a user-definable three-digit numerical identifier.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bnf" data-lang="bnf"><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">bracket_atom</span>&gt; <span style="color:#f92672">::=</span> &#34;[&#34; &lt;<span style="color:#a6e22e">isotope</span>&gt;? &lt;<span style="color:#a6e22e">symbol</span>&gt; &lt;<span style="color:#a6e22e">chiral</span>&gt;? &lt;<span style="color:#a6e22e">hcount</span>&gt;? &lt;<span style="color:#a6e22e">charge</span>&gt;
+</span></span><span style="display:flex;"><span>                 | &lt;<span style="color:#a6e22e">map</span>&gt;? &#34;]&#34;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">symbol</span>&gt;       <span style="color:#f92672">::=</span> &#34;C&#34;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">hcount</span>&gt;       <span style="color:#f92672">::=</span> &#34;H&#34; &lt;<span style="color:#a6e22e">digit</span>&gt;?
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">charge</span>&gt;         <span style="color:#f92672">::=</span> &#34;+&#34; ( &#34;+&#34; | &lt;<span style="color:#a6e22e">fifteen</span>&gt; )? ) | ( &#34;-&#34; ( &#34;-&#34; | &lt;<span style="color:#a6e22e">fifteen</span>&gt; )?
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">isotope</span>&gt;      <span style="color:#f92672">::=</span> &lt;<span style="color:#a6e22e">digit</span>&gt;? &lt;<span style="color:#a6e22e">digit</span>&gt;? &lt;<span style="color:#a6e22e">digit</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">digit</span>&gt;        <span style="color:#f92672">::=</span> &#34;0&#34; | &#34;1&#34; | &#34;2&#34; | &#34;3&#34; | &#34;4&#34; | &#34;5&#34; | &#34;6&#34; | &#34;7&#34; | &#34;8&#34; | &#34;9&#34;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">fifteen</span>&gt;      <span style="color:#f92672">::=</span> &#34;1&#34; (&#34;0&#34; | &#34;1&#34; | &#34;2&#34; | &#34;3&#34; | &#34;4&#34; | &#34;5&#34;)?
+</span></span><span style="display:flex;"><span>                 | ( &#34;2&#34; | &#34;3&#34; | &#34;4&#34; | &#34;5&#34; | &#34;6&#34; | &#34;7&#34; | &#34;8&#34; | &#34;9&#34; )
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">map</span>&gt;        <span style="color:#f92672">::=</span> &#34;:&#34; &lt;<span style="color:#a6e22e">digit</span>&gt;? &lt;<span style="color:#a6e22e">digit</span>&gt;? &lt;<span style="color:#a6e22e">digit</span>&gt;
+</span></span></code></pre></div><p>For simplicity, the <code>&lt;symbol&gt;</code> production is truncated here and only contains an entry for carbon (&ldquo;C&rdquo;). The full grammar at the end of this article contains the complete set of IUPAC-defined atomic symbols.</p>
+<h1 id="putting-it-all-together">Putting It All Together</h1>
+<p>The two rules <code>&lt;organic_symbol&gt;</code> and <code>&lt;bracket_atom&gt;</code> can be combined into a new production called <code>&lt;atom&gt;</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bnf" data-lang="bnf"><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">atom</span>&gt;  <span style="color:#f92672">::=</span> &lt;<span style="color:#a6e22e">organic_symbol</span>&gt; | &lt;<span style="color:#a6e22e">bracket_atom</span>&gt;
+</span></span></code></pre></div><p>Replacing the old rule for <code>&lt;atom&gt;</code> in the toy grammar with this new one yields a complete LL(1) SMILES grammar:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bnf" data-lang="bnf"><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">line</span>&gt;           <span style="color:#f92672">::=</span> &lt;<span style="color:#a6e22e">atom</span>&gt; ( &lt;<span style="color:#a6e22e">chain</span>&gt; | &lt;<span style="color:#a6e22e">branch</span>&gt; )*
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">chain</span>&gt;          <span style="color:#f92672">::=</span> ( &lt;<span style="color:#a6e22e">dot</span>&gt; &lt;<span style="color:#a6e22e">atom</span>&gt; | &lt;<span style="color:#a6e22e">bond</span>&gt;? ( &lt;<span style="color:#a6e22e">atom</span>&gt; | &lt;<span style="color:#a6e22e">rnum</span>&gt;) )+
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">branch</span>&gt;         <span style="color:#f92672">::=</span> &#34;(&#34; ( ( &lt;<span style="color:#a6e22e">bond</span>&gt; | &lt;<span style="color:#a6e22e">dot</span>&gt; )? &lt;<span style="color:#a6e22e">line</span>&gt; )+ &#34;)&#34;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">atom</span>&gt;           <span style="color:#f92672">::=</span> &lt;<span style="color:#a6e22e">organic_symbol</span>&gt; | &lt;<span style="color:#a6e22e">bracket_atom</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">bracket_atom</span>&gt;   <span style="color:#f92672">::=</span> &#34;[&#34; &lt;<span style="color:#a6e22e">isotope</span>&gt;? &lt;<span style="color:#a6e22e">symbol</span>&gt; &lt;<span style="color:#a6e22e">chiral</span>&gt;? &lt;<span style="color:#a6e22e">hcount</span>&gt;? &lt;<span style="color:#a6e22e">charge</span>&gt;?
+</span></span><span style="display:flex;"><span>                   | &lt;<span style="color:#a6e22e">map</span>&gt;? &#34;]&#34;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">rnum</span>&gt;           <span style="color:#f92672">::=</span> &lt;<span style="color:#a6e22e">digit</span>&gt; | &#34;%&#34; &lt;<span style="color:#a6e22e">digit</span>&gt; &lt;<span style="color:#a6e22e">digit</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">isotope</span>&gt;        <span style="color:#f92672">::=</span> &lt;<span style="color:#a6e22e">digit</span>&gt;? &lt;<span style="color:#a6e22e">digit</span>&gt;? &lt;<span style="color:#a6e22e">digit</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">hcount</span>&gt;         <span style="color:#f92672">::=</span> &#34;H&#34; &lt;<span style="color:#a6e22e">digit</span>&gt;?
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">charge</span>&gt;         <span style="color:#f92672">::=</span> &#34;+&#34; ( &#34;+&#34; | &lt;<span style="color:#a6e22e">fifteen</span>&gt; )? | &#34;-&#34; ( &#34;-&#34; | &lt;<span style="color:#a6e22e">fifteen</span>&gt; )?
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">map</span>&gt;            <span style="color:#f92672">::=</span> &#34;:&#34; &lt;<span style="color:#a6e22e">digit</span>&gt;? &lt;<span style="color:#a6e22e">digit</span>&gt;? &lt;<span style="color:#a6e22e">digit</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">symbol</span>&gt;         <span style="color:#f92672">::=</span> &#34;A&#34; ( &#34;c&#34; | &#34;g&#34; | &#34;l&#34; | &#34;m&#34; | &#34;r&#34; | &#34;s&#34; | &#34;t&#34; | &#34;u&#34; )
+</span></span><span style="display:flex;"><span>                   | &#34;B&#34; ( &#34;a&#34; | &#34;e&#34; | &#34;h&#34; | &#34;i&#34; | &#34;k&#34; | &#34;r&#34; )?
+</span></span><span style="display:flex;"><span>                   | &#34;C&#34; ( &#34;a&#34; | &#34;d&#34; | &#34;e&#34; | &#34;f&#34; | &#34;l&#34; | &#34;m&#34; | &#34;n&#34; | &#34;o&#34;
+</span></span><span style="display:flex;"><span>                   | &#34;r&#34; | &#34;s&#34; | &#34;u&#34; )?
+</span></span><span style="display:flex;"><span>                   | &#34;D&#34; ( &#34;b&#34; | &#34;s&#34; | &#34;y&#34; )
+</span></span><span style="display:flex;"><span>                   | &#34;E&#34; ( &#34;r&#34; | &#34;s&#34; | &#34;u&#34; )
+</span></span><span style="display:flex;"><span>                   | &#34;F&#34; ( &#34;e&#34; | &#34;l&#34; | &#34;m&#34; | &#34;r&#34; )?
+</span></span><span style="display:flex;"><span>                   | &#34;G&#34; ( &#34;a&#34; | &#34;d&#34; | &#34;e&#34; )
+</span></span><span style="display:flex;"><span>                   | &#34;H&#34; ( &#34;e&#34; | &#34;f&#34; | &#34;g&#34; | &#34;o&#34; | &#34;s&#34; )?
+</span></span><span style="display:flex;"><span>                   | &#34;I&#34; ( &#34;n&#34; | &#34;r&#34; )?
+</span></span><span style="display:flex;"><span>                   | &#34;K&#34; &#34;r&#34;?
+</span></span><span style="display:flex;"><span>                   | &#34;L&#34; ( &#34;a&#34; | &#34;i&#34; | &#34;r&#34; | &#34;u&#34; | &#34;v&#34; )
+</span></span><span style="display:flex;"><span>                   | &#34;M&#34; ( &#34;c&#34; | &#34;g&#34; | &#34;n&#34; | &#34;o&#34; | &#34;t&#34; )
+</span></span><span style="display:flex;"><span>                   | &#34;N&#34; ( &#34;a&#34; | &#34;b&#34; | &#34;d&#34; | &#34;e&#34; | &#34;h&#34; | &#34;i&#34; | &#34;o&#34; | &#34;p&#34; )?
+</span></span><span style="display:flex;"><span>                   | &#34;O&#34; ( &#34;g&#34; | &#34;s&#34; )?
+</span></span><span style="display:flex;"><span>                   | &#34;P&#34; ( &#34;a&#34; | &#34;b&#34; | &#34;d&#34; | &#34;m&#34; | &#34;o&#34; | &#34;r&#34; | &#34;t&#34; | &#34;u&#34; )?
+</span></span><span style="display:flex;"><span>                   | &#34;R&#34; ( &#34;a&#34; | &#34;b&#34; | &#34;e&#34; | &#34;f&#34; | &#34;g&#34; | &#34;h&#34; | &#34;n&#34; | &#34;u&#34; )
+</span></span><span style="display:flex;"><span>                   | &#34;S&#34; ( &#34;b&#34; | &#34;c&#34; | &#34;e&#34; | &#34;g&#34; | &#34;i&#34; | &#34;m&#34; | &#34;n&#34; | &#34;r&#34; )?
+</span></span><span style="display:flex;"><span>                   | &#34;T&#34; ( &#34;a&#34; | &#34;b&#34; | &#34;c&#34; | &#34;e&#34; | &#34;h&#34; | &#34;i&#34; | &#34;l&#34; | &#34;m&#34;
+</span></span><span style="display:flex;"><span>                   | &#34;s&#34; )
+</span></span><span style="display:flex;"><span>                   | &#34;U&#34; | &#34;V&#34; | &#34;W&#34; | &#34;Xe&#34; | &#34;Y&#34; &#34;b&#34;?
+</span></span><span style="display:flex;"><span>                   | &#34;Z&#34; ( &#34;n&#34; | &#34;r&#34; )
+</span></span><span style="display:flex;"><span>                   | &#34;b&#34; | &#34;c&#34; | &#34;n&#34; | &#34;o&#34; | &#34;p&#34; | &#34;s&#34; &#34;e&#34;? | &#34;as&#34;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">organic_symbol</span>&gt; <span style="color:#f92672">::=</span> &#34;B&#34; &#34;r&#34;? | &#34;C&#34; &#34;l&#34;? | &#34;N&#34; | &#34;O&#34; | &#34;P&#34; | &#34;S&#34;
+</span></span><span style="display:flex;"><span>                   | &#34;F&#34; | &#34;I&#34; | &#34;At&#34; | &#34;Ts&#34;
+</span></span><span style="display:flex;"><span>                   | &#34;b&#34; | &#34;c&#34; | &#34;n&#34; | &#34;o&#34; | &#34;p&#34; | &#34;s&#34;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">bond</span>&gt;           <span style="color:#f92672">::=</span> &#34;-&#34; | &#34;=&#34; | &#34;#&#34; | &#34;$&#34; | &#34;/&#34; | &#34;\\&#34;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">dot</span>&gt;            <span style="color:#f92672">::=</span> &#34;.&#34;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">chiral</span>&gt;         <span style="color:#f92672">::=</span> &#34;@&#34;? &#34;@&#34;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">digit</span>&gt;          <span style="color:#f92672">::=</span> &#34;0&#34; | &#34;1&#34; | &#34;2&#34; | &#34;3&#34; | &#34;4&#34; | &#34;5&#34; | &#34;6&#34; | &#34;7&#34; | &#34;8&#34; | &#34;9&#34;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#a6e22e">fifteen</span>&gt;        <span style="color:#f92672">::=</span> &#34;1&#34; (&#34;0&#34; | &#34;1&#34; | &#34;2&#34; | &#34;3&#34; | &#34;4&#34; | &#34;5&#34;)?
+</span></span><span style="display:flex;"><span>                   | ( &#34;2&#34; | &#34;3&#34; | &#34;4&#34; | &#34;5&#34; | &#34;6&#34; | &#34;7&#34; | &#34;8&#34; | &#34;9&#34; )
+</span></span></code></pre></div><p>The vast majority of space in this grammar is somewhat misleadingly dedicated to the 100+ elemental symbols. Stripping them out leads to the simpler toy grammar presented earlier.</p>
+<p>Plugging the full grammar into <a href="https://mdkrajnak.github.io/ebnftest/">EBNF Test</a> yields a parser that can validate the syntax of any SMILES string given the parameters in this article.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>A formal grammar is a powerful tool for human and machine use of language. This article presents a full-fledged SMILES grammar based on two that have been previously proposed. The main advantages of this new grammar are amenability to parsing by both hand-crafted parsers and a wide range of parser generators, and the detection of certain corner cases. Future articles will discuss some applications of this new grammar.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  My New Hugo Site 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Python Extensions in Pure Rust with PyO3 | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Avoid a lot of manual labor when creating Python wrappers.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2020/08/python-extensions-in-pure-rust-with-pyo3/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2020/08/python-extensions-in-pure-rust-with-pyo3/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Python Extensions in Pure Rust with PyO3">
+  <meta property="og:description" content="Avoid a lot of manual labor when creating Python wrappers.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2020-08-10T17:00:00+00:00">
+    <meta property="article:modified_time" content="2020-08-10T17:00:00+00:00">
+
+  <meta itemprop="name" content="Python Extensions in Pure Rust with PyO3">
+  <meta itemprop="description" content="Avoid a lot of manual labor when creating Python wrappers.">
+  <meta itemprop="datePublished" content="2020-08-10T17:00:00+00:00">
+  <meta itemprop="dateModified" content="2020-08-10T17:00:00+00:00">
+  <meta itemprop="wordCount" content="1481">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Python Extensions in Pure Rust with PyO3">
+  <meta name="twitter:description" content="Avoid a lot of manual labor when creating Python wrappers.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Python Extensions in Pure Rust with PyO3</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-08-10T17:00:00Z">August 10, 2020</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>The <a href="/articles/2020/08/03/wrapping-rust-types-as-python-classes/">previous article</a> in this series described a low-level, manual approach to building Python packages from Rust code. Although effective, the procedure involves writing highly repetitive code blocks in both languages. Fortunately, such repetition isn&rsquo;t necessary. This article picks up where the last one left off by showing one way to automate the generation of Python packages from Rust libraries. It also highlights an important but rarely-discussed limitation likely to affect nontrivial projects.</p>
+<h1 id="about-pyo3">About PyO3</h1>
+<p><a href="https://github.com/PyO3/pyo3">PyO3</a> is a suite of tools for Rust and Python that, among other things, makes it possible to write Python extensions in pure Rust. The project was forked from <a href="https://github.com/dgrunwald/rust-cpython">rust-cpython</a>. The latter remains somewhat active, but the two projects have <a href="https://pyo3.rs/master/rust_cpython.html">diverged</a> in both features and focus since the fork.</p>
+<h1 id="motivation">Motivation</h1>
+<p><a href="/articles/2020/06/01/chemcore-a-cheminformatics-toolkit-for-rust/">ChemCore</a> is a cheminformatics library written in Rust. It would be helpful if its functionality were usable through a Python interface, given the popularity of that language in scientific computing. A previous article discussed <a href="/articles/2020/06/15/oxmol-rust-python-bindings-for-chemcore/">OxMol</a>, a Python wrapper for ChemCore built with PyO3. The purpose of the current article is different: to illustrate the process of building Python wrappers to simpler Rust libraries. Recently, a <a href="https://blog.yossarian.net/2020/08/02/Writing-and-publishing-a-python-module-in-rust">helpful tutorial on using PyO3</a> was published. The current article expands on some points not covered in detail there.</p>
+<h1 id="prerequisites">Prerequisites</h1>
+<p>This tutorial assumes your system has a <a href="https://rustup.rs">Rust compiler</a> and a Python 3 installation with developer tools.</p>
+<h1 id="hello-world">Hello, World</h1>
+<p>In this simple demonstration, we define a Rust struct and then expose it through a Python wrapper written entirely in Rust.</p>
+<p>First, create a new Cargo project.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>cargo new point --lib &amp;&amp; cd point
+</span></span></code></pre></div><p>Next, update <code>Cargo.toml</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#75715e"># Cargo.toml</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">lib</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;point&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">crate-type</span> = [<span style="color:#e6db74">&#34;cdylib&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">dependencies</span>.<span style="color:#a6e22e">pyo3</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">version</span> = <span style="color:#e6db74">&#34;0.11.1&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">features</span> = [<span style="color:#e6db74">&#34;extension-module&#34;</span>]
+</span></span></code></pre></div><p>Add a Rust type consisting of two fields and a constructor. Applying the macros <code>pyclass</code>, <code>pymethods</code>, and <code>new</code> direct PyO3 to the functionality to be wrapped.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// src/lib.rs
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">use</span> pyo3::prelude::<span style="color:#f92672">*</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#[pyclass]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Point</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#[pyo3(get)]</span>
+</span></span><span style="display:flex;"><span>    x: <span style="color:#66d9ef">f64</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#[pyo3(get)]</span>
+</span></span><span style="display:flex;"><span>    y: <span style="color:#66d9ef">f64</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#[pymethods]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span> Point {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#[new]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">new</span>(x: <span style="color:#66d9ef">f64</span>, y: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#a6e22e">Self</span> {
+</span></span><span style="display:flex;"><span>        Point { x, y }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#[pymodule]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">point</span>(_: <span style="color:#a6e22e">Python</span>, m: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">PyModule</span>) -&gt; <span style="color:#a6e22e">PyResult</span><span style="color:#f92672">&lt;</span>()<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    m.add_class::<span style="color:#f92672">&lt;</span>Point<span style="color:#f92672">&gt;</span>()<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Ok(())
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This code will build a Python module called &ldquo;point&rdquo; that contains class called <code>Point</code>. Two attributes will be accessible on <code>Point</code> instances: <code>x</code> and <code>y</code>. A constructor allows the class to be constructed from Python.</p>
+<p>We&rsquo;re going to compile this Rust code using the PyO3 subproject <a href="https://github.com/PyO3/maturin">Maturin</a>. The recommended procedure is to set up a Python 3 <a href="https://docs.python.org/3/tutorial/venv.html">virtual environment</a>. In a nutshell, packages such as Maturin can be installed and used within a virtual environment without affecting the global Python 3 installation.</p>
+<p>Create a virtual environment, activate it, and install Maturin with the following.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>$ python3 -m venv env
+</span></span><span style="display:flex;"><span>$ source env/bin/activate
+</span></span><span style="display:flex;"><span>(env) $ pip3 install maturin
+</span></span></code></pre></div><p>The first command creates a virtual environment within the working directory. The second command activates that virtual environment. The prefix <code>(env)</code> on the command prompt notifies us that Python is using the virtual environment called <code>env</code>. It can be deactivated with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>(env) $ deactivate # use this to deactivate a virtual environment
+</span></span><span style="display:flex;"><span>$ 
+</span></span></code></pre></div><p>For now, don&rsquo;t deactivate the <code>env</code> virtual environment.</p>
+<p>Instead, compile the <code>point</code> project with the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>(env) $ maturin develop
+</span></span></code></pre></div><p>This command produces the binding needed to import and use the <code>point</code> module from Python.</p>
+<pre tabindex="0"><code class="language-test" data-lang="test">(env) $ python3
+&gt;&gt;&gt; import point
+&gt;&gt;&gt; from point import Point
+&gt;&gt;&gt; p = Point(13, 42)
+&gt;&gt;&gt; print(p.x, p.y)
+13 42
+</code></pre><p>This short workflow has demonstrated how to build a Python module entirely in Rust with Maturin. At some point, however, we&rsquo;ll want to distribute it. And this is where things get even better.</p>
+<h1 id="distribution">Distribution</h1>
+<p>The command <code>maturin develop</code> creates a Python package that can be used from local virtual environment. This package is not, however, suitable for distribution. To accomplish that, use the <code>maturin build</code> command.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>(env) $ maturin build
+</span></span></code></pre></div><p>Doing so creates a standards-compliant wheel file in the <code>targets</code> directory:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>ls -l targets/wheels
+</span></span><span style="display:flex;"><span>total 784
+</span></span><span style="display:flex;"><span>drwxr-xr-x  3 rich  staff      96 Aug  8 07:34 .
+</span></span><span style="display:flex;"><span>drwxr-xr-x  6 rich  staff     192 Aug  8 07:33 ..
+</span></span><span style="display:flex;"><span>-rw-r--r--  1 rich  staff  397340 Aug  8 07:34 point-0.1.0-cp37-cp37m-macosx_10_7_x86_64.whl
+</span></span></code></pre></div><p>The contents and name of the wheel file will reflect your operating system and Python installation. This raises the question of how to build a cross-platform distribution.</p>
+<h1 id="cross-platform-distribution">Cross-Platform Distribution</h1>
+<p>The Maturin project maintains a <a href="https://github.com/pypa/manylinux">manylinux1-compatible Docker container</a> that enables the compilation of Linux wheels. After installing and activating Docker, the following one-liner is all it takes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>docker run --rm -v $(pwd):/io konstin2/maturin build
+</span></span></code></pre></div><p>As in the previous build, wheels are added to the <code>target/wheels</code> directory:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>(env) $ ls -l target/wheels
+</span></span><span style="display:flex;"><span>total 17200
+</span></span><span style="display:flex;"><span>drwxr-xr-x  7 rich  staff      224 Aug  8 07:42 .
+</span></span><span style="display:flex;"><span>drwxr-xr-x  6 rich  staff      192 Aug  8 07:33 ..
+</span></span><span style="display:flex;"><span>-rw-r--r--  1 rich  staff  1843179 Aug  8 07:41 point-0.1.0-cp35-cp35m-manylinux1_x86_64.whl
+</span></span><span style="display:flex;"><span>-rw-r--r--  1 rich  staff  1845201 Aug  8 07:41 point-0.1.0-cp36-cp36m-manylinux1_x86_64.whl
+</span></span><span style="display:flex;"><span>-rw-r--r--  1 rich  staff   397340 Aug  8 07:34 point-0.1.0-cp37-cp37m-macosx_10_7_x86_64.whl
+</span></span><span style="display:flex;"><span>-rw-r--r--  1 rich  staff  1846610 Aug  8 07:42 point-0.1.0-cp37-cp37m-manylinux1_x86_64.whl
+</span></span><span style="display:flex;"><span>-rw-r--r--  1 rich  staff  1846067 Aug  8 07:42 point-0.1.0-cp38-cp38-manylinux1_x86_64.whl
+</span></span></code></pre></div><p>For details see the <a href="https://github.com/PyO3/maturin">Maturin README</a>.</p>
+<p>Compiled wheels can be published to PyPi using the command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>(env) $ maturin publish
+</span></span></code></pre></div><h1 id="labor-saving-automation">Labor-Saving Automation</h1>
+<p><a href="/articles/2020/08/03/wrapping-rust-types-as-python-classes/">The previous article</a> described a manual process for building a Python module from Rust using FFI. With Maturin, it&rsquo;s possible to update that procedure to something much simpler.</p>
+<p>Below is the complete listing for a PyO3-based partial wrapper for Rust&rsquo;s <code>HashSet</code> type. Clearly, Python already has its own set functionality. The goal here is to demonstrate how to build more complex wrappers.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// lib.rs
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">use</span> pyo3::prelude::<span style="color:#f92672">*</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> pyo3::PyIterProtocol;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#[pyclass]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">SetIterator</span> {
+</span></span><span style="display:flex;"><span>    iter: <span style="color:#a6e22e">std</span>::collections::hash_set::IntoIter<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">usize</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#[pyproto]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span> PyIterProtocol <span style="color:#66d9ef">for</span> SetIterator {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">__iter__</span>(slf: <span style="color:#a6e22e">PyRef</span><span style="color:#f92672">&lt;</span>Self<span style="color:#f92672">&gt;</span>) -&gt; <span style="color:#a6e22e">Py</span><span style="color:#f92672">&lt;</span>SetIterator<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>        slf.into()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">__next__</span>(<span style="color:#66d9ef">mut</span> slf: <span style="color:#a6e22e">PyRefMut</span><span style="color:#f92672">&lt;</span>Self<span style="color:#f92672">&gt;</span>) -&gt; Option<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">usize</span><span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>        slf.iter.next()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#[pyclass]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">HashSet</span> {
+</span></span><span style="display:flex;"><span>    inner: <span style="color:#a6e22e">std</span>::collections::HashSet<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">usize</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#[pymethods]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span> HashSet {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#[new]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">new</span>() -&gt; <span style="color:#a6e22e">Self</span> {
+</span></span><span style="display:flex;"><span>        HashSet {
+</span></span><span style="display:flex;"><span>            inner: <span style="color:#a6e22e">std</span>::collections::HashSet::new()
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">insert</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self, value: <span style="color:#66d9ef">usize</span>) {
+</span></span><span style="display:flex;"><span>        self.inner.insert(value);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">contains</span>(<span style="color:#f92672">&amp;</span>self, value: <span style="color:#66d9ef">usize</span>) -&gt; <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span>        self.inner.contains(<span style="color:#f92672">&amp;</span>value)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">len</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self) -&gt; <span style="color:#66d9ef">usize</span> {
+</span></span><span style="display:flex;"><span>        self.inner.len()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">iter</span>(slf: <span style="color:#a6e22e">PyRef</span><span style="color:#f92672">&lt;</span>Self<span style="color:#f92672">&gt;</span>) -&gt; <span style="color:#a6e22e">PyResult</span><span style="color:#f92672">&lt;</span>Py<span style="color:#f92672">&lt;</span>SetIterator<span style="color:#f92672">&gt;&gt;</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> iter <span style="color:#f92672">=</span> SetIterator {
+</span></span><span style="display:flex;"><span>            iter: <span style="color:#a6e22e">slf</span>.inner.clone().into_iter()
+</span></span><span style="display:flex;"><span>        };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Py::new(slf.py(), iter)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#[pymodule]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">hash_set</span>(_: <span style="color:#a6e22e">Python</span>, m: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">PyModule</span>) -&gt; <span style="color:#a6e22e">PyResult</span><span style="color:#f92672">&lt;</span>()<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    m.add_class::<span style="color:#f92672">&lt;</span>HashSet<span style="color:#f92672">&gt;</span>()<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Ok(())
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This sample can be compiled and run using <code>maturin develop</code> as before.</p>
+<p>This listing differs in one important respect from the FFI example: the <code>collect</code> method has been replaced with <code>iter</code>. However, this method is implemented in a decidedly non-idiomatic way. Rather than simply wrapping a Rust Iterator, we clone the entire collection and return a wrapper to its iterator.</p>
+<h1 id="limitation-iterators">Limitation: Iterators</h1>
+<p>Iterators are a powerful and ubiquitous zero-cost Rust abstraction. For this reason, any attempt to wrap a trivial Rust library using PyO3 is likely to eventually need a way to deal with Iterators.</p>
+<p>Currently, <a href="https://github.com/PyO3/pyo3/issues/502">PyO3 does not support wrapping Rust structs using a lifetime parameter</a>. This is quite limiting, because the defining characteristic of many Rust iterators is a lifetime parameter. And that lifetime parameter gets inherited by any type owning or borrowing the Iterator.</p>
+<p>For example, the preferred method for exposing an iterator in the <code>HashSet</code> example above would be to simply wrap the Iterator returned from the standard library&rsquo;s <code>HashSet#iter</code> method. We could do that with a struct owning an internal iterator like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// Compile ERROR: #[pyclass] cannot have generic parameters
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#[pyclass]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Foo</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">&#39;a</span><span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    iter: <span style="color:#a6e22e">std</span>::collections::hash_set::Iter<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">&#39;a</span>, <span style="color:#66d9ef">usize</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>However, compliation fails with the error <code>#[pyclass] cannot have generic parameters</code>. Although there may be workarounds, they are unsafe and nontrivial. For details, see this <a href="https://github.com/PyO3/pyo3/issues/1085">GitHub issue</a>.</p>
+<p>Nor is the problem restricted to Iterators. It crops up with any struct holding a borrowed reference. Consider, for example, the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// Compile ERROR: #[pyclass] cannot have generic parameters
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#[pyclass]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Bar</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">&#39;a</span><span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    name: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">&#39;a</span> <span style="color:#66d9ef">str</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>It should be noted that the workaround used in the <code>HashSet</code> demo, copying the underlying object containing the Iterator, won&rsquo;t be feasible in many situations.</p>
+<p>To be fair, this problem isn&rsquo;t unique to PyO3. It can happen when exposing any Rust type to Python. Consider, for example, how an FFI project would expose a Rust Iterator. Some method for dealing with the dangling lifetime would be required there as well.</p>
+<p>Therefore, before using PyO3 for any project I can recommend a thorough analysis of how Iterators and lifetime parameters are used within the Rust library to be wrapped. Workarounds may be feasible in certain cases. In others, the restrictions imposed by PyO3 may prove practically insurmountable.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>PyO3 makes it possible to write, build, and publish Python extensions without writing a line of Python. As such, PyO3 will be an attractive option for many kinds of Rust projects. However, projects relying on nontrivial Rust Iterators or types taking lifetime parameters may run into difficult challenges. This is not so much a problem with PyO3 as with the mismatched memory management models used by Python and Rust.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

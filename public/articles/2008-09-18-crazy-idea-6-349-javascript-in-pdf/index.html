@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Crazy Idea #6,349: JavaScript in PDF | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="In reading through Bruno Lowagie&rsquo;s excellent book iText in Action, I noticed several references to JavaScript. I knew it was possible to do a lot of interesting things with PDF to promote interactivity. But JavaScript?
+It turns out Adobe has even published about 1,000 pages worth of documentation on the subject in the form of the Acrobat JavaScript Scripting Guide and the Acrobat JavaScript Scripting Reference.
+iText, the premier Java library for creating and manipulating PDF documents, supports JavaScript out of the box. The extent of this support is not clear to me yet, but the API does exist.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+      <meta name="author" content = "Richard L. Apodaca">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://depth-first.com:1313/articles/2008-09-18-crazy-idea-6-349-javascript-in-pdf/">
+    
+
+    <meta property="og:url" content="https://depth-first.com:1313/articles/2008-09-18-crazy-idea-6-349-javascript-in-pdf/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Crazy Idea #6,349: JavaScript in PDF">
+  <meta property="og:description" content="In reading through Bruno Lowagie’s excellent book iText in Action, I noticed several references to JavaScript. I knew it was possible to do a lot of interesting things with PDF to promote interactivity. But JavaScript?
+It turns out Adobe has even published about 1,000 pages worth of documentation on the subject in the form of the Acrobat JavaScript Scripting Guide and the Acrobat JavaScript Scripting Reference.
+iText, the premier Java library for creating and manipulating PDF documents, supports JavaScript out of the box. The extent of this support is not clear to me yet, but the API does exist.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2008-09-18T00:00:00+00:00">
+    <meta property="article:modified_time" content="2008-09-18T00:00:00+00:00">
+
+  <meta itemprop="name" content="Crazy Idea #6,349: JavaScript in PDF">
+  <meta itemprop="description" content="In reading through Bruno Lowagie’s excellent book iText in Action, I noticed several references to JavaScript. I knew it was possible to do a lot of interesting things with PDF to promote interactivity. But JavaScript?
+It turns out Adobe has even published about 1,000 pages worth of documentation on the subject in the form of the Acrobat JavaScript Scripting Guide and the Acrobat JavaScript Scripting Reference.
+iText, the premier Java library for creating and manipulating PDF documents, supports JavaScript out of the box. The extent of this support is not clear to me yet, but the API does exist.">
+  <meta itemprop="datePublished" content="2008-09-18T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2008-09-18T00:00:00+00:00">
+  <meta itemprop="wordCount" content="141">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Crazy Idea #6,349: JavaScript in PDF">
+  <meta name="twitter:description" content="In reading through Bruno Lowagie’s excellent book iText in Action, I noticed several references to JavaScript. I knew it was possible to do a lot of interesting things with PDF to promote interactivity. But JavaScript?
+It turns out Adobe has even published about 1,000 pages worth of documentation on the subject in the form of the Acrobat JavaScript Scripting Guide and the Acrobat JavaScript Scripting Reference.
+iText, the premier Java library for creating and manipulating PDF documents, supports JavaScript out of the box. The extent of this support is not clear to me yet, but the API does exist.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Crazy Idea #6,349: JavaScript in PDF</h1>
+      
+      <p class="tracked">
+        By <strong>Richard L. Apodaca</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2008-09-18T00:00:00Z">September 18, 2008</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>In reading through Bruno Lowagie&rsquo;s excellent book <a href="http://www.manning.com/lowagie/">iText in Action</a>, I noticed several references to JavaScript. I knew it was possible to do a lot of interesting things with PDF to promote interactivity. But JavaScript?</p>
+<p>It turns out Adobe has even published about 1,000 pages worth of documentation on the subject in the form of the <a href="http://partners.adobe.com/public/developer/en/acrobat/sdk/AcroJSGuide.pdf">Acrobat JavaScript Scripting Guide</a> and the <a href="http://www.adobe.com/devnet/acrobat/pdfs/AcroJS.pdf">Acrobat JavaScript Scripting Reference</a>.</p>
+<p><a href="http://www.lowagie.com/iText/">iText</a>, the premier Java library for creating and manipulating PDF documents, supports JavaScript out of the box. The extent of this support is not clear to me yet, but the API does exist.</p>
+<p>JavaScript has a lot of untapped potential for enhancing interactivity in cheminformatics. Similarly, PDF has a lot of untapped potential, which will be the topic of future articles.</p>
+<p>What kinds of things could you do in cheminformatics by combining PDF and JavaScript?</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://depth-first.com:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

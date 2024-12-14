@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Graphs from Scratch in Python | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Boiling the complexity of graphs down to a few methods, then implementing them.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+      <meta name="author" content = "Richard L. Apodaca">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://depth-first.com:1313/articles/2022-01-26-graphs-from-scratch-in-python/">
+    
+
+    <meta property="og:url" content="https://depth-first.com:1313/articles/2022-01-26-graphs-from-scratch-in-python/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Graphs from Scratch in Python">
+  <meta property="og:description" content="Boiling the complexity of graphs down to a few methods, then implementing them.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2022-01-26T17:30:00+00:00">
+    <meta property="article:modified_time" content="2022-01-26T17:30:00+00:00">
+
+  <meta itemprop="name" content="Graphs from Scratch in Python">
+  <meta itemprop="description" content="Boiling the complexity of graphs down to a few methods, then implementing them.">
+  <meta itemprop="datePublished" content="2022-01-26T17:30:00+00:00">
+  <meta itemprop="dateModified" content="2022-01-26T17:30:00+00:00">
+  <meta itemprop="wordCount" content="2817">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Graphs from Scratch in Python">
+  <meta name="twitter:description" content="Boiling the complexity of graphs down to a few methods, then implementing them.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Graphs from Scratch in Python</h1>
+      
+      <p class="tracked">
+        By <strong>Richard L. Apodaca</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2022-01-26T17:30:00Z">January 26, 2022</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Graphs are central to many areas of programming, so it&rsquo;s not surprising to find many general-purpose graph libraries. But these ready-made solutions sometimes lack the focus needed to solve specific problem well. Having hit this problem several times, I recently proposed a solution in the form of a <a href="/articles/2020/01/06/a-minimal-graph-api/">minimal graph API</a> with a <a href="/articles/2020/02/17/graphs-in-rust-introducting-graphcore/">Rust implementation</a>. The idea is to maximize reusability by distilling a graph&rsquo;s essence to the smallest possible set of methods.</p>
+<p>This article extends the idea to Python. Because graphs draw from so many areas of computer science, they make excellent test subjects for the intermediate-level programming language student. Along these lines, this article touches on concepts including the Python data model, iterators, generators, list comprehension, abstract base classes, protocols, complexity analysis, and type hints. For those interested in code first, <a href="https://github.com/rapodaca/pygraph">a companion repository</a> is available at GitHub.</p>
+<h1 id="a-minimal-graph-api">A Minimal Graph API</h1>
+<p>A graph can be viewed as a set of nodes and a set of pairwise relationships, or edges, between them. The simplest possible API for a graph would therefore contain just two operations: iterate all nodes and iterate all edges. However, such a spartan API would not support doing any of the things that make graphs interesting. What&rsquo;s needed in addition are operations for counting, testing membership, and testing connectivity. The following minimal set of graph operations is based on the one I <a href="/articles/2020/01/06/a-minimal-graph-api/">previously proposed</a>.</p>
+<ol>
+<li>Iterate all nodes.</li>
+<li>Return the node count (&ldquo;order&rdquo;).</li>
+<li>Test whether any nodes are present (&ldquo;empty&rdquo;).</li>
+<li>Test whether a node is a present (&ldquo;membership&rdquo;).</li>
+<li>Iterate all edges.</li>
+<li>Return the edge count (&ldquo;size&rdquo;).</li>
+<li>Test whether an edge exists (&ldquo;connectivity&rdquo;).</li>
+<li>Iterate the nodes connected to a given node (&ldquo;neighborhood&rdquo;).</li>
+<li>Return the count of nodes attached to a given node (&ldquo;degree&rdquo;).</li>
+<li>Return a debugging string.</li>
+</ol>
+<p>This set is provably complete in the sense that it supports the two fundamental operations: iterating nodes (1) and iterating edges (5). The set also includes convenience operations for counting items, testing connectivity, and membership. A Python object mapping the above operations to methods could be used within any solvable graph problem.</p>
+<p>But isn&rsquo;t this API too narrow? Popular libraries offer graphs with far more than just ten methods. Keep in mind that the ten operations can be composed limitlessly. Especially useful combinations can be bundled into functions and distributed as a library.</p>
+<p>Some problem domains require graphs with special capabilities. In my field, chemistry, graphs model molecular structure with nodes modeling atoms and edges modeling bonding relationships. In such applications, the minimal API can be extended. Restricting methods to those fundamental to the problem domain will yield a flexible, but lean result.</p>
+<p>The idea of a &ldquo;lean,&rdquo; or minimal, API may not seem important. After all, what difference does it make whether a function is attached to a class (as a method) or accepts a class instance (as a function)? That distinction will become clearer after addressing the question of reducing the minimal graph API to practice.</p>
+<h1 id="a-graph-protocol">A Graph Protocol</h1>
+<p>Python has been described as a &ldquo;protocol-oriented&rdquo; language. A <em>protocol</em> is a collection of methods useful for some purpose. A similar idea can be found in many languages: Java has interfaces, C++ has abstract classes, and Rust has traits.</p>
+<p>A protocol can be implicit in the sense that a function might assume that an argument supports a specific set of methods. This assumption might even be stated in the documentation, but that&rsquo;s the extent of it. The function behaves as if the methods are present. If they&rsquo;re not the interpreter raises a runtime error. This is called &ldquo;<a href="https://en.wikipedia.org/wiki/Duck_typing">duck typing</a>.&rdquo;</p>
+<p>It&rsquo;s also possible to define a protocol explicitly using the <code>Protocol</code> <a href="https://docs.python.org/3/library/typing.html">type hint</a>. This approach makes it easier to structure documentation. But more than this, an explicit protocol can be analyzed by Python type checkers. These type checkers can themselves be integrated into developer tools to reveal type errors before runtime. This way of working has a lot in common with <a href="/articles/2021/11/03/typed-javascript/">Typed Javascript</a>.</p>
+<p>The following <code>Protocol</code> translates the minimum graph API to a Python Protocol.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> Iterator, Protocol, Tuple
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">graph</span>(Protocol):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __len__(self) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Return the node count.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __contains__(self, id: int) <span style="color:#f92672">-&gt;</span> bool:
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Test whether a node is present.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __iter__(self) <span style="color:#f92672">-&gt;</span> Iterator[int]:
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Iterate all nodes.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __repr__(self) <span style="color:#f92672">-&gt;</span> str:
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Return a debugging string.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">iteredges</span>(self) <span style="color:#f92672">-&gt;</span> Iterator[Tuple[int, int]]:
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Iterate all edges.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">size</span>(self) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Return the edge count.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">iterneighbors</span>(self, id: int) <span style="color:#f92672">-&gt;</span> Iterator[int]:
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Iterate the neighbors of a node.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">degree</span>(self, id: int) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Return the count of nodes attached to a node.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">has_edge</span>(self, sid: int, tid: int) <span style="color:#f92672">-&gt;</span> bool:
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Test whether an edge exists.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span></code></pre></div><p>This protocol reflects a collection-centric view in which a <code>Graph</code> contains zero or more integer node identifiers (&ldquo;ids&rdquo;). Ids can be counted, tested for membership, and iterated by virtue of the <a href="https://docs.python.org/3/reference/datamodel.html#special-method-names">special methods</a> <code>__len__</code>, <code>__contains__</code>, and <code>__iter__</code>, respectively. A debug string is available through <code>__repr__</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_graph</span>(graph: Graph):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> id <span style="color:#f92672">in</span> graph:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Found node id&#34;</span>, id)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Sorted node list&#34;</span>, sorted(graph))
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Unsorted node list&#34;</span>, [id <span style="color:#66d9ef">for</span> id <span style="color:#f92672">in</span> graph])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> graph:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Graph is not empty.&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Graph is empty.&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#ae81ff">42</span> <span style="color:#f92672">in</span> graph:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;So special!&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Not so special.&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Here I am&#34;</span>, repr(graph))
+</span></span></code></pre></div><p>This concept goes by the name of &ldquo;data model.&rdquo; The Python data model links classes, special methods, built-in functions and types, and protocols into a cohesive whole. For an excellent treatment of this topic see this talk by <a href="https://twitter.com/dontusethiscode">James Powell</a>.</p>
+<!-- raw HTML omitted -->
+<p>What remains of the <code>Graph</code> protocol is implemented without special methods, but with Python idioms and conventions in mind. For example, a simple way to reveal edges would be to return a list of tuples. But that&rsquo;s not what <code>Graph</code> does. Instead, it returns an iterator of tuples. As we&rsquo;ll see, this offers flexibility to implementors of <code>Graph</code>, without restricting the uses of the return value:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">report_edges</span>(graph: Graph):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> sid, tid <span style="color:#f92672">in</span> graph<span style="color:#f92672">.</span>iteredges():
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Found edge (</span><span style="color:#e6db74">{</span>sid<span style="color:#e6db74">}</span><span style="color:#e6db74">, </span><span style="color:#e6db74">{</span>tid<span style="color:#e6db74">}</span><span style="color:#e6db74">).&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;A list of bonds:&#34;</span>, list(graph<span style="color:#f92672">.</span>iteredges()))
+</span></span></code></pre></div><p>The same applies to reporting neighbors:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">report_neighbors</span>(id: int, graph: Graph):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> tid <span style="color:#f92672">in</span> graph<span style="color:#f92672">.</span>iterneighbors(id):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Found neighbor </span><span style="color:#e6db74">{</span>tid<span style="color:#e6db74">}</span><span style="color:#e6db74">.&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;A list of neighbors:&#34;</span>, list(graph<span style="color:#f92672">.</span>iterneighbors(id)))
+</span></span></code></pre></div><p>Bundled with <code>Graph</code> are five custom exceptions that are raised either in the context of constructing or using a <code>Graph</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DuplicateNode</span>(<span style="color:#a6e22e">Exception</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Raised when building a graph with duplicate nodes.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DuplicateEdge</span>(<span style="color:#a6e22e">Exception</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Raised when building a graph with duplicate edges.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Loop</span>(<span style="color:#a6e22e">Exception</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Raised when building a graph with with a loop.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UnknownNode</span>(<span style="color:#a6e22e">Exception</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Raised when accessing a node whose id is not found.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HalfEdge</span>(<span style="color:#a6e22e">Exception</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Raised when building an adjacency-style graph without a back edge.&#34;&#34;&#34;</span>
+</span></span></code></pre></div><p>Let&rsquo;s make this discussion of the <code>Graph</code> protocol more concrete with an implementation.</p>
+<h1 id="adjacencylist">AdjacencyList</h1>
+<p>An <a href="https://en.wikipedia.org/wiki/Adjacency_list">adjacency list</a> is a graph implementation that associates each node with a list of neighbors. This pattern is implemented by the <code>AdjacencyList</code> class.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> Iterator, Tuple
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> pygraph.graph <span style="color:#f92672">import</span> DuplicateEdge, HalfEdge, Loop, UnknownNode
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AdjacencyList</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, adjacency: dict[int, list[int]]):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> sid, tids <span style="color:#f92672">in</span> adjacency<span style="color:#f92672">.</span>items():
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> tid <span style="color:#f92672">in</span> tids:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                    sids <span style="color:#f92672">=</span> adjacency[tid]
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">KeyError</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">raise</span> UnknownNode
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> sid <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> sids:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">raise</span> HalfEdge
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">elif</span> tids<span style="color:#f92672">.</span>count(tid) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">raise</span> DuplicateEdge
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">elif</span> tid <span style="color:#f92672">==</span> sid:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">raise</span> Loop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_adjacency <span style="color:#f92672">=</span> dict(adjacency)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __len__(self) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> len(self<span style="color:#f92672">.</span>_adjacency)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __contains__(self, id: int) <span style="color:#f92672">-&gt;</span> bool:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> id <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_adjacency
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __iter__(self) <span style="color:#f92672">-&gt;</span> Iterator[int]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> iter(self<span style="color:#f92672">.</span>_adjacency<span style="color:#f92672">.</span>keys())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __repr__(self) <span style="color:#f92672">-&gt;</span> str:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;AdjacencyList(</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">)&#39;</span><span style="color:#f92672">.</span>format(self<span style="color:#f92672">.</span>_adjacency)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">iteredges</span>(self) <span style="color:#f92672">-&gt;</span> Iterator[Tuple[int, int]]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> sid, tids <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_adjacency<span style="color:#f92672">.</span>items():
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> tid <span style="color:#f92672">in</span> tids:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> sid <span style="color:#f92672">&lt;</span> tid:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">yield</span> (sid, tid)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">iterneighbors</span>(self, id: int) <span style="color:#f92672">-&gt;</span> Iterator[int]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> iter(self<span style="color:#f92672">.</span>_neighbors(id))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">size</span>(self) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> sum(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>iteredges())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">degree</span>(self, id: int) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> len(self<span style="color:#f92672">.</span>_neighbors(id))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">has_edge</span>(self, sid: int, tid: int) <span style="color:#f92672">-&gt;</span> bool:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> tid <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> self:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">raise</span> UnknownNode
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> tid <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_neighbors(sid)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_neighbors</span>(self, id: int) <span style="color:#f92672">-&gt;</span> list[int]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_adjacency[id]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">KeyError</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">raise</span> UnknownNode
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> result
+</span></span></code></pre></div><p><code>AdjacencyList</code> is backed by a <code>dict[int, list[int]]</code>, or a mapping of node id to neighbor list. This data structure by itself offers a remarkably good match to the minimal graph API, as can be seen from the delegated methods <code>__len__</code>, <code>__contains__</code>, <code>__iter__</code>, <code>iterneighbors</code>, and <code>degree</code>.</p>
+<p>The remaining methods illustrate mismatches between a raw dict and the minimal graph API. Take, for example, <code>iteredges</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">iteredges</span>(self) <span style="color:#f92672">-&gt;</span> Iterator[Tuple[int, int]]:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> sid, tids <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_adjacency<span style="color:#f92672">.</span>items():
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> tid <span style="color:#f92672">in</span> tids:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> sid <span style="color:#f92672">&lt;</span> tid:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">yield</span> (sid, tid)
+</span></span></code></pre></div><p>The backing dict doesn&rsquo;t offer a direct method for edge iteration. Fortunately, a short <a href="https://wiki.python.org/moin/Generators">generator</a> can be used instead. No temporary collections (e.g, list or set) are required to avoid iterating non-unique edges. Instead, we use a trick that simply checks that the source id is less than the target id before yielding. This approach has the added advantage of always iterating edges in the same sense and direction.</p>
+<p>Given that <code>AdjacencyList</code> uses a clone of the dict passed to it through the constructor, the <code>__init__</code> method may seem overly busy. What&rsquo;s happening here is a check to ensure that the dict does not contain any of the following bad encodings: a non-member neighbor; a half-edge (sid-&gt;tid without tid-&gt;sid); a duplicate edge; or a loop (edge to self).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> __init__(self, adjacency: dict[int, list[int]]):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> sid, tids <span style="color:#f92672">in</span> adjacency<span style="color:#f92672">.</span>items():
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> tid <span style="color:#f92672">in</span> tids:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                sids <span style="color:#f92672">=</span> adjacency[tid]
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">KeyError</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">raise</span> UnknownNode
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> sid <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> sids:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">raise</span> HalfEdge
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">elif</span> tids<span style="color:#f92672">.</span>count(tid) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">raise</span> DuplicateEdge
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">elif</span> tid <span style="color:#f92672">==</span> sid:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">raise</span> Loop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    self<span style="color:#f92672">.</span>_adjacency <span style="color:#f92672">=</span> dict(adjacency)
+</span></span></code></pre></div><p>Three methods, <code>iterneighbors</code>, <code>degree</code>, and <code>has_edge</code> call a private helper method, <code>_neighbors</code>. The sole purpose of doing so is to avoid the duplication that would result from transforming the built-in <code>KeyError</code> into the custom <code>UnknownNode</code> exception.</p>
+<p>The sailing has been pretty smooth with <code>AdjacencyList</code>. Now let&rsquo;s consider an implementation that trades a simpler backing data type for a more complex implementation.</p>
+<h1 id="edgelist">EdgeList</h1>
+<p>An <a href="https://en.wikipedia.org/wiki/Edge_list">edge list</a> views a graph as a list of edges. <code>EdgeList</code> implements this idea.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> Iterator, Tuple
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> pygraph.graph <span style="color:#f92672">import</span> DuplicateEdge, Loop, UnknownNode
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EdgeList</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, edges: list[Tuple[int, int]]):
+</span></span><span style="display:flex;"><span>        seen <span style="color:#f92672">=</span> set()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (sid, tid) <span style="color:#f92672">in</span> edges:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (sid, tid) <span style="color:#f92672">in</span> seen <span style="color:#f92672">or</span> (tid, sid) <span style="color:#f92672">in</span> seen:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">raise</span> DuplicateEdge
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">elif</span> sid <span style="color:#f92672">==</span> tid:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">raise</span> Loop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            seen<span style="color:#f92672">.</span>add((sid, tid))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_edges <span style="color:#f92672">=</span> list(edges)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __len__(self) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> sum(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_nodes())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __contains__(self, id: int) <span style="color:#f92672">-&gt;</span> bool:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> sid, tid <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_edges:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> id <span style="color:#f92672">==</span> sid <span style="color:#f92672">or</span> id <span style="color:#f92672">==</span> tid:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __iter__(self) <span style="color:#f92672">-&gt;</span> Iterator[int]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> iter(self<span style="color:#f92672">.</span>_nodes())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __repr__(self) <span style="color:#f92672">-&gt;</span> str:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;EdgeList(</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">)&#39;</span><span style="color:#f92672">.</span>format(self<span style="color:#f92672">.</span>_edges)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">iteredges</span>(self) <span style="color:#f92672">-&gt;</span> Iterator[Tuple[int, int]]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> iter(self<span style="color:#f92672">.</span>_edges)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">size</span>(self) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> len(self<span style="color:#f92672">.</span>_edges)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">iterneighbors</span>(self, id: int) <span style="color:#f92672">-&gt;</span> Iterator[int]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> iter(self<span style="color:#f92672">.</span>_neighbors(id))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">degree</span>(self, id: int) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> sum(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_neighbors(id))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">has_edge</span>(self, sid: int, tid: int) <span style="color:#f92672">-&gt;</span> bool:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> sid <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> self <span style="color:#f92672">or</span> tid <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> self:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">raise</span> UnknownNode
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> edge <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_edges:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> edge[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> sid <span style="color:#f92672">and</span> edge[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> tid:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">elif</span> edge[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> sid <span style="color:#f92672">and</span> edge[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> tid:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_neighbors</span>(self, id: int) <span style="color:#f92672">-&gt;</span> Iterator[int]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> id <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> self:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">raise</span> UnknownNode
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>_mates(id)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_mates</span>(self, id: int) <span style="color:#f92672">-&gt;</span> Iterator[int]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> sid, tid <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_edges:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> id <span style="color:#f92672">==</span> sid:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">yield</span> tid
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">elif</span> id <span style="color:#f92672">==</span> tid:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">yield</span> sid
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_nodes</span>(self) <span style="color:#f92672">-&gt;</span> Iterator[int]:
+</span></span><span style="display:flex;"><span>        seen <span style="color:#f92672">=</span> set()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> sid, tid <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_edges:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> sid <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> seen:
+</span></span><span style="display:flex;"><span>                seen<span style="color:#f92672">.</span>add(sid)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">yield</span> sid
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> tid <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> seen:
+</span></span><span style="display:flex;"><span>                seen<span style="color:#f92672">.</span>add(tid)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">yield</span> tid
+</span></span></code></pre></div><p>The main advantage of <code>EdgeList</code> is the simplicity and low cost of its backing store, which is just a <code>list[Tuple[int, int]]</code>. The main disadvantage is almost everything else. Although edges can be iterated and counted with pure delegation, the remaining methods require greater computational complexity.</p>
+<p>These difficulties are such that <code>EdgeList</code> defines two private helper methods: <code>_neighbors</code>, a two part function-generator pair to to iterate the neighbors of a node; and <code>_nodes</code> to iterate the set of <code>Graph</code> member node ids.</p>
+<p>The result is that certain method calls are more inefficient than they aught to be. Consider <code>__len__</code>. Just counting member nodes or testing membership has a time complexity of <em>O(n)</em>, where <em>n</em> is the number of edges.</p>
+<p>Still, <code>EdgeList</code> offers the advantage of efficient operations over the set of all edges. Recall that this was something <code>AdjacencyList</code> wasn&rsquo;t very good at. Maybe it&rsquo;s possible to get the best of both worlds.</p>
+<h1 id="hybrid">Hybrid</h1>
+<p>The node-centered efficiency of <code>AdjacencyList</code> can be combined with the edge-centered efficiency of <code>EdgeList</code> with <code>Hybrid</code>. An instance of this class will be backed by both an adjacency list and an edge list generated from it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> Iterator, Tuple
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> pygraph.graph <span style="color:#f92672">import</span> HalfEdge, Loop, UnknownNode
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Hybrid</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, adjacency: dict[int, list[int]]):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_edges <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> sid, tids <span style="color:#f92672">in</span> adjacency<span style="color:#f92672">.</span>items():
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> tid <span style="color:#f92672">in</span> tids:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                    sids <span style="color:#f92672">=</span> adjacency[tid]
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">KeyError</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">raise</span> UnknownNode
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> sid <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> sids:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">raise</span> HalfEdge
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">elif</span> sid <span style="color:#f92672">==</span> tid:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">raise</span> Loop
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">elif</span> sid <span style="color:#f92672">&lt;</span> tid:
+</span></span><span style="display:flex;"><span>                    self<span style="color:#f92672">.</span>_edges<span style="color:#f92672">.</span>append((sid, tid))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_adjacency <span style="color:#f92672">=</span> dict(adjacency)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __len__(self) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> len(self<span style="color:#f92672">.</span>_adjacency)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __contains__(self, id: int) <span style="color:#f92672">-&gt;</span> bool:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> id <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_adjacency
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __iter__(self) <span style="color:#f92672">-&gt;</span> Iterator[int]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> iter(self<span style="color:#f92672">.</span>_adjacency<span style="color:#f92672">.</span>keys())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __repr__(self) <span style="color:#f92672">-&gt;</span> str:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;Hybrid(</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">)&#39;</span><span style="color:#f92672">.</span>format(self<span style="color:#f92672">.</span>_adjacency)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">iteredges</span>(self) <span style="color:#f92672">-&gt;</span> Iterator[Tuple[int, int]]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> iter(self<span style="color:#f92672">.</span>_edges)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">size</span>(self) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> len(self<span style="color:#f92672">.</span>_edges)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">iterneighbors</span>(self, id: int) <span style="color:#f92672">-&gt;</span> Iterator[int]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> iter(self<span style="color:#f92672">.</span>_neighbors(id))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">degree</span>(self, id: int) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> len(self<span style="color:#f92672">.</span>_neighbors(id))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">has_edge</span>(self, sid: int, tid: int) <span style="color:#f92672">-&gt;</span> bool:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> tid <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> self:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">raise</span> UnknownNode
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> tid <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_neighbors(sid)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_neighbors</span>(self, id: int) <span style="color:#f92672">-&gt;</span> list[int]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_adjacency[id]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">KeyError</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">raise</span> UnknownNode
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> result
+</span></span></code></pre></div><p>The main difference with <code>AdjacencyList</code> is that <code>Hybrid</code> stores a list of edges, simplifying the implementation of <code>iteredges</code> and <code>size</code>, and decreasing the time complexity of <code>size</code> to <em>O(1)</em>.</p>
+<h1 id="whither-abstract-base-classes">Whither Abstract Base Classes?</h1>
+<p>There&rsquo;s one other way to make a protocol explicit: an <a href="https://docs.python.org/3/library/abc.html">Abstract Base Class</a> (ABC). An ABC is a class that defines one or more abstract methods to be implemented by subclasses.</p>
+<p>It&rsquo;s possible to declare <code>Graph</code> as an ABC like so.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> abc <span style="color:#f92672">import</span> ABC
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Graph</span>(ABC):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pass</span>
+</span></span></code></pre></div><p>The distinction between <code>Protocol</code> and <code>ABC</code> is both subtle and important. A <code>Protocol</code> requires nothing from a conforming class other than a set of methods. An ABC, on the other hand, requires an inheritance relationship.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> pygraph <span style="color:#f92672">import</span> Graph
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ConcreteGraph</span>(Graph):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># method overrides</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pass</span>
+</span></span></code></pre></div><p>Under ABC, a class can implement all <code>Graph</code> methods and still be rejected by the type checker if it fails to also inherit from <code>Graph</code>. Using Protocol, however, any class with a conforming interface will be considered a valid <code>Graph</code>.</p>
+<p>I bring this up because of the unfortunate fact of graph life that many algorithms are computationally demanding. One way to improve performance is to implement those algorithms in a fast language such as C, C++, or Rust. (I&rsquo;ll have more to say about <code>Graph</code> and Rust in future articles.) Depending on the tooling around that low-level implementation, it may not be feasible to ensure an inheritance relationship with a <code>graph</code> ABC. For now, the advantage goes to Protocol.</p>
+<h1 id="other-graph-implementations">Other Graph Implementations</h1>
+<p>It may not seem like it, but there&rsquo;s a lot more to implementing <code>Graph</code> than what&rsquo;s been discussed here. That&rsquo;s because there are so many different kinds of graphs. Consider a <a href="/articles/2019/04/02/the-maximum-matching-problem/">matching</a>, which is a graph in which every node has degree one. An <code>AdjacencyList</code> would certainly do the job, but it would be overkill. A backing <code>dict[int, int]</code> would do the job more efficiently and simply. Similar considerations apply for other specialized graphs.</p>
+<p>Higher complexity is also possible. This article doesn&rsquo;t deal with the topic of loops, parallel edges or directed edges. Although the minimal graph API is compatible with them, concrete implementations may not be. This can lead to conflict should, for example, a function accepting a <code>Graph</code> as an argument assume that loops are disallowed whereas an implementation does not. For this reason, a <code>Graph</code> Protocol must declare its assumptions about disallowed graph features so that subclasses can behave accordingly.</p>
+<h1 id="consistency-and-cohesion">Consistency and Cohesion</h1>
+<p>The existence of a <code>Graph</code> Protocol makes it possible to write code that works with a well-defined interface, disregarding any and all implementation details of the underlying graph object. This article has outlined some clear advantages with regard to Python, but there&rsquo;s more to it than that. Graph capabilities factor prominently in the early stages of problem formulation. Even pseudocode uses a graph API, although it may not be defined anywhere. Graphs are, of course, used within every programming language. A common set of capabilities across all of the contexts in which graphs appear can benefit not just specific implementations, but designs and ideas.</p>
+<p>A simple language around graph capabilities, used consistently, offers cohesion and reuse potential that&rsquo;s hard to achieve otherwise.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>Although graph theory is a complex topic, the behavior of graph-like objects need not be. Just ten operations suffice to define all of the behaviors associated with graphs. Codifying these behaviors as a <code>Python</code> protocol allows functions to focus on fundamental behaviors rather than implementation idiosyncrasies. Limiting the scope of the <code>Graph</code> protocol makes multiple special-purpose implementations practical. More broadly, a common vocabulary around graph behavior means that concepts, algorithms, and designs developed on one platform can readily be adapted to others.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://depth-first.com:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

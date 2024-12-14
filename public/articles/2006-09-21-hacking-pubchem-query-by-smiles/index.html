@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Hacking PubChem: Query by SMILES | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Recently, I showed how a simple PubChem API could be built from a few lines of Ruby code. The API we created could retrieve a molfile and a 2-D molecular rendering given a PubChem compound ID (CID). In this tutorial, we&rsquo;ll see how a SMILES query mechanism can be added to the API, enabling CIDs to be retrieved from any valid SMILES string. We&rsquo;ll also see how to extend this capability to retrieving a 2-D image from PubChem by submitting a SMILES string.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+      <meta name="author" content = "Richard L. Apodaca">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://depth-first.com:1313/articles/2006-09-21-hacking-pubchem-query-by-smiles/">
+    
+
+    <meta property="og:url" content="https://depth-first.com:1313/articles/2006-09-21-hacking-pubchem-query-by-smiles/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Hacking PubChem: Query by SMILES">
+  <meta property="og:description" content="Recently, I showed how a simple PubChem API could be built from a few lines of Ruby code. The API we created could retrieve a molfile and a 2-D molecular rendering given a PubChem compound ID (CID). In this tutorial, we’ll see how a SMILES query mechanism can be added to the API, enabling CIDs to be retrieved from any valid SMILES string. We’ll also see how to extend this capability to retrieving a 2-D image from PubChem by submitting a SMILES string.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2006-09-21T00:00:00+00:00">
+    <meta property="article:modified_time" content="2006-09-21T00:00:00+00:00">
+
+  <meta itemprop="name" content="Hacking PubChem: Query by SMILES">
+  <meta itemprop="description" content="Recently, I showed how a simple PubChem API could be built from a few lines of Ruby code. The API we created could retrieve a molfile and a 2-D molecular rendering given a PubChem compound ID (CID). In this tutorial, we’ll see how a SMILES query mechanism can be added to the API, enabling CIDs to be retrieved from any valid SMILES string. We’ll also see how to extend this capability to retrieving a 2-D image from PubChem by submitting a SMILES string.">
+  <meta itemprop="datePublished" content="2006-09-21T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2006-09-21T00:00:00+00:00">
+  <meta itemprop="wordCount" content="834">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Hacking PubChem: Query by SMILES">
+  <meta name="twitter:description" content="Recently, I showed how a simple PubChem API could be built from a few lines of Ruby code. The API we created could retrieve a molfile and a 2-D molecular rendering given a PubChem compound ID (CID). In this tutorial, we’ll see how a SMILES query mechanism can be added to the API, enabling CIDs to be retrieved from any valid SMILES string. We’ll also see how to extend this capability to retrieving a 2-D image from PubChem by submitting a SMILES string.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Hacking PubChem: Query by SMILES</h1>
+      
+      <p class="tracked">
+        By <strong>Richard L. Apodaca</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2006-09-21T00:00:00Z">September 21, 2006</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Recently, I showed how <!-- raw HTML omitted -->a simple PubChem API<!-- raw HTML omitted --> could be built from a few lines of Ruby code. The API we created could retrieve a molfile and a 2-D molecular rendering given a PubChem compound ID (CID). In this tutorial, we&rsquo;ll see how a SMILES query mechanism can be added to the API, enabling CIDs to be retrieved from any valid SMILES string. We&rsquo;ll also see how to extend this capability to retrieving a 2-D image from PubChem by submitting a SMILES string.</p>
+<h1 id="credits">Credits</h1>
+<p>The API that follows is based on the <code>pubchem.rb</code> file found in <!-- raw HTML omitted -->Chemruby<!-- raw HTML omitted --> by Tadashi Kadowaki and Nobua Tanaka.</p>
+<h1 id="defining-the-problem">Defining the Problem</h1>
+<p>We want to create a PubChem API that returns an <!-- raw HTML omitted -->Array<!-- raw HTML omitted --> of CIDs given any valid SMILES string. The API will communicate with the publically-available molecular database <!-- raw HTML omitted -->PubChem<!-- raw HTML omitted --> using HTTP.</p>
+<p>In some cases, PubChem associates more than one CID for a given molecular structure. For example, querying the SMILES string <!-- raw HTML omitted -->c1ccccc1<!-- raw HTML omitted --> (benzene) finds both benzene and C-14 benzene. The software needs to handle these cases as well.</p>
+<h1 id="prerequisites">Prerequisites</h1>
+<p>The only thing you&rsquo;ll need for this tutorial is Ruby, preferably v1.8 or better.</p>
+<h1 id="code">Code</h1>
+<p>Create a file called <code>query.rb</code> in your working directory containing the following code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;uri&#39;</span>
+</span></span><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;net/http&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># A simple SMILES query for PubChem based on the file &lt;tt&gt;pubchem.rb&lt;/tt&gt;,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># and originally part of Chemruby (http://rubyforge.org/project/chemruby).</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Distributed under Ruby&#39;s License.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Copyright (C) 2005, 2006 KADOWAKI Tadashi &lt;kado@kuicr.kyoto-u.ac.jp&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#                          TANAKA   Nobuya  &lt;tanaka@kuicr.kyoto-u.ac.jp&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#                          APODACA  Richard &lt;r_apodaca@users.sf.net&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PubChemQuery</span>
+</span></span><span style="display:flex;"><span>  @@host<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pubchem.ncbi.nlm.nih.gov&#34;</span>
+</span></span><span style="display:flex;"><span>  @@searchpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/search/&#34;</span>
+</span></span><span style="display:flex;"><span>  @@query<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;PreQSrv.cgi&#34;</span>
+</span></span><span style="display:flex;"><span>  @@boundary<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-----boundary-----&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Synthetic form data. Lifted from Chemruby pubchem.rb</span>
+</span></span><span style="display:flex;"><span>  @@data <span style="color:#f92672">=</span> <span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span>    @@boundary, <span style="color:#e6db74">&#34;Content-Disposition: form-data; name=</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">mode</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;simplequery&#34;</span>,
+</span></span><span style="display:flex;"><span>    @@boundary, <span style="color:#e6db74">&#34;Content-Disposition: form-data; name=</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">queue</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;ssquery&#34;</span>,
+</span></span><span style="display:flex;"><span>    @@boundary, <span style="color:#e6db74">&#34;Content-Disposition: form-data; name=</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">simple_searchdata</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#39;%s&#39;</span>,
+</span></span><span style="display:flex;"><span>    @@boundary, <span style="color:#e6db74">&#34;Content-Disposition: form-data; name=</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">simple_searchtype</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;fs&#34;</span>,
+</span></span><span style="display:flex;"><span>    @@boundary, <span style="color:#e6db74">&#34;Content-Disposition: form-data; name=</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">maxhits</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#39;%s&#39;</span>,
+</span></span><span style="display:flex;"><span>    @@boundary<span style="color:#f92672">].</span>join(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x0d\x0a</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Returns an Array of CIDs matching smiles. If no matches are found,</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># nil is returned.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">self</span><span style="color:#f92672">.</span><span style="color:#a6e22e">query_by_smiles</span>(smiles, maxhits <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>    form_response <span style="color:#f92672">=</span> post_form(smiles, maxhits)
+</span></span><span style="display:flex;"><span>    wait_response <span style="color:#f92672">=</span> process_wait_page(form_response)
+</span></span><span style="display:flex;"><span>    url <span style="color:#f92672">=</span> get_report_url(wait_response)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    url ? process_report(url) : <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Returns the response to posting the initial search form.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">self</span><span style="color:#f92672">.</span><span style="color:#a6e22e">post_form</span>(smiles, maxhits)
+</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">Net</span><span style="color:#f92672">::</span><span style="color:#66d9ef">HTTP</span><span style="color:#f92672">.</span>start(@@host, <span style="color:#ae81ff">80</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>http<span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>      response <span style="color:#f92672">=</span> http<span style="color:#f92672">.</span>post(@@searchpath <span style="color:#f92672">+</span> @@query, @@data <span style="color:#f92672">%</span> <span style="color:#f92672">[</span>smiles, maxhits<span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;Content-Type&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;multipart/form-data; boundary=</span><span style="color:#e6db74">#{</span>@@boundary<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;Referer&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;http://pubchem.ncbi.nlm.nih.gov/search/&#34;</span>
+</span></span><span style="display:flex;"><span>      })<span style="color:#f92672">.</span>body
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    response
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Processes the wait page displayed after submission of the search form.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">self</span><span style="color:#f92672">.</span><span style="color:#a6e22e">process_wait_page</span>(body)
+</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> m <span style="color:#f92672">=</span> <span style="color:#e6db74">/url=&#34;([^&#34;]+)&#34;/</span><span style="color:#f92672">.</span>match(body)
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">Net</span><span style="color:#f92672">::</span><span style="color:#66d9ef">HTTP</span><span style="color:#f92672">.</span>start(@@host, <span style="color:#ae81ff">80</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>http<span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>        response <span style="color:#f92672">=</span> http<span style="color:#f92672">.</span>get(@@searchpath <span style="color:#f92672">+</span> m<span style="color:#f92672">[</span><span style="color:#ae81ff">1</span><span style="color:#f92672">]</span>)<span style="color:#f92672">.</span>body
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    response
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Returns the URL, as a String, to the search report, given the specified</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># body of the wait page.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">self</span><span style="color:#f92672">.</span><span style="color:#a6e22e">get_report_url</span>(body)
+</span></span><span style="display:flex;"><span>    url <span style="color:#f92672">=</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">Net</span><span style="color:#f92672">::</span><span style="color:#66d9ef">HTTP</span><span style="color:#f92672">.</span>start(@@host, <span style="color:#ae81ff">80</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>http<span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">while</span> <span style="color:#e6db74">/setTimeout\(&#39;document.location.replace\(&#34;([^&#34;]+)&#34;\);&#39;, (\d+)\)/</span> <span style="color:#f92672">=~</span> body <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>        sleep($2<span style="color:#f92672">.</span>to_f<span style="color:#f92672">/</span><span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        response <span style="color:#f92672">=</span> http<span style="color:#f92672">.</span>get(<span style="color:#66d9ef">URI</span><span style="color:#f92672">.</span>parse($1)<span style="color:#f92672">.</span>to_s)
+</span></span><span style="display:flex;"><span>        body <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>body
+</span></span><span style="display:flex;"><span>        url <span style="color:#f92672">=</span> response<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;location&#39;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    url
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Extracts CIDs from the search report contained at url.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">self</span><span style="color:#f92672">.</span><span style="color:#a6e22e">process_report</span>(url)
+</span></span><span style="display:flex;"><span>    cid <span style="color:#f92672">=</span> Array<span style="color:#f92672">.</span>new
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">Net</span><span style="color:#f92672">::</span><span style="color:#66d9ef">HTTP</span><span style="color:#f92672">.</span>start(@@host, <span style="color:#ae81ff">80</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>http<span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># text format</span>
+</span></span><span style="display:flex;"><span>      url<span style="color:#f92672">.</span>sub!(<span style="color:#e6db74">/cmd=Select\+from\+History/</span>, <span style="color:#e6db74">&#39;cmd=Text&amp;dopt=Brief&#39;</span>)
+</span></span><span style="display:flex;"><span>      http<span style="color:#f92672">.</span>get(url)<span style="color:#f92672">.</span>body<span style="color:#f92672">.</span>scan(<span style="color:#e6db74">/\d+: CID: (\d+)/</span>)<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>id<span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>        cid<span style="color:#f92672">.</span>push(id<span style="color:#f92672">[</span><span style="color:#ae81ff">0</span><span style="color:#f92672">]</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    cid
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>You might want to <!-- raw HTML omitted -->manually submit a SMILES query<!-- raw HTML omitted --> to PubChem as a refresher on how this webapp works. Briefly, the contents of the SMILES search field are read, and a wait screen appears, typically for three seconds. You are then redirected to a results report page containing thumbnail images of the hits and their CIDs.</p>
+<p>The PubChemQuery class contains a single public class method, <!-- raw HTML omitted -->query_by_smiles<!-- raw HTML omitted -->. This method builds a form to submit, based on the supplied SMILES string and optional <!-- raw HTML omitted -->maxhits<!-- raw HTML omitted --> argument. It then waits until PubChem indicates that the query is about to finish processing. The URL for the results report page is then parsed. If a nonempty URL was found, then its page is loaded, and CIDs are scraped. Otherwise, the method returns <!-- raw HTML omitted -->nil<!-- raw HTML omitted -->.</p>
+<h1 id="usage">Usage</h1>
+<p>Using <!-- raw HTML omitted -->PubChemQuery<!-- raw HTML omitted --> consists of invoking its class method <!-- raw HTML omitted -->query_by_smiles<!-- raw HTML omitted -->. You can do so either via the Ruby interpreter (<!-- raw HTML omitted -->ruby<!-- raw HTML omitted -->), or preferably through Interactive Ruby (<!-- raw HTML omitted -->irb<!-- raw HTML omitted -->).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;query&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>smiles <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;c1cccc(Cl)c1(Cl)&#34;</span> <span style="color:#75715e"># chlorobenzene</span>
+</span></span><span style="display:flex;"><span>puts <span style="color:#e6db74">&#34;Searching CID(s) for SMILES, </span><span style="color:#e6db74">#{</span>smiles<span style="color:#e6db74">}</span><span style="color:#e6db74"> ...&#34;</span>
+</span></span><span style="display:flex;"><span>cid <span style="color:#f92672">=</span> <span style="color:#66d9ef">PubChemQuery</span><span style="color:#f92672">.</span>query_by_smiles(smiles)
+</span></span><span style="display:flex;"><span>puts cid <span style="color:#75715e"># =&gt; 7239</span>
+</span></span></code></pre></div><h1 id="layering-complexity">Layering Complexity</h1>
+<p>We can combine the SMILES query API discussed here with the molfile and image retrieval discussed in the <!-- raw HTML omitted -->earlier Hacking Pubchem article<!-- raw HTML omitted -->.</p>
+<p>Let&rsquo;s say you&rsquo;d like to download PubChem&rsquo;s 2-D image of imatinib (Gleevec) by submitting its SMILES string. Copy the file named <code>pubchem.rb</code>, provided in the original PubChem tutorial, into your working directory. Now you can programmatically download imatinib&rsquo;s 2-D image from PubChem based only on a SMILES string, for example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;pubchem&#39;</span>
+</span></span><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;query&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>smiles<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Cc3ccc(NC(=O)c2ccc(CN1CCN(C)CC1)cc2)cc3Nc5nccc(c4cccnc4)n5&#34;</span> <span style="color:#75715e">#imatinib</span>
+</span></span><span style="display:flex;"><span>puts <span style="color:#e6db74">&#34;Searching CID(s) for SMILES, </span><span style="color:#e6db74">#{</span>smiles<span style="color:#e6db74">}</span><span style="color:#e6db74"> ...&#34;</span>
+</span></span><span style="display:flex;"><span>cid <span style="color:#f92672">=</span> <span style="color:#66d9ef">PubChemQuery</span><span style="color:#f92672">.</span>query_by_smiles(smiles)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> cid
+</span></span><span style="display:flex;"><span>  puts <span style="color:#e6db74">&#34;CID found: </span><span style="color:#e6db74">#{</span>cid<span style="color:#f92672">[</span><span style="color:#ae81ff">0</span><span style="color:#f92672">]</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  filename <span style="color:#f92672">=</span> cid<span style="color:#f92672">[</span><span style="color:#ae81ff">0</span><span style="color:#f92672">]</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;.png&#34;</span>
+</span></span><span style="display:flex;"><span>  puts <span style="color:#e6db74">&#34;Writing image to </span><span style="color:#e6db74">#{</span>filename<span style="color:#e6db74">}</span><span style="color:#e6db74"> ...&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">PubChem</span><span style="color:#f92672">.</span>write_image(cid<span style="color:#f92672">[</span><span style="color:#ae81ff">0</span><span style="color:#f92672">]</span>, filename)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>  puts <span style="color:#e6db74">&#34;No CID for </span><span style="color:#e6db74">#{</span>smiles<span style="color:#e6db74">}</span><span style="color:#e6db74"> was found.&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>This produces an image of imatinib called <code>5291.png</code> in your working directory:</p>
+<h1 id="wrapping-up">Wrapping Up</h1>
+<p>As you can see, we&rsquo;re just scratching the surface. The approach outlined here offers nearly unlimited possibilities for repackaging PubChem&rsquo;s own content, and mashing this content up with that of other sites. Happy hacking!</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://depth-first.com:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Chemical Markup Language and Ferrocene Part 1: Chem4Word and Breaking with the Past | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Chemical Markup Language (CML) is an XML-based language for chemistry developed by Peter Murray-Rust, Henry Rzepa and many other contributors. Designed as a communication medium for chemistry based on open standards, CML aims to provide a uniform, extensible system for representing, storing, and transmitting chemical information. CML enables a range of concepts to be modeled, including molecules, reactions, and chemical metadata. First described in 1995, CML has become an important component of many chemical information systems, including toolkits, structure editors, and other software.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2009/04/09/chemical-markup-language-and-ferrocene-part-1-chem4word-and-breaking-with-the-past/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2009/04/09/chemical-markup-language-and-ferrocene-part-1-chem4word-and-breaking-with-the-past/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Chemical Markup Language and Ferrocene Part 1: Chem4Word and Breaking with the Past">
+  <meta property="og:description" content="Chemical Markup Language (CML) is an XML-based language for chemistry developed by Peter Murray-Rust, Henry Rzepa and many other contributors. Designed as a communication medium for chemistry based on open standards, CML aims to provide a uniform, extensible system for representing, storing, and transmitting chemical information. CML enables a range of concepts to be modeled, including molecules, reactions, and chemical metadata. First described in 1995, CML has become an important component of many chemical information systems, including toolkits, structure editors, and other software.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2009-04-09T00:00:00+00:00">
+    <meta property="article:modified_time" content="2009-04-09T00:00:00+00:00">
+
+  <meta itemprop="name" content="Chemical Markup Language and Ferrocene Part 1: Chem4Word and Breaking with the Past">
+  <meta itemprop="description" content="Chemical Markup Language (CML) is an XML-based language for chemistry developed by Peter Murray-Rust, Henry Rzepa and many other contributors. Designed as a communication medium for chemistry based on open standards, CML aims to provide a uniform, extensible system for representing, storing, and transmitting chemical information. CML enables a range of concepts to be modeled, including molecules, reactions, and chemical metadata. First described in 1995, CML has become an important component of many chemical information systems, including toolkits, structure editors, and other software.">
+  <meta itemprop="datePublished" content="2009-04-09T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2009-04-09T00:00:00+00:00">
+  <meta itemprop="wordCount" content="859">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Chemical Markup Language and Ferrocene Part 1: Chem4Word and Breaking with the Past">
+  <meta name="twitter:description" content="Chemical Markup Language (CML) is an XML-based language for chemistry developed by Peter Murray-Rust, Henry Rzepa and many other contributors. Designed as a communication medium for chemistry based on open standards, CML aims to provide a uniform, extensible system for representing, storing, and transmitting chemical information. CML enables a range of concepts to be modeled, including molecules, reactions, and chemical metadata. First described in 1995, CML has become an important component of many chemical information systems, including toolkits, structure editors, and other software.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Chemical Markup Language and Ferrocene Part 1: Chem4Word and Breaking with the Past</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2009-04-09T00:00:00Z">April 9, 2009</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p><a href="http://en.wikipedia.org/wiki/Chemical_Markup_Language">Chemical Markup Language</a> (CML) is an XML-based language for chemistry developed by <a href="http://wwmm.ch.cam.ac.uk/blogs/murrayrust/">Peter Murray-Rust</a>, <a href="http://en.wikipedia.org/wiki/Henry_Rzepa">Henry Rzepa</a> and many other contributors. Designed as a communication medium for chemistry based on open standards, CML aims to provide a uniform, extensible system for representing, storing, and transmitting chemical information. CML enables a range of concepts to be modeled, including molecules, reactions, and chemical metadata. <a href="http://dx.doi.org/10.1021/ci990052b">First described in 1995</a>, CML has become an important component of many chemical information systems, including toolkits, structure editors, and other software.</p>
+<h1 id="chem4word">Chem4Word</h1>
+<p>Recently, CML has been applied to creation of a new tool called <a href="http://research.microsoft.com/en-us/projects/chem4word/">Chem4Word</a> that will enable authoring and rendering of semantically-rich chemistry information in Word 2007 documents. Funded by Microsoft, Chem4Word aims to do some of the same things for chemistry and Word documents that the <a href="http://office.microsoft.com/en-us/word/HA012303611033.aspx">Math Type add-in</a> was able to do for mathematics.</p>
+<h1 id="state-of-the-art">State of the Art</h1>
+<p>The combination of embedded <a href="http://www.cambridgesoft.com/software/details/?ds=2">ChemDraw</a> objects and Microsoft Word documents has become the de facto standard for chemical document authoring. High-quality chemistry journals routinely issue specific instructions for using this combination of software when submitting manuscripts. Although I&rsquo;m aware of no numbers on the subject, it&rsquo;s not unreasonable to estimate that nearly every chemistry student completing a post-graduate degree will have used the ChemDraw/Word system at least once, and likely far more than that, by the time they graduate.</p>
+<p>There are several reasons for the popularity of the ChemDraw/Word system. One of the most important is that it reduces the number of files that need to be managed during the course of preparing a complex document, such as a manuscript, to one. Every embedded ChemDraw object can be edited and placed back into its host document, greatly simplifying workflows. Another reason is the ubiquity of both Microsoft Word and ChemDraw themselves.</p>
+<p>These two features alone mean that a chemist can be confident that they&rsquo;ll only have to worry about keeping track of one file, and that they&rsquo;ll always be able to share that one file with any other chemist.</p>
+<p>Even if there were no other benefits to the system, which there are, this would be enough to create a powerful network effect, which is exactly what has happened over the last ten years or so.</p>
+<h1 id="the-price-of-ubiquity">The Price of Ubiquity</h1>
+<p>The ubiquity of ChemDraw/Word comes at a price: organizations everywhere now have large collections of Word documents containing embedded ChemDraw objects that can&rsquo;t easily be searched in chemically-meaningful ways. Give me all documents on my drive (or my company&rsquo;s &lsquo;reports&rsquo; share drive) containing the structure of pseudoephedrine or the substructure naphthiridine? This is a non-trivial problem, and although solutions do exists, the required software is made more expensive than necessary and less useful than possible because of the format in which data is being stored.</p>
+<p>Another important limitation in the ChemDraw/Word system is that there are <a href="/articles/2009/03/27/a-comprehensive-guide-flexmol-a-modern-language-for-chemical-representation-part-2-real-world-problems">many molecules</a> such as ferrocene being created in ChemDraw that are little more than pictures due to the lack of a sufficiently expressive molecular language. Even if you have the software to extract some molecules, it will more likely than not fail for these problem cases.</p>
+<h1 id="a-possible-alternative">A Possible Alternative</h1>
+<p>Chem4Word represents a potential alternative to the industry standard ChemDraw/Word combination. One of the things it could do is make it far easier (and cheaper) to create software to mine the chemical information contained in Word documents.</p>
+<p>But another thing Chem4Word could do is to offer a richer chemical language than ChemDraw that will enable problem molecules such as ferrocene to be represented not as vector drawings, but as full-fledged machine-readable molecular objects that can be searched by structure, cataloged, and aggregated like most organic molecules.</p>
+<h1 id="who-cares-about-ferrocene">Who Cares About Ferrocene?</h1>
+<p>Although working with ferrocene may not be high on the list of things your cheminformatics tools need to be able to do well, ferrocene does represent a good test case for molecules you may need to work with on short notice. Any molecule consisting of one or more multicenter bonds could be a candidate, a number of real-world examples of which are <a href="/articles/2009/03/27/a-comprehensive-guide-flexmol-a-modern-language-for-chemical-representation-part-2-real-world-problems">summarized here</a>.</p>
+<p>In short, if you can work with ferrocene, chances are good you can work with any molecule involving multicentered bonding.</p>
+<h1 id="opening-a-discussion">Opening a Discussion</h1>
+<p>In response to some questions I posted to Peter Murray-Rust&rsquo;s blog asking about how ferrocene specifically is represented in CML, Peter has responded with a large number of posts, which are summarized below:</p>
+<ul>
+<li><a href="http://wwmm.ch.cam.ac.uk/blogs/murrayrust/?p=1535">Chem4Word + CML representational power</a></li>
+<li><a href="http://wwmm.ch.cam.ac.uk/blogs/murrayrust/?p=1563">CML - a semantic approach to chemistry</a></li>
+<li><a href="http://wwmm.ch.cam.ac.uk/blogs/murrayrust/?p=1581">Chem4Word - why semantics are necessary</a></li>
+<li><a href="http://wwmm.ch.cam.ac.uk/blogs/murrayrust/?p=1592">CML - semantic representation of molecular structure</a></li>
+<li><a href="http://wwmm.ch.cam.ac.uk/blogs/murrayrust/?p=1600">CML - semantics for pi-bonds</a></li>
+<li><a href="http://wwmm.ch.cam.ac.uk/blogs/murrayrust/?p=1637">CML - &ldquo;can your system encode these semantics&rdquo;</a></li>
+</ul>
+<h1 id="the-plan">The Plan</h1>
+<p>Over the next few weeks, I&rsquo;ll be discussing Peter&rsquo;s responses, and comparing the CML approaches to representing ferrocene to the approaches offered by <a href="/articles/2009/03/19/a-comprehensive-guide-flexmol-a-modern-language-for-chemical-representation-part-1-outlining-the-problem">FlexMol</a>, another XML-based chemical language. The intent is not to slight one or promote the other, but rather to compare each approach and discuss the tradeoffs involved.</p>
+<p>Given the general lack of discussion on the topic of cheminformatics&rsquo; problem molecules, it&rsquo;s entirely possible that the ideal solution consists of system with features in common to both FlexMol and CML. On the other hand, it could be something else altogether.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

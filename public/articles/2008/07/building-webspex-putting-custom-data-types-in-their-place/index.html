@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Building WebSpex - Putting Custom Data Types In Their Place | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="The previous article in this series introduced WebSpex, a spectroscopic data visualization tool being designed especially for use in a Web browser. Previously, the platform on which the user interface would be built was discussed. This article will discuss the question of where to put the spectroscopy data that WebSpex will display.
+Tag Soup
+We&rsquo;ve decided to target WebSpex for use on the Web, which means that spectroscopy data would need to be referenced or embedded in a Web page. How should we do this? The answer, it turns out, is far from obvious.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2008/07/building-webspex-putting-custom-data-types-in-their-place/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2008/07/building-webspex-putting-custom-data-types-in-their-place/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Building WebSpex - Putting Custom Data Types In Their Place">
+  <meta property="og:description" content="The previous article in this series introduced WebSpex, a spectroscopic data visualization tool being designed especially for use in a Web browser. Previously, the platform on which the user interface would be built was discussed. This article will discuss the question of where to put the spectroscopy data that WebSpex will display.
+Tag Soup We’ve decided to target WebSpex for use on the Web, which means that spectroscopy data would need to be referenced or embedded in a Web page. How should we do this? The answer, it turns out, is far from obvious.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2008-07-24T00:00:00+00:00">
+    <meta property="article:modified_time" content="2008-07-24T00:00:00+00:00">
+
+  <meta itemprop="name" content="Building WebSpex - Putting Custom Data Types In Their Place">
+  <meta itemprop="description" content="The previous article in this series introduced WebSpex, a spectroscopic data visualization tool being designed especially for use in a Web browser. Previously, the platform on which the user interface would be built was discussed. This article will discuss the question of where to put the spectroscopy data that WebSpex will display.
+Tag Soup We’ve decided to target WebSpex for use on the Web, which means that spectroscopy data would need to be referenced or embedded in a Web page. How should we do this? The answer, it turns out, is far from obvious.">
+  <meta itemprop="datePublished" content="2008-07-24T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2008-07-24T00:00:00+00:00">
+  <meta itemprop="wordCount" content="1344">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Building WebSpex - Putting Custom Data Types In Their Place">
+  <meta name="twitter:description" content="The previous article in this series introduced WebSpex, a spectroscopic data visualization tool being designed especially for use in a Web browser. Previously, the platform on which the user interface would be built was discussed. This article will discuss the question of where to put the spectroscopy data that WebSpex will display.
+Tag Soup We’ve decided to target WebSpex for use on the Web, which means that spectroscopy data would need to be referenced or embedded in a Web page. How should we do this? The answer, it turns out, is far from obvious.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Building WebSpex - Putting Custom Data Types In Their Place</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2008-07-24T00:00:00Z">July 24, 2008</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>The previous article in this series introduced <a href="/articles/2008/07/17/javascript-for-cheminformatics-an-introduction-to-webspex-a-spectroscopy-tool-for-the-internet">WebSpex</a>, a spectroscopic data visualization tool being designed especially for use in a Web browser. Previously, the platform on which the user interface would be built was discussed. This article will discuss the question of where to put the spectroscopy data that WebSpex will display.</p>
+<h1 id="tag-soup">Tag Soup</h1>
+<p>We&rsquo;ve decided to target WebSpex for use on the Web, which means that spectroscopy data would need to be referenced or embedded in a Web page. How should we do this? The answer, it turns out, is far from obvious.</p>
+<p>If we knew that WebSpex were going to be created as a Java or Flash applet, which is not the current plan, we might be tempted to pass a reference to the data (or the data itself) as a parameter in the <a href="/articles/2008/03/12/demystifying-java-applets-part-3-failing-gracefully-when-your-users-dont-have-java"><!-- raw HTML omitted -->&lt;object&gt;<!-- raw HTML omitted --> tag</a>. For an applet, this might look something like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;object</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#34;application/x-java-applet;version=1.4.2&#34;</span> <span style="color:#a6e22e">width=</span><span style="color:#e6db74">&#34;520&#34;</span> <span style="color:#a6e22e">height=</span><span style="color:#e6db74">&#34;350&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;param</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;code&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;com/metamolecular/webspex/applet/FullApplet.class&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;param</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;archive&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;http://metamolecular.com/applets/webspex.jar&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;param</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;jcamp&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;http://base-url/spectrum.jdx&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/object&gt;</span>
+</span></span></code></pre></div><p>In the example above, the parameter <!-- raw HTML omitted -->jcamp<!-- raw HTML omitted --> would encode the path to a JCAMP-DX file for WebSpex to load.</p>
+<p>Alternatively, if we were going to develop WebSpex as a Flash applet, we might use an object tag like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;object</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#34;application/x-shockwave-flash&#34;</span> <span style="color:#a6e22e">width=</span><span style="color:#e6db74">&#34;520&#34;</span> <span style="color:#a6e22e">height=</span><span style="color:#e6db74">&#34;350&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;param</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;movie&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;webspex.swf&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;param</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;FlashVars&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;filename=http://spectrum.jdx&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/object&gt;</span> 
+</span></span></code></pre></div><p>In this example, we associate the parameter <!-- raw HTML omitted -->filename<!-- raw HTML omitted --> with the value &ldquo;spectrum.dx&rdquo; using <a href="http://www.permadi.com/tutorial/flashVars/index.html">FlashVars</a>.</p>
+<p>This works well enough, but what if we need to load a custom data type in a Web page without a plugin?</p>
+<h1 id="some-options">Some Options</h1>
+<p>There are a few options for including custom data in an HTML document:</p>
+<ul>
+<li><strong>Invent our Own Tag</strong> Browsers are designed to ignore content they don&rsquo;t understand. We could just hack our own tag, let&rsquo;s call it <!-- raw HTML omitted -->&lt;spectrum&gt;<!-- raw HTML omitted -->. But for a variety of reasons, this is a bad idea. Most importantly, we&rsquo;d be breaking with conventions used worldwide, which is never a good idea without a very good reason. For another, any developer tools we&rsquo;d use would probably complain about a mis-formed HTML document. Still another reason might be that browsers could parse our invented tag in unpredictable ways. We may also run into problems with search engines not indexing our content properly.</li>
+<li><strong>Use XHML</strong> We could try inventing a tag the right way: with <a href="http://en.wikipedia.org/wiki/XHTML">XHTML</a>. This might be a worthwhile option if our data type (<a href="http://dx.doi.org/10.1351/pac199163121781">JCAMP-DX</a>) were XML-based, but it&rsquo;s not. At best we&rsquo;d expend a lot of effort learning about namespaces, schema, and HTTP response headers only to end up with an amorphous flat <!-- raw HTML omitted -->&lt;spectrum&gt;<!-- raw HTML omitted --> tag containing freeform text.</li>
+<li><strong>Use JSON</strong> We could encode our JCAMP-DX files as <a href="http://www.json.org/js.html">JSON</a>. JSON is a markup language like XML, but with the difference that it can be <!-- raw HTML omitted -->eval<!-- raw HTML omitted -->ed directly by the JavaScript interpreter. This has the advantage that either a filename, or the actual data could be encoded. We could, in fact, create the entire object model for our spectrum, ready to be displayed, if we had software that could make the conversion from JCAMP-DX to JSON. This approach has the disadvantage that it could require significant amounts JavaScript code to be mixed in with our HTML, <a href="http://en.wikipedia.org/wiki/Unobtrusive_JavaScript">a less than ideal solution</a>.</li>
+<li><strong>Use the Object Tag</strong> Given that none of the three options above are especially appealing, we might ask ourselves whether we&rsquo;ve really tried everything possible to use plain old HTML to encode our data. More specifically, what if we were to use the object tag itself, without actually having a plugin?</li>
+</ul>
+<h1 id="encoding-custom-data-types-with-the-object-tag">Encoding Custom Data Types With The Object Tag</h1>
+<p>The <a href="http://www.w3.org/TR/REC-html40/struct/objects.html#h-13.3">HTML 4 specification</a> has this to say about the object tag:</p>
+<blockquote>
+<p>Most user agents have built-in mechanisms for rendering common data types such as text, GIF images, colors, fonts, and a handful of graphic elements. To render data types they don&rsquo;t support natively, user agents generally run external applications. The OBJECT element allows authors to control whether data should be rendered externally or by some program, specified by the author, that renders the data within the user agent.</p>
+<p>In the most general case, an author may need to specify three types of information:</p>
+<ul>
+<li>The implementation of the included object. For instance, if the included object is a clock applet, the author must indicate the location of the applet&rsquo;s executable code.</li>
+<li>The data to be rendered. For instance, if the included object is a program that renders font data, the author must indicate the location of that data.</li>
+<li>Additional values required by the object at run-time. For example, some applets may require initial values for parameters.</li>
+</ul>
+<p>The OBJECT element allows authors to specify all three types of data, but authors may not have to specify all three at once. For example, some objects may not require data (e.g., a self-contained applet that performs a small animation). Others may not require run-time initialization. Still others may not require additional implementation information, i.e., the user agent itself may already know how to render that type of data (e.g., GIF images).</p>
+</blockquote>
+<p>In other words, we could place a reference to a spectrum object in an HTML page with code like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;object</span> <span style="color:#a6e22e">width=</span><span style="color:#e6db74">&#34;520&#34;</span> <span style="color:#a6e22e">height=</span><span style="color:#e6db74">&#34;350&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;param</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;data&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;http://base-url/spectrum.jdx&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/object&gt;</span>
+</span></span></code></pre></div><p>After loading the document, we could have WebSpex walk the DOM looking for object tags that could be replaced with an instance of WebSpex. That instance could actually be placed inside the original object tag like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;object</span> <span style="color:#a6e22e">width=</span><span style="color:#e6db74">&#34;520&#34;</span> <span style="color:#a6e22e">height=</span><span style="color:#e6db74">&#34;350&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;param</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;data&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;http://base-url/spectrum.jdx&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;div</span> <span style="color:#a6e22e">class=</span><span style="color:#e6db74">&#34;webspex&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!-- WebSpex visual presentation --&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/div&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/object&gt;</span>
+</span></span></code></pre></div><p>The HTML 4 documentation states that any content contained within object tags not recognized by the user agent will be rendered (fallback content). So dynamically inserting the div into the object tag as shown above would have the effect of giving the browser something to display in place of the object tag.</p>
+<h1 id="advantages-of-using-this-approach">Advantages of Using This Approach</h1>
+<p>This approach has several advantages worth mentioning:</p>
+<ul>
+<li>It&rsquo;s fully compliant with the HTML 4 specification.</li>
+<li>It provides a natural anchor point to attach both the custom data and the visual presentation of that data.</li>
+<li>It&rsquo;s pure HTML, requiring minimal mixing in of JavaScript content.</li>
+<li>Web spiders can be taught a single method to associate a spectrum with a URL, regardless of how the viewer is implemented.</li>
+<li>It&rsquo;s technology-agnostic. This approach lets us implement WebSpex as a Java or Flash applet (or some other plugin technology) just as easily as a pure JavaScript UI. To change our viewer implementation, we just change a JavaScript file.</li>
+<li>It allows spectra to be inlined, or place directly into the HTML. Using a <a href="http://en.wikipedia.org/wiki/Data:_URI_scheme">Data URI</a>, we could replace &ldquo;http://base-url/spectrum.jdx&rdquo; with something like &ldquo;data:chemical/x-jcamp-dx;base64,iVBORw0KGgoAA&hellip;&rdquo;. This would be important in those situations in which a public URL to a JCAMP file was not feasible and/or desirable. It could also accelerate the rendering of multiple spectra in the same page by eliminating the need to create a separate HTTP request for each file.</li>
+</ul>
+<p>The method carries an imporant limitation: if a user has disabled JavaScript, they may see nothing to indicate a problem. We could address this issue by always placing fallback content in the object tag that would then be overwritten by the JavaScript code.</p>
+<h1 id="implementation-detail">Implementation Detail</h1>
+<p>This approach relies on <a href="http://en.wikipedia.org/wiki/Unobtrusive_JavaScript">Onobtrusive JavaScript</a> techniques to keep JavaScript as separate from HTML as possible. One way to implement such a scheme would be to include a single reference to the relevant JavaScript somewhere in the document, probably withing the &lt;head&gt; tag or right after the opening &lt;body&gt; tag:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;webspex.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><p>The file webspex.js would then execute code to place a function into the document&rsquo;s <!-- raw HTML omitted -->onLoad<!-- raw HTML omitted --> queue that would scan for object tags containing JCAMP-DX content and insert the needed viewer.</p>
+<h1 id="previous-uses">Previous Uses</h1>
+<p>I&rsquo;m unaware of any previous applications of this technique, although is seems like something that may have been used before.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>Encoding and displaying custom data types in HTML is possible by using the HTML 4 object tag coupled with client-side JavaScript to rewrite the DOM. It offers the potential to create HTML documents that are both human- and machine-readable. Although the approach described here was developed for the special case of spectroscopy data, it could in principle be used for any data type requiring a visual presentation.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

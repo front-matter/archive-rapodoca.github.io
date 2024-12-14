@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Compiling the InChI Toolkit to Pure Java Bytecode with NestedVM | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Some time ago, a Depth-First article discussed some methods for compiling C to Java bytecode. Many factors make this approach attractive compared to the JNI approach. Some of them include security, portability, and use within applets. Unfortunately, none of the approaches discussed in the earlier article seemed particularly general.
+Many cheminformatics libraries are written in C and C&#43;&#43;; being able to reliably and automatically port them to Java could potentially save a great deal of effort.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2007/10/compiling-the-inchi-toolkit-to-pure-java-bytecode-with-nestedvm/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2007/10/compiling-the-inchi-toolkit-to-pure-java-bytecode-with-nestedvm/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Compiling the InChI Toolkit to Pure Java Bytecode with NestedVM">
+  <meta property="og:description" content="Some time ago, a Depth-First article discussed some methods for compiling C to Java bytecode. Many factors make this approach attractive compared to the JNI approach. Some of them include security, portability, and use within applets. Unfortunately, none of the approaches discussed in the earlier article seemed particularly general.
+Many cheminformatics libraries are written in C and C&#43;&#43;; being able to reliably and automatically port them to Java could potentially save a great deal of effort.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2007-10-29T00:00:00+00:00">
+    <meta property="article:modified_time" content="2007-10-29T00:00:00+00:00">
+
+  <meta itemprop="name" content="Compiling the InChI Toolkit to Pure Java Bytecode with NestedVM">
+  <meta itemprop="description" content="Some time ago, a Depth-First article discussed some methods for compiling C to Java bytecode. Many factors make this approach attractive compared to the JNI approach. Some of them include security, portability, and use within applets. Unfortunately, none of the approaches discussed in the earlier article seemed particularly general.
+Many cheminformatics libraries are written in C and C&#43;&#43;; being able to reliably and automatically port them to Java could potentially save a great deal of effort.">
+  <meta itemprop="datePublished" content="2007-10-29T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2007-10-29T00:00:00+00:00">
+  <meta itemprop="wordCount" content="286">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Compiling the InChI Toolkit to Pure Java Bytecode with NestedVM">
+  <meta name="twitter:description" content="Some time ago, a Depth-First article discussed some methods for compiling C to Java bytecode. Many factors make this approach attractive compared to the JNI approach. Some of them include security, portability, and use within applets. Unfortunately, none of the approaches discussed in the earlier article seemed particularly general.
+Many cheminformatics libraries are written in C and C&#43;&#43;; being able to reliably and automatically port them to Java could potentially save a great deal of effort.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Compiling the InChI Toolkit to Pure Java Bytecode with NestedVM</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2007-10-29T00:00:00Z">October 29, 2007</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Some time ago, a Depth-First article discussed some methods for <a href="/articles/2006/10/16/compiling-c-to-java-bytecode">compiling C to Java bytecode</a>. Many factors make this approach attractive compared to the JNI approach. Some of them include security, portability, and use within applets. Unfortunately, none of the approaches discussed in the earlier article seemed particularly general.</p>
+<p>Many cheminformatics libraries are written in C and C++; being able to reliably and automatically port them to Java could potentially save a great deal of effort.</p>
+<p>One of the more important cheminformatics C libraries written in recent years is the <a href="http://www.iupac.org/inchi/">InChI toolkit</a>. With no pure Java port of this library, JNI is the <a href="/articles/2007/10/10/jruby-for-cheminformatics-reading-and-writing-inchis-via-the-java-native-interface">only way</a> to use InChI with Java. In some situations, this approach is either overly complicated or simply unacceptable.</p>
+<p>All of this leaves us with the question: how can the InChI toolkit be converted into a pure Java library without writing any new code?</p>
+<p>A partial answer to this question came from Evan Jones, who suggested I look at <a href="http://nestedvm.ibex.org/">NestedVM</a>. From the website:</p>
+<blockquote>
+<p>NestedVM provides binary translation for Java Bytecode. This is done by having GCC compile to a MIPS binary which is then translated to a Java class file. Hence any application written in C, C++, Fortran, or any other language supported by GCC can be run in 100% pure Java with no source changes.</p>
+</blockquote>
+<p>And it worked!</p>
+<p>NestedVM was successfully used compile the InChI-API distribution to a Java class file that executed on nothing more than a standard JVM &ndash; and with no JNI code. The InChI classfile and nestedvm runtime jarfile can be <a href="http://sourceforge.net/project/showfiles.php?group_id=142870&amp;package_id=250448&amp;release_id=550390">downloaded from SourceForge</a>. Future articles in this series will describe the compilation, installation, and use of NestedVM, as well as the Java class file that it produced.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

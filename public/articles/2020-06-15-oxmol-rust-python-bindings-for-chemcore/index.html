@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>OxMol: Rust/Python Bindings for ChemCore | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="First steps toward bringing ChemCore to a Python interpreter near you.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+      <meta name="author" content = "Richard L. Apodaca">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://depth-first.com:1313/articles/2020-06-15-oxmol-rust-python-bindings-for-chemcore/">
+    
+
+    <meta property="og:url" content="https://depth-first.com:1313/articles/2020-06-15-oxmol-rust-python-bindings-for-chemcore/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="OxMol: Rust/Python Bindings for ChemCore">
+  <meta property="og:description" content="First steps toward bringing ChemCore to a Python interpreter near you.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2020-06-15T16:00:00+00:00">
+    <meta property="article:modified_time" content="2020-06-15T16:00:00+00:00">
+
+  <meta itemprop="name" content="OxMol: Rust/Python Bindings for ChemCore">
+  <meta itemprop="description" content="First steps toward bringing ChemCore to a Python interpreter near you.">
+  <meta itemprop="datePublished" content="2020-06-15T16:00:00+00:00">
+  <meta itemprop="dateModified" content="2020-06-15T16:00:00+00:00">
+  <meta itemprop="wordCount" content="470">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="OxMol: Rust/Python Bindings for ChemCore">
+  <meta name="twitter:description" content="First steps toward bringing ChemCore to a Python interpreter near you.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">OxMol: Rust/Python Bindings for ChemCore</h1>
+      
+      <p class="tracked">
+        By <strong>Richard L. Apodaca</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-06-15T16:00:00Z">June 15, 2020</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Python is the most popular orchestration language in scientific computing. Across a variety of fields, Python provides high-level interfaces to fast code written in other languages. A <a href="/articles/2020/06/01/chemcore-a-cheminformatics-toolkit-for-rust/">previous article</a> introduced <a href="https://crates.io/crates/chemcore">ChemCore</a>, a new cheminformatics library written in Rust. This article moves the idea another step forward by introducing <a href="https://github.com/thesketh/oxmol">OxMol</a>, Python bindings for ChemCore.</p>
+<h1 id="installation">Installation</h1>
+<p>The <a href="https://oxmol.readthedocs.io/en/latest/installation.html">OxMol documentation</a> describes two installation methods. The simplest is just a one-liner:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install --index-url https://test.pypi.org/simple/ oxmol
+</span></span></code></pre></div><p>On my macOS Mojave system, a slightly modified version of this command worked:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip3 install --index-url https://test.pypi.org/simple/ oxmol
+</span></span></code></pre></div><h1 id="hello-ethane">Hello, Ethane</h1>
+<p>OxMol closely follows the ChemCore API. Molecule construction follows the same pattern you&rsquo;d find in Rust.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> oxmol <span style="color:#f92672">import</span> AtomSpec, BondSpec, Molecule
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>atoms <span style="color:#f92672">=</span> [ AtomSpec(<span style="color:#e6db74">&#39;C&#39;</span>, <span style="color:#ae81ff">3</span>), AtomSpec(<span style="color:#e6db74">&#39;C&#39;</span>, <span style="color:#ae81ff">3</span>) ]
+</span></span><span style="display:flex;"><span>bonds <span style="color:#f92672">=</span> [ BondSpec(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>) ]
+</span></span><span style="display:flex;"><span>mol <span style="color:#f92672">=</span> Molecule(atoms, bonds)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># exercise the full Molecule interface</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mol<span style="color:#f92672">.</span>is_empty() <span style="color:#75715e"># False</span>
+</span></span><span style="display:flex;"><span>mol<span style="color:#f92672">.</span>order() <span style="color:#75715e"># 2</span>
+</span></span><span style="display:flex;"><span>mol<span style="color:#f92672">.</span>size() <span style="color:#75715e"># 1</span>
+</span></span><span style="display:flex;"><span>mol<span style="color:#f92672">.</span>nodes <span style="color:#75715e"># [0, 1]</span>
+</span></span><span style="display:flex;"><span>mol<span style="color:#f92672">.</span>has_node(<span style="color:#ae81ff">0</span>) <span style="color:#75715e"># True</span>
+</span></span><span style="display:flex;"><span>mol<span style="color:#f92672">.</span>neighbors(<span style="color:#ae81ff">0</span>) <span style="color:#75715e"># [1]</span>
+</span></span><span style="display:flex;"><span>mol<span style="color:#f92672">.</span>degree(<span style="color:#ae81ff">0</span>) <span style="color:#75715e"># 1</span>
+</span></span><span style="display:flex;"><span>mol<span style="color:#f92672">.</span>edges <span style="color:#75715e"># [(0, 1)]</span>
+</span></span><span style="display:flex;"><span>mol<span style="color:#f92672">.</span>has_edge(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>) <span style="color:#75715e"># True</span>
+</span></span><span style="display:flex;"><span>mol<span style="color:#f92672">.</span>element(<span style="color:#ae81ff">0</span>) <span style="color:#75715e"># PyElement::C</span>
+</span></span><span style="display:flex;"><span>mol<span style="color:#f92672">.</span>isotope(<span style="color:#ae81ff">0</span>) <span style="color:#75715e"># nil</span>
+</span></span><span style="display:flex;"><span>mol<span style="color:#f92672">.</span>electrons(<span style="color:#ae81ff">0</span>) <span style="color:#75715e"># 0</span>
+</span></span><span style="display:flex;"><span>mol<span style="color:#f92672">.</span>hydrogens(<span style="color:#ae81ff">0</span>) <span style="color:#75715e"># 3</span>
+</span></span><span style="display:flex;"><span>mol<span style="color:#f92672">.</span>atom_parity(<span style="color:#ae81ff">0</span>) <span style="color:#75715e"># nil</span>
+</span></span><span style="display:flex;"><span>mol<span style="color:#f92672">.</span>bond_order(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>) <span style="color:#75715e"># PyBondOrder::Single</span>
+</span></span><span style="display:flex;"><span>mol<span style="color:#f92672">.</span>bond_parity(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>) <span style="color:#75715e"># nil</span>
+</span></span></code></pre></div><h1 id="about-oxmol">About OxMol</h1>
+<p>OxMol was created by <a href="https://twitter.com/t_sketh">Travis Hesketh</a>, a postgraduate researcher at the University of Strathclyde. The package currently supports the construction of <code>Molecule</code> instances conforming to the <a href="/articles/2020/04/06/a-minimal-molecule-api/">Minimal Molecule API</a>. The <a href="https://github.com/thesketh/oxmol">README</a> notes these future directions:</p>
+<ul>
+<li>SMILES read/write</li>
+<li>substructure search</li>
+<li>coordinate representation and embedding</li>
+<li>descriptor calculation</li>
+</ul>
+<p>ChemCore&rsquo;s top priority is a complete SMILES reader. So that functionality is likely to appear in OxMol first.</p>
+<h1 id="pyo3">PyO3</h1>
+<p>OxMol uses <a href="https://github.com/PyO3/pyo3">PyO3</a>, which provides two-way bindings between Python and Rust. The approach is similar to <a href="https://github.com/pybind/pybind11">pybind</a> for C++/Python interop. The main reason to use PyO3 is all of the work it does for you. A suite of <a href="https://doc.rust-lang.org/reference/procedural-macros.html">procedural macros</a> dynamically generates low-level glue code.</p>
+<p>Even so, OxMol requires considerable glue code of its own. For example, see <a href="https://github.com/thesketh/oxmol/blob/master/src/default_molecule.rs"><code>DefaultMolecule</code></a>. This wrapper exposes a Rust interface, but accepting and returning PyO3-specific types. In a nutshell, the <code>Molecule</code> interface is re-implemented using a delegate implementation provided by ChemCore. Fortunately, the interface was designed with ease of implementation in mind. Even so, it might be possible to take the automation one step further here.</p>
+<h1 id="more-python-rust-interop">More Python-Rust Interop</h1>
+<p>PyO3 is but one option for Rust/Python interop. Others include:</p>
+<ul>
+<li><a href="https://github.com/iduartgomez/rustypy">RustPy</a>. Bidirectional mappings using FFI.</li>
+<li><a href="https://github.com/dgrunwald/rust-cpython">rust-cpython</a>. The project from which PyO3 was forked.</li>
+<li><a href="https://bheisler.github.io/post/calling-rust-in-python/">Calling Rust in Python</a>. A soup-to-nuts exploration of wrapping Rust with Python from scratch.</li>
+<li><a href="https://github.com/getsentry/milksnake">Milksnake</a>. Builds &ldquo;regular native libraries that are then loaded with CFFI at runtime.&rdquo; Currently inactive.</li>
+</ul>
+<h1 id="conclusion">Conclusion</h1>
+<p>OxMol provides Python wrappers to the new Rust cheminformatics library ChemCore. The project&rsquo;s feature set is restricted by the currently limited feature set of the underlying Rust library. If you&rsquo;re interested in the combination of cheminformatics, Rust, and Python, it&rsquo;s a project worth checking out.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://depth-first.com:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

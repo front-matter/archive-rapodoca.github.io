@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>The Mysterious Google Chrome SVG Bug | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="A number of people have taken the time to try ChemWriter 2 and offer detailed feedback about their experience. To my surprise, the most common issue reported has to do with atom and bond hovering on Google Chrome. Simply put, it doesn&rsquo;t work. Our goal has been from the beginning to make ChemWriter 2 work consistently on all modern browsers, so when reports like this come up, we want to get to the bottom of it. This post describes how we were able to demonstrate that the problem reported with ChemWriter 2 was actually a problem in certain Google Chrome builds.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2010/12/the-mysterious-google-chrome-svg-bug/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2010/12/the-mysterious-google-chrome-svg-bug/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="The Mysterious Google Chrome SVG Bug">
+  <meta property="og:description" content="A number of people have taken the time to try ChemWriter 2 and offer detailed feedback about their experience. To my surprise, the most common issue reported has to do with atom and bond hovering on Google Chrome. Simply put, it doesn’t work. Our goal has been from the beginning to make ChemWriter 2 work consistently on all modern browsers, so when reports like this come up, we want to get to the bottom of it. This post describes how we were able to demonstrate that the problem reported with ChemWriter 2 was actually a problem in certain Google Chrome builds.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2010-12-03T00:00:00+00:00">
+    <meta property="article:modified_time" content="2010-12-03T00:00:00+00:00">
+
+  <meta itemprop="name" content="The Mysterious Google Chrome SVG Bug">
+  <meta itemprop="description" content="A number of people have taken the time to try ChemWriter 2 and offer detailed feedback about their experience. To my surprise, the most common issue reported has to do with atom and bond hovering on Google Chrome. Simply put, it doesn’t work. Our goal has been from the beginning to make ChemWriter 2 work consistently on all modern browsers, so when reports like this come up, we want to get to the bottom of it. This post describes how we were able to demonstrate that the problem reported with ChemWriter 2 was actually a problem in certain Google Chrome builds.">
+  <meta itemprop="datePublished" content="2010-12-03T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2010-12-03T00:00:00+00:00">
+  <meta itemprop="wordCount" content="896">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="The Mysterious Google Chrome SVG Bug">
+  <meta name="twitter:description" content="A number of people have taken the time to try ChemWriter 2 and offer detailed feedback about their experience. To my surprise, the most common issue reported has to do with atom and bond hovering on Google Chrome. Simply put, it doesn’t work. Our goal has been from the beginning to make ChemWriter 2 work consistently on all modern browsers, so when reports like this come up, we want to get to the bottom of it. This post describes how we were able to demonstrate that the problem reported with ChemWriter 2 was actually a problem in certain Google Chrome builds.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">The Mysterious Google Chrome SVG Bug</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2010-12-03T00:00:00Z">December 3, 2010</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>A number of people have taken the time to try <a href="http://chemwriter.com/signups/new">ChemWriter 2</a> and offer detailed feedback about their experience. To my surprise, the most common issue reported has to do with atom and bond hovering on Google Chrome. Simply put, it doesn&rsquo;t work. Our goal has been from the beginning to make ChemWriter 2 work consistently on <em>all</em> modern browsers, so when reports like this come up, we want to get to the bottom of it. This post describes how we were able to demonstrate that the problem reported with ChemWriter 2 was actually a problem in certain Google Chrome builds.</p>
+<h1 id="the-bug">The Bug</h1>
+<p>For the unfamiliar, <a href="http://chemwriter.com">ChemWriter</a> is a chemical structure drawing tool that my company is porting from Java to JavaScript. ChemWriter uses a system of &lsquo;Handles&rsquo; that give visual feedback when an atom or bond is being hovered by the mouse cursor. Hovered status indicates that an atom or bond can be edited either by typing a key on the keyboard or by clicking the mouse:</p>
+<p><img src="/images/posts/chemwriter-hover.png" alt="ChemWriter Hover" title="ChemWriter Hover"></p>
+<p>When hovering doesn&rsquo;t work, ChemWriter is pretty much useless.</p>
+<p>ChemWriter adds transparent handles whenever a new atom or bond appears. Hovering these handles changes the fill to semi-transparent green.</p>
+<p>The funny thing is that handle hovering works perfectly in Chrome on Mac Snow Leopard, the OS I use for development. Surprisingly, hovering behavior fails on both Linux and Windows builds of Chrome (version 8.0.552.215). My presumption was that all Chrome builds of the same version number could be expected to work equivalently. This is clearly not the case. In addition, every other modern browser we&rsquo;ve tested ChemWriter 2 on can hover elements just fine, including: Windows (Firefox, IE 9 beta); Linux (Firefox); OS X (Safari, Firefox, Chrome).</p>
+<p>So it seemed possible that Chrome itself was the cause of the bug. The problem was how to prove it.</p>
+<p>We&rsquo;re not trying to lay blame, but rather ensure that if a browser bug prevents ChemWriter from running correctly, we do everything we can to make certain that the bug is resolved quickly.</p>
+<h1 id="finding-the-culprit">Finding the Culprit</h1>
+<p>Although I suspected Chrome as the source of the problem, I wanted to find out which of the many ChemWriter source code commits introduced the problem on Chrome. After a few guesses, I found it - a commit about six weeks ago that introduced SVG coordinate transformations. Before this commit, hovering worked great on Chrome on Win/Linux. After the commit, hovering didn&rsquo;t work on that browser/platform combination.</p>
+<h1 id="coordinate-transformations">Coordinate Transformations</h1>
+<p>ChemWriter works with two different coordinate systems. &lsquo;Document&rsquo; coordinates represent <a href="/articles/2010/06/28/latest-ctfile-formats-specification-available-now-from-symyx/">molfile</a> coordinates in which the y-axis increases in the upward direction and in which each unit corresponds roughly to one bond length. &lsquo;View&rsquo; coordinates represent the screen in which the y-axis increases in the downward direction and each unit corresponds roughly to one pixel by default.</p>
+<p>An affine transform, applied to the root SVG graphics element, handles the conversion between the two coordinate systems.</p>
+<h1 id="dots-an-svg-testbed">Dots: An SVG Testbed</h1>
+<p>I could have just filed a Chrome bug report saying that ChemWriter 2 itself doesn&rsquo;t work on Windows and Linux, but did work on Mac. But this seemed unlikely to produce any results given the complexity of the ChemWriter codebase.</p>
+<p>Fortunately, <a href="http://code.google.com/p/chromium/issues/detail?id=61343">the last time I needed to report a Chrome SVG rendering bug</a>, I created &lsquo;<a href="https://github.com/metamolecular/dots">Dots</a>&rsquo;, a test harness written in <a href="/articles/2010/11/22/google-closure-building-complex-applications-with-javascript/">Google Closure</a>. If you&rsquo;re curious about using vector graphics in the browser with JavaScript and Closure, Dots might be a good example project to get you started.</p>
+<p>Dots draws a red circle wherever you click a mouse. I thought it could be extended to change the color of a drawn circle to green on hovering with the mouse. This would model the problem we were seeing with ChemWriter on Chrome.</p>
+<h1 id="zeroing-in">Zeroing In</h1>
+<p>I decided to take a two-pronged approach: (1) extend Dots to try to mimic the effects of the changes made in the ChemWriter commit; and (2) strip out functionality in ChemWriter until the demo worked in Chrome.</p>
+<p>After stripping a lot of functionality from ChemWriter, the Chrome/Linux test was still failing to hover handles, although the handles were clearly being drawn. On a whim, I decided to try drawing some SVG ellipses right after showing the blank canvas. To my surprise, they captured mouseover events, but the atom and bond handles still did not.</p>
+<p>It turns out I used an atom radius of one for these new ellipses, but 0.43 for the handle ellipses. This seemingly minor change was enough to prevent events from firing.</p>
+<p>After some minor changes to Dots, <a href="https://github.com/metamolecular/dots">I had code that faithfully replicated the behavior in the ChemWriter demo</a>: circles could be drawn, but they reported no mouseover events. In case this repo has evolved in the time since this article was written, the commit to use is <a href="https://github.com/metamolecular/dots/commit/cc766f439223d898a0906c900c85f7f37c504faa">cc766</a>.</p>
+<h1 id="the-bug-revealed">The Bug Revealed</h1>
+<p>To summarize, <a href="http://code.google.com/p/chromium/issues/detail?id=65238">Google Chrome 8.0.552.215 on Linux and Windows lacks the ability to report mouseover events on SVG ellipses drawn with a radius less than 0.5</a>.</p>
+<p>This bug is likely to affect any program using SVG in Chrome on Windows or Linux in which ellipses (and possibly other shapes) are drawn with subunity dimensions and enlarged through the use of coordinate transformation.</p>
+<p><strong>Update 12/6/2010:</strong> <a href="/demos/chrome-bug-65238/chrome-on-linux-windows-svg-event-bug.xhtml">A simplified demonstration of the Chrome SVG event bug</a> is now available. This demo shows that the issue is not limited to ellipses; a rectangle with a subunity width also fails to report mouseover events.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

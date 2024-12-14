@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>From IUPAC Nomenclature to 2-D Structures With OPSIN | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="A previous article introduced OPSIN, an Open Source Java library for decoding IUPAC chemical nomenclature. In this tutorial, you&rsquo;ll see how OPSIN can, when interfaced with freely-available chemical informatics software, generate 2-D structure diagrams from IUPAC names.
+Prerequisites
+This tutorial requires Ruby CDK (RCDK), which in turn requires Ruby, Java, and the Ruby Java Bridge. Tutorials detailing the installation of RCDK on both Windows and Linux platforms are available.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+      <meta name="author" content = "Richard L. Apodaca">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://depth-first.com:1313/articles/2006-10-17-from-iupac-nomenclature-to-2-d-structures-with-opsin/">
+    
+
+    <meta property="og:url" content="https://depth-first.com:1313/articles/2006-10-17-from-iupac-nomenclature-to-2-d-structures-with-opsin/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="From IUPAC Nomenclature to 2-D Structures With OPSIN">
+  <meta property="og:description" content="A previous article introduced OPSIN, an Open Source Java library for decoding IUPAC chemical nomenclature. In this tutorial, you’ll see how OPSIN can, when interfaced with freely-available chemical informatics software, generate 2-D structure diagrams from IUPAC names.
+Prerequisites This tutorial requires Ruby CDK (RCDK), which in turn requires Ruby, Java, and the Ruby Java Bridge. Tutorials detailing the installation of RCDK on both Windows and Linux platforms are available.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2006-10-17T00:00:00+00:00">
+    <meta property="article:modified_time" content="2006-10-17T00:00:00+00:00">
+
+  <meta itemprop="name" content="From IUPAC Nomenclature to 2-D Structures With OPSIN">
+  <meta itemprop="description" content="A previous article introduced OPSIN, an Open Source Java library for decoding IUPAC chemical nomenclature. In this tutorial, you’ll see how OPSIN can, when interfaced with freely-available chemical informatics software, generate 2-D structure diagrams from IUPAC names.
+Prerequisites This tutorial requires Ruby CDK (RCDK), which in turn requires Ruby, Java, and the Ruby Java Bridge. Tutorials detailing the installation of RCDK on both Windows and Linux platforms are available.">
+  <meta itemprop="datePublished" content="2006-10-17T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2006-10-17T00:00:00+00:00">
+  <meta itemprop="wordCount" content="824">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="From IUPAC Nomenclature to 2-D Structures With OPSIN">
+  <meta name="twitter:description" content="A previous article introduced OPSIN, an Open Source Java library for decoding IUPAC chemical nomenclature. In this tutorial, you’ll see how OPSIN can, when interfaced with freely-available chemical informatics software, generate 2-D structure diagrams from IUPAC names.
+Prerequisites This tutorial requires Ruby CDK (RCDK), which in turn requires Ruby, Java, and the Ruby Java Bridge. Tutorials detailing the installation of RCDK on both Windows and Linux platforms are available.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">From IUPAC Nomenclature to 2-D Structures With OPSIN</h1>
+      
+      <p class="tracked">
+        By <strong>Richard L. Apodaca</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2006-10-17T00:00:00Z">October 17, 2006</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>A <!-- raw HTML omitted -->previous article<!-- raw HTML omitted --> introduced OPSIN, an Open Source Java library for decoding IUPAC chemical nomenclature. In this tutorial, you&rsquo;ll see how OPSIN can, when interfaced with freely-available chemical informatics software, generate 2-D structure diagrams from IUPAC names.</p>
+<h1 id="prerequisites">Prerequisites</h1>
+<p>This tutorial requires <!-- raw HTML omitted -->Ruby CDK<!-- raw HTML omitted --> (RCDK), which in turn requires Ruby, Java, and the <!-- raw HTML omitted -->Ruby Java Bridge<!-- raw HTML omitted -->. Tutorials detailing the installation of RCDK on both <!-- raw HTML omitted -->Windows<!-- raw HTML omitted --> and <!-- raw HTML omitted -->Linux<!-- raw HTML omitted --> platforms are available.</p>
+<p>In addition, you&rsquo;ll need a copy of the standalone jarfile <!-- raw HTML omitted -->opsin-big-0.1.0.jar<!-- raw HTML omitted -->. Future versions of RCDK will integrate the OPSIN jarfile, making this step unnecessary.</p>
+<h1 id="outlining-the-problem-and-a-solution">Outlining the Problem and a Solution</h1>
+<p>We&rsquo;d like to create a simple Ruby class with a method that accepts an IUPAC chemical name as input and produces a PNG image of the corresponding molecule as output. OPSIN accepts IUPAC names as input, but it only produces <!-- raw HTML omitted -->Chemical Markup Language<!-- raw HTML omitted --> (CML) as output. The CML output lacks 2-D coordinates, and OPSIN itself has no 2-D rendering capabilities.</p>
+<p>We&rsquo;ll use RCDK to augment OPSIN&rsquo;s capabilities. Thanks to CDK&rsquo;s built-in CML support, RCDK can read CML and generate an <code>AtomContainer</code> representation. RCDK also supports the assignment of 2-D coordinates to an <code>AtomContainer</code> via CDK&rsquo;s <code>StructureDiagramGenerator</code>. To produce the PNG image, we&rsquo;ll use the 2-D rendering capability made possible through <!-- raw HTML omitted -->Structure-CDK<!-- raw HTML omitted -->, which is a built-in component of RCDK.</p>
+<h1 id="a-simple-ruby-library">A Simple Ruby Library</h1>
+<p>Create a working directory and copy <!-- raw HTML omitted -->opsin-big-0.1.0.jar<!-- raw HTML omitted --> into it. Next, create a file called <!-- raw HTML omitted -->depictor.rb<!-- raw HTML omitted --> containing the following Ruby code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;rubygems&#39;</span>
+</span></span><span style="display:flex;"><span>require_gem <span style="color:#e6db74">&#39;rcdk&#39;</span>
+</span></span><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;rcdk&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Java</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Classpath</span><span style="color:#f92672">.</span>add(<span style="color:#e6db74">&#39;opsin-big-0.1.0.jar&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;util&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># A simple IUPAC-&gt;2-D structure convertor.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Depictor</span>
+</span></span><span style="display:flex;"><span>  @@StringReader <span style="color:#f92672">=</span> import <span style="color:#e6db74">&#39;java.io.StringReader&#39;</span>
+</span></span><span style="display:flex;"><span>  @@NameToStructure <span style="color:#f92672">=</span> import <span style="color:#e6db74">&#39;uk.ac.cam.ch.wwmm.opsin.NameToStructure&#39;</span>
+</span></span><span style="display:flex;"><span>  @@CMLReader <span style="color:#f92672">=</span> import <span style="color:#e6db74">&#39;org.openscience.cdk.io.CMLReader&#39;</span>
+</span></span><span style="display:flex;"><span>  @@ChemFile <span style="color:#f92672">=</span> import <span style="color:#e6db74">&#39;org.openscience.cdk.ChemFile&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">initialize</span>
+</span></span><span style="display:flex;"><span>    @nts <span style="color:#f92672">=</span> @@NameToStructure<span style="color:#f92672">.</span>new
+</span></span><span style="display:flex;"><span>    @cml_reader <span style="color:#f92672">=</span> @@CMLReader<span style="color:#f92672">.</span>new
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Writes a width by height PNG to</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># filename&gt; for the molecule described by</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># iupac_name.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">depict_png</span>(iupac_name, filename, width, height)
+</span></span><span style="display:flex;"><span>    cml <span style="color:#f92672">=</span> @nts<span style="color:#f92672">.</span>parseToCML(iupac_name)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">throw</span>(<span style="color:#e6db74">&#34;Can&#39;t parse name: </span><span style="color:#e6db74">#{</span>iupac_name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>) <span style="color:#66d9ef">unless</span> cml
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    molfile <span style="color:#f92672">=</span> cml_to_molfile(cml)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">RCDK</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Util</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Image</span><span style="color:#f92672">.</span>molfile_to_png(molfile, filename, width, height)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">cml_to_molfile</span>(cml)
+</span></span><span style="display:flex;"><span>    string_reader <span style="color:#f92672">=</span> <span style="color:#66d9ef">StringReader</span><span style="color:#f92672">.</span>new(cml<span style="color:#f92672">.</span>toXML)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    @cml_reader<span style="color:#f92672">.</span>setReader(string_reader)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    chem_file <span style="color:#f92672">=</span> @cml_reader<span style="color:#f92672">.</span>read(@@ChemFile<span style="color:#f92672">.</span>new)
+</span></span><span style="display:flex;"><span>    molecule <span style="color:#f92672">=</span> chem_file<span style="color:#f92672">.</span>getChemSequence(<span style="color:#ae81ff">0</span>)<span style="color:#f92672">.</span>getChemModel(<span style="color:#ae81ff">0</span>)<span style="color:#f92672">.</span>getSetOfMolecules<span style="color:#f92672">.</span>getMolecule(<span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    molecule <span style="color:#f92672">=</span> <span style="color:#66d9ef">RCDK</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Util</span><span style="color:#f92672">::</span><span style="color:#66d9ef">XY</span><span style="color:#f92672">.</span>coordinate_molecule(molecule)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">RCDK</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Util</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Lang</span><span style="color:#f92672">.</span>get_molfile(molecule)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><h1 id="testing-testing">Testing, Testing</h1>
+<p>A short test will demonstrate the capabilities of the <code>Depictor</code> library. Add the following to a file called <!-- raw HTML omitted -->test.rb<!-- raw HTML omitted --> in your working directory (or enter it interactively with irb):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;depictor&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>depictor <span style="color:#f92672">=</span> <span style="color:#66d9ef">Depictor</span><span style="color:#f92672">.</span>new
+</span></span><span style="display:flex;"><span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;3,3-dimethyl-7-oxo-6-[(2-phenylacetyl)amino]-4-thia-1-azabicyclo[3.2.0]heptane-2-carboxylic acid&#39;</span> <span style="color:#75715e">#Penicillin G</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>depictor<span style="color:#f92672">.</span>depict_png(name, <span style="color:#e6db74">&#39;out.png&#39;</span>, <span style="color:#ae81ff">300</span>, <span style="color:#ae81ff">300</span>)
+</span></span></code></pre></div><p>Running this test produces a 300x300 PNG image of Penicillin G, named <!-- raw HTML omitted -->out.png<!-- raw HTML omitted -->, in your working directory:</p>
+<p><img src="/images/posts/20061017/out.png" alt="Out"></p>
+<p>As you can see, this simple library and test code has:</p>
+<ul>
+<li>correctly parsed the rather complex IUPAC name (3,3-dimethyl-7-oxo-6-[(2-phenylacetyl)amino]-4-thia-1-azabicyclo[3.2.0]heptane-2- carboxylic acid) to a valid CML representation</li>
+<li>converted this representation to a CDK <code>AtomContainer</code></li>
+<li>assigned 2-D coordinates</li>
+<li>rendered a PNG image in color</li>
+</ul>
+<p>Notice how the thiaazabicyclo[3.2.0] system, complete with properly-placed substitutents, was flawlessly identified and parsed.</p>
+<p>If you entered the above test code interactively via IRB, you may have noticed a multi-second delay in instantiating <code>Depictor</code>. This latency results from a sluggish <code>NameToStructure</code> constructor in OPSIN. A similar delay also occurs in OPSIN&rsquo;s pure-Java unit tests. Once <code>Depictor</code> is instantiated, however, image generation occurs relatively quickly.</p>
+<p>The unususal orientation of the beta-lactam carbonyl group is determined by CDK&rsquo;s <code>StructureDiagramGenerator</code>. The source of this behavior will be explored in a future article.</p>
+<h1 id="more-examples">More Examples</h1>
+<p>To illustrate some of the capabilities of the OPSIN-RCDK combination, a few more examples are provided below.</p>
+<p>One of OPSIN&rsquo;s more surprising features is how well it handles heterocycles. For example, the IUPAC name for caffeine (<!-- raw HTML omitted -->1,3,7-trimethylpurine-2,6-dione<!-- raw HTML omitted -->) is translated to:</p>
+<p><img src="/images/posts/20061017/caffeine.png" alt="Caffeine"></p>
+<p>As another example, consider the tetrazole (<!-- raw HTML omitted -->1-[2-hydroxy-3-propyl-4-[3-(2H-tetrazol-5-yl)propoxy]phenyl]ethanone<!-- raw HTML omitted -->):</p>
+<p><img src="/images/posts/20061017/180603.png" alt="180603"></p>
+<p>Highly substituted benzene rings and carboxylic acids are also translated accurately, as in <!-- raw HTML omitted -->3-acetamido-5-(acetyl-methyl-amino)-2,4,6-triiodo-benzoic acid<!-- raw HTML omitted --> (Metrizoate):</p>
+<p><img src="/images/posts/20061017/metrizoate.png" alt="Metrizoate"></p>
+<p>How about a hairy-looking macrocycle name with multiple levels of morpheme nesting (<!-- raw HTML omitted -->3,6-diamino-N-[[15-amino-11-(2-amino-3,4,5,6-tetrahydropyrimidin-4-yl)-8- [(carbamoylamino)methylidene]-2-(hydroxymethyl)-3,6,9,12,16-pentaoxo- 1,4,7,10,13-pentazacyclohexadec-5-yl]methyl]hexanamide<!-- raw HTML omitted -->)? Not a problem:</p>
+<p><img src="/images/posts/20061017/2547.png" alt="2547"></p>
+<h1 id="limitations">Limitations</h1>
+<p>In my tests of the OPSIN library, one structure appeared to be incorrectly parsed - <!-- raw HTML omitted -->N-(5-chloro-2-methyl-phenyl)-2-methoxy-N-(2-oxooxazolidin-3-yl)acetamide<!-- raw HTML omitted -->:</p>
+<p><img src="/images/posts/20061017/180591.png" alt="180591"></p>
+<p>There are actually two problems with the output. First, an oxygen atom and a methyl group are overlapping near the top of the diargram. This cosmetic issue is related to CDK&rsquo;s <code>StructureDiagramGenerator</code>. Second, the oxazolidine nitrogen atom is misplaced by OPSIN. The correct 2-D image of this molecule, obtained from PubChem, is shown below:</p>
+<p><img src="/images/posts/20061017/180591_pc.png" alt="180591 PC"></p>
+<h1 id="conclusions">Conclusions</h1>
+<p>It&rsquo;s not common to find an early-development Open Source project with the sophistication of OPSIN. The smooth handling of nested morphemes, aromatic heterocycles, macrocycles, and a good fraction of what I threw at it leads me to belive that a well-designed and extensible nomenclature parsing engine lies at OPSIN&rsquo;s core. More on that later, though.</p>
+<p>What could you do with a powerful Open Source IUPAC nomenclature parser? The answer to that one question could fill a three-volume series. Suffice it to say that OPSIN, in combination with other Open Source software, offers virtually limitless potential for indexing, collecting, repackaging, reprocessing, and mashing up vast amounts of chemical information. Because of its Open Source license, OPSIN can be extended and otherwise modified to fit your particular needs. Future articles will highlight some of the possibilities.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://depth-first.com:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>MX-1.0 Beta 2 | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="The second beta release of MX is now available for download. MX is a library of essential cheminformatics models and routines. It was created with the goal of providing a clean, well-tested platform for chemistry applications.
+This beta release includes a new binary fingerprinter package that was not ready for release in the first beta. Of particular note is the modular system MX uses for creating fingerprints based on interchangeable BloomFilter, Walker, RingFilter, RingFinder, and PathWriter classes.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2009/07/02/mx-1.0-beta-2/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2009/07/02/mx-1.0-beta-2/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="MX-1.0 Beta 2">
+  <meta property="og:description" content="The second beta release of MX is now available for download. MX is a library of essential cheminformatics models and routines. It was created with the goal of providing a clean, well-tested platform for chemistry applications.
+This beta release includes a new binary fingerprinter package that was not ready for release in the first beta. Of particular note is the modular system MX uses for creating fingerprints based on interchangeable BloomFilter, Walker, RingFilter, RingFinder, and PathWriter classes.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2009-07-02T00:00:00+00:00">
+    <meta property="article:modified_time" content="2009-07-02T00:00:00+00:00">
+
+  <meta itemprop="name" content="MX-1.0 Beta 2">
+  <meta itemprop="description" content="The second beta release of MX is now available for download. MX is a library of essential cheminformatics models and routines. It was created with the goal of providing a clean, well-tested platform for chemistry applications.
+This beta release includes a new binary fingerprinter package that was not ready for release in the first beta. Of particular note is the modular system MX uses for creating fingerprints based on interchangeable BloomFilter, Walker, RingFilter, RingFinder, and PathWriter classes.">
+  <meta itemprop="datePublished" content="2009-07-02T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2009-07-02T00:00:00+00:00">
+  <meta itemprop="wordCount" content="195">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="MX-1.0 Beta 2">
+  <meta name="twitter:description" content="The second beta release of MX is now available for download. MX is a library of essential cheminformatics models and routines. It was created with the goal of providing a clean, well-tested platform for chemistry applications.
+This beta release includes a new binary fingerprinter package that was not ready for release in the first beta. Of particular note is the modular system MX uses for creating fingerprints based on interchangeable BloomFilter, Walker, RingFilter, RingFinder, and PathWriter classes.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">MX-1.0 Beta 2</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2009-07-02T00:00:00Z">July 2, 2009</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>The second beta release of <a href="http://metamolecular.com/mx">MX</a> is now available for <a href="http://github.com/metamolecular/mx/downloads">download</a>. MX is a library of essential cheminformatics models and routines. It was created with the goal of providing a clean, well-tested platform for chemistry applications.</p>
+<p>This beta release includes a new binary fingerprinter package that was not ready for release in the first beta. Of particular note is the modular system MX uses for creating fingerprints based on interchangeable BloomFilter, Walker, RingFilter, RingFinder, and PathWriter classes.</p>
+<p>Unit tests are now augmented by <a href="http://mockito.org">Mockito</a> for stubbing and mocking. The MX test suite now includes over 300 individual tests, all of which pass.</p>
+<p>The full list of MX features includes:</p>
+<ul>
+<li>Substructure search and atom mapping based on the VF algorithm</li>
+<li>Exhaustive ring perception based on the Hanser algorithm</li>
+<li><strong>Path-based binary fingerprints</strong></li>
+<li>Flexible query atom support</li>
+<li>Depth-First traversal</li>
+<li>Implicit hydrogen detection</li>
+<li>Complete system of atomic masses and isotopes based on the IUPAC Technical Report.</li>
+<li>Model objects (Molecule, Atom, Bond, Superatom) based on MDL CTfile specification</li>
+<li>Molfile reader and writer</li>
+<li>SD File reader and writer</li>
+</ul>
+<p>MX is released under the highly permissive <a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a>.</p>
+<p>If you find a bug or other issue, please consider filing an <a href="http://github.com/metamolecular/mx/issues">bug report</a>.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

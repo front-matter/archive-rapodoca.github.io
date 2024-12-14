@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Significant InChI Issue: Two Different InChIs from the Same Molecule | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Timo Boehme of OntoChem GmbH has recently reported a significant issue in the most recent InChI implementation (v2.02). Given two molfiles, both of which encode the same structure but use different atom numberings, two different InChIs are produced. The bug can be reproduced with the following molfiles:
+0001
+  OCTest  0310101
+
+ 11 10  0  0  0  0            999 V2000
+    2.1434    2.0625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289    2.4750    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289    3.3000    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145    2.0625    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.0000    2.4750    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8579    2.4750    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8579    3.3000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.5724    3.7125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.5724    4.5375    0.0000 N   0  3  0  0  0  0  0  0  0  0  0  0
+    3.5724    5.3625    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1434    3.7125    0.0000 O   0  5  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  2  3  2  0  0  0  0
+  2  4  1  0  0  0  0
+  4  5  1  0  0  0  0
+  1  6  1  0  0  0  0
+  6  7  1  0  0  0  0
+  7  8  2  0  0  0  0
+  8  9  1  0  0  0  0
+  9 10  3  0  0  0  0
+  7 11  1  0  0  0  0
+M  CHG  2   9   1  11  -1
+M  END
+which yields the InChI:">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2010/03/11/significant-inchi-issue-two-different-inchis-from-the-same-molecule/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2010/03/11/significant-inchi-issue-two-different-inchis-from-the-same-molecule/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Significant InChI Issue: Two Different InChIs from the Same Molecule">
+  <meta property="og:description" content="Timo Boehme of OntoChem GmbH has recently reported a significant issue in the most recent InChI implementation (v2.02). Given two molfiles, both of which encode the same structure but use different atom numberings, two different InChIs are produced. The bug can be reproduced with the following molfiles:
+0001 OCTest 0310101 11 10 0 0 0 0 999 V2000 2.1434 2.0625 0.0000 C 0 0 0 0 0 0 0 0 0 0 0 0 1.4289 2.4750 0.0000 C 0 0 0 0 0 0 0 0 0 0 0 0 1.4289 3.3000 0.0000 O 0 0 0 0 0 0 0 0 0 0 0 0 0.7145 2.0625 0.0000 N 0 0 0 0 0 0 0 0 0 0 0 0 -0.0000 2.4750 0.0000 N 0 0 0 0 0 0 0 0 0 0 0 0 2.8579 2.4750 0.0000 N 0 0 0 0 0 0 0 0 0 0 0 0 2.8579 3.3000 0.0000 C 0 0 0 0 0 0 0 0 0 0 0 0 3.5724 3.7125 0.0000 C 0 0 0 0 0 0 0 0 0 0 0 0 3.5724 4.5375 0.0000 N 0 3 0 0 0 0 0 0 0 0 0 0 3.5724 5.3625 0.0000 N 0 0 0 0 0 0 0 0 0 0 0 0 2.1434 3.7125 0.0000 O 0 5 0 0 0 0 0 0 0 0 0 0 1 2 1 0 0 0 0 2 3 2 0 0 0 0 2 4 1 0 0 0 0 4 5 1 0 0 0 0 1 6 1 0 0 0 0 6 7 1 0 0 0 0 7 8 2 0 0 0 0 8 9 1 0 0 0 0 9 10 3 0 0 0 0 7 11 1 0 0 0 0 M CHG 2 9 1 11 -1 M END which yields the InChI:">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2010-03-11T00:00:00+00:00">
+    <meta property="article:modified_time" content="2010-03-11T00:00:00+00:00">
+
+  <meta itemprop="name" content="Significant InChI Issue: Two Different InChIs from the Same Molecule">
+  <meta itemprop="description" content="Timo Boehme of OntoChem GmbH has recently reported a significant issue in the most recent InChI implementation (v2.02). Given two molfiles, both of which encode the same structure but use different atom numberings, two different InChIs are produced. The bug can be reproduced with the following molfiles:
+0001 OCTest 0310101 11 10 0 0 0 0 999 V2000 2.1434 2.0625 0.0000 C 0 0 0 0 0 0 0 0 0 0 0 0 1.4289 2.4750 0.0000 C 0 0 0 0 0 0 0 0 0 0 0 0 1.4289 3.3000 0.0000 O 0 0 0 0 0 0 0 0 0 0 0 0 0.7145 2.0625 0.0000 N 0 0 0 0 0 0 0 0 0 0 0 0 -0.0000 2.4750 0.0000 N 0 0 0 0 0 0 0 0 0 0 0 0 2.8579 2.4750 0.0000 N 0 0 0 0 0 0 0 0 0 0 0 0 2.8579 3.3000 0.0000 C 0 0 0 0 0 0 0 0 0 0 0 0 3.5724 3.7125 0.0000 C 0 0 0 0 0 0 0 0 0 0 0 0 3.5724 4.5375 0.0000 N 0 3 0 0 0 0 0 0 0 0 0 0 3.5724 5.3625 0.0000 N 0 0 0 0 0 0 0 0 0 0 0 0 2.1434 3.7125 0.0000 O 0 5 0 0 0 0 0 0 0 0 0 0 1 2 1 0 0 0 0 2 3 2 0 0 0 0 2 4 1 0 0 0 0 4 5 1 0 0 0 0 1 6 1 0 0 0 0 6 7 1 0 0 0 0 7 8 2 0 0 0 0 8 9 1 0 0 0 0 9 10 3 0 0 0 0 7 11 1 0 0 0 0 M CHG 2 9 1 11 -1 M END which yields the InChI:">
+  <meta itemprop="datePublished" content="2010-03-11T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2010-03-11T00:00:00+00:00">
+  <meta itemprop="wordCount" content="867">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Significant InChI Issue: Two Different InChIs from the Same Molecule">
+  <meta name="twitter:description" content="Timo Boehme of OntoChem GmbH has recently reported a significant issue in the most recent InChI implementation (v2.02). Given two molfiles, both of which encode the same structure but use different atom numberings, two different InChIs are produced. The bug can be reproduced with the following molfiles:
+0001 OCTest 0310101 11 10 0 0 0 0 999 V2000 2.1434 2.0625 0.0000 C 0 0 0 0 0 0 0 0 0 0 0 0 1.4289 2.4750 0.0000 C 0 0 0 0 0 0 0 0 0 0 0 0 1.4289 3.3000 0.0000 O 0 0 0 0 0 0 0 0 0 0 0 0 0.7145 2.0625 0.0000 N 0 0 0 0 0 0 0 0 0 0 0 0 -0.0000 2.4750 0.0000 N 0 0 0 0 0 0 0 0 0 0 0 0 2.8579 2.4750 0.0000 N 0 0 0 0 0 0 0 0 0 0 0 0 2.8579 3.3000 0.0000 C 0 0 0 0 0 0 0 0 0 0 0 0 3.5724 3.7125 0.0000 C 0 0 0 0 0 0 0 0 0 0 0 0 3.5724 4.5375 0.0000 N 0 3 0 0 0 0 0 0 0 0 0 0 3.5724 5.3625 0.0000 N 0 0 0 0 0 0 0 0 0 0 0 0 2.1434 3.7125 0.0000 O 0 5 0 0 0 0 0 0 0 0 0 0 1 2 1 0 0 0 0 2 3 2 0 0 0 0 2 4 1 0 0 0 0 4 5 1 0 0 0 0 1 6 1 0 0 0 0 6 7 1 0 0 0 0 7 8 2 0 0 0 0 8 9 1 0 0 0 0 9 10 3 0 0 0 0 7 11 1 0 0 0 0 M CHG 2 9 1 11 -1 M END which yields the InChI:">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Significant InChI Issue: Two Different InChIs from the Same Molecule</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2010-03-11T00:00:00Z">March 11, 2010</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Timo Boehme of <a href="http://www.ontochem.com/">OntoChem GmbH</a> has recently reported a significant issue in the most recent InChI implementation (v2.02). Given two molfiles, both of which encode the same structure but use different atom numberings, two different InChIs are produced. The bug can be reproduced with the following molfiles:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#ae81ff">0001</span>
+</span></span><span style="display:flex;"><span>  OCTest  <span style="color:#ae81ff">0310101</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">11</span> <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>            <span style="color:#ae81ff">999</span> V2000
+</span></span><span style="display:flex;"><span>    2.1434    2.0625    0.0000 C   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    1.4289    2.4750    0.0000 C   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    1.4289    3.3000    0.0000 O   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    0.7145    2.0625    0.0000 N   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>   -0.0000    2.4750    0.0000 N   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    2.8579    2.4750    0.0000 N   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    2.8579    3.3000    0.0000 C   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    3.5724    3.7125    0.0000 C   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    3.5724    4.5375    0.0000 N   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    3.5724    5.3625    0.0000 N   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    2.1434    3.7125    0.0000 O   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">7</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">7</span>  <span style="color:#ae81ff">8</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">8</span>  <span style="color:#ae81ff">9</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">9</span> <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">7</span> <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>M  CHG  <span style="color:#ae81ff">2</span>   <span style="color:#ae81ff">9</span>   <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">11</span>  -1
+</span></span><span style="display:flex;"><span>M  END
+</span></span></code></pre></div><p>which yields the InChI:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>InChI<span style="color:#f92672">=</span>1S/C4H7N5O2/c5-8-2-3<span style="color:#f92672">(</span>10<span style="color:#f92672">)</span>7-1-4<span style="color:#f92672">(</span>11<span style="color:#f92672">)</span>9-6/h2,5-7,10H,1H2/b3-2-
+</span></span></code></pre></div><p>and:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#ae81ff">0002</span>
+</span></span><span style="display:flex;"><span>  OCTest  <span style="color:#ae81ff">031010</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">11</span> <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>            <span style="color:#ae81ff">999</span> V2000
+</span></span><span style="display:flex;"><span>    2.1434    3.7125    0.0000 O   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    2.1434    2.0625    0.0000 C   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    1.4289    2.4750    0.0000 C   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    1.4289    3.3000    0.0000 O   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    0.7145    2.0625    0.0000 N   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>   -0.0000    2.4750    0.0000 N   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    2.8579    2.4750    0.0000 N   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    2.8579    3.3000    0.0000 C   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    3.5724    3.7125    0.0000 C   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    3.5724    4.5375    0.0000 N   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    3.5724    5.3625    0.0000 N   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">7</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">7</span>  <span style="color:#ae81ff">8</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">8</span>  <span style="color:#ae81ff">9</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">9</span> <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">8</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>M  CHG  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">10</span>   <span style="color:#ae81ff">1</span>   <span style="color:#ae81ff">1</span>  -1
+</span></span><span style="display:flex;"><span>M  END
+</span></span></code></pre></div><p>which yields the InChI:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>InChI<span style="color:#f92672">=</span>1S/C4H6N5O2/c5-8-2-3<span style="color:#f92672">(</span>10<span style="color:#f92672">)</span>7-1-4<span style="color:#f92672">(</span>11<span style="color:#f92672">)</span>9-6/h2,6-7,10H,1H2/q-1/p+1/b3-2-
+</span></span></code></pre></div><p>As you can see, two different InChIs are produced from molfiles encoding the same structure, an image of which is provided below:</p>
+<p><img src="/images/posts/20100311/inchi-bug.png" alt="Bug" title="Bug"></p>
+<p>In his description of the bug on the <a href="http://sourceforge.net/mailarchive/message.php?msg_name=4B98AD34.5000307%40ontochem.com">InChI Discussion List</a>
+Boehme writes:</p>
+<blockquote>
+<p>The problem is in the preprocessing phase where hydrogen atoms are
+(re)moved/added. Whether hydrogens are removed depends on the above
+mentioned order atoms are defined in the InChI input structure and thus
+will produce completely different InChI(keys).</p>
+<p>The bug is independent of the molecule input format. The provided test
+case is given as SDF which can be used directly with the InChI command
+line tool while I tried the same with our Smiles parser which utilizes
+the JNI-INCHI library to direclty call InChI API via GetStdINCHI. Thus
+the problem is &lsquo;in the heart&rsquo; of the InChI generation algorithm.</p>
+</blockquote>
+<p>You can view the original bug report <a href="http://sourceforge.net/tracker/?func=detail&amp;aid=2967428&amp;group_id=136669&amp;atid=741489">here</a>.</p>
+<p>I have reproduced the bug myself on an OS X system running Snow Leopard with a binary compiled from the 2.02 source.</p>
+<p>The extent of this bug remains unclear, although at a minimum I suspect that any structure in which the above sample is a substructures would display the behavior.</p>
+<h1 id="why-does-it-matter">Why Does It Matter?</h1>
+<p>This issue is important because of the central role InChI (and the derived InChI Key) has started to play as a unique molecular identifier, both for internal database table lookups for exact structure searches, and for inter-database communication. A great deal of work by a number of parties could be necessary should this issue be shown to be not limited to the example structure. The issue also underscores the importance of developing a written, English-language InChI specification and a comprehensive test suite.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

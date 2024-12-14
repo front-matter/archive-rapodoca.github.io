@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Start Seeing Valence and Core Electrons | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Inexpensive molecular validation through simple integer arithmetic.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2020/10/12/start-seeing-valence-and-core-electrons/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2020/10/12/start-seeing-valence-and-core-electrons/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Start Seeing Valence and Core Electrons">
+  <meta property="og:description" content="Inexpensive molecular validation through simple integer arithmetic.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2020-10-12T18:00:00+00:00">
+    <meta property="article:modified_time" content="2020-10-12T18:00:00+00:00">
+
+  <meta itemprop="name" content="Start Seeing Valence and Core Electrons">
+  <meta itemprop="description" content="Inexpensive molecular validation through simple integer arithmetic.">
+  <meta itemprop="datePublished" content="2020-10-12T18:00:00+00:00">
+  <meta itemprop="dateModified" content="2020-10-12T18:00:00+00:00">
+  <meta itemprop="wordCount" content="2047">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Start Seeing Valence and Core Electrons">
+  <meta name="twitter:description" content="Inexpensive molecular validation through simple integer arithmetic.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Start Seeing Valence and Core Electrons</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-10-12T18:00:00Z">October 12, 2020</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Electrons don&rsquo;t get much respect in cheminformatics. Although atoms take star billing in everything from file formats to toolkits to applications, electrons sometimes don&rsquo;t even make the credits. When electrons do find themselves on the cast, they tend to play offstage characters; they are the Mrs. Wolowitz of cheminformatics, sometimes heard but never seen.</p>
+<p>A <a href="/articles/2020/03/16/formal-charge-and-bond-order-are-side-effects/">previous article</a> noted some ways in which the marginalization of electrons can degrade cheminformatics data quality. This article continues on that theme, but from the angle of deciding when a bonding arrangement is invalid.</p>
+<h1 id="attributes-vs-computations">Attributes vs. Computations</h1>
+<p>Before getting to the problem at hand, it&rsquo;s important to draw a distinction between two fundamental concepts in chemical structure representation:</p>
+<ul>
+<li><strong>Attributes.</strong> Read-write values associated with a molecular graph.</li>
+<li><strong>Computations.</strong> Values deduced from one or more attributes.</li>
+</ul>
+<p>The word &ldquo;attribute&rdquo; was chosen carefully. Derived from the French verb for &ldquo;to assign&rdquo; (ad- &ldquo;to&rdquo; + tribuere &ldquo;assign&rdquo;), the word&rsquo;s use here emphasizes that attributes are assigned whereas computations are derived.</p>
+<p>Following this distinction to its logical chemical conclusion, attributes usually correspond to particle counts. A case in point is atomic number, otherwise known as proton count. Many computations such as molecular mass depend on it. Another example is neutron count, key to isotopic identity.</p>
+<p>Like proton and neutron count, electron count is also an important attribute. Given electron counts on atoms and bonding systems, formal charge and bond order can both be derived as computations.</p>
+<p>Casting electron count as a fundamental atomic attribute has some important payoffs. One of them is simplicity. Straightforward, general validation rules can be developed that will work for any bonding arrangement. Because the system is simple, it&rsquo;s easy to develop, test and debug. The lack of exceptions leads to a robust system that can be deployed with confidence.</p>
+<h1 id="atomic-electron-count">Atomic Electron Count</h1>
+<p>Chemistry views molecules as assemblies of atoms held together by bonding relationships. To understand these bonding relationships, it&rsquo;s helpful to mentally build a molecule one step at a time from isolated atoms, as one would assemble the atoms of a physical model kit.</p>
+<p>As we&rsquo;re all taught from a young age, an isolated atom is composed of protons, neutrons, and electrons. To a first approximation, instances of each particle type are indistinguishable from each other and so can be represented as count attributes of type unsigned integer. In its starting state, an atom&rsquo;s proton count equals its electron count.</p>
+<h1 id="negative-electron-count-is-an-error">Negative Electron Count is an Error</h1>
+<p>The presence of an atomic electron count attribute enables chemical transformations to be modeled mathematically. Consider ionization, which mutates an atom&rsquo;s electron count. Electron removal from hydrogen yields a cation (H+), whereas electron addition to hydrogen yields an anion (H-).</p>
+<p>Multiple electrons can be added to or subtracted from the atomic electron count, with one proviso: an atom&rsquo;s electron count may never become negative. For example, removing an electron from the hydrogen cation would lead to an electron count of -1, which is physically impossible.</p>
+<p>More generally speaking, negative particle counts make no physical sense at all. How should we even attempt to interpret an electron count of -1? We might as well propose a proton count of -42 or a neutron count of -13.</p>
+<p>Now consider what happens if charge is mistakenly treated as an attribute. The meaninglessness of H++ is harder to spot. Worse, it becomes much more difficult to tell when a hydrogen-containing molecule is invalid. This creates a dark, cozy breeding ground for bugs. It&rsquo;s exactly the kind of environment that should trigger alarm bells.</p>
+<h1 id="core-and-valence-electrons">Core and Valence Electrons</h1>
+<p>Although a single electron count suffices for isolated atoms, electron accounting for bonding relationships requires more nuance. Decades of experimental and theoretical work have led to a model that divides an atom&rsquo;s electrons into two categories:</p>
+<ul>
+<li><strong>Valence electrons</strong>. Electrons that are used in bonding.</li>
+<li><strong>Core electrons</strong>. Electrons that are not used in bonding.</li>
+</ul>
+<p>Hydrogen and helium are unique in that the isolated atoms have no core electrons. Atoms with all other elemental identities possess at least two core electrons which never participate in bonding.</p>
+<p>An isolated atom&rsquo;s valence electron count is computed by subtracting the atom&rsquo;s atomic number from the atomic number of the previous noble gas. For example, carbon has atomic number six. The previous noble gas, helium, has atomic number two. Therefore, carbon has two core electrons and four valence electrons (6 - 2 = 4). The same rule applies to tennessine, or any other atom.</p>
+<h1 id="covalent-bonding-reduces-the-valence-electron-count">Covalent Bonding Reduces the Valence Electron Count</h1>
+<p>Covalent bonds are formed between atoms by transferring one or more valence electrons to one or more two-center bonds. Put another way, covalent bonding increases the electron count of a bond while decreasing the electron count of all atoms involved. Of course, this level of accounting requires an electron count attribute for both atoms <em>and</em> bonds.</p>
+<p>For example, consider the formation of dihydrogen (H<!-- raw HTML omitted -->2<!-- raw HTML omitted -->) from two isolated atoms. First, the hydrogen count for each atom is reduced by one. Then the bond&rsquo;s electron count is increased by two (the number of electrons removed from both atoms). Translated to a chemical process, each hydrogen contributes one electron to the covalent single bond. The absence of negative electron count means that the resulting molecule is valid.</p>
+<!-- raw HTML omitted -->
+<p>More than one electron can be transferred into the same two-atom bond. Dinitrogen (N<!-- raw HTML omitted -->2<!-- raw HTML omitted -->) is an example. Each atom possesses five valence electrons. Three of them are transferred from each atom to the bond. Each nitrogen finishes with two valence electrons. The bond finishes with an electron count attribute of six. As <a href="/articles/2020/03/16/formal-charge-and-bond-order-are-side-effects/">described previously</a>, we compute a bond order of three. Again, dinitrogen constructed in this way invokes no negative electron counts and so the representation is valid.</p>
+<h1 id="negative-valence-electron-count-is-an-error">Negative Valence Electron Count is an Error</h1>
+<p>What the valence model absolutely forbids is to put an atom into a state in which its valence electron count is negative. Consider the central atom of trihydrogen (H<!-- raw HTML omitted -->3<!-- raw HTML omitted -->), a chain of three hydrogens connected by single bonds. After forming the first bond, the central hydrogen is left with no valence electrons. Attempting to form the second bond results in a negative valence electron count.</p>
+<!-- raw HTML omitted -->
+<p>It&rsquo;s easy to spot the problem because as noted earlier, atomic hydrogen has no core electrons. Hydrogen&rsquo;s valence electron count always equals its electron count.</p>
+<p>The problem comes when we look at atoms with higher atomic number. Take carbon, for example. Should a cheminformatics toolkit ever permit carbon to be taken directly from the isolated, default state to one with more than four covalent bonds?</p>
+<p>The answer is clearly &ldquo;no&rdquo; because this results in a negative valence electron count. A cheminformatics toolkit should not allow errors like this by default, just like it should not allow negative proton count. The same principles apply regardless of the atom.</p>
+<p>Attempting to set a negative valence electron count signals that an error has occurred somewhere. A toolkit should prevent the propagation of such errors.</p>
+<h1 id="hypervalence">Hypervalence</h1>
+<p>A negative valence electron count should not be confused with <em><a href="https://en.wikipedia.org/wiki/Hypervalent_molecule">hypervalence</a></em>. As the term was originally defined, hypervalence described a state in which an atom appears to deploy an unusually large number of valence electrons for bonding. For example, phosphorous normally uses just three valence electrons in bonding. However, it can also use all five. Pentavalent phosphorous is therefore hypervalent. With a valence electron count of zero, however, there are no inconsistencies. Whether or not hypervalent atoms should be tolerated on stylistic grounds is another question (see below).</p>
+<!-- raw HTML omitted -->
+<p>Late main group elements such as sulfur, phosphorous, and chlorine are often found in hypervalent states. None of them involves a negative valence electron count.</p>
+<h1 id="better-terminology">Better Terminology</h1>
+<p>Apparently, chemistry has not as yet invented a term for the principle I&rsquo;m after. &ldquo;Hypervalence&rdquo; clearly is not it. Nor is &ldquo;hypercoordinate,&rdquo; which also has nothing to do with negative electron count. Until a better term comes along, I&rsquo;ll continue to use the unwieldy workaround &ldquo;negative valence electron count.&rdquo;</p>
+<h1 id="toolkits-and-formats">Toolkits and Formats</h1>
+<p>Chemical representation system are surprisingly tolerant of negative valence electron count. This may have something to do with not recognizing valence electron count as an attribute in the first place. For example, the industry standards SMILES and Molfile are devoid of the concept. Molfile does support radical templates, but that&rsquo;s a far cry from the general-purpose functionality that&rsquo;s needed.</p>
+<p>In cheminformatics toolkits, the phenomenon manifests itself with impossible valence states being allowed by default. Recently this blog reported the <a href="/articles/2020/10/05/running-a-smiles-validation-benchmark/">results of a SMILES validation benchmark</a>. It appears that a few toolkits will not report valence errors for parsed SMILES unless explicitly instructed to do so.</p>
+<p>RDKit offers a peek into the complexity of the problem. Trihydrogen, and any other species invoking negative valence electron counts, can be built from scratch without error. Only through the invocation of a dedicated helper function will a valence error be detected.</p>
+<!-- raw HTML omitted -->
+<p>In contrast, RDKit performs the validation by default on reading a SMILES:</p>
+<!-- raw HTML omitted -->
+<h1 id="standardization-vs-validation">Standardization vs Validation</h1>
+<p>Should a cheminformatics toolkit ever allow molecular representations based on negative valence electron counts? The RDKit example shows that at least some in the field believe the answer might depend on context.</p>
+<p>Others believe that checking should not be done at all by default. Consider <a href="https://github.com/cdk/cdk/issues/279">this CDK GitHub issue</a>, in which RDKit flags a SMILES for &ldquo;greater than permitted&rdquo; valence, but CDK raises no error. In response, John May, the project&rsquo;s maintainer, states:</p>
+<blockquote>
+<p>&hellip; Each to their own, personally I believe checks should be done after a valid molecule* is handed back to the user so you can choose to fix them. &hellip; *Kekulization complicates this as you have undefined bond order which may/may not be okay. In this case everything is define on input.</p>
+</blockquote>
+<p>I&rsquo;d suggest that this position mixes two distinct concepts:</p>
+<ul>
+<li><em>Standardization</em> occurs when cheminformaticians try to decide which of one or more valid molecular representations should be used. An often-cited example is the nitro group. It can be represented using either pentavalent nitrogens or zwitterions. Crucially, neither form invokes negative valence electron count and so both representation are valid. The only issue to be decided is the preferred representation.</li>
+<li><em>Validation</em> occurs when cheminformaticians seek to exclude species whose representation can not be corrected. Atoms with negative proton counts are invalid and so can&rsquo;t be corrected. Similarly, there&rsquo;s no reliable way to correct a molecule containing an atom with a negative valence electron count. In both cases, the problem almost certainly arises from data entry or programming gone wrong.</li>
+</ul>
+<h1 id="chemcore">ChemCore</h1>
+<p><a href="/articles/2020/06/01/chemcore-a-cheminformatics-toolkit-for-rust/">ChemCore</a>, the cheminformatics toolkit for Rust, disallows negative valence electron counts by default. This is accomplished by giving each atom an unsigned integer (<code>u8</code>) electron count attribute. Ionization and the creation of bonding relationships mutate this attribute. Any attempt to drive this attribute&rsquo;s value negative yields an error.</p>
+<p>For example, the following <a href="/articles/2020/09/21/interactive-rust-in-a-repl-and-jupyter-notebook-with-evcxr/">Rust Jupyter session</a> shows ChemCore&rsquo;s response to trihydrogen:</p>
+<!-- raw HTML omitted -->
+<p>Note that the error type uses the incorrect term (<code>Hypervalent</code>) and needs to be fixed. Nevertheless, the error is detected by default.</p>
+<h1 id="exceptions">Exceptions</h1>
+<p>In what situations, if any, should a cheminformatics toolkit tolerate a negative valence electron count? One option might be to allow isolated atoms ionized to the point of losing core electrons. However, this is the realm of physics. A cheminformatics toolkit would have little reason to support this use case.</p>
+<p>What about a tool that helps visualize representation errors? For example, it might be helpful for a program to depict an erroneous chemical graph so that the error can be better understood. Although such tools may be useful, it&rsquo;s hard to see how they justify saddling the entire toolkit with an unnecessarily permissive and potentially buggy valence model. A better approach might be to offer such visualizations one level further down. For example, ChemCore&rsquo;s SMILES handling is based on <a href="/articles/2020/05/25/lets-build-a-smiles-parser-in-rust/">Purr</a>. This library performs no validation other than that required by the OpenSMILES specification. As such, atoms with negative valence electron counts are allowed because OpenSMILES says nothing on the topic. A visualization tool that worked with Purr could then avoid the conflicts that could arise from allowing negative valence electron count on atoms at the cheminformatics toolkit level.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>Valence electron count is an important and often ignored atomic attribute. Like any particle count, a negative value is physically meaningless. Molecular representations invoking negative valence electron count should therefore be treated as errors. Doing so is a simple, reliable and inexpensive method to ensure data quality.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

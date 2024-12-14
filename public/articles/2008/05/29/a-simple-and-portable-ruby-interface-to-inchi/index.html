@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>A Simple and Portable Ruby Interface to InChI | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Although the InChI software itself is written in C, it can still be used via Ruby. Rino offers one implementation of a Ruby InChI interface that makes use of a C extension. This article describes a more concise and portable solution.
+The Code
+The following code will accept a String encoding a molfile and return either its InChI, or an empty String if no InChI could be found:
+module InChI
+  def inchi_for molfile
+    output = %x[echo &#34;#{molfile}&#34; | cInChI-1 -STDIO]
+
+    output.eql?(&#34;&#34;) ? &#34;&#34; : output.split(/\n/)[1]
+  end
+end
+This code takes advantage of Ruby&rsquo;s built-in support for Command Expansion.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2008/05/29/a-simple-and-portable-ruby-interface-to-inchi/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2008/05/29/a-simple-and-portable-ruby-interface-to-inchi/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="A Simple and Portable Ruby Interface to InChI">
+  <meta property="og:description" content="Although the InChI software itself is written in C, it can still be used via Ruby. Rino offers one implementation of a Ruby InChI interface that makes use of a C extension. This article describes a more concise and portable solution.
+The Code The following code will accept a String encoding a molfile and return either its InChI, or an empty String if no InChI could be found:
+module InChI def inchi_for molfile output = %x[echo &#34;#{molfile}&#34; | cInChI-1 -STDIO] output.eql?(&#34;&#34;) ? &#34;&#34; : output.split(/\n/)[1] end end This code takes advantage of Ruby’s built-in support for Command Expansion.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2008-05-29T00:00:00+00:00">
+    <meta property="article:modified_time" content="2008-05-29T00:00:00+00:00">
+
+  <meta itemprop="name" content="A Simple and Portable Ruby Interface to InChI">
+  <meta itemprop="description" content="Although the InChI software itself is written in C, it can still be used via Ruby. Rino offers one implementation of a Ruby InChI interface that makes use of a C extension. This article describes a more concise and portable solution.
+The Code The following code will accept a String encoding a molfile and return either its InChI, or an empty String if no InChI could be found:
+module InChI def inchi_for molfile output = %x[echo &#34;#{molfile}&#34; | cInChI-1 -STDIO] output.eql?(&#34;&#34;) ? &#34;&#34; : output.split(/\n/)[1] end end This code takes advantage of Ruby’s built-in support for Command Expansion.">
+  <meta itemprop="datePublished" content="2008-05-29T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2008-05-29T00:00:00+00:00">
+  <meta itemprop="wordCount" content="633">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="A Simple and Portable Ruby Interface to InChI">
+  <meta name="twitter:description" content="Although the InChI software itself is written in C, it can still be used via Ruby. Rino offers one implementation of a Ruby InChI interface that makes use of a C extension. This article describes a more concise and portable solution.
+The Code The following code will accept a String encoding a molfile and return either its InChI, or an empty String if no InChI could be found:
+module InChI def inchi_for molfile output = %x[echo &#34;#{molfile}&#34; | cInChI-1 -STDIO] output.eql?(&#34;&#34;) ? &#34;&#34; : output.split(/\n/)[1] end end This code takes advantage of Ruby’s built-in support for Command Expansion.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">A Simple and Portable Ruby Interface to InChI</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2008-05-29T00:00:00Z">May 29, 2008</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Although the <a href="http://depth-first.com/articles/2007/09/27/inchi-for-newbies">InChI</a> software itself is written in C, it can still be used via Ruby. <a href="http://depth-first.com/articles/2007/03/19/customize-inchi-output-with-rino">Rino</a> offers one implementation of a Ruby InChI interface that makes use of a C extension. This article describes a more concise and portable solution.</p>
+<h1 id="the-code">The Code</h1>
+<p>The following code will accept a String encoding a molfile and return either its InChI, or an empty String if no InChI could be found:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">module</span> InChI
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">inchi_for</span> molfile
+</span></span><span style="display:flex;"><span>    output <span style="color:#f92672">=</span> <span style="color:#e6db74">%x[echo &#34;</span><span style="color:#e6db74">#{</span>molfile<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34; | cInChI-1 -STDIO]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    output<span style="color:#f92672">.</span>eql?(<span style="color:#e6db74">&#34;&#34;</span>) ? <span style="color:#e6db74">&#34;&#34;</span> : output<span style="color:#f92672">.</span>split(<span style="color:#e6db74">/\n/</span>)<span style="color:#f92672">[</span><span style="color:#ae81ff">1</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>This code takes advantage of Ruby&rsquo;s built-in support for <!-- raw HTML omitted -->Command Expansion<!-- raw HTML omitted -->.</p>
+<h1 id="testing-the-code">Testing the Code</h1>
+<p>The code below tests the library:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;inchi&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">include</span> <span style="color:#66d9ef">InChI</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>molfile <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;http://chempedia.com/compounds/106.mol
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  -OEChem-03010811072D
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 12 12  0     0  0  0  0  0  0999 V2000
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    2.8660    1.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    2.0000    0.5000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    3.7321    0.5000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    2.0000   -0.5000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    3.7321   -0.5000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    2.8660   -1.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    2.8660    1.6200    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    1.4631    0.8100    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    4.2690    0.8100    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    1.4631   -0.8100    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    4.2690   -0.8100    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    2.8660   -1.6200    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  1  2  2  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  1  3  1  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  1  7  1  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  2  4  1  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  2  8  1  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  3  5  2  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  3  9  1  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  4  6  2  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  4 10  1  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  5  6  1  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  5 11  1  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  6 12  1  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">M  END&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>puts <span style="color:#e6db74">&#34;Found InChI: </span><span style="color:#e6db74">#{</span>inchi_for(molfile)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><p>We can run the test by saving it in a file called <!-- raw HTML omitted -->test.rb<!-- raw HTML omitted --> and executing it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ruby test.rb
+</span></span><span style="display:flex;"><span>InChI version 1, Software version 1.02-beta August <span style="color:#ae81ff">2007</span>
+</span></span><span style="display:flex;"><span>Log file not specified. Using standard error output.
+</span></span><span style="display:flex;"><span>Input file not specified. Using standard input.
+</span></span><span style="display:flex;"><span>Output file not specified. Using standard output.
+</span></span><span style="display:flex;"><span>Options: Mobile H Perception ON
+</span></span><span style="display:flex;"><span>Isotopic ON, Absolute Stereo ON
+</span></span><span style="display:flex;"><span>Omit undefined/unknown stereogenic centers and bonds
+</span></span><span style="display:flex;"><span>Full Aux. info
+</span></span><span style="display:flex;"><span>Input format: MOLfile
+</span></span><span style="display:flex;"><span>Output format: Plain text
+</span></span><span style="display:flex;"><span>Timeout per structure: 60.000 sec; Up to <span style="color:#ae81ff">1024</span> atoms per structure
+</span></span><span style="display:flex;"><span>End of file detected after structure <span style="color:#75715e">#1.</span>
+</span></span><span style="display:flex;"><span>Finished processing <span style="color:#ae81ff">1</span> structure: <span style="color:#ae81ff">0</span> errors, processing time 0:00:00.00
+</span></span><span style="display:flex;"><span>Found InChI: InChI<span style="color:#f92672">=</span>1/C6H6/c1-2-4-6-5-3-1/h1-6H
+</span></span></code></pre></div><h1 id="prerequisites">Prerequisites</h1>
+<p>The above approach only requires that it be run on a UNIX-like system, and that a copy of the InChI library be present on your path.</p>
+<h1 id="advantages">Advantages</h1>
+<p>The approach described here offers some important advantages over Rino:</p>
+<ul>
+<li>It works without modification on both the <a href="http://en.wikipedia.org/wiki/Ruby_MRI">Matz Ruby Interpreter</a> (C-Ruby) and <a href="http://jruby.codehaus.org/">JRuby</a>.</li>
+<li>It neither creates nor uses files.</li>
+</ul>
+<h1 id="disadvantages">Disadvantages</h1>
+<p>This approach creates a lot of noisy log output to the console. There must be a way to suppress it, but so far I haven&rsquo;t found out how.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>Using Ruby&rsquo;s support for Command Expansions has enabled the creation of a concise and portable Ruby interface to the InChI toolkit. Similar principles would apply to any Unix command-line binary, including for example, <a href="http://openbabel.org/wiki/Babel">Open Babel</a>.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

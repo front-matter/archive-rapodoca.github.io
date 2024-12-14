@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Dark Corners of the Molfile Specification - Sgroups and Substructure Abbreviations | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="The molfile specification is chemistry&rsquo;s de facto standard for the exchange of chemical structures. Tracing its history back to at least 1979, the V2000 Molfile format is now supported in varying degrees by nearly every vendor and product on the market today. Despite its limitations, molfile has stood the test of time remarkably well.
+When presenting chemical structures to chemists, sometimes its convenient to abbreviate large groups with text labels. For example, a phenyl group can be shortened to &ldquo;Ph&rdquo;. Likewise a t-butyloxycarbonyl group can be represented as &ldquo;BOC.&rdquo; The amino acid glycine can be represented as &ldquo;Gly&rdquo;, and so on. This article discusses how the molfile format allows for this kind of abbreviated structure representation using a feature called &ldquo;Sgroups.&rdquo;">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/posts/2009-06-10-dark-corners-of-the-molfile-specification-sgroups-and-substructure-abbreviations/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/posts/2009-06-10-dark-corners-of-the-molfile-specification-sgroups-and-substructure-abbreviations/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="Dark Corners of the Molfile Specification - Sgroups and Substructure Abbreviations">
+  <meta property="og:description" content="The molfile specification is chemistry’s de facto standard for the exchange of chemical structures. Tracing its history back to at least 1979, the V2000 Molfile format is now supported in varying degrees by nearly every vendor and product on the market today. Despite its limitations, molfile has stood the test of time remarkably well.
+When presenting chemical structures to chemists, sometimes its convenient to abbreviate large groups with text labels. For example, a phenyl group can be shortened to “Ph”. Likewise a t-butyloxycarbonyl group can be represented as “BOC.” The amino acid glycine can be represented as “Gly”, and so on. This article discusses how the molfile format allows for this kind of abbreviated structure representation using a feature called “Sgroups.”">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2009-06-10T00:00:00+00:00">
+    <meta property="article:modified_time" content="2009-06-10T00:00:00+00:00">
+
+  <meta itemprop="name" content="Dark Corners of the Molfile Specification - Sgroups and Substructure Abbreviations">
+  <meta itemprop="description" content="The molfile specification is chemistry’s de facto standard for the exchange of chemical structures. Tracing its history back to at least 1979, the V2000 Molfile format is now supported in varying degrees by nearly every vendor and product on the market today. Despite its limitations, molfile has stood the test of time remarkably well.
+When presenting chemical structures to chemists, sometimes its convenient to abbreviate large groups with text labels. For example, a phenyl group can be shortened to “Ph”. Likewise a t-butyloxycarbonyl group can be represented as “BOC.” The amino acid glycine can be represented as “Gly”, and so on. This article discusses how the molfile format allows for this kind of abbreviated structure representation using a feature called “Sgroups.”">
+  <meta itemprop="datePublished" content="2009-06-10T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2009-06-10T00:00:00+00:00">
+  <meta itemprop="wordCount" content="898">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Dark Corners of the Molfile Specification - Sgroups and Substructure Abbreviations">
+  <meta name="twitter:description" content="The molfile specification is chemistry’s de facto standard for the exchange of chemical structures. Tracing its history back to at least 1979, the V2000 Molfile format is now supported in varying degrees by nearly every vendor and product on the market today. Despite its limitations, molfile has stood the test of time remarkably well.
+When presenting chemical structures to chemists, sometimes its convenient to abbreviate large groups with text labels. For example, a phenyl group can be shortened to “Ph”. Likewise a t-butyloxycarbonyl group can be represented as “BOC.” The amino acid glycine can be represented as “Gly”, and so on. This article discusses how the molfile format allows for this kind of abbreviated structure representation using a feature called “Sgroups.”">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Dark Corners of the Molfile Specification - Sgroups and Substructure Abbreviations</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2009-06-10T00:00:00Z">June 10, 2009</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>The <a href="http://metamolecular.com/cheminformatics/molfile-format/">molfile specification</a> is chemistry&rsquo;s de facto standard for the exchange of chemical structures. <a href="http://dx.doi.org/10.1021/ci00007a012">Tracing its history back to at least 1979</a>, the V2000 Molfile format is now supported in varying degrees by nearly every vendor and product on the market today. Despite its limitations, molfile has stood the test of time remarkably well.</p>
+<p>When presenting chemical structures to chemists, sometimes its convenient to abbreviate large groups with text labels. For example, a phenyl group can be shortened to &ldquo;Ph&rdquo;. Likewise a t-butyloxycarbonyl group can be represented as &ldquo;BOC.&rdquo; The amino acid glycine can be represented as &ldquo;Gly&rdquo;, and so on. This article discusses how the molfile format allows for this kind of abbreviated structure representation using a feature called &ldquo;Sgroups.&rdquo;</p>
+<h1 id="a-family-of-file-formats">A Family of File Formats</h1>
+<p>One of the most useful aspects of the molfile specification is its modularity. Molfile is actually a member of a family of file formats referred to as &ldquo;CTFile&rdquo; (Chemical Table File).</p>
+<p><img src="/images/posts/20090610/ctfile.png" alt="CTFile" title="CTFile"></p>
+<p>As you can see, molfile is composed of the simpler Ctab element and is itself part of RGfile (Rgroup query file), SDfile (Structure Data file), and RDfile (reaction-data file) flavors.</p>
+<h1 id="sgroup">Sgroup</h1>
+<p>For encoding most specific small molecules, little more is needed than the Atoms block, the Bonds block, and a few properties. To encode higher-level molecular concepts, we need to turn to more advanced molfile features.</p>
+<p>From the <a href="http://dx.doi.org/10.1021/ci00004a003">original paper describing them</a>, an Sgroup (substructure group) is:</p>
+<blockquote>
+<p>&hellip; a persistent collection of atoms and bonds, i.e., as an identified substructure that is maintained as an integral part of the connection table. Because Sgroups are maintained in connection tables, they can be stored in transfer files and databases and can be searched. &hellip;</p>
+</blockquote>
+<p>Sgroups are part of a larger hierarchy within the molfile format:</p>
+<ul>
+<li>data sgroup</li>
+<li>chemical sgroup</li>
+<li>polymers</li>
+<li>components, mixtures, and formulations</li>
+<li>drawing and display shortcuts
+<ul>
+<li>multiple groups</li>
+<li>generics</li>
+<li>superatoms</li>
+</ul>
+</li>
+</ul>
+<p>In other words, superatoms are a type of display shortcut, which is in turn a kind of chemical Sgroup.</p>
+<h1 id="example">Example</h1>
+<p>The following example (forwarded to me by a <a href="http://chemwriter.com">ChemWriter</a> user who created it with ChemDraw) is a V2000 molfile representation for nitrobenzene in which the nitro group is shortened to &ldquo;NO2&rdquo;:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Untitled ACS Document 1996-1
+</span></span><span style="display:flex;"><span>  ChemDraw05180908552D
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">9</span>  <span style="color:#ae81ff">9</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0999</span> V2000
+</span></span><span style="display:flex;"><span>   -0.7145   -0.2042    0.0000 C   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>   -0.7145   -1.0292    0.0000 C   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    0.0000   -1.4417    0.0000 C   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    0.7145   -1.0292    0.0000 C   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    0.7145   -0.2042    0.0000 C   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    0.0000    0.2083    0.0000 C   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    0.0000    1.0306    0.0000 N   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    0.7121    1.4417    0.0000 O   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>   -0.7121    1.4417    0.0000 O   <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span>      
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>      
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span>      
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>      
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span>      
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>      
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">7</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>      
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">7</span>  <span style="color:#ae81ff">8</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span>      
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">7</span>  <span style="color:#ae81ff">9</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>      
+</span></span><span style="display:flex;"><span>M  CHG  <span style="color:#ae81ff">2</span>   <span style="color:#ae81ff">7</span>   <span style="color:#ae81ff">1</span>   <span style="color:#ae81ff">9</span>  -1
+</span></span><span style="display:flex;"><span>M  STY  <span style="color:#ae81ff">1</span>   <span style="color:#ae81ff">1</span> SUP
+</span></span><span style="display:flex;"><span>M  SLB  <span style="color:#ae81ff">1</span>   <span style="color:#ae81ff">1</span>   <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>M  SAL   <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">3</span>   <span style="color:#ae81ff">7</span>   <span style="color:#ae81ff">8</span>   <span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span>M  SBL   <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>   <span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span>M  SMT   <span style="color:#ae81ff">1</span> NO2
+</span></span><span style="display:flex;"><span>M  SCL   <span style="color:#ae81ff">1</span>  
+</span></span><span style="display:flex;"><span>M  SBV   <span style="color:#ae81ff">1</span>   <span style="color:#ae81ff">7</span>    0.0000   -0.8222
+</span></span><span style="display:flex;"><span>M  END
+</span></span></code></pre></div><p>The superatom definition occurs starting with the line &ldquo;M  STY&hellip;&rdquo;. Let&rsquo;s take them one at a time:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>M  STY  <span style="color:#ae81ff">1</span>   <span style="color:#ae81ff">1</span> SUP
+</span></span></code></pre></div><p>Here, we specify the type of Sgroup we&rsquo;ll be defining (&ldquo;SUP&rdquo; for superatom), and assign it the index value of 1.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>M  SLB  <span style="color:#ae81ff">1</span>   <span style="color:#ae81ff">1</span>   <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>Next, we give the Sgroup a unique integer label (1).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>M  SAL   <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">3</span>   <span style="color:#ae81ff">7</span>   <span style="color:#ae81ff">8</span>   <span style="color:#ae81ff">9</span>
+</span></span></code></pre></div><p>We need a list of atoms in the group (7, 8, and 9), which is what the line above does.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>M  SBL   <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>   <span style="color:#ae81ff">7</span>
+</span></span></code></pre></div><p>We also need to define the bond (in this case only one) that connects the explicit part of the structure to the superatom. In our example, this is bond 7 (C-N).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>M  SMT   <span style="color:#ae81ff">1</span> NO2
+</span></span></code></pre></div><p>A display program needs to have a label for the superatom, which is what the line above defines (&ldquo;NO2&rdquo;).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>M  SCL   <span style="color:#ae81ff">1</span>  
+</span></span></code></pre></div><p>The Superatom class property was added in 2007 &ldquo;to support the chemical representation enhancements of ISIS Desktop 2.0.&rdquo; Not much documentation on this feature is availalble.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>M  SBV   <span style="color:#ae81ff">1</span>   <span style="color:#ae81ff">7</span>    0.0000   -0.8222
+</span></span></code></pre></div><p>For a superatom attached to a main structure though a single bond, the vector for the attachment is obvious. Because V2000 supports multiple attachment point, however, it&rsquo;s necessary to specify a bond vector to tell a display program how to draw the connection to the superatom. The line above specifies a vector of (0, -0.8222) for the superatom bond identified with index 7.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>The molfile specification has been extended and adapted over the course of thirty years of commercial use. It offers many features for representing and displaying more complex concepts in cheminformatics, including display shortcuts for functional groups.</p>
+<p>In a future installment in this series, I&rsquo;ll highlight an implementation of superatom capability in the open source cheminformatics toolkit <a href="http://metamolecular.com/mx">Mx</a>.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  My New Hugo Site 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

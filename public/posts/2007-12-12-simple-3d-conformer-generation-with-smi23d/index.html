@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Simple 3D Conformer Generation with Smi23D | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Three-dimensional conformer generation is a common problem in cheminformatics. The most convenient and generally-useful method for creating chemical structures is the 2D chemical structure editor; applications that require three-dimensional representations need a way to generate reasonable coordinates from 2D user input. Until recently, there were no options for doing so with Open Source software. This article shows how the Open Source package smi23d can be used to convert ordinary SMILES strings into three-dimensional molfile representations.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/posts/2007-12-12-simple-3d-conformer-generation-with-smi23d/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/posts/2007-12-12-simple-3d-conformer-generation-with-smi23d/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="Simple 3D Conformer Generation with Smi23D">
+  <meta property="og:description" content="Three-dimensional conformer generation is a common problem in cheminformatics. The most convenient and generally-useful method for creating chemical structures is the 2D chemical structure editor; applications that require three-dimensional representations need a way to generate reasonable coordinates from 2D user input. Until recently, there were no options for doing so with Open Source software. This article shows how the Open Source package smi23d can be used to convert ordinary SMILES strings into three-dimensional molfile representations.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2007-12-12T00:00:00+00:00">
+    <meta property="article:modified_time" content="2007-12-12T00:00:00+00:00">
+
+  <meta itemprop="name" content="Simple 3D Conformer Generation with Smi23D">
+  <meta itemprop="description" content="Three-dimensional conformer generation is a common problem in cheminformatics. The most convenient and generally-useful method for creating chemical structures is the 2D chemical structure editor; applications that require three-dimensional representations need a way to generate reasonable coordinates from 2D user input. Until recently, there were no options for doing so with Open Source software. This article shows how the Open Source package smi23d can be used to convert ordinary SMILES strings into three-dimensional molfile representations.">
+  <meta itemprop="datePublished" content="2007-12-12T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2007-12-12T00:00:00+00:00">
+  <meta itemprop="wordCount" content="590">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Simple 3D Conformer Generation with Smi23D">
+  <meta name="twitter:description" content="Three-dimensional conformer generation is a common problem in cheminformatics. The most convenient and generally-useful method for creating chemical structures is the 2D chemical structure editor; applications that require three-dimensional representations need a way to generate reasonable coordinates from 2D user input. Until recently, there were no options for doing so with Open Source software. This article shows how the Open Source package smi23d can be used to convert ordinary SMILES strings into three-dimensional molfile representations.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Simple 3D Conformer Generation with Smi23D</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2007-12-12T00:00:00Z">December 12, 2007</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Three-dimensional conformer generation is a common problem in cheminformatics. The most convenient and generally-useful method for creating chemical structures is the <a href="/articles/2007/11/27/chemwriter-chemical-structures-and-the-web">2D chemical structure editor</a>; applications that require three-dimensional representations need a way to generate reasonable coordinates from 2D user input. <a href="http://miningdrugs.blogspot.com/2007/10/open-source-conformer-generators-are.html">Until recently</a>, there were no options for doing so with Open Source software. This article shows how the Open Source package <a href="http://www.chembiogrid.org/cheminfo/smi23d/">smi23d</a> can be used to convert ordinary SMILES strings into three-dimensional molfile representations.</p>
+<h1 id="about-smi23d">About smi23d</h1>
+<p>smi23d uses a two-stage process to generate 3D coordinates.; an initial pass with <!-- raw HTML omitted -->smi2sdf<!-- raw HTML omitted --> generates rough coordinates and subsequent refinement by <!-- raw HTML omitted -->mengine<!-- raw HTML omitted --> results in the final coordinates. The package was originally written in C by Kevin Gilbert and updated by <a href="http://cheminfo.informatics.indiana.edu/~rguha/index.html">Rajarshi Guha</a>. As part of what appears to be a growing trend in cheminformatics, smi23d is licensed under the highly-permissive <a href="http://opensource.org/licenses/apache2.0.php">Apache License</a>.</p>
+<p>On a related note, the source code for a program called <a href="http://bioserv.rpbs.jussieu.fr/Help/Frog-Help.html">Frog</a> is reportedly <a href="http://baoilleach.blogspot.com/2007/10/ann-frog-donates-code-to-openbabel-for.html">on its way</a> into the <a href="http://openbabel.sf.net">Open Babel</a> project.</p>
+<h1 id="prerequisites">Prerequisites</h1>
+<p>To build smi23d, you&rsquo;ll need to install <a href="http://www.scons.org/">Scons</a>, a Make-like build utility written in Python. I was able to install the <a href="http://sourceforge.net/project/showfiles.php?group_id=30337&amp;package_id=22359">Scons rpm</a> on my Linux system without a problem. smi23d uses no other dependencies.</p>
+<h1 id="download-smi23d">Download smi23d</h1>
+<p>smi23d can be downloaded with Subversion:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>svn co https://cicc-grid.svn.sourceforge.net/svnroot/cicc-grid/cicc-grid/smi23d/trunk smi23d
+</span></span></code></pre></div><h1 id="building-smi23d">Building smi23d</h1>
+<p>With the source code in place, compilation is just a matter of running Scons:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd smi23d
+</span></span><span style="display:flex;"><span>scons
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Once the sources are compiled, we&rsquo;ll want to configure our system a bit:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd build
+</span></span><span style="display:flex;"><span>ls
+</span></span><span style="display:flex;"><span>mmff94.prm  mmxconst.prm
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cp ../src/smi2sdf/smi2sdf .
+</span></span><span style="display:flex;"><span>cp ../src/mengine/mengine .
+</span></span></code></pre></div><p>The two files <strong>mmff94.prm</strong> and <strong>mmxconst.prm</strong> are parameter files needed by both <!-- raw HTML omitted -->smi2sdf<!-- raw HTML omitted --> and <!-- raw HTML omitted -->mengine<!-- raw HTML omitted -->.</p>
+<p>With <!-- raw HTML omitted -->smi2sdf<!-- raw HTML omitted --> and <!-- raw HTML omitted -->mengine<!-- raw HTML omitted --> both in the <strong>build</strong> directory, we can create a simple test with the SMILES for <a href="http://pubchem.ncbi.nlm.nih.gov/summary/summary.cgi?cid=132999">Ivabradine</a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vi test.smi
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ cat test.smi
+</span></span><span style="display:flex;"><span>CN<span style="color:#f92672">(</span>CCCN1CCC2<span style="color:#f92672">=</span>CC<span style="color:#f92672">(=</span>C<span style="color:#f92672">(</span>C<span style="color:#f92672">=</span>C2CC1<span style="color:#f92672">=</span>O<span style="color:#f92672">)</span>OC<span style="color:#f92672">)</span>OC<span style="color:#f92672">)</span>C<span style="color:#f92672">[</span>C@H<span style="color:#f92672">]</span>3CC4<span style="color:#f92672">=</span>CC<span style="color:#f92672">(=</span>C<span style="color:#f92672">(</span>C<span style="color:#f92672">=</span>C34<span style="color:#f92672">)</span>OC<span style="color:#f92672">)</span>OC
+</span></span></code></pre></div><p>With everything ready to go, we can begin Stage one:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./smi2sdf test.smi
+</span></span><span style="display:flex;"><span>Found <span style="color:#ae81ff">1</span> structures in test.smi
+</span></span><span style="display:flex;"><span> field : MMX
+</span></span><span style="display:flex;"><span> Atom Types: <span style="color:#ae81ff">169</span>
+</span></span><span style="display:flex;"><span> Bonds: <span style="color:#ae81ff">580</span> Bond3: <span style="color:#ae81ff">0</span> Bond4: <span style="color:#ae81ff">0</span> Bond5: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> Angle: <span style="color:#ae81ff">434</span> Angle3: <span style="color:#ae81ff">41</span> Angle4: <span style="color:#ae81ff">60</span> Angle5: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> Torsion: <span style="color:#ae81ff">697</span>  Torsion4: <span style="color:#ae81ff">58</span> Torsion5: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> Vdw: <span style="color:#ae81ff">172</span> OOP: <span style="color:#ae81ff">91</span> Dipole: <span style="color:#ae81ff">474</span> Charge: <span style="color:#ae81ff">0</span> Improper: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> STBN: <span style="color:#ae81ff">26</span> ANGANG: <span style="color:#ae81ff">0</span> STRTOR: <span style="color:#ae81ff">0</span> VDWPR: <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Input file  <span style="color:#f92672">=</span> test.smi
+</span></span><span style="display:flex;"><span>Output file <span style="color:#f92672">=</span> output.sdf
+</span></span><span style="display:flex;"><span>Param file  <span style="color:#f92672">=</span> mmxconst.prm
+</span></span><span style="display:flex;"><span>Log file    <span style="color:#f92672">=</span> error.log
+</span></span><span style="display:flex;"><span>Inorganic file <span style="color:#f92672">=</span> test_inorg.smi
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Structure: <span style="color:#ae81ff">0</span> CN<span style="color:#f92672">(</span>CCCN1CCC2<span style="color:#f92672">=</span>CC<span style="color:#f92672">(=</span>C<span style="color:#f92672">(</span>C<span style="color:#f92672">=</span>C2CC1<span style="color:#f92672">=</span>O<span style="color:#f92672">)</span>OC<span style="color:#f92672">)</span>OC<span style="color:#f92672">)</span>C<span style="color:#f92672">[</span>C@H<span style="color:#f92672">]</span>3CC4<span style="color:#f92672">=</span>CC<span style="color:#f92672">(=</span>C<span style="color:#f92672">(</span>C<span style="color:#f92672">=</span>C34<span style="color:#f92672">)</span>OC<span style="color:#f92672">)</span>OC
+</span></span></code></pre></div><p>You can view the result in an application like <a href="http://jmol.sf.net">Jmol</a>:</p>
+<p><img src="/images/posts/20071212/smi23d.png" alt="smi23d" title="smi23d"></p>
+<p>It&rsquo;s not much to look at, but we&rsquo;re not quite done yet.</p>
+<p>Stage two is accomplished by using the output of Stage one as input to <!-- raw HTML omitted -->mengine<!-- raw HTML omitted -->:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./mengine -o optimized.sdf output.sdf
+</span></span><span style="display:flex;"><span> field : MMX
+</span></span><span style="display:flex;"><span> Atom Types: <span style="color:#ae81ff">169</span>
+</span></span><span style="display:flex;"><span> Bonds: <span style="color:#ae81ff">580</span> Bond3: <span style="color:#ae81ff">0</span> Bond4: <span style="color:#ae81ff">0</span> Bond5: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> Angle: <span style="color:#ae81ff">434</span> Angle3: <span style="color:#ae81ff">41</span> Angle4: <span style="color:#ae81ff">60</span> Angle5: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> Torsion: <span style="color:#ae81ff">697</span>  Torsion4: <span style="color:#ae81ff">58</span> Torsion5: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> Vdw: <span style="color:#ae81ff">172</span> OOP: <span style="color:#ae81ff">91</span> Dipole: <span style="color:#ae81ff">474</span> Charge: <span style="color:#ae81ff">0</span> Improper: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> STBN: <span style="color:#ae81ff">26</span> ANGANG: <span style="color:#ae81ff">0</span> STRTOR: <span style="color:#ae81ff">0</span> VDWPR: <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span> field : MMFF94
+</span></span><span style="display:flex;"><span> Atom Types: <span style="color:#ae81ff">181</span>
+</span></span><span style="display:flex;"><span> Bonds: <span style="color:#ae81ff">448</span> Bond3: <span style="color:#ae81ff">0</span> Bond4: <span style="color:#ae81ff">0</span> Bond5: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> Angle: <span style="color:#ae81ff">1801</span> Angle3: <span style="color:#ae81ff">21</span> Angle4: <span style="color:#ae81ff">61</span> Angle5: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> Torsion: <span style="color:#ae81ff">674</span>  Torsion4: <span style="color:#ae81ff">38</span> Torsion5: <span style="color:#ae81ff">95</span>
+</span></span><span style="display:flex;"><span> Vdw: <span style="color:#ae81ff">182</span> OOP: <span style="color:#ae81ff">112</span> Dipole: <span style="color:#ae81ff">0</span> Charge: <span style="color:#ae81ff">0</span> Improper: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> STBN: <span style="color:#ae81ff">286</span> ANGANG: <span style="color:#ae81ff">0</span> STRTOR: <span style="color:#ae81ff">0</span> VDWPR: <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><p>We now have a file called <code>output.sdf</code>. As you can see, it&rsquo;s a pretty good 3D representation of Ivabradine:</p>
+<p><img src="/images/posts/20071212/mengine.png" alt="mengine" title="mengine"></p>
+<h1 id="conclusions">Conclusions</h1>
+<p>In this tutorial, we&rsquo;ve seen how the Open Source program smi23d can be used to assign reasonable 3D coordinates to an arbitrary SMILES string. One very practical use of smi23d would be to process the output of 2D chemical structure editors prior to use in a 3D program. Future articles will discuss some of the possibilities.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  My New Hugo Site 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

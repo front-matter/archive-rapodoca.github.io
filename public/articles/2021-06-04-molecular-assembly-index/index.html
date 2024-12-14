@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Molecular Assembly Index | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Searching for life with a biosignature based on graph theory.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+      <meta name="author" content = "Richard L. Apodaca">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://depth-first.com:1313/articles/2021-06-04-molecular-assembly-index/">
+    
+
+    <meta property="og:url" content="https://depth-first.com:1313/articles/2021-06-04-molecular-assembly-index/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Molecular Assembly Index">
+  <meta property="og:description" content="Searching for life with a biosignature based on graph theory.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2021-06-04T15:00:00+00:00">
+    <meta property="article:modified_time" content="2021-06-04T15:00:00+00:00">
+
+  <meta itemprop="name" content="Molecular Assembly Index">
+  <meta itemprop="description" content="Searching for life with a biosignature based on graph theory.">
+  <meta itemprop="datePublished" content="2021-06-04T15:00:00+00:00">
+  <meta itemprop="dateModified" content="2021-06-04T15:00:00+00:00">
+  <meta itemprop="wordCount" content="1851">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Molecular Assembly Index">
+  <meta name="twitter:description" content="Searching for life with a biosignature based on graph theory.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Molecular Assembly Index</h1>
+      
+      <p class="tracked">
+        By <strong>Richard L. Apodaca</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2021-06-04T15:00:00Z">June 4, 2021</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>How can life be recognized as such? The question has great scientific, technological, and cultural importance. One school of thought says that we should start with a definition. But after <a href="https://doi.org/10.1080/073911011010524992">123 attempts and counting</a>, just defining the word &ldquo;life&rdquo; has yielded more heat than light. This article discusses a paper that takes an entirely different, cheminformatics-driven approach to the question of detecting life as we do and don&rsquo;t know it.</p>
+<h1 id="molecular-evidence-for-life">Molecular Evidence for Life</h1>
+<p>Rather than trying to define what life <em>is</em>, why not focus instead on what life <em>does</em>? This question underpins <a href="https://doi.org/10.1038/s41467-021-23258-x">a new paper</a> from the <a href="http://www.chem.gla.ac.uk/cronin">Cronin Group</a>. It proposes a new method for recognizing present and past life through a mathematically-grounded analysis of the molecular evidence life leaves behind. The video below offers a general audience background to the idea.</p>
+<!-- raw HTML omitted -->
+<p>What kinds of molecules does life produce? We need to check our assumptions here. Life on Earth appears to based on a single chemical repertoire. But it would be a mistake to extrapolate this narrow observation to the ancient Earth, other planets, or even a laboratory. Life&rsquo;s operating systems may be more numerous and bizarre than we can imagine.</p>
+<p>What&rsquo;s needed is a general-purpose <em><a href="https://en.wikipedia.org/wiki/Biosignature">biosignature</a></em> - molecular evidence for past or present life. But this biosignature must not be biased toward any single variety of biochemistry. Instead, it should be based on math, providing a numerical readout from which life&rsquo;s presence can be objectively inferred regardless of what form it takes or what kind of chemistry is involved.</p>
+<h1 id="molecular-assembly">Molecular Assembly</h1>
+<p>The paper proposes a method for life detection based on <em>molecular assembly index</em> (MA). Confusingly, the same paper also uses the term <em>molecular assembly number</em>. As far as I can tell, both terms refer to exactly the same thing. For the rest of this article, I&rsquo;ll use the abbreviation &ldquo;MA&rdquo; to to refer to either molecular assembly number or molecular assembly index.</p>
+<p>The idea behind MA is straightforward in principle. Break a target molecule into its unique, irreducible pieces, then assemble the pieces recursively. The minimum number of iterations required to reassemble a molecule is its MA. Put another way, MA is the number of steps in a molecule&rsquo;s shortest assembly sequence. As such, MA is a positive integer that should be positively correlated with molecular complexity.</p>
+<!-- raw HTML omitted -->
+<p>Simple though MA may be in concept, things get complicated very quickly. The paper presents two distinct varieties of MA, although this may not be immediately obvious:</p>
+<ul>
+<li><strong>Pathway MA</strong>. The closest fit to the process described above and in the paper&rsquo;s text and figures. Break the molecule up into indivisible pieces, then report the length of the shortest path to assemble them back into the target molecule after an exhaustive search.</li>
+<li><strong>Split-branch MA.</strong> An upper bound on pathway MA. Whereas pathway MA is computed from the set of bonds, working up to the target molecule, split-branch MA works by dividing the target molecule into ever smaller fragments. Split-branch MA is reported to be more computationally tractable than pathway MA. For this reason, the SI, downloadable binary executable, and experimental results are all based on split-branch MA, not pathway MA.</li>
+</ul>
+<p>The paper&rsquo;s conceptual description of MA refers to pathway MA, but all experimental work, flowcharts, and C++ software implementations rely on split-branch MA.</p>
+<p>Understanding MA requires a detailed understanding of pathway MA, but that description has not been published. The following section fills in some of the gaps based on my reading of the published literature. It&rsquo;s entirely possible I&rsquo;ve gotten some things wrong here, and corrections are welcome.</p>
+<h1 id="a-pathway-ma-algorithm">A Pathway MA Algorithm</h1>
+<p>A pathway MA algorithm can be devised that accepts a molecular graph (<code>target</code>) as input, and returns a positive integer representing the corresponding pathway MA. The result is obtained through recursive, random recombination of <code>input</code>&rsquo;s unique bonds. Each round builds ever more complex subgraphs of <code>target</code> until <code>target</code> itself emerges. The sequence of steps that generates <code>target</code> is called an &ldquo;assembly pathway.&rdquo; A given molecule can have many pathways of identical or different lengths. The minimum assembly pathway length is the pathway MA.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>function compute_ma
+</span></span><span style="display:flex;"><span>    input:  Molecule target
+</span></span><span style="display:flex;"><span>    output: int
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    let soup = fragment(target)
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    return enrich(soup, target, 0)
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>function fragment
+</span></span><span style="display:flex;"><span>    input:  Molecule target
+</span></span><span style="display:flex;"><span>    output: Set&lt;Molecule&gt;
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    let result = new Set()
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    for bond in target
+</span></span><span style="display:flex;"><span>        // Bond -&gt; Molecule
+</span></span><span style="display:flex;"><span>        let graph = molecule_for_bond(bond)
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>        insert(result, graph)
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>    return result
+</span></span></code></pre></div><p>At the highest level, the algorithm performs two steps (function <code>compute_ma</code>). First, the <code>target</code> is fragmented into a set of unique two-atom, one bond subgraphs. These are <code>target</code>&rsquo;s unique bonds, but cast as Molecules. Next, the fragments are recombined with the recursive function <code>enrich</code>.</p>
+<p>The pathway MA algorithm&rsquo;s central abstraction is <code>soup</code>, a subset of <code>target</code> subgraphs. Initially, <code>soup</code> contains the unique bonds in <code>target</code>. Each enrichment iteration adds one <code>target</code> subgraph until either <code>target</code> itself is produced or it becomes impossible to obtain <code>target</code> from <code>soup</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>function enrich
+</span></span><span style="display:flex;"><span>    input:  Set&lt;Molecule&gt; soup
+</span></span><span style="display:flex;"><span>            Molecule target
+</span></span><span style="display:flex;"><span>            int index
+</span></span><span style="display:flex;"><span>    output: int
+</span></span><span style="display:flex;"><span>        let indexes = new Set()
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>        for left in soup
+</span></span><span style="display:flex;"><span>            for right in soup
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>            for product in assemble(left, right)
+</span></span><span style="display:flex;"><span>                if is_isomorph(product, target)
+</span></span><span style="display:flex;"><span>                    return index
+</span></span><span style="display:flex;"><span>                else if size(product) &lt; size(target)
+</span></span><span style="display:flex;"><span>                    let next_soup = clone(soup)
+</span></span><span style="display:flex;"><span>                    let next_index = enrich(next_soup, target, index + 1)
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>                    if next_index &gt; 0
+</span></span><span style="display:flex;"><span>                        insert(indexes, next_index)
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    // -&gt; -1 if indexes is empty
+</span></span><span style="display:flex;"><span>    return min(indexes)
+</span></span></code></pre></div><p>Enrichment of <code>soup</code> occurs through the <code>enrich</code> function. It accepts <code>soup</code>, <code>target</code>, and an integer (<code>index</code>) as arguments. The return value is either the MA of <code>target</code>, or -1 if none was found.</p>
+<p>During an enrichment iteration, products are generated for each pair of <code>soup</code> members. If a product is isomorphic with the <code>target</code>, <code>index</code> is returned as the MA. A product of size (edge count) greater than <code>target</code> can&rsquo;t lie on its assembly pathway because each step increases the edge count. Therefore, a product is added to the soup only if its size is less than <code>target</code>. Otherwise, the product is ignored. The <code>enrich</code> function can be thought of as performing an exhaustive traversal over the <a href="https://arxiv.org/pdf/1907.04649.pdf">assembly space</a> of a molecular graph.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>function assemble
+</span></span><span style="display:flex;"><span>    input:  Molecule left
+</span></span><span style="display:flex;"><span>            Molecule right
+</span></span><span style="display:flex;"><span>    output: Set&lt;Molecule&gt;
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    let result = new Set()
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    for left_atom in left
+</span></span><span style="display:flex;"><span>        let global = merge(left, right)
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>        for right_atom in right
+</span></span><span style="display:flex;"><span>            if !joinable(left_atom, right_atom)
+</span></span><span style="display:flex;"><span>                continue
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>            let local = merge(left, right)
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>            join(local, left_atom, right_atom)
+</span></span><span style="display:flex;"><span>            join(global, left_atom, right_atom)
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>            insert(result, local)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        insert(result, global)
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    return set
+</span></span></code></pre></div><p>Product formation is controlled through a process I&rsquo;ll call <em>assembly</em> (function <code>assemble</code>). Assembly returns a set of Molecule products given two members of the <code>soup</code> (<code>left</code> and <code>right</code>). To create a product, <code>left</code> and <code>right</code> are first merged into a two-component graph. The set of all possible combinations of new bonds between left and right is then exhaustively installed to yield products.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>function condense
+</span></span><span style="display:flex;"><span>    input:  Molecule molecule
+</span></span><span style="display:flex;"><span>            Atom left
+</span></span><span style="display:flex;"><span>            Atom right
+</span></span><span style="display:flex;"><span>    output: Molecule
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    for bond in molecule
+</span></span><span style="display:flex;"><span>        replace(bond, left, right)
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    remove(molecule, left)
+</span></span></code></pre></div><p>New bonds are made through a process I&rsquo;ll call <em>condensation</em> (function <code>condense</code>). <code>condense</code> accepts a two-component Molecule and one atom from each component as input. The function updates each bond pointing to the first atom such that it will point to the second atom instead. Finally, the first atom is removed from the molecule.</p>
+<!-- raw HTML omitted -->
+<p>The authors don&rsquo;t state how much more efficient it is to compute split-branch MA rather than pathway MA, but suggest that computational cost was one factor that motivated the development of the the former:</p>
+<blockquote>
+<p>&hellip; Computing an assembly pathway of a molecule can be done simply by decomposing the object into fragments and reconstructing it, however, identifying the shortest pathway is computationally challenging.</p>
+</blockquote>
+<h1 id="ma-as-a-biosignature">MA as a Biosignature</h1>
+<p>The process of computing assembly MA is modeled after <em>abiogenesis</em>, the natural process whereby non-living matter gives rise to life. The algorithm&rsquo;s growing set of molecular fragments (the <code>soup</code>) recalls the notion of a <a href="https://en.wikipedia.org/wiki/Primordial_soup">primordial soup</a> in which ever more complex molecules arise from simpler ones through random events. As chemical systems capable of evolution arise, certain pathways become amplified well beyond the expected background level. As the authors note:</p>
+<blockquote>
+<p>&hellip; Our central thesis is that molecules with high MA are very unlikely to form abiotically, and the probability of abiotic formation goes down as MA increases, and hence experimental determination of MA is a good candidate for a life detection system. If our hypothesis is correct, then life detection experiments based on MA can indicate the presence of living systems, irrespective of their elemental composition, assuming those living systems are based on molecules.</p>
+</blockquote>
+<p>Testing this hypothesis, however, requires a method for linking an observable quantity with MA.</p>
+<h1 id="linking-assembly-theory-with-experiment">Linking Assembly Theory with Experiment</h1>
+<p>Given the time scales likely to be involved, direct observation of abiogenesis may not be feasible. However, the problem becomes more tractable when considered from the opposite direction. What can molecular disassembly reveal about the pathway that produces a molecule?</p>
+<p>Tandem mass spectrometry (MS/MS) offers a powerful, well-established tool to for molecular disassembly. MS/MS is especially useful because it requires no prior purification of samples. Complex mixtures, sampled directly from the environment, can be used. Individual molecular species can then be selected and fragmented. The fragments can then be characterized by mass.</p>
+<p>The authors speculated that the MS2 peak count for a particular ion would be positively correlated with its split-branch MA. This was found to be the case.</p>
+<!-- raw HTML omitted -->
+<p>In an experiment designed to model a a biosignature search, a variety of mixtures were fragmented, the MS2 peak count obtained from the strongest MS1 peak was determined, and the implied MA was computed. The data show clear patterns among samples labeled as abiotic; dead; inorganic; and biological. These results imply an MA threshold for &ldquo;living samples&rdquo; of about 15. The estimate is not without caveats, but does avoid many of the problems faced by alternative techniques.</p>
+<!-- raw HTML omitted -->
+<p>It&rsquo;s not clear when an MA-based life detection experiment might be deployed aboard a robotic spacecraft. The authors note that the specific MS/MS instrument used  &ldquo;has a much higher resolution than mass spectrometers expected on planned space missions, and our goal here is to demonstrate the viability of this analysis in principle.&rdquo;</p>
+<h1 id="broader-implications">Broader Implications</h1>
+<p>MA may find applications beyond Origins of Life research. For example, MA defines a potential scale for molecular complexity. As such, it joins a body of work extending back to at least <a href="https://doi.org/10.1007/BF02477860">1955</a>. A <a href="https://doi.org/10.1038/s41598-018-37253-8">recent paper</a> reviewed  known approaches to measuring molecular complexity, grouping them into two categories:</p>
+<ol>
+<li>Identify substructure-related features and their probability of occurrence to derive Shannon entropy.</li>
+<li>Use an expert-formulated weighting system to tally the contribution of various predefined substructures.</li>
+</ol>
+<p>MA and and its spinoffs may represent a third category of complexity scale.</p>
+<p>Applications for molecular complexity scales can be found throughout chemistry and biology. A 2018 review focused on <a href="http://dx.doi.org/10.1016/j.drudis.2016.08.009">applications in drug discovery</a>.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>MA is a new molecular descriptor designed and experimentally validated for biosignature detection. Two versions of MA were reported, pathway MA and split-branch MA. The former matches the authors&rsquo; explanation of the index, but only the latter was documented in detail and reduced to software. To fill the gap, this article condenses the published literature to arrive at an algorithm for computing pathway MA. As a new kind of unbiased complexity metric, MA may find application in diverse areas of chemistry.</p>
+<p><em>Summary image credit: <a href="https://commons.wikimedia.org/wiki/File:WALLACE%27S_CONDENSED_%E2%80%95PRIMORDIAL_SOUP_(7582436090).jpg">Wikipedia</a></em></p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://depth-first.com:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

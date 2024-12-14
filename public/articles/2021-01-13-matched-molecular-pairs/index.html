@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Matched Molecular Pairs | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Stepping outside the black box to answer the question of what to test next.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+      <meta name="author" content = "Richard L. Apodaca">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://depth-first.com:1313/articles/2021-01-13-matched-molecular-pairs/">
+    
+
+    <meta property="og:url" content="https://depth-first.com:1313/articles/2021-01-13-matched-molecular-pairs/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Matched Molecular Pairs">
+  <meta property="og:description" content="Stepping outside the black box to answer the question of what to test next.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2021-01-13T22:00:00+00:00">
+    <meta property="article:modified_time" content="2021-01-13T22:00:00+00:00">
+
+  <meta itemprop="name" content="Matched Molecular Pairs">
+  <meta itemprop="description" content="Stepping outside the black box to answer the question of what to test next.">
+  <meta itemprop="datePublished" content="2021-01-13T22:00:00+00:00">
+  <meta itemprop="dateModified" content="2021-01-13T22:00:00+00:00">
+  <meta itemprop="wordCount" content="1393">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Matched Molecular Pairs">
+  <meta name="twitter:description" content="Stepping outside the black box to answer the question of what to test next.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Matched Molecular Pairs</h1>
+      
+      <p class="tracked">
+        By <strong>Richard L. Apodaca</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2021-01-13T22:00:00Z">January 13, 2021</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Early-phase medicinal chemistry is full of challenges and uncertainties. But despite it all, the entire enterprise can often be boiled down to just one question: which compounds should be tested next?</p>
+<p>Opinions differ on the role that cheminformatics should play here. One school of thought says to simply supply the answer. Recent advances in machine learning have bolstered this view. Another line of thinking says that cheminformatics should equip the medicinal chemist with the tools to choose the next compound to be tested. This article discusses a practical algorithm aligned with the latter view.</p>
+<h1 id="what-to-test-next">What to Test Next</h1>
+<p>Quantitative structure activity (QSAR) models can be useful, but are often opaque. Given high compound attrition rates, what&rsquo;s needed most often is not active and selective compounds but instead <em>a blueprint</em> for making active and selective compounds. A model formulated in the language of medicinal chemistry is an effective way to achieve this.</p>
+<p>A key element of this language is the pairwise comparison of closely-related chemical structures and associated properties. Consider the following pairwise comparison from <a href="https://doi.org/10.1021/jm030185v">one of my drug discovery projects</a>.</p>
+<!-- raw HTML omitted -->
+<p>What&rsquo;s most important about the pair is not the sub-nanomolar binding affinity of the compound on the right. Rather, it&rsquo;s the indication that a second basic nitrogen atom increases affinity by nearly 100-fold. From this single observation, a hypothesis which ultimately lead to hundreds of new, active compounds was formulated.</p>
+<p>A pairwise relationship may be observed to be <em>additive</em> with respect to each other. If so, the effect of a pairwise structural change can be added to the effect of another pairwise structural change. Deviations from additivity suggest <a href="https://doi.org/10.1021/acs.jmedchem.8b00713">a change in binding mode</a>. Using these simple conceptual tools, quantitative models grounded in the language of medicinal chemistry can be developed.</p>
+<p>How closely should two compounds in a pairwise relationship resemble each other? Consider the purpose of the comparison, which is to generate hypotheses. The compounds must be similar enough in structure to suggest a clearly-defined hypothesis. Testing the hypothesis requires a practical method to access both members of the pair, which favors single bond disconnections.</p>
+<h1 id="matched-molecular-pairs">Matched Molecular Pairs</h1>
+<p>The well-known medicinal chemistry practice of pairwise structural comparison has been formalized as <em>Matched Molecular Pair</em> (MMP) analysis. <a href="https://doi.org/10.1021/jm200452d">One definition</a> calls an MMP a pair of molecules &ldquo;that differ only by a particular, well-defined, structural transformation.&rdquo; Often a measured property of some kind is associated with each member of the pair.</p>
+<p>The main value of MMPs lies not in their generation, which is straightforward and can be done manually. Rather, the value lies in extracting MMPs from large collections of existing structure-activity relationships (SARs). Such work is repetitive and error-prone - just the sort of problem computers were created to solve.</p>
+<p>But this raises the question: how can MMPs be identified algorithmically within large data sets?</p>
+<h1 id="the-hussain-rea-algorithm">The Hussain-Rea Algorithm</h1>
+<p>Two broad categories of MMP-finding algorithms have been developed over the last few decades: <em>supervised</em> and <em>unsupervised</em>. A supervised algorithm relies on one or more precompiled templates to identify pairs. An unsupervised algorithm can identify MMPs without precompiled templates. Until 2010, most published MMP algorithms were supervised. The ones that were not relied on maximum common subgraph (MCS) analysis, an expensive proposition for large data sets.</p>
+<p>In 2010, Hussain and Rea reported <a href="https://pubs.acs.org/doi/10.1021/ci900450m">the first efficient, unsupervised MMP algorithm</a>. An implementation was shown to effectively extract MMPs from large data sets with modest hardware requirements.</p>
+<p>Rather than jumping directly into the algorithm as the paper does, I think it&rsquo;s more instructive to describe the central operation in some detail.</p>
+<h1 id="making-the-cut">Making the Cut</h1>
+<p>The Hussain-Rea algorithm is based on an operation called a <em>cut</em>. A cut removes an acyclic bond of order one between two heavy atoms in a connected molecular graph. Because the bond that is removed is not part of a ring, two fragments must result. A cut can be reversed by fusing the fragments through the bond that was previously cut.</p>
+<!-- raw HTML omitted -->
+<p>Each fragment resulting from a cut can be considered the substituent of its mate. In the above example, the benzene ring can be viewed as a substituent of hydroxyl. Likewise, hydroxyl can be viewed as a substituent of benzene. This symmetry plays a prominent role in the Hussain-Rea algorithm.</p>
+<p>As will soon become clear, it&rsquo;s useful to designate one of the fragments resulting from a cut as the <em>core</em>. A core is a fragment to which one or more fragments are attached. In the case of a single cut, only two fragments are generated and so each can be designated as a core, depending on perspective. Consider again the example of phenol. Either benzyl or hydroxyl could be considered to be the core fragment. The authors tend to refer to the complementary (non-core) fragment as just a &ldquo;fragment.&rdquo;</p>
+<p>Performing two cuts yields three fragments, one of which necessarily connects to both of its mates when the cuts are reversed. This central fragment is always designated as the core.</p>
+<!-- raw HTML omitted -->
+<p>Performing three cuts yields four fragments. Here there are two possible modes: (1) the third cut is made inside the core; or (2) the third cut occurs outside the core. Mode (2) is excluded, meaning that triple cuts yielding two cores are not performed by the Hussain-Rea algorithm.</p>
+<!-- raw HTML omitted -->
+<p>In principle, quadruple and higher cuts are possible. However, the authors demonstrate that cuts beyond triple are &ldquo;&hellip; only likely to result in a small increase in the number of unique MMPs found.&rdquo;</p>
+<h1 id="indexing">Indexing</h1>
+<p>The Hussain-Rea algorithm proceeds in two phases:</p>
+<ol>
+<li><strong>Fragmentation.</strong> For each molecule in the set perform all feasible single, double, and triple cuts.</li>
+<li><strong>Indexing</strong>. Generate a key-value store with fragments as keys and values as cores.</li>
+</ol>
+<p>The result is a table, most likely in the form of an indexed database table or an in-memory hash table. The entries of the index are generated as follows:</p>
+<ol>
+<li>Select one, two, or three acyclic single bonds to cut.</li>
+<li>Cut the bond(s).</li>
+<li>Aggregate the non-core fragments into a single key <code>K</code>.</li>
+<li>Find the value <code>V</code> for the key <code>K</code> in the index. If none exists, create <code>V</code> as an empty set and add it to the index.</li>
+<li>Insert the tuple (core, ID) into <code>V</code>, where &ldquo;ID&rdquo; is the compound&rsquo;s unique identifier.</li>
+</ol>
+<p>The result is a key-value store mapping a unique, fragment-based key to a nonempty set of cores.</p>
+<p>The authors implement keys <code>K</code> as canonicalized, dot-disconnected SMILES strings. As such, the cores associated with any single or multiple fragment key can be obtained in constant time by backing the index with an indexed database or hash table.</p>
+<p>The authors address two other practical considerations:</p>
+<ul>
+<li>the cut operation omits hydrogens, which are usually <a href="/articles/2020/05/18/hydrogen-suppression-in-cheminformatics/">suppressed</a></li>
+<li>ways and reasons to filter undesirable fragments</li>
+</ul>
+<h1 id="from-index-to-mmps-and-beyond">From Index to MMPs and Beyond</h1>
+<p>The set of all MMPs can be obtained from the index as follows. For each key <code>K</code>, obtain value <code>V</code>. For each pairing of members in <code>V</code>, extract a pair of unique IDs. Record each pairing of IDs as a single MMP. Skip a value <code>V</code> that contains fewer than two members. In the table below, for example, three matched pairs are extracted from the first entry: (ID-13, ID-14); (ID-13, ID-42), and (ID-14, ID-42)).</p>
+<!-- raw HTML omitted -->
+<p>Although the authors don&rsquo;t address the topic specifically, it&rsquo;s worth noting that the entries within some values <code>V</code> represent a <em>matched molecular series</em>. Whereas a pair is two structures, a series is two or more. The structures contained within a given value <code>V</code> all differ by the same transformation. For example, the first entry in the table above contains a matched molecular series of size three. An <a href="https://doi.org/10.1021/jm200026b">application of this feature</a> by Wawer and Bajorath followed soon after the publication of the Hussain-Rea algorithm.</p>
+<h1 id="mmp-in-rdkit">MMP in RDKit</h1>
+<p>An implementation of the Hussain-Rea fragmentation algorithm can be found in <a href="http://rdkit.org/docs/source/rdkit.Chem.rdMMPA.html">RDKit&rsquo;s mmpa package</a>. A suite of tools based on this package called <a href="https://pubs.acs.org/doi/10.1021/acs.jcim.8b00173">mmpdb</a> has also been developed. It fills in some details of the Hussain-Rea algorithm, and provides a convenient SQLite backing for processing large data sets. mmpdb was tested on a data set of 20K structures.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>Matched molecular pair analysis is a powerful tool for answering the central question of what compound to test next. Unlike other computational tools, transparency affords MMPs the ability to complement existing molecular design paradigms. The cut and index algorithm introduced by Hussain and Rea can solve not only the problem of efficiently identifying MMPs in large data sets, but other problems as well.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://depth-first.com:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

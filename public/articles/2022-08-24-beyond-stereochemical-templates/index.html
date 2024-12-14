@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Beyond Stereochemical Templates | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Developing a general approach to configurational and conformational representation.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+      <meta name="author" content = "Richard L. Apodaca">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://depth-first.com:1313/articles/2022-08-24-beyond-stereochemical-templates/">
+    
+
+    <meta property="og:url" content="https://depth-first.com:1313/articles/2022-08-24-beyond-stereochemical-templates/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Beyond Stereochemical Templates">
+  <meta property="og:description" content="Developing a general approach to configurational and conformational representation.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2022-08-24T22:00:00+00:00">
+    <meta property="article:modified_time" content="2022-08-24T22:00:00+00:00">
+
+  <meta itemprop="name" content="Beyond Stereochemical Templates">
+  <meta itemprop="description" content="Developing a general approach to configurational and conformational representation.">
+  <meta itemprop="datePublished" content="2022-08-24T22:00:00+00:00">
+  <meta itemprop="dateModified" content="2022-08-24T22:00:00+00:00">
+  <meta itemprop="wordCount" content="1498">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Beyond Stereochemical Templates">
+  <meta name="twitter:description" content="Developing a general approach to configurational and conformational representation.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Beyond Stereochemical Templates</h1>
+      
+      <p class="tracked">
+        By <strong>Richard L. Apodaca</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2022-08-24T22:00:00Z">August 24, 2022</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Stereoisomerism is an essential component of molecular structure. But chemistry&rsquo;s ability to devise new stereoisomer forms long ago outstripped the ability of mainstream cheminformatics tools to represent them. Anything more complicated than tetrahedral configuration or alkene conformation often presents a challenge. This problem will ultimately be solved by generalized approaches to stereochemical representation. Although efforts over the last few decades have made progress, the results have not been widely adopted due to unwieldy formulations. This article offers a fresh approach to the problem that builds on the familiar.</p>
+<h1 id="a-note-about-configuration">A Note about Configuration</h1>
+<p>Before getting into the topic at hand, a few words on terminology can save a lot of confusion. The words &ldquo;configuration&rdquo; and &ldquo;conformation&rdquo; are used here in very specific ways that sometimes differ from uses in other contexts. Both refer to relative geometrical arrangements of atoms. Both relate to stereoisomerism. However, the words are not interchangeable. The difference comes down to how isomers can be interconverted. Conformations can be interconverted through rotations about an edge, which is typically equivalent to a bond, whereas configurations can not.</p>
+<h1 id="tetrahedra-are-easy">Tetrahedra are Easy</h1>
+<p>The tetrahedron is a workhorse stereochemical representation. It&rsquo;s a <em>template</em>, meaning that substituents about the stereocenter are imagined to fit into a preconfigured geometrical pattern. A tetrahedron offers two unique arrangements. The difficulty is not so much enumerating them but rather representing them in a machine-readable format.</p>
+<!-- raw HTML omitted -->
+<p>The most popular approach is the <a href="https://en.wikipedia.org/wiki/Cahn%E2%80%93Ingold%E2%80%93Prelog_priority_rules">Cahn-Ingold-Prelog (CIP) system</a>. CIP assigns a score to each substituent based on a set of <a href="/articles/2021/10/06/molecular-graph-canonicalization/">atomic invariants</a> These invariants include properties such as atomic number, mass number, unsaturation, and cycle membership. After assigning scores to each substituent, the right-hand rule is applied. The fingers of the right hand wrap the lowest-priority substituents in increasing order. If the thumb points toward the fourth substituent, the value (<em>R</em>) is assigned. Otherwise the value (<em>S</em>) is assigned.</p>
+<p>Cheminformatics toolkits and serialization formats use a streamlined version of this approach. Molecular representations, being based on graphs or trees, can take advantage of a built-in atomic ordering. This sidesteps the need for invariants and the many complexities they bring. Ordering can be explicit, as in the case of atomic indexes assigned for molecular graphs, or implicit as in <a href="https://github.com/metamolecular/balsadoc">molecular trees</a>.</p>
+<p>Take for example, <a href="https://github.com/metamolecular/balsadoc">Balsa</a>, a subset of SMILES. The stereodescriptors <code>Clockwise</code> (&quot;@@&quot;) or <code>Counterclockwise</code> (&quot;@&quot;) are assigned by sighting along the bond from a parent atom to a child atom stereocenter. The direction of iteration (clockwise or counterclockwise) for the stereocenter&rsquo;s children determine the descriptor.</p>
+<!-- raw HTML omitted -->
+<p>The <a href="/articles/2022/06/01/protosmiles/">ProtoSMILES</a> dialect of SMILES extends this system with templates beyond the tetrahedron. The approach was later adopted by the <a href="http://opensmiles.org">OpenSMILES</a> dialect for square planar, trigonal bipyramidal, and octahedral configurations. The complexity of representation and interpretation of these templates increases markedly with the number of substituents. Roger Sayle recently <a href="https://www.nextmovesoftware.com/talks/Sayle_Inorganic_ACS_202203.pdf">presented some work</a> aimed at bringing these more diverse templates to a wider audience through RDKit. Work aimed at <a href="https://github.com/aclarkxyz/data_coordinchi/blob/master/READMEph2.md">incorporating more diverse templates into InChI</a> was performed by Alex Clark.</p>
+<h1 id="the-trouble-with-templates">The Trouble with Templates</h1>
+<p>A stereochemical template assumes a predefined geometrical arrangement of substituents about a stereocenter. The approach is expedient, but it&rsquo;s also brittle. Organometallic, inorganic, and even organic species exhibit many kinds of stereochemically-relevant atomic arrangements. Each one requires its own unique template together with its own rules of construction and interpretation. Because the set of templates is unbounded, no implementation using them can ever be complete.</p>
+<!-- raw HTML omitted -->
+<p>What&rsquo;s needed is not a comprehensive catalog of stereochemical templates, but a generalized method of stereochemical representation that eliminates the need for templates altogether.</p>
+<h1 id="projection">Projection</h1>
+<p>The generalized method for stereochemical representation presented here is based on <em>projection</em>. In projection, the three-dimensional coordinates of a stereocenter&rsquo;s substituents are projected onto a plane intersecting the stereocenter. From a projection, generalized stereodescriptors can be constructed.</p>
+<p>The idea of projection isn&rsquo;t new, just hiding in plain sight. Consider a stereocenter with a tetrahedral arrangement of substituents. We can produce a projection by following these steps:</p>
+<ol>
+<li>Identify the stereocenter.</li>
+<li>Place the stereocenter into a plane.</li>
+<li>Choose a substituent (the &ldquo;prime&rdquo; atom).</li>
+<li>Orient the prime atom so that its bond to the stereocenter extends perpendicularly above the plane.</li>
+<li>Project the prime atom down into the plane.</li>
+<li>Project the remaining three substituents up into the plane.</li>
+</ol>
+<!-- raw HTML omitted -->
+<p>Notice how simple it would be to obtain a Balsa stereodescriptor from a projection. At Step (3), the prime atom is the substituent with the lowest global order. Having made the projection, we find the atom with the next lowest order. Then we set the stereodescriptor based on whether the remaining two atoms sweep in the clockwise or counterclockwise directions when traversed in order.</p>
+<p>The first step toward generalizing this concept is to relax the above rules to accommodate not just a tetrahedron, but any other arrangement such as octahedral, square planar, and trigonal bipyramidal. Relaxations might include:</p>
+<ol>
+<li>Project non-prime substituents lying above the plane.</li>
+<li>Account for non-prime substituents lying in the plane.</li>
+<li>Ignore a non-prime substituent lying directly below the prime atom.</li>
+</ol>
+<p>Consider the projection for an octahedral stereocenter. Like the tetrahedral projection, it places the prime atom at the center of an arrangement in which the remaining equatorial substituents are separated by arcs of π/2 radians.</p>
+<!-- raw HTML omitted -->
+<p>This projection is a good first step, but still incomplete. To understand why, consider a bizarre new form of octahedral configuration in which alternate equatorial ligands were not separated by π radians, but some other angle. We&rsquo;d want to capture the distinction, but that would not be possible with just the projection above.</p>
+<h1 id="coordinate-system">Coordinate System</h1>
+<p>The projection of substituents places points onto a plane. As we&rsquo;ll see, generating a descriptor requires a method for referring to these points. A convenient approach is to develop a coordinate system. It should be detailed enough to uniquely locate a substituent but minimal to allow for compact notation.</p>
+<p>Projection of a substituent creates a <em>position</em> in the projection plane. This position can be occupied by atoms originating from one of three locations: above the plane; below the plane; or in the plane. A given position can therefore be represented by a coordinate expressed as a tuple of the form (&ldquo;x,y,z)&rdquo; where where x is the order of an atom below the projection plane, y is the order of an atom in the projection plane, and z is the order of an atom above the projection plane. If no atom from a given region is present, we use the null symbol (<code>Ø</code>).</p>
+<p>To accommodate substituents that are colinear with the stereocenter, a <em>distal position</em> is created. A distal position is situated π radians from a projected substituent. If not already present, a distal position is created whenever an atom is added to a position. The distal position may be empty, yielding a coordinate of &ldquo;(Ø,Ø,Ø)&rdquo; which can be shortened to the capital letter &ldquo;E&rdquo;.</p>
+<!-- raw HTML omitted -->
+<h1 id="generalized-stereodescriptor">Generalized Stereodescriptor</h1>
+<p>Given the technique of projection and a coordinate system that can describe projected substituents, a generalized stereodescriptor can be formulated. Its purpose is to uniquely and adequately represent the substituent configuration about a stereocenter. At a minimum, the stereodescriptor should include representations for the prime atom and all substituents.</p>
+<p>The exact syntax for a projection is unimportant, but might be written as follows. Begin with the order of the prime atom. Concatenate a slash character (&quot;/&quot;). Starting with the position bearing the atom with the lowest order, concatenate the tuple for each position in clockwise order. If a position is empty (i.e., &ldquo;(Ø,Ø,Ø)&rdquo;), it can be represented as the uppercase letter &ldquo;E&rdquo;.</p>
+<p>The full stereodescriptor is a concatenation of all possible projections, iterated in increasing prime atom order, and separated by a newline character.</p>
+<p>For example, the stereodescriptor for a tetrahedron would start with the complete set of four projections. Iterating them in increasing prime atom order yields the stereodescriptor.</p>
+<!-- raw HTML omitted -->
+<p>The stereodescriptor for a square planar complex is readily distinguishable from the tetrahedral case. Not only that, but <em>cis</em> and <em>trans</em> forms are distinguishable from each other, without changing the overall process of naming them.</p>
+<!-- raw HTML omitted -->
+<p>The same can be said for trigonal bipyramidal and octahedral configurations. The approach even works with metallocenes, although a small modification is required.</p>
+<h1 id="conformation">Conformation</h1>
+<p>Projection can be used to construct stereodescriptors not just for configurational isomers but conformational isomers as well. The bond about which interconversion occurs is chosen as an axis perpendicular to the projection plane. Substituents on each terminal are then projected as before. The approach can be extended to multiple co-linear bonds as in the case of odd cumulenes such as allene.</p>
+<h1 id="references">References</h1>
+<p>Most of the ideas presented here were adapted from the 1995 paper by Andreas Dietz titled <a href="https://doi.org/10.1021/ci00027a001"><em>Yet Another Representation of Molecular Structure</em></a>. In this paper, Dietz approaches the solution in a different way, but arrives at a similar result.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>This article describes one approach toward generalized stereodescriptors capable of representing numerous forms of configurational and conformational isomerization using a single abstraction. Some shortcuts were taken in the interest of simplification, but even so the model should be applicable to a wide range of known stereoisomer forms.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://depth-first.com:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

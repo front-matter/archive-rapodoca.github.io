@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>A Molecular Language for Modern Chemistry: FlexMol and Axial Chirality | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="A recent article introduced FlexMol as a molecular language with the unique capability of encoding axial chirality. A previous article showed how E/Z geometrical isomerism is encoded with FlexMol. Using the popular chiral reagent and ligand 1,1&rsquo;-bi-2-naphthol (BINOL) as an example, this tutorial will illustrate in detail how axial chirality is encoded in FlexMol.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2007/01/09/a-molecular-language-for-modern-chemistry-flexmol-and-axial-chirality/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2007/01/09/a-molecular-language-for-modern-chemistry-flexmol-and-axial-chirality/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="A Molecular Language for Modern Chemistry: FlexMol and Axial Chirality">
+  <meta property="og:description" content="A recent article introduced FlexMol as a molecular language with the unique capability of encoding axial chirality. A previous article showed how E/Z geometrical isomerism is encoded with FlexMol. Using the popular chiral reagent and ligand 1,1’-bi-2-naphthol (BINOL) as an example, this tutorial will illustrate in detail how axial chirality is encoded in FlexMol.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2007-01-09T00:00:00+00:00">
+    <meta property="article:modified_time" content="2007-01-09T00:00:00+00:00">
+
+  <meta itemprop="name" content="A Molecular Language for Modern Chemistry: FlexMol and Axial Chirality">
+  <meta itemprop="description" content="A recent article introduced FlexMol as a molecular language with the unique capability of encoding axial chirality. A previous article showed how E/Z geometrical isomerism is encoded with FlexMol. Using the popular chiral reagent and ligand 1,1’-bi-2-naphthol (BINOL) as an example, this tutorial will illustrate in detail how axial chirality is encoded in FlexMol.">
+  <meta itemprop="datePublished" content="2007-01-09T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2007-01-09T00:00:00+00:00">
+  <meta itemprop="wordCount" content="825">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="A Molecular Language for Modern Chemistry: FlexMol and Axial Chirality">
+  <meta name="twitter:description" content="A recent article introduced FlexMol as a molecular language with the unique capability of encoding axial chirality. A previous article showed how E/Z geometrical isomerism is encoded with FlexMol. Using the popular chiral reagent and ligand 1,1’-bi-2-naphthol (BINOL) as an example, this tutorial will illustrate in detail how axial chirality is encoded in FlexMol.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">A Molecular Language for Modern Chemistry: FlexMol and Axial Chirality</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2007-01-09T00:00:00Z">January 9, 2007</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>A <!-- raw HTML omitted -->recent article<!-- raw HTML omitted --> introduced FlexMol as a molecular language with the unique capability of encoding axial chirality. <!-- raw HTML omitted -->A previous article<!-- raw HTML omitted --> showed how E/Z geometrical isomerism is encoded with FlexMol. Using the popular chiral reagent and ligand 1,1&rsquo;-bi-2-naphthol (BINOL) as an example, this tutorial will illustrate in detail how axial chirality is encoded in FlexMol.</p>
+<h1 id="configuration-or-conformation">Configuration or Conformation?</h1>
+<p>In contrast to configurational stereoisomers, conformational stereoisomers can be interconverted through bond rotations. So we&rsquo;ll need to use a <code>conformationWheel</code> to represent stereochemistry in BINOL - <!-- raw HTML omitted -->just as we did with 2-butene<!-- raw HTML omitted -->. For more rigorous definitions of these concepts, see the original <!-- raw HTML omitted -->specification by Dietz<!-- raw HTML omitted -->.</p>
+<h1 id="r-binol">(<em>R</em>)-BINOL</h1>
+<p>A FlexMol representation and associated atom numbering scheme (<em>R</em>)-BINOL are show below:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- (R)-BINOL --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; standalone=&#34;yes&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;molecule&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;constitution&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;atoms&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C0&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C1&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C2&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C3&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C4&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C5&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C6&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C7&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C8&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C9&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C10&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C11&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C12&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C13&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C14&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C15&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C16&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C17&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C18&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C19&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;O20&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;O&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;O22&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;O&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/atoms&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;bonding&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C0&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C1&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C1&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C2&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C2&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C3&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C3&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C4&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C4&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C5&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C0&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C5&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C0&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C6&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C6&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C7&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C7&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C8&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C8&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C9&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C9&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C1&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bondingSystem</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;10&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;connections&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C0&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C1&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C1&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C2&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C2&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C3&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C3&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C4&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C4&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C5&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C0&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C5&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C0&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C6&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C6&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C7&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C7&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C8&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C8&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C9&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C9&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C1&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/connections&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/bondingSystem&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C10&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C11&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C11&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C12&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C12&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C13&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C13&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C14&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C14&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C15&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C10&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C15&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C10&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C16&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C16&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C17&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C17&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C18&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C18&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C19&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C19&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C11&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bondingSystem</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;10&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;connections&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C10&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C11&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C11&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C12&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C12&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C13&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C13&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C14&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C14&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C15&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C10&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C15&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C10&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C16&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C16&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C17&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C17&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C18&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C18&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C19&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C19&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C11&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/connections&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/bondingSystem&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C9&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C19&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C8&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;O20&#34;</span> <span style="color:#a6e22e">bondingElectron=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C18&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;O21&#34;</span> <span style="color:#a6e22e">bondingElectron=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/bonding&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/constitution&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;conformation&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;conformationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;gammaSequence</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C19&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C9&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;connections&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C9&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C19&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/connections&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/gammaSequence&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;lower</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;C11&#34;</span><span style="color:#f92672">&gt;&lt;/lower&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;upper</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;C1&#34;</span><span style="color:#f92672">&gt;&lt;/upper&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;lower</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;C18&#34;</span><span style="color:#f92672">&gt;&lt;/lower&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;upper</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;C8&#34;</span><span style="color:#f92672">&gt;&lt;/upper&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/conformationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/conformation&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/molecule&gt;</span>
+</span></span></code></pre></div><p><img src="/images/posts/20070109/r_binol.png" alt="(R-Binol)" title="(R)-Binol"></p>
+<p>We&rsquo;ve elected to represent BINOL&rsquo;s two pi-systems as ten-atom, ten-electron <code>bondingSystems</code>. We could have just as easily represented each naphthalene ring using alternating single/double <code>bonds</code> containing two and four electrons, respectively. For an explanation of multi-atom pi-system bonding in FlexMol, see <!-- raw HTML omitted -->this article<!-- raw HTML omitted -->.</p>
+<p>The stereochemically-relevant part of this document is contained within the <code>conformation</code> element. A <code>gammaSequence</code>, or conformational axis, is defined along with four non-empty <code>halfPlanes</code>. Notice how the basic structure of this <code>conformation</code> element closely resembles <!-- raw HTML omitted -->the one for 2-butene<!-- raw HTML omitted -->.</p>
+<p>To better visualize the the <code>conformation</code> element of (<em>R</em>)-BINOL, consider the following diagram:</p>
+<p><img src="/images/posts/20070109/r_binol_planes.png" alt="Binol Planes" title="Binol Planes"></p>
+<p>The <code>conformationWheel</code> defines a conformational axis vector from atom C19 to atom C9. Arranged about this axis in a clockwise fashion are four non-empty <code>halfPlanes</code>. Picking an arbitrary <code>halfPlane</code> to start with, atom C11 is positioned first in the lower half. This is then followed by the next <code>halfPlane</code>, which contains atom C1 in its upper half. The next <code>halfPlane</code> contains atom C18 in the lower half. Finally, atom C8 is located in the last <code>halfPlane</code>&rsquo;s upper half.</p>
+<p>This procedure completely specifies the axial chirality of (<em>R</em>)-BINOL. Notice how no arbitrary stereodescriptors or chiral templates were used. Of course, we could derive the Cahn-Ingold-Prelog stereodescriptor of (<em>R</em>), given the right software.</p>
+<p>Many representations of the same chiral axis are possible, just as each connection table can be represented in many different ways. For example, we could have started the <code>conformation</code> element with the <code>halfPlane</code> containing atom C1. In this case, the ordering of atoms would be C1, C18, C8, C11. Similarly, the orientation of our chiral axis could have been defined from atom C9 to atom C19. In this case the ordering of <code>halfPlanes</code> would be reversed, and the upper/lower designations would be inverted.</p>
+<h1 id="s-binol">(<em>S</em>)-BINOL</h1>
+<p>How is (<em>S</em>)-BINOL encoded in FlexMol? As you might expect, completely analogously to the (<em>R</em>) enantiomer:</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><img src="/images/posts/20070109/s_binol.png" alt="(S)-Binol" title="(S)-Binol"></p>
+<p>As with (<em>R</em>)-BINOL, we can create a diagram representing the <code>conformationWheel</code> of (<em>S</em>)-BINOL:</p>
+<p><img src="/images/posts/20070109/s_binol_planes.png" alt="S-Binol Planes" title="S-Binol Planes"></p>
+<h1 id="conclusions">Conclusions</h1>
+<p>FlexMol completely encodes axial chirality using just a few basic XML elements, rather than chiral templates or stereodescriptors. These were, in fact, the same elements used to encode alkene geometrical isomerism. This modular approach to stereoisomerism results in an extensible system. Future articles will discuss other forms of stereoisomerism that can be represented in FlexMol, including the all-important tetrahedral stereogenic center.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

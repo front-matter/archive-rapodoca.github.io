@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Working With OPSIN - Using Netbeans for a Maven Project | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="The previous article in this series showed how to use the popular version control system Git with OPSIN. For the unfamiliar, OPSIN is the open source IUPAC nomenclature parser. First reviewed here in 2006, OPSIN has continued to evolve and now parses a remarkable range of nomenclature including fused hetereocycles.
+But having raw source code is not the same as being able to do something useful with it. For example, both a build system and some form of dependency management are essential. This article will show an easy way to begin working with the OPSIN source code using free tools.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/posts/2010-12-16-working-with-opsin-using-netbeans-for-a-maven-project/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/posts/2010-12-16-working-with-opsin-using-netbeans-for-a-maven-project/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="Working With OPSIN - Using Netbeans for a Maven Project">
+  <meta property="og:description" content="The previous article in this series showed how to use the popular version control system Git with OPSIN. For the unfamiliar, OPSIN is the open source IUPAC nomenclature parser. First reviewed here in 2006, OPSIN has continued to evolve and now parses a remarkable range of nomenclature including fused hetereocycles.
+But having raw source code is not the same as being able to do something useful with it. For example, both a build system and some form of dependency management are essential. This article will show an easy way to begin working with the OPSIN source code using free tools.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2010-12-16T00:00:00+00:00">
+    <meta property="article:modified_time" content="2010-12-16T00:00:00+00:00">
+
+  <meta itemprop="name" content="Working With OPSIN - Using Netbeans for a Maven Project">
+  <meta itemprop="description" content="The previous article in this series showed how to use the popular version control system Git with OPSIN. For the unfamiliar, OPSIN is the open source IUPAC nomenclature parser. First reviewed here in 2006, OPSIN has continued to evolve and now parses a remarkable range of nomenclature including fused hetereocycles.
+But having raw source code is not the same as being able to do something useful with it. For example, both a build system and some form of dependency management are essential. This article will show an easy way to begin working with the OPSIN source code using free tools.">
+  <meta itemprop="datePublished" content="2010-12-16T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2010-12-16T00:00:00+00:00">
+  <meta itemprop="wordCount" content="426">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Working With OPSIN - Using Netbeans for a Maven Project">
+  <meta name="twitter:description" content="The previous article in this series showed how to use the popular version control system Git with OPSIN. For the unfamiliar, OPSIN is the open source IUPAC nomenclature parser. First reviewed here in 2006, OPSIN has continued to evolve and now parses a remarkable range of nomenclature including fused hetereocycles.
+But having raw source code is not the same as being able to do something useful with it. For example, both a build system and some form of dependency management are essential. This article will show an easy way to begin working with the OPSIN source code using free tools.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Working With OPSIN - Using Netbeans for a Maven Project</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2010-12-16T00:00:00Z">December 16, 2010</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>The previous article in this series showed how to use the popular version control system <a href="/articles/2010/12/14/plugging-into-opsin-how-to-synchronize-git-and-mercurial-repositories/">Git with OPSIN</a>. For the unfamiliar, <a href="http://opsin.ch.cam.ac.uk/">OPSIN</a> is the open source IUPAC nomenclature parser. <a href="/articles/2006/10/14/decoding-iupac-names-with-opsin/">First reviewed here in 2006</a>, OPSIN has continued to evolve and now parses a remarkable range of nomenclature including <a href="/articles/2010/12/13/open-source-name-to-structure-conversion-of-iupac-nomenclature-opsin-revisited/">fused hetereocycles</a>.</p>
+<p>But having raw source code is not the same as being able to do something useful with it. For example, both a build system and some form of dependency management are essential. This article will show an easy way to begin working with the OPSIN source code using free tools.</p>
+<h1 id="maven">Maven</h1>
+<p>OPSIN uses <a href="http://maven.apache.org/">Maven</a> to manage project builds and dependencies. My experience with Java dates all the way back to the time when your shell was the build system. Ant soon followed and most developers standardized on it, including me. I&rsquo;ve had very little experience with Maven and was especially discouraged by the apparent complexity of the system compared to Ant.</p>
+<p>In fact, my first thought when seeing that OPSIN used Maven was to write an Ant build file. I&rsquo;m glad I didn&rsquo;t.</p>
+<h1 id="netbeans-and-maven--nice">Netbeans and Maven = Nice</h1>
+<p>It turns out that <a href="http://netbeans.org/">Netbeans</a> has quite good support for working with Maven projects. There&rsquo;s no need to actually import the project files - the root folder can simply be opened.</p>
+<p>Start by cloning the <a href="https://github.com/metamolecular/opsin">OPSIN git repository</a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone git://github.com/metamolecular/opsin.git
+</span></span></code></pre></div><p>Or, if you prefer Mercurial:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hg clone https://bitbucket.org/dan2097/opsin
+</span></span></code></pre></div><p>To begin using and modifying the OPSIN source, open the project folder with Netbeans (File -&gt; Open Project, then select the &lsquo;opsin&rsquo; directory). You&rsquo;ll end up with a project folder:</p>
+<p><img src="/images/posts/opsin-netbeans-main.png" alt="OPSIN Netbeans" title="OPSIN Netbeans"></p>
+<p>OPSIN is composed of two modules, OPSIN Core and OPSIN_InChI_Support. To begin browsing the OPSIN Core source, open the &lsquo;Modules&rsquo; folder, and then double-click on &lsquo;OPSIN Core&rsquo;. You&rsquo;ll then have a new project called &lsquo;OPSIN core&rsquo;:</p>
+<p><img src="/images/posts/opsin-core.png" alt="OPSIN Core" title="OPSIN Core"></p>
+<h1 id="trust-but-verify">Trust, But Verify</h1>
+<p>You can run the OPSIN JUnit test suite by right-clicking on the OPSIN Core project and selecting Test. All tests should pass. As of this writing, the number of tests is 295.</p>
+<h1 id="loose-ends">Loose Ends</h1>
+<p>Still on my list of things to figure out are how to generate a runnable jarfile using Netbeans. It may be that this is only possible through the command line.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>All of the prerequisites for forking OPSIN and contributing changes back to the main project are now in place: a distributed version control system (Git or Mercurial); a build and dependency management system (Maven); and a test suite (JUnit). What remains is to decide exactly what to do. Future articles will discuss some specific directions.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  My New Hugo Site 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

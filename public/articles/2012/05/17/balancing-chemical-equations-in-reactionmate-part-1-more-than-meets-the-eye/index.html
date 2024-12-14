@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Balancing Chemical Equations in ReactionMate Part 1: More Than Meets the Eye | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Balancing chemical equations is one of the first things taught in most introductory chemistry classes. As such, it might seem as if everything there is to know about the topic was published 75 years ago or more by chemists long since gone.
+To my surprise, I found this was simply not so.
+This post, the first in a series, discusses why a cheminformatics fan like myself would even consider the problem of balancing chemical equations as a serious topic, and what a deeper understanding of the subject might mean for you.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2012/05/17/balancing-chemical-equations-in-reactionmate-part-1-more-than-meets-the-eye/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2012/05/17/balancing-chemical-equations-in-reactionmate-part-1-more-than-meets-the-eye/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Balancing Chemical Equations in ReactionMate Part 1: More Than Meets the Eye">
+  <meta property="og:description" content="Balancing chemical equations is one of the first things taught in most introductory chemistry classes. As such, it might seem as if everything there is to know about the topic was published 75 years ago or more by chemists long since gone.
+To my surprise, I found this was simply not so.
+This post, the first in a series, discusses why a cheminformatics fan like myself would even consider the problem of balancing chemical equations as a serious topic, and what a deeper understanding of the subject might mean for you.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2012-05-17T00:00:00+00:00">
+    <meta property="article:modified_time" content="2012-05-17T00:00:00+00:00">
+
+  <meta itemprop="name" content="Balancing Chemical Equations in ReactionMate Part 1: More Than Meets the Eye">
+  <meta itemprop="description" content="Balancing chemical equations is one of the first things taught in most introductory chemistry classes. As such, it might seem as if everything there is to know about the topic was published 75 years ago or more by chemists long since gone.
+To my surprise, I found this was simply not so.
+This post, the first in a series, discusses why a cheminformatics fan like myself would even consider the problem of balancing chemical equations as a serious topic, and what a deeper understanding of the subject might mean for you.">
+  <meta itemprop="datePublished" content="2012-05-17T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2012-05-17T00:00:00+00:00">
+  <meta itemprop="wordCount" content="504">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Balancing Chemical Equations in ReactionMate Part 1: More Than Meets the Eye">
+  <meta name="twitter:description" content="Balancing chemical equations is one of the first things taught in most introductory chemistry classes. As such, it might seem as if everything there is to know about the topic was published 75 years ago or more by chemists long since gone.
+To my surprise, I found this was simply not so.
+This post, the first in a series, discusses why a cheminformatics fan like myself would even consider the problem of balancing chemical equations as a serious topic, and what a deeper understanding of the subject might mean for you.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Balancing Chemical Equations in ReactionMate Part 1: More Than Meets the Eye</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2012-05-17T00:00:00Z">May 17, 2012</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Balancing chemical equations is one of the first things taught in most introductory chemistry classes. As such, it might seem as if everything there is to know about the topic was published 75 years ago or more by chemists long since gone.</p>
+<p>To my surprise, I found this was simply not so.</p>
+<p>This post, the first in a series, discusses why a cheminformatics fan like myself would even consider the problem of balancing chemical equations as a serious topic, and what a deeper understanding of the subject might mean for you.</p>
+<h1 id="origins-reactionmate">Origins: ReactionMate</h1>
+<p><a href="http://metamolecular.com/reactionmate-app/">ReactionMate</a> (<a href="http://itunes.apple.com/us/app/reactionmate/id524541263?mt=8">App Store</a>) at the moment is a little iOS app with big ambitions. It aims to become a useful companion to anyone studying, performing, or using chemical reactions.</p>
+<p>One of the fundamental requirements for processing chemical reactions computationally is the automatic balancing of chemical equations, a function ReactionMate performs relatively well.</p>
+<p>Given this foundation, there are many interesting directions the app could be taken, both in education and research. Hopefully, I&rsquo;ll be discussing some of them later.</p>
+<p>When I started working on ReactionMate, my main motivation was to better learn iOS development with Objective-C. A reaction balancer, so I thought, would be an easy project.</p>
+<p>Although I did reach the first milestone and now have an app for sale to show for the effort, the path was much longer and darker than I imagined.</p>
+<h1 id="balancing-by-inspection">Balancing By Inspection</h1>
+<p>You may remember back to learning how to balance chemical equations in General Chemistry. A  common method still taught is known as <em>balancing by inspection</em>. This explanation from Khan Academy is typical:</p>
+<!-- raw HTML omitted -->
+<p>Although a fine approach for balancing simple equations by hand, balancing by inspection does not lend itself well to use in a software algorithm. I suspect that the same thing that makes balancing by inspection so difficult for students to master is the same thing that makes it unsuitable for use as algorithm: it&rsquo;s hit or miss and then try again.</p>
+<h1 id="balancing-with-matricieslinear-algebra">Balancing With Matricies/Linear Algebra</h1>
+<p>A more general and deterministic method for balancing chemical equations uses linear algebra. Given the constraint that the number of atoms of a given type on the left of the equation must equal the number of that type of atom on the right, it&rsquo;s possible to set up a system of linear equations and use matrix operations to solve for coefficients. The video below shows how this works conceptually:</p>
+<!-- raw HTML omitted -->
+<h1 id="issues">Issues</h1>
+<p>Implementing the necessary matrix algebra in Objective-C was not terribly difficult in a first pass. Coefficients for the first few chemical equations were found without problems.</p>
+<p>However, as the number and complexity of tested equations grew, problems began to surface - each demanding a solution. The next installment will discuss some of the issues and how they were addressed.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>Balancing chemical equations is a deep topic at the intersection between mathematics and chemistry. Balanced chemical equations also lie at the heart of many important areas in chemistry. With academic papers appearing as recently as a couple of years ago, this topic is full of surprises.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Testing Automatic Chemical Structure Recognition with OSRA | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Countless chemical structures exist only in a raster image format such as JPG, GIF, BMP, or on a printed page or PDF. While perfectly readable to humans, they are very difficult for machines to read. Given the sheer number of these structures that have been produced over the last few decades, the only hope of excavating them from their current data tombs is with computer recognition of some kind. This article discusses OSRA, an open source software package designed to do for chemical structures what Optical Character Recognition did for the printed word.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/posts/2008-02-07-testing-automatic-chemical-structure-recognition-with-osra/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/posts/2008-02-07-testing-automatic-chemical-structure-recognition-with-osra/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="Testing Automatic Chemical Structure Recognition with OSRA">
+  <meta property="og:description" content="Countless chemical structures exist only in a raster image format such as JPG, GIF, BMP, or on a printed page or PDF. While perfectly readable to humans, they are very difficult for machines to read. Given the sheer number of these structures that have been produced over the last few decades, the only hope of excavating them from their current data tombs is with computer recognition of some kind. This article discusses OSRA, an open source software package designed to do for chemical structures what Optical Character Recognition did for the printed word.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2008-02-07T00:00:00+00:00">
+    <meta property="article:modified_time" content="2008-02-07T00:00:00+00:00">
+
+  <meta itemprop="name" content="Testing Automatic Chemical Structure Recognition with OSRA">
+  <meta itemprop="description" content="Countless chemical structures exist only in a raster image format such as JPG, GIF, BMP, or on a printed page or PDF. While perfectly readable to humans, they are very difficult for machines to read. Given the sheer number of these structures that have been produced over the last few decades, the only hope of excavating them from their current data tombs is with computer recognition of some kind. This article discusses OSRA, an open source software package designed to do for chemical structures what Optical Character Recognition did for the printed word.">
+  <meta itemprop="datePublished" content="2008-02-07T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2008-02-07T00:00:00+00:00">
+  <meta itemprop="wordCount" content="338">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Testing Automatic Chemical Structure Recognition with OSRA">
+  <meta name="twitter:description" content="Countless chemical structures exist only in a raster image format such as JPG, GIF, BMP, or on a printed page or PDF. While perfectly readable to humans, they are very difficult for machines to read. Given the sheer number of these structures that have been produced over the last few decades, the only hope of excavating them from their current data tombs is with computer recognition of some kind. This article discusses OSRA, an open source software package designed to do for chemical structures what Optical Character Recognition did for the printed word.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Testing Automatic Chemical Structure Recognition with OSRA</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2008-02-07T00:00:00Z">February 7, 2008</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Countless chemical structures exist only in a raster image format such as JPG, GIF, BMP, or on a printed page or PDF. While perfectly readable to humans, they are very difficult for machines to read. Given the sheer number of these structures that have been produced over the last few decades, the only hope of excavating them from their current <a href="http://depth-first.com/articles/2008/02/04/raiding-chemistrys-data-tombs">data tombs</a> is with computer recognition of some kind. This article discusses <a href="http://cactus.nci.nih.gov/osra/">OSRA</a>, an open source software package designed to do for chemical structures what Optical Character Recognition did for the printed word.</p>
+<p>An <a href="http://cactus.nci.nih.gov/cgi-bin/osra/index.cgi">online version of OSRA</a> was used to read PNG images of chemical structures produced by an application based on <a href="http://depth-first.com/articles/2007/11/27/chemwriter-chemical-structures-and-the-web">ChemWriter</a>. Both aliased and antialiased images were used and atom coloring was disabled:</p>
+<p><img src="/images/posts/20080207/image_no_antialias.png" alt="OSRA" title="OSRA"></p>
+<p>Structure interpretation failed for the antialiased image at both 300 and 72 DPI resolution. <a href="http://www.daylight.com/daycgi/depict?4343434328432943284f2943363d432843353d43434328434331434328434343293d43432843432943344328433129434328433343432843432943323d4343434343324333293d4343344329433d4335294343434336">This</a> was the SMILES that was produced at 72 DPI; the one produced at the 300 DPI setting was not much more encouraging.</p>
+<p>However, using the aliased imaged at 72 DPI produced the correct structure.</p>
+<p>Could the failure to recognize the antialiased image be due to a problem with the ChemWriter application&rsquo;s rasterization method? Apparently, not. When a screen capture utility was used to produce the image from the ChemWriter application window, the wrong structure was again produced. Here, the PNG encoding was not through a Java program but rather the underlying operating system (Linux) using a standard screen capture utility.</p>
+<p>To test the idea that line thickness might play a role in determining the quality of OSRA&rsquo;s interpretation, the antialiased image below was submitted:</p>
+<p><img src="/images/posts/20080207/image_thin_lines.png" alt="Thin Lines" title="Thin Lines"></p>
+<p>Still, the <a href="http://www.daylight.com/daycgi/depict?43434343363d4328432943333d43284329433d432843323d434343313d4328433d43433d4331294328432943324329433d4333434328434343353d43433d432843343d432843283d4f294e283d4f293d4f29433d43433d433429433d4335294336">incorrect structure</a> was produced.</p>
+<p>Apparently, images of 2D structures in which antialiasing has been applied cause difficulties for OSRA.</p>
+<p>Fortunately, the ChemWriter-based application <a href="http://depth-first.com/articles/2007/08/01/never-draw-the-same-molecule-twice-image-metadata-for-cheminformatics">embedded the full connection table of the molecule into all of its images as metadata</a>, so an optical recognition step is unnecessary.</p>
+<p>Provided that no antialiasing has been applied to images, OSRA would seem to be a capable tool for converting rasterized 2D chemical structures into machine-readable format.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  My New Hugo Site 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>ProtoSMILES | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Searching for the common ancestor of all SMILES dialects.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/posts/2022-06-01-protosmiles/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/posts/2022-06-01-protosmiles/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="ProtoSMILES">
+  <meta property="og:description" content="Searching for the common ancestor of all SMILES dialects.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-06-01T20:00:00+00:00">
+    <meta property="article:modified_time" content="2022-06-01T20:00:00+00:00">
+
+  <meta itemprop="name" content="ProtoSMILES">
+  <meta itemprop="description" content="Searching for the common ancestor of all SMILES dialects.">
+  <meta itemprop="datePublished" content="2022-06-01T20:00:00+00:00">
+  <meta itemprop="dateModified" content="2022-06-01T20:00:00+00:00">
+  <meta itemprop="wordCount" content="1292">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ProtoSMILES">
+  <meta name="twitter:description" content="Searching for the common ancestor of all SMILES dialects.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">ProtoSMILES</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2022-06-01T20:00:00Z">June 1, 2022</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>SMILES is a de facto standard for chemical information exchange. Although there may be broad agreement on the technical underpinnings of SMILES, many important details have been left to individual interpretation. The lack of specificity offers a shaky foundation on which to build desperately-needed data standardization efforts. This article talks about the problem, and offers one possible path forward.</p>
+<h1 id="what-is-smiles">What is SMILES?</h1>
+<p>Using SMILES as a serialization format within quality-controlled environments demands an answer to a simple question: &ldquo;What is SMILES?&rdquo;</p>
+<p>Many cite <a href="https://doi.org/10.1021/ci00057a005">Weininger&rsquo;s 1988 paper</a>, at least as a starting point. This useful introduction to SMILES is nevertheless by its own admission incomplete. Although the author describes SMILES as a &ldquo;language,&rdquo; its syntax and and semantics are reported only casually and even then incompletely. The detail needed to deploy SMILES across organizational boundaries, independently of any single software vendor, is simply absent.</p>
+<p>As evidence for lack of consensus, consider two later documentation efforts, <a href="http://opensmiles.org">OpenSMILES</a> and <a href="https://iupac.org/projects/project-details/?project_nr=2019-002-2-024">SMILES+</a>, each of which cite lack of detail in the available documentation as a primary motivating factor. Unfortunately, both efforts introduce their own extensions to the language, thereby complicating an already complex situation.</p>
+<p>I first became aware of the scope of this problem while attempting to write my own high performance SMILES reader and writer. Having seen point after point that was addressed not at all, partially, or even inconsistently helped me realize that my situation could not possibly be unique. <em>Every</em> software project using SMILES faces the same problem. The deficiencies of the SMILES specification can only be filled with best guesses. And everyone faced with the problem guesses a little differently. The result is a family of software implementations that, although branding themselves as SMILES-compatible, nevertheless differ in important ways.</p>
+<p>There is a path forward, but to get there requires a major step backward.</p>
+<h1 id="proto-language">Proto-Language</h1>
+<p>SMILES is often described as a single language, but it is more accurately viewed as a language family. Each software implementation spawns a new member of this family. At present there are perhaps a dozen or so members of the SMILES language family in common use. Linguists have developed a useful concept for dealing with situations like this: the <em>proto-language</em>.</p>
+<p>According to <a href="https://en.wikipedia.org/wiki/Proto-language">Wikipedia</a>, a proto-language is &ldquo;a postulated ancestral language from which a number of attested languages are believed to have descended by evolution, forming a language family.&rdquo; The term &ldquo;attested language&rdquo; refers to a language documented through direct evidence to have been used. A proto-language may be unattested or only partially attested.</p>
+<p>Instead of trying to twist the documentation into a single shared language, maybe the documentation can be used to identify a SMILES proto-language. As the ancestor of all SMILES dialects, this proto-language could serve as a small yet solid foundation for future standardization efforts.</p>
+<h1 id="sources">Sources</h1>
+<p>Although there are many sources of SMILES documentation, only a handful are authoritative. David Weininger was the creator of SMILES, so his written works on the topic are by definition authoritative. Likewise Weininger&rsquo;s company, Daylight, produced and published authoritative SMILES documentation and software. Written works and software from other sources are not authoritative, no matter how well-conceived or executed. Taking this perspective narrows the range of sources to consider. Can it be narrowed even further?</p>
+<p>I can identify four major sources of authoritative SMILES documentation:</p>
+<ul>
+<li><a href="https://doi.org/10.1021/ci00057a005"><em>SMILES, a Chemical Language and Information System. 1. Introduction to Methodology and Encoding Rules</em></a>. The 1988 paper by David Weininger (&ldquo;The Paper&rdquo;).</li>
+<li><a href="http://doi.wiley.com/10.1002/9783527618279.ch5"><em>SMILES - A Language for Molecules and Reactions</em></a>. A book chapter by David Weininger published in 2003 (&ldquo;The Chapter&rdquo;).</li>
+<li><a href="https://www.daylight.com/dayhtml/doc/theory/theory.smiles.html">SMILES - A Simplified Chemical Language</a>. Part of the &ldquo;Daylight Theory Manual&rdquo; created and maintained by Daylight Chemical Information Systems, Inc. (&ldquo;The Manual&rdquo;).</li>
+<li><a href="https://www.daylight.com/products/toolkit.html">The Daylight Toolkit</a>. A software implementation of SMILES (&ldquo;The Toolkit&rdquo;).</li>
+</ul>
+<p>Collectively, The Paper, The Chapter, The Manual, and the Toolkit comprise the totality of all authoritative SMILES documentation I have been able to locate.</p>
+<p>The Toolkit is a problematic source for two reasons. First, it is distributed under a <a href="https://www.daylight.com/sales/index.html">commercial license</a>, which restricts access. As a result, claims made about The Toolkit&rsquo;s behavior are difficult to verify. Daylight compounded the problem by decommissioning the public SMILES test page it operated for many years. But more importantly, The Toolkit&rsquo;s source code is not available for inspection. The Toolkit can therefore only be used in the reverse-engineering sense. Such a source should only be considered as a last resort.</p>
+<p>This leaves three written works: The Paper; The Chapter; and the Manual. However, close inspection of each reveals the Chapter to be a superset of the the other two. In other words, all of the information found within The Paper and The Manual also appears in The Chapter. Moreover, The Chapter contains additional information found nowhere else.</p>
+<p>Perhaps surprisingly, The Paper is cited far more often than The Chapter. According to Google Scholar, at the time of this writing the ratio of citations is 380:1 in favor of The Paper. But even a cursory comparison reveals The Chapter to be a far more detailed description of SMILES. And as a superset of The Paper, the The Chapter makes a much better starting point platform for defining the proto-language.</p>
+<p>Out of the totality of SMILES documentation, we&rsquo;re left with just one source: The Chapter. From this source, we can extract a proto-language.</p>
+<h1 id="protosmiles">ProtoSMILES</h1>
+<p>ProtoSMILES is the language defined by David Weininger in his 2003 book chapter titled <a href="http://doi.wiley.com/10.1002/9783527618279.ch5"><em>SMILES - A Language for Molecules and Reactions</em></a>. This language will be instantly familiar to anyone who works with SMILES. ProtoSMILES is likely to be readable and writable, at least partially, by any modern SMILES software implementation. At the same time, Weininger&rsquo;s description is far from perfect or even usable as-is. Nevertheless, I believe ProtoSMILES to be the best foundation on which to base future standardization efforts.</p>
+<p>ProtoSMILES is the basis for a work in progress that I&rsquo;m currently calling &ldquo;<a href="https://github.com/rapodaca/dialect">Dialect</a>.&rdquo; Dialect is a molecular serialization format and a subset of ProtoSMILES. Dialect&rsquo;s purpose is to bridge the gap between what Weininger described and a specification suitable for future software development efforts.</p>
+<p>As a language subset, Dialect is subtractive. It removes features of ProtoSMILES without adding any of its own. In most cases this can be done unambiguously. For example, ProtoSMILES places no upper or lower bound on quantities such as atomic mass or hydrogen count, but Dialect does. In other cases, ProtoSMILES itself is ambiguous. For example, it&rsquo;s not clear whether or not non-elided bonds can be promoted when converting from &ldquo;aromatic&rdquo; and kekulized forms. Dialect prohibits this. In still other cases, Weininger clearly made a mistake. For example, his grammar defining the two atomic stereodescriptors &ldquo;@&rdquo; and &ldquo;@@&rdquo; is written in The Chapter as: <code>chiral: '@'|chiral'@';</code>. This left-recursive grammar allows strings including &ldquo;@@@@@@@&rdquo; and others — with no upper bound on length. Dialect prohibits them and replaces Weininger&rsquo;s left-recursive grammar with its non-recursive equivalent. Finally, some ProtoSMILES features are expensive but relatively useless. One of them is non-tetrahedral stereochemical templates (&quot;@OH1,&quot; &ldquo;@BP2,&rdquo; etc). Dialect retires this feature, which adds considerable complexity without solving the underlying problem.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>Standardizing SMILES itself is by this point may be impossible. The language&rsquo;s imprecise origins and explosive growth has led to a proliferation of dialects. There may be a high level of mutual intelligibility among them, but the differences are substantial enough to undermine data standardization efforts for years to come. This essay introduces an alternative path forward, a SMILES proto-language called ProtoSMILES. ProtoSMILES has been constructed from a subset of authoritative SMILES documentation. Further refinement is underway with <a href="https://github.com/rapodaca/dialect">Dialect</a>, a strict subset of ProtoSMILES. Dialect eliminates obvious mistakes, retires problematic features, and resolves ambiguous descriptions. The goal is to whittle down SMILES to a representative and specific core suitable for use as a starting point for future software development efforts.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  My New Hugo Site 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

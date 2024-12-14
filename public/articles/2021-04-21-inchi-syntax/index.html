@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>InChI Syntax | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Understanding the internal structure of InChI identifiers.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+      <meta name="author" content = "Richard L. Apodaca">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://depth-first.com:1313/articles/2021-04-21-inchi-syntax/">
+    
+
+    <meta property="og:url" content="https://depth-first.com:1313/articles/2021-04-21-inchi-syntax/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="InChI Syntax">
+  <meta property="og:description" content="Understanding the internal structure of InChI identifiers.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2021-04-21T15:30:00+00:00">
+    <meta property="article:modified_time" content="2021-04-21T15:30:00+00:00">
+
+  <meta itemprop="name" content="InChI Syntax">
+  <meta itemprop="description" content="Understanding the internal structure of InChI identifiers.">
+  <meta itemprop="datePublished" content="2021-04-21T15:30:00+00:00">
+  <meta itemprop="dateModified" content="2021-04-21T15:30:00+00:00">
+  <meta itemprop="wordCount" content="1390">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="InChI Syntax">
+  <meta name="twitter:description" content="Understanding the internal structure of InChI identifiers.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">InChI Syntax</h1>
+      
+      <p class="tracked">
+        By <strong>Richard L. Apodaca</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2021-04-21T15:30:00Z">April 21, 2021</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p><a href="https://iupac.org/who-we-are/divisions/division-details/inchi/">InChI</a> is an IUPAC standard and software package for chemical identification. For most small organic molecules likely to be found in a drug discovery program, a stockroom, or a chemical database, the InChI software creates a unique character sequence. InChI is useful because it enables fast exact-structure lookup within a single database and among different databases.</p>
+<p>But moving past the practical win InChI offers, we&rsquo;re faced with a question that at first glance may seem rather esoteric. What rules, if any, can every InChI identifier be expected to follow? It turns out that this question and its answers have some important practical consequences for many InChI users.</p>
+<h1 id="does-inchi-have-syntax">Does InChI Have Syntax?</h1>
+<p>Recently, I ran a Twitter poll about InChI as a standard. The idea was to explore which of two possible sources should be considered &ldquo;authoritative&rdquo; on the topic of what InChI is: the <a href="https://www.inchi-trust.org/downloads/">source code distribution</a> or the <a href="https://www.inchi-trust.org/download/104/InChI_TechMan.pdf">Technical Manual</a>.</p>
+<!-- raw HTML omitted -->
+<p>The third option, &ldquo;There is no InChI syntax,&rdquo; was added as an afterthought. I expected it to get no votes. Then it tied for first (with &ldquo;See results&rdquo;). Maybe my earlier article, <em><a href="/articles/2021/03/10/parsing-inchi-its-complicated/">Parsing InChI: It&rsquo;s Complicated</a></em>, had something to do with this. There, I noted that it&rsquo;s not generally possible to transform an InChI into the molecular graph that created it.</p>
+<p>Either way, is it possible that InChI has no syntax?</p>
+<h1 id="identifiers-and-syntax">Identifiers and Syntax</h1>
+<p>InChI can be regarded as a black-box identifier, devoid of any meaningful internal structure. From this perspective, it&rsquo;s possible to think that InChI itself has no syntax, or that any syntax that may exist is irrelevant.</p>
+<p>The problem is that <em>all</em> identifiers by their very nature have internal structure, even if that structure is primitive. Without internal structure, there would be no way to even recognize an identifier as such. Worse, there would be no practical way for users to avail themselves of the services being offered by the identifier.</p>
+<p>Many examples from everyday life support this view. Consider national identification numbers such as a <a href="https://www.ssa.gov/ssnumber/">Social Security number</a> (SSN). A claim that a social security number contained the letter &ldquo;P&rdquo; would rightly be viewed as suspect. As the IRS itself notes, &ldquo;Your nine-digit Social Security number is your first and continuous connection with Social Security.&rdquo; A valid SSN therefore consists of exactly nine digits. SSN is a dumb identifier in that there isn&rsquo;t much internal structure, but the structure is undeniable.</p>
+<!-- raw HTML omitted -->
+<p>Chemical Abstracts Service Registry Numbers (CAS numbers) offer a more chemistry-specific example of a dumb identifier with syntax. As <a href="https://www.cas.org/support/documentation/chemical-substances/checkdig">noted</a> by CAS itself:</p>
+<blockquote>
+<p>A CAS Registry Number® includes up to 10 digits which are separated into 3 groups by hyphens. The first part of the number, starting from the left, has 2 to 7 digits; the second part has 2 digits. The final part consists of a single check digit.</p>
+</blockquote>
+<p>Every identifier, regardless of what it identifies or how, has an internal structure of some kind. The name for this characteristic is, of course, <em>syntax</em>. The most relevant definition of the word by <a href="https://www.merriam-webster.com/dictionary/syntax">Merriam-Webster</a> says that syntax is:</p>
+<blockquote>
+<p>a connected or orderly system : harmonious arrangement of parts or element</p>
+</blockquote>
+<p>Given that InChI is a chemical identifier, what can be said about its harmonious arrangement of parts or elements?</p>
+<h1 id="why-syntax-matters">Why Syntax Matters</h1>
+<p>Before discussing what some authoritative sources have to say about InChI syntax, it&rsquo;s important to understand why InChI&rsquo;s syntax matters in a practical sense. I&rsquo;ve identified four reasons:</p>
+<ol>
+<li><strong>Extracting information.</strong> As we&rsquo;ll see, InChI exhibits the characteristics of both an identifier and a representation. Information about the molecule being identified might be available, with some <a href="/articles/2021/03/10/parsing-inchi-its-complicated/">caveats</a>, by treating InChI as a kind of molecular representation. For example, InChIKey works on this principle. As we&rsquo;ll see, InChI was even designed specifically with this use case in mind.</li>
+<li><strong>Understanding InChI&rsquo;s scope and limitations.</strong> Knowing whether InChI&rsquo;s internal structure supports a given application should be a central part of any evaluation effort.</li>
+<li><strong>Extending InChI.</strong> When InChI lacks the internal structure for a given application, it might be possible to fill the gap with an extension. However, that extension must not conflict with existing syntax.</li>
+<li><strong>Validating InChI.</strong> If an InChI identifier broke one or more syntax rules, should it be considered valid? Even more importantly, how would you know that a rule had been broken? These questions can only be answered with a detailed, systematic description of InChI&rsquo;s syntax.</li>
+</ol>
+<h1 id="inchi-syntax">InChI Syntax</h1>
+<p>The most detailed and authoritative source of information on InChI&rsquo;s syntax can be found in the <a href="https://www.inchi-trust.org/download/104/InChI_TechMan.pdf">Technical Manual</a> published by InChI Trust. The Manual describes a chemical line notation whose organizing principle is <em>layers</em>.</p>
+<p>An InChI layer is a sequence of characters that encodes a particular aspect of molecular structure. Each layer is separated from its successor by a forward-slash symbol (<code>/</code>). The following figure from the <em>Technical Manual</em> gives an overview.</p>
+<!-- raw HTML omitted -->
+<p>An entire section (III. Discussion) is mainly dedicated to elaborating the concept of InChI layers:</p>
+<ul>
+<li><strong>IIIb. Construction of the InChI.</strong> Ordering and assembly of layers.</li>
+<li><strong>IIIc. InChI Components.</strong> Special handling for disconnected molecular graphs.</li>
+<li><strong>IIId. The Five InChI &lsquo;Layer&rsquo; Types.</strong> Details for the available layer types: Chemical Formula; Connections; Charge; Stereochemical; Isotopic; and Fixed-Hydrogen.</li>
+<li><strong>IIIe. InChI Structure.</strong> Enumerates all possible layers and explains their relationship to each other.</li>
+<li><strong>IIIf. Standard and Non-Standard Identifiers.</strong> Using the prefix to indicate whether or not certain software settings have been applied.</li>
+</ul>
+<p>Additionally, three Appendixes refine InChI layers further:</p>
+<ul>
+<li><strong>Appendix 2. Abbreviations and Layer Precedence.</strong> Encoding InChI layers and relating them to each other.</li>
+<li><strong>Appendix 3. Extracting Layers from InChI.</strong> How to disassemble an InChI into meaningful segments.</li>
+<li><strong>Appendix 4. Comparing InChI Representations for Finding Identical Compounds.</strong> Attenuating the precision of an InChI though selective deletion of layers.</li>
+</ul>
+<p>Layers are clearly the central abstraction in InChI. The InChI team re-enforced this idea in its article <em><a href="https://jcheminf.biomedcentral.com/articles/10.1186/s13321-015-0068-4">InChI, the IUPAC International Chemical Identifier</a></em>, noting: &ldquo;The most important aspect of InChI is its hierarchical, layered nature.&rdquo;</p>
+<p>To summarize, a rich syntax courses through the veins of each InChI identifier. From its inception, InChI identifiers were designed to be split up and repurposed as explained by the authoritative documentation.</p>
+<p>Clearly an InChI syntax exists. But this just brings us back to the question I posed in my Twitter poll: where does the specification of the InChI syntax reside — in the source code of the InChI distribution or in the Technical manual? Which one is &ldquo;the standard?&rdquo;</p>
+<p>That&rsquo;s really a question for the InChI team to answer. For now it&rsquo;s clear that rules of InChI syntax not only exist, but were deliberately designed from the outset. A more immediate question is: what are the syntax rules for InChI and how should that information be conveyed?</p>
+<h1 id="informal-syntax-descriptions">Informal Syntax Descriptions</h1>
+<p>For as long as people have been analyzing languages, they&rsquo;ve tried to come up with ways to describe syntax. The InChI Technical Manual offers some examples of why spoken language descriptions (and graphics) often fall short when used to describe syntax:</p>
+<ul>
+<li>It&rsquo;s hard to write spoken languages both concisely and precisely.</li>
+<li>words often have ambiguous meanings.</li>
+<li>It&rsquo;s hard to keep all the context needed to parse a spoken language standard in your head at the same time.</li>
+<li>There&rsquo;s no automated way to transform a spoken language technical description into running code.</li>
+</ul>
+<p>Fortunately, there is an answer to all of these problems when it comes to describing syntax: a <a href="https://en.wikipedia.org/wiki/Formal_grammar">formal grammar</a>. A formal grammar, being a very limited form of expression, can be both concise and precise in describing syntax. As a result, ambiguities and contradictions are easy to spot. Because they&rsquo;re compact, formal grammars can be much easier to understand than freeform text and graphics. Finally, formal grammars can be machine-translated into running code that can parse and validate examples of the underlying language.</p>
+<p>This blog has covered formal grammars from several angles. Here are some articles that show how to apply formal grammars to the SMILES language:</p>
+<ul>
+<li><a href="/articles/2020/04/20/smiles-formal-grammar/">SMILES Formal Grammar</a></li>
+<li><a href="/articles/2020/12/21/smiles-formal-grammar-revisited/">SMILES Formal Grammar Revisited</a></li>
+<li><a href="/articles/2020/12/14/an-abstract-syntatx-tree-for-smiles/">Abstract Syntax Trees for SMILES</a></li>
+<li><a href="/articles/2020/05/25/lets-build-a-smiles-parser-in-rust/">Let&rsquo;s Build a SMILES Parser in Rust</a></li>
+</ul>
+<h1 id="conclusion">Conclusion</h1>
+<p>InChI is both a chemical identifier and a chemical representation system. This dual nature can be both confusing and empowering. As an identifier, InChI enables fast exact structure lookup. As a representation, InChIs offers much more. The key to using InChI as a representation lies in understanding its syntax. What&rsquo;s lacking is a concise yet precise description of it. A future article will address this point.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://depth-first.com:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

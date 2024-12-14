@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>A Workbench for Machine Learning in Chemistry | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Kick the tires on a short, hackable aqueous solubility predictor built from a DeepChem graph convolutional network.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+      <meta name="author" content = "Richard L. Apodaca">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://depth-first.com:1313/articles/2020-10-26-a-workbench-for-machine-learning-in-chemistry/">
+    
+
+    <meta property="og:url" content="https://depth-first.com:1313/articles/2020-10-26-a-workbench-for-machine-learning-in-chemistry/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="A Workbench for Machine Learning in Chemistry">
+  <meta property="og:description" content="Kick the tires on a short, hackable aqueous solubility predictor built from a DeepChem graph convolutional network.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2020-10-26T16:00:00+00:00">
+    <meta property="article:modified_time" content="2020-10-26T16:00:00+00:00">
+
+  <meta itemprop="name" content="A Workbench for Machine Learning in Chemistry">
+  <meta itemprop="description" content="Kick the tires on a short, hackable aqueous solubility predictor built from a DeepChem graph convolutional network.">
+  <meta itemprop="datePublished" content="2020-10-26T16:00:00+00:00">
+  <meta itemprop="dateModified" content="2020-10-26T16:00:00+00:00">
+  <meta itemprop="wordCount" content="1320">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="A Workbench for Machine Learning in Chemistry">
+  <meta name="twitter:description" content="Kick the tires on a short, hackable aqueous solubility predictor built from a DeepChem graph convolutional network.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">A Workbench for Machine Learning in Chemistry</h1>
+      
+      <p class="tracked">
+        By <strong>Richard L. Apodaca</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-10-26T16:00:00Z">October 26, 2020</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Machine learning has made major inroads into molecular property prediction over the last few years. But with the deluge of techniques and tools comes an increased need to recast what works well into a form usable by non-experts. <a href="https://deepchem.io">DeepChem</a> is a toolchain designed to do just that. This article presents a short, simple code example demonstrating how to use DeepChem to train and use a deep convolutional network to predict aqueous solubility.</p>
+<h1 id="deepchem-installation">DeepChem Installation</h1>
+<p>A previous article described <a href="/articles/2020/09/14/getting-started-with-deepchem/">the setup of a DeepChem environment</a>. The approach is based on Anaconda, and includes everything needed to access all of DeepChem&rsquo;s rich functionality.</p>
+<h1 id="the-code">The Code</h1>
+<p>Using DeepChem to make predictions can be broken down into four broad steps:</p>
+<ol>
+<li>Build a data set.</li>
+<li>Train a model.</li>
+<li>Evaluate the model.</li>
+<li>Use the model.</li>
+</ol>
+<p>DeepChem simplifies the reduction of these steps to working code. The following 13 lines, adapted from the excellent book <em><a href="https://www.oreilly.com/library/view/deep-learning-for/9781492039822/">Deep Learning for the Life Sciences</a></em>, are enough to build and use a graph convolutional network for aqueous solubility predictions.</p>
+<!-- raw HTML omitted -->
+<p>The remaining sections detail each step in the process.</p>
+<h1 id="build-the-dataset">Build the Dataset</h1>
+<p>DeepChem comes pre-loaded with a number of sample data sets. The one used here here was assembled for the paper <em><a href="https://dx.doi.org/10.1021/ci034243x">ESOL: Estimating Aqueous Solubility Directly from Molecular Structure</a></em>. This 1,128-record set commonly goes by the author&rsquo;s name, Delaney. Crucial for the task at hand, each record in the Delaney set contains both an experimentally-determined aqueous solubility measurement and a SMILES string representing the molecular species. Aqueous solubility is expressed as the base-10 logarithm of solubility in units of moles per liter (logS).</p>
+<p>Looking at the first function call, however, it&rsquo;s clear that <code>load_delaney</code> is doing more than just loading raw data:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tasks, datasets, transformers <span style="color:#f92672">=</span> dc<span style="color:#f92672">.</span>molnet<span style="color:#f92672">.</span>load_delaney(featurizer<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;GraphConv&#39;</span>)
+</span></span></code></pre></div><p>Let&rsquo;s start with the return value, which is a tuple of three elements:</p>
+<ul>
+<li><strong><code>tasks</code></strong>: a single-member list containing the value &ldquo;measured log solubility in mols per litre&rdquo;. This string appears as a heading in the source CSV file. It&rsquo;s the column containing the values that the model will be trained on.</li>
+<li><strong><code>datasets</code></strong>: a list of three subsets of the Delaney set (see more below).</li>
+<li><strong><code>transformers</code></strong>: a list whose only member is a <a href="https://deepchem.readthedocs.io/en/latest/transformers.html?highlight=normalizationtransformer#deepchem.trans.NormalizationTransformer"><code>NormalizationTransformer</code></a>. A DeepChem <code>Transformer</code> ensures that numerical values fit within specific ranges. <code>NormalizationTransformer</code> applies a transform to each value that ensures a mean of zero and unit standard deviation for the set. This type of transformation is an example of a more general process called <a href="https://en.wikipedia.org/wiki/Feature_scaling">feature scaling</a>.</li>
+</ul>
+<p><code>datasets</code> contains not a single dataset but <em>three</em> of them, all of the same shape. For convenience, we spread them over three different variables:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>train_dataset, valid_dataset, test_dataset <span style="color:#f92672">=</span> datasets
+</span></span></code></pre></div><p>Each dataset serves a specific purpose:</p>
+<ul>
+<li><strong><code>train_dataset</code></strong>: Used for training.</li>
+<li><strong><code>valid_dataset</code></strong>: Used for automated hyperparameter tuning. A hyperparameter is a value used during training that isn&rsquo;t part of the model. Test data can&rsquo;t be used to train hyperparameters because it can only be used for validation. To avoid this problem, a <a href="https://en.wikipedia.org/wiki/Training,_validation,_and_test_sets#Validation_dataset">validation set</a> is used to probe the trained model&rsquo;s response to changes in hyperparameters.</li>
+<li><strong><code>test_dataset</code></strong>: Used to evaluate the performance of a model after training.</li>
+</ul>
+<p>Each dataset is an instance of DeepChem&rsquo;s <a href="https://deepchem.readthedocs.io/en/latest/datasets.html#diskdataset"><code>DiskDataset</code></a> class. This data structure is designed to handle sets of 100 GB or larger.</p>
+<p>Let&rsquo;s have another look at the call to <code>load_delaney</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tasks, datasets, transformers <span style="color:#f92672">=</span> dc<span style="color:#f92672">.</span>molnet<span style="color:#f92672">.</span>load_delaney(featurizer<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;GraphConv&#39;</span>)
+</span></span></code></pre></div><p>The named parameter <code>featurizer</code> tells <code>load_delaney</code> which kind of post-processing will be applied to the molecule obtained after parsing a SMILES. Setting the featurizer to &ldquo;GraphConv&rdquo; tells DeepChem to apply its <a href="https://deepchem.readthedocs.io/en/latest/featurizers.html?highlight=featurizer#convmolfeaturizer"><code>ConvMolFeaturizer</code></a> to input molecules during training.  An alternative would be <a href="https://deepchem.readthedocs.io/en/latest/featurizers.html?highlight=featurizers#weavefeaturizer"><code>Weave</code></a>.</p>
+<h1 id="train-the-model">Train the Model</h1>
+<p>With training, validation, and test data sets in hand, a model can be trained. We begin by constructing an instance of <a href="https://deepchem.readthedocs.io/en/latest/models.html?highlight=graphconvmodel#graphconvmodel"><code>GraphConvModel</code></a>. This class represents a graph convolutional network as described by Duvenaud in <em><a href="https://arxiv.org/abs/1509.09292">Convolutional Networks on Graphs for Learning Molecular Fingerprints</a></em>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>model <span style="color:#f92672">=</span> dc<span style="color:#f92672">.</span>models<span style="color:#f92672">.</span>GraphConvModel(n_tasks<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;regression&#39;</span>, dropout<span style="color:#f92672">=</span><span style="color:#ae81ff">0.2</span>)
+</span></span></code></pre></div><p>The constructor call passes three named parameters:</p>
+<ul>
+<li><strong><code>n_task</code></strong>: The number of tasks to perform. In data sets containing more than one input value (which is not the case here), a value greater than one is acceptable.</li>
+<li><strong><code>mode</code></strong>: Use <code>regression</code> to model continuous numerical values, or <code>classification</code> for labels.</li>
+<li><strong><code>dropout</code></strong>: A value from 0 to 1.0 that tells <code>GraphConvModel</code> what percentage of nodes should be disregarded. Increasing <a href="https://machinelearningmastery.com/dropout-for-regularizing-deep-neural-networks/">dropout</a> is a technique to reduce the tendency of deep networks to overfit on training data.</li>
+</ul>
+<p>Additional parameters describing model behavior can also be passed. For example, the size and number of layers and number of atom features can both be specified.</p>
+<p>After construction, the model can be trained with the following line which yields a warning on my system containing the text &ldquo;UserWarning: Converting sparse IndexedSlices to a dense Tensor of unknown shape. This may consume a large amount of memory.&rdquo;:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>model<span style="color:#f92672">.</span>fit(train_dataset, nb_epoch<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>) <span style="color:#75715e"># =&gt; 0.11707531929016113</span>
+</span></span></code></pre></div><p>On my system, this step takes about 30 seconds.</p>
+<p>The first parameter is the previously-created training dataset. The second parameter, <code>nb_epoch</code>, is the number of <a href="https://machinelearningmastery.com/difference-between-a-batch-and-an-epoch/">epochs</a> to train for. The number of epochs, a hyperparameter, defines how many times the model will be trained with the training set. More epochs require more compute resources, and there will be a point of diminishing returns. One way to find it is to create a <a href="https://en.wikipedia.org/wiki/Learning_curve_(machine_learning)">&ldquo;learning curve,&rdquo;</a> in which epoch count is plotted against error.</p>
+<p><a href="https://deepchem.readthedocs.io/en/latest/models.html?highlight=graphconvmodel#deepchem.models.KerasModel.fit"><code>GraphConvModel#fit</code></a> conveniently returns a numerical value representing &ldquo;the average loss over the most recent checkpoint interval.&rdquo; Lower values indicate a better fitting final model.</p>
+<h1 id="evaluate-the-model">Evaluate the Model</h1>
+<p>The trained model can now be evaluated by comparing the error in the training and test sets.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>metric <span style="color:#f92672">=</span> dc<span style="color:#f92672">.</span>metrics<span style="color:#f92672">.</span>Metric(dc<span style="color:#f92672">.</span>metrics<span style="color:#f92672">.</span>pearson_r2_score)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(model<span style="color:#f92672">.</span>evaluate(train_dataset, [metric], transformers)) <span style="color:#75715e"># =&gt; {&#39;pearson_r2_score&#39;: 0.9110650179980299}</span>
+</span></span><span style="display:flex;"><span>print(model<span style="color:#f92672">.</span>evaluate(test_dataset, [metric], transformers)) <span style="color:#75715e"># =&gt; {&#39;pearson_r2_score&#39;: 0.759322765543715}</span>
+</span></span></code></pre></div><p>Unoptimized test error for this convolutional network approach (0.759) compares favorably with the <a href="/articles/2020/09/14/getting-started-with-deepchem/">previously-described</a> random forest approach (0.362). However, the difference in error between training and test sets (0.911 vs. 0.759) for the convolutional network suggests overfitting.</p>
+<h1 id="use-the-model">Use the Model</h1>
+<p>Having built, trained, and evaluated the model, we can now use it to predict the aqueous solubility of unknown molecules.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>featurizer <span style="color:#f92672">=</span> dc<span style="color:#f92672">.</span>feat<span style="color:#f92672">.</span>ConvMolFeaturizer()
+</span></span><span style="display:flex;"><span>smiles <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;c1c(O)cccc1O&#39;</span>, <span style="color:#e6db74">&#39;c1c(F)cccc1O&#39;</span>, <span style="color:#e6db74">&#39;c1c(Cl)cccc1O&#39;</span>]
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> featurizer<span style="color:#f92672">.</span>featurize([Chem<span style="color:#f92672">.</span>MolFromSmiles(s) <span style="color:#66d9ef">for</span> s <span style="color:#f92672">in</span> smiles])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model<span style="color:#f92672">.</span>predict_on_batch(x) <span style="color:#75715e"># =&gt; array([[2.0801175], [1.3159559], [1.3712412]], dtype=float32)</span>
+</span></span></code></pre></div><p>Although the trend seems right, the magnitude appears off. Water itself is only 55 M, so anything in the range of 100 M should raise eyebrows. Wikipedia reports a solubility for m-cresol (first SMILES) of 2.35 g/L, which translates to logS of -1.66. Clearly, there&rsquo;s a lot of room for future work here. For some ideas, have a look at Pat Walters&rsquo; article <em><a href="http://practicalcheminformatics.blogspot.com/2018/09/predicting-aqueous-solubility-its.html">Predicting Aqueous Solubility - It&rsquo;s Harder Than It Looks</a></em>.</p>
+<p>Notice that a <code>ConvMolFeaturizer</code> is used to transform RDKit molecules into a form suitable for use by the model. This is the same transformation that was applied to RDKit molecules to train the model.</p>
+<h1 id="experiments">Experiments</h1>
+<p>This article presents a compact but complete deep learning workbench. Setting aside issues of error, applicability to the problem domain, and interpretation, several questions can be addressed, including:</p>
+<ul>
+<li>How does the number of epochs (<code>nb_epoch</code>) affect time to train and error?</li>
+<li>What happens to the difference in error between training and test sets as dropout changes?</li>
+<li>What happens if you train and evaluate on solubility itself, rather than logS?</li>
+<li>What method does <code>load_delaney</code> use to divide the full set into training, validation, and test sets? Can you do better?</li>
+<li>How does GraphConv differ from Weave in performance?</li>
+<li>How does the performance of graph convolution compare with similarly-constructed approaches such as random forest?</li>
+<li>How would you replace the Delaney set with other solubility sets such as those found in <a href="https://doi.org/10.1038/s41597-019-0151-1">SqSolDB</a>?</li>
+<li>How well do the predictions made by the various methods match <a href="https://doi.org/10.1186/s13321-017-0250-y">your intuition</a>?</li>
+</ul>
+<h1 id="conclusion">Conclusion</h1>
+<p>One of the best ways to learn new technologies is to build a simple work bench. When learning new programming languages, the first work bench often consists of a simple &ldquo;Hello, World!&rdquo; program. This article describes something analogous: a 13-line program that trains and evaluates a deep graph convolutional network for aqueous solubility prediction.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://depth-first.com:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Anatomy of a Cheminformatics Web Application: Ajaxifying Depict | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="The previous tutorial in this series showed some techniques for improving the appearance and usability of a simple cheminformatics Web application. That application, Depict, rendered color images of 2-D molecular structures when given a SMILES string. Still, something is missing. Wouldn&rsquo;t it be better if the application responded to individual keystrokes in the input field, rather than waiting for the user to hit the return key? In this tutorial, we&rsquo;ll see how to quickly accomplish this effect with a technology called &ldquo;Ajax.&rdquo;">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2006/12/04/anatomy-of-a-cheminformatics-web-application-ajaxifying-depict/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2006/12/04/anatomy-of-a-cheminformatics-web-application-ajaxifying-depict/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Anatomy of a Cheminformatics Web Application: Ajaxifying Depict">
+  <meta property="og:description" content="The previous tutorial in this series showed some techniques for improving the appearance and usability of a simple cheminformatics Web application. That application, Depict, rendered color images of 2-D molecular structures when given a SMILES string. Still, something is missing. Wouldn’t it be better if the application responded to individual keystrokes in the input field, rather than waiting for the user to hit the return key? In this tutorial, we’ll see how to quickly accomplish this effect with a technology called “Ajax.”">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2006-12-04T00:00:00+00:00">
+    <meta property="article:modified_time" content="2006-12-04T00:00:00+00:00">
+
+  <meta itemprop="name" content="Anatomy of a Cheminformatics Web Application: Ajaxifying Depict">
+  <meta itemprop="description" content="The previous tutorial in this series showed some techniques for improving the appearance and usability of a simple cheminformatics Web application. That application, Depict, rendered color images of 2-D molecular structures when given a SMILES string. Still, something is missing. Wouldn’t it be better if the application responded to individual keystrokes in the input field, rather than waiting for the user to hit the return key? In this tutorial, we’ll see how to quickly accomplish this effect with a technology called “Ajax.”">
+  <meta itemprop="datePublished" content="2006-12-04T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2006-12-04T00:00:00+00:00">
+  <meta itemprop="wordCount" content="1275">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Anatomy of a Cheminformatics Web Application: Ajaxifying Depict">
+  <meta name="twitter:description" content="The previous tutorial in this series showed some techniques for improving the appearance and usability of a simple cheminformatics Web application. That application, Depict, rendered color images of 2-D molecular structures when given a SMILES string. Still, something is missing. Wouldn’t it be better if the application responded to individual keystrokes in the input field, rather than waiting for the user to hit the return key? In this tutorial, we’ll see how to quickly accomplish this effect with a technology called “Ajax.”">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Anatomy of a Cheminformatics Web Application: Ajaxifying Depict</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2006-12-04T00:00:00Z">December 4, 2006</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>The <!-- raw HTML omitted -->previous tutorial in this series<!-- raw HTML omitted --> showed some techniques for improving the appearance and usability of a simple cheminformatics Web application. That application, Depict, rendered color images of 2-D molecular structures when given a SMILES string. Still, something is missing. Wouldn&rsquo;t it be better if the application responded to individual keystrokes in the input field, rather than waiting for the user to hit the return key? In this tutorial, we&rsquo;ll see how to quickly accomplish this effect with a technology called &ldquo;Ajax.&rdquo;</p>
+<h1 id="downloads-and-prerequisites">Downloads and Prerequisites</h1>
+<p>For this tutorial, you&rsquo;ll need <!-- raw HTML omitted -->Ruby CDK<!-- raw HTML omitted --> (RCDK). A recent article described the small amount of system configuration required for <!-- raw HTML omitted -->RCDK on Linux<!-- raw HTML omitted -->. Another article showed how to install <!-- raw HTML omitted -->RCDK on Windows<!-- raw HTML omitted -->.</p>
+<p>In addition, you&rsquo;ll need to install <!-- raw HTML omitted -->Ruby on Rails<!-- raw HTML omitted --> - something that can be done through <!-- raw HTML omitted -->RubyGems<!-- raw HTML omitted -->.</p>
+<p>The Rails application that this tutorial starts with can be downloaded from <a href="/images/posts/20061127/depict-20061127.tar.gz">this link</a>. If you&rsquo;d rather start working directly with the version of Depict produced by applying the changes outlined in this tutorial, the full source code can be downloaded from <a href="/images/posts/20061204/depict-20061204.tar.gz">this link</a>.</p>
+<p>If you&rsquo;ll be running Depict on an AMD64 Linux system, you&rsquo;ll need to prepend your invocation of <code>script/server</code> with <code>LD_PRELOAD</code>. For example, on my system running Sun&rsquo;s JVM, the full command looks like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>LD_PRELOAD<span style="color:#f92672">=</span>/usr/java/jdk1.5.0_09/jre/lib/amd64/libzip.so ruby script/server
+</span></span></code></pre></div><h1 id="a-brief-introduction-to-ajax">A Brief Introduction to Ajax</h1>
+<p>When stripped down to its essentials, <!-- raw HTML omitted -->Ajax<!-- raw HTML omitted --> is nothing more than an asynchronous communication channel between Web browsers and Web servers. In the pre-Ajax model of client-server Web interactions, a browser would make a request to a server and then wait until getting a server response, which would take the form of a complete Web page. In the Ajax model, a browser makes a request to a server, continuing to function while the server generates a response, which takes the form of a small section of the page that gets replaced. For this reason, Ajax-enabled Web sites are far more application-like than the document-centric sites that preceded them.</p>
+<h1 id="ajax-support-in-rails">Ajax Support in Rails</h1>
+<p>Ajax is implemented in JavaScript using the <code>HTMLHttpRequest</code> object, although working at this level can require a lot of code to do anything meaningful. Fortunately, Rails and other Web application frameworks provide high-level interfaces to Ajax. In Rails, Ajax support takes the form of a variety of helper methods, one of which we&rsquo;ll use in this tutorial: <code>observe_field</code>. This method, an instance of the <!-- raw HTML omitted -->Observer Pattern<!-- raw HTML omitted -->, assigns an Observer to monitor input activity in a text field.</p>
+<h1 id="the-problem-at-hand">The Problem at Hand</h1>
+<p>We&rsquo;d like Depict to provide immediate feedback by rendering a SMILES string as it is keyed into the input field. If the partial SMILES string is valid, it will be rendered, otherwise, an error image will be rendered. At no point will the user need to press the return key to see an image of the SMILES string they are typing.</p>
+<h1 id="step-1-ajaxify-the-view">Step 1: Ajaxify the View</h1>
+<p>Let&rsquo;s start by adding an observer to Depict&rsquo;s input field. These changes will occur to the SMILES View, contained in <!-- raw HTML omitted -->depict/app/views/smiles/depict.rhtml<!-- raw HTML omitted -->:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;Depict&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">&lt;</span>%= stylesheet_link_tag &#34;default&#34;, :media =&gt; &#34;all&#34; %&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!-- Nothing works without this line. --&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">&lt;</span>%= javascript_include_tag :defaults %&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">h1</span>&gt;Depict a SMILES String&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!-- New id attribute needed by Ajax --&gt;</span>
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;image&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;results&#34;</span> &gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&lt;%= image_for_smiles :smiles =&gt; @smiles %&gt;&#34;</span>&gt;&lt;/<span style="color:#f92672">img</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">br</span> /&gt;&lt;<span style="color:#f92672">br</span> /&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;smiles&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#960050;background-color:#1e0010">&lt;</span>%= form_tag :action=&gt;&#39;depict&#39; %&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">label</span>&gt;SMILES: &lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- Ajaxified text field. --&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- We turn off autocomplete to simplfify the interface. --&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#960050;background-color:#1e0010">&lt;</span>%= text_field_tag :smiles, @smiles, {:autocomplete =&gt; &#34;off&#34;} %&gt;
+</span></span><span style="display:flex;"><span>        <span style="color:#960050;background-color:#1e0010">&lt;</span>%= observe_field( :smiles,
+</span></span><span style="display:flex;"><span>                           :frequency =&gt; 0.5,
+</span></span><span style="display:flex;"><span>                           :update    =&gt; :results,
+</span></span><span style="display:flex;"><span>                           :url       =&gt; { :action =&gt; :ajax_depict } ) %&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#960050;background-color:#1e0010">&lt;</span>%= end_form_tag %&gt;
+</span></span><span style="display:flex;"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;about&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!-- Update the URL to point to the new Depth-First article --&gt;</span>
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://depth-first.com/articles/2006/12/04/anatomy-of-a-cheminformatics-web-application-ajaxifying-depict&#34;</span>&gt;About this Application&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><p>The above code introduces three key elements:</p>
+<ul>
+<li>The <code>javascript_include_tag</code> method is called, which is surprisingly easy to forget to do.</li>
+<li>The original <code>text_field</code> method call is replaced by <code>text_field_tag</code> to simplify coding. We disable browser-based autocompletion by setting the <code>autocomplete</code> attribute to <code>off</code>. This removes a feature unlikely to ever be used, and leads to a more streamlined interface.</li>
+<li>The <code>observe_field</code> method is called, linking activity in the text field to an Ajax action, <code>ajax_depict</code>, that will update the image area. To accomplish this, we assign the <code>div</code> containing our image the id &ldquo;results.&rdquo;</li>
+</ul>
+<p>Making these changes and refreshing the browser window gives a screen like the one below:</p>
+<p><img src="/images/posts/20061204/step_1_1.png" alt="Step 1.1" title="Step 1.1"></p>
+<p>Although the client side of the Ajax communication channel is working, the server side is not. Let&rsquo;s fix that.</p>
+<h1 id="step-2-ajaxify-the-server">Step 2: Ajaxify the Server</h1>
+<p>Depict needs an Action and View that will be invoked in response to keyboard events in the SMILES input box. To do this, first add a new <code>ajax_depict</code> method to <code>SmilesController</code>, the source for which is found in <!-- raw HTML omitted -->depict/app/controllers/smiles_controller.rb<!-- raw HTML omitted -->:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SmilesController</span> <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">ApplicationController</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">depict</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> params<span style="color:#f92672">[</span><span style="color:#e6db74">:smiles</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>      @smiles <span style="color:#f92672">=</span> params<span style="color:#f92672">[</span><span style="color:#e6db74">:smiles</span><span style="color:#f92672">][</span><span style="color:#e6db74">:value</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>      @smiles <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">image_for</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> flash<span style="color:#f92672">[</span><span style="color:#e6db74">:bytes</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>      send_data(flash<span style="color:#f92672">[</span><span style="color:#e6db74">:bytes</span><span style="color:#f92672">]</span>, <span style="color:#e6db74">:type</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;image/png&#34;</span>, <span style="color:#e6db74">:disposition</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;inline&#34;</span>, <span style="color:#e6db74">:filename</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">#{</span>flash<span style="color:#f92672">[</span><span style="color:#e6db74">:smiles</span><span style="color:#f92672">]</span><span style="color:#e6db74">}</span><span style="color:#e6db74">.png&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># The new ajax_depict method.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">ajax_depict</span>
+</span></span><span style="display:flex;"><span>    @smiles<span style="color:#f92672">=</span>request<span style="color:#f92672">.</span>raw_post
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>Making the above changes and refreshing your browser should give an error message:</p>
+<p><img src="/images/posts/20061204/step_2_1.png" alt="Step 2.1" title="Step 2.1"></p>
+<p>The new <code>ajax_depict</code> method is being called, but no associated template exits. This template contains the HTML that will be inserted into the <code>div</code> with the <code>results</code> id attribute that we set up in Step 1. We can resolve the error we&rsquo;re getting by simply creating a new file (<!-- raw HTML omitted -->depict/app/views/smiles/ajax_depict.rhtml<!-- raw HTML omitted -->) containing the following partial template:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&lt;%= image_for_smiles :smiles =&gt; @smiles %&amp;gt;&#34;</span><span style="color:#960050;background-color:#1e0010">&amp;</span><span style="color:#a6e22e">gt</span><span style="color:#960050;background-color:#1e0010">;&lt;/</span><span style="color:#a6e22e">img</span>&gt;
+</span></span></code></pre></div><p>Now, refreshing your browser should produce a screen like that shown below. We have now Ajaxified Depict, but we&rsquo;re not quite done yet.</p>
+<p><img src="/images/posts/20061204/step_2_2.png" alt="Step 2.2" title="Step 2.2"></p>
+<h1 id="step-3-update-the-cascading-style-sheet">Step 3: Update the Cascading Style Sheet</h1>
+<p>As you type a SMILES string into the input window, you may have noticed the input box being repositioned toward the top of the application window just prior to the display of a new image. This is due to the image area being resized to zero height as the new image is generated.</p>
+<p>Fortunately, the fix is simple; we&rsquo;ll just specify that the image area must be 400 pixels high, whether an image is being displayed or not. This is done by editing the <code>image</code> selector in the CSS file at <!-- raw HTML omitted -->depict/public/stylesheets/default.css<!-- raw HTML omitted -->:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">image</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">margin-left</span>: <span style="color:#66d9ef">auto</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">margin-right</span>: <span style="color:#66d9ef">auto</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">400</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/* Keeps the input box from moving during image refresh.*/</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">400</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Refreshing the Depict window should now give a statically-positioned SMILES input field.</p>
+<h1 id="step-4-backward-compatibility">Step 4: Backward Compatibility</h1>
+<p>As it stands, if the user presses the return key, they will see the &ldquo;Enter SMILES Below&rdquo; message. This is due to the change in the way SMILES strings are transmitted into the application. To fix this problem, we simply change the way that <code>SmilesController</code> assigns the <code>smiles</code> instance variable (<!-- raw HTML omitted -->depict/app/controllers/smiles_controller.rb<!-- raw HTML omitted -->):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">depict</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Uses new input method.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> params<span style="color:#f92672">[</span><span style="color:#e6db74">:smiles</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    @smiles <span style="color:#f92672">=</span> params<span style="color:#f92672">[</span><span style="color:#e6db74">:smiles</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    @smiles <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>Making this change produces an interface that will render the correct image whether the return key is typed or not. If JavaScript is disabled, Depict will work exactly the same way as it did in the non-Ajax version.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>Ajax makes the Web more attractive than ever as an application development platform. In this tutorial, we&rsquo;ve seen how using Rails made it very easy to give Depict the feel of an interactive SMILES depiction tool using Ajax. But a few details remain before we&rsquo;re ready to deploy this application on a Web server for the public to use. For example, we need to take server load and network latency into account, and we need to make sure Depict works well on all major browsers. The next articles in this series will address these issues.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

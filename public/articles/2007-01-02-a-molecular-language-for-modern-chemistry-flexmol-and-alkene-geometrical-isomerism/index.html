@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>A Molecular Language for Modern Chemistry: FlexMol and Alkene Geometrical Isomerism | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="
+The fundamental idea behind our representation of stereochemistry is to really describe the relative spatial arrangements of the atoms of a chemical structure. For a given constitution, we obtain a unique and unambiguous stereochemical representation. No limitation to predefined types or steregenic units exits; any conceivable relative spatial arrangement of atoms may be uniformly represented by one universally applicable formalism. &hellip;
+Andreas Dietz">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+      <meta name="author" content = "Richard L. Apodaca">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://depth-first.com:1313/articles/2007-01-02-a-molecular-language-for-modern-chemistry-flexmol-and-alkene-geometrical-isomerism/">
+    
+
+    <meta property="og:url" content="https://depth-first.com:1313/articles/2007-01-02-a-molecular-language-for-modern-chemistry-flexmol-and-alkene-geometrical-isomerism/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="A Molecular Language for Modern Chemistry: FlexMol and Alkene Geometrical Isomerism">
+  <meta property="og:description" content="The fundamental idea behind our representation of stereochemistry is to really describe the relative spatial arrangements of the atoms of a chemical structure. For a given constitution, we obtain a unique and unambiguous stereochemical representation. No limitation to predefined types or steregenic units exits; any conceivable relative spatial arrangement of atoms may be uniformly represented by one universally applicable formalism. …
+Andreas Dietz">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2007-01-02T00:00:00+00:00">
+    <meta property="article:modified_time" content="2007-01-02T00:00:00+00:00">
+
+  <meta itemprop="name" content="A Molecular Language for Modern Chemistry: FlexMol and Alkene Geometrical Isomerism">
+  <meta itemprop="description" content="The fundamental idea behind our representation of stereochemistry is to really describe the relative spatial arrangements of the atoms of a chemical structure. For a given constitution, we obtain a unique and unambiguous stereochemical representation. No limitation to predefined types or steregenic units exits; any conceivable relative spatial arrangement of atoms may be uniformly represented by one universally applicable formalism. …
+Andreas Dietz">
+  <meta itemprop="datePublished" content="2007-01-02T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2007-01-02T00:00:00+00:00">
+  <meta itemprop="wordCount" content="909">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="A Molecular Language for Modern Chemistry: FlexMol and Alkene Geometrical Isomerism">
+  <meta name="twitter:description" content="The fundamental idea behind our representation of stereochemistry is to really describe the relative spatial arrangements of the atoms of a chemical structure. For a given constitution, we obtain a unique and unambiguous stereochemical representation. No limitation to predefined types or steregenic units exits; any conceivable relative spatial arrangement of atoms may be uniformly represented by one universally applicable formalism. …
+Andreas Dietz">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">A Molecular Language for Modern Chemistry: FlexMol and Alkene Geometrical Isomerism</h1>
+      
+      <p class="tracked">
+        By <strong>Richard L. Apodaca</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2007-01-02T00:00:00Z">January 2, 2007</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><blockquote>
+<p>The fundamental idea behind our representation of stereochemistry is to really describe the relative spatial arrangements of the atoms of a chemical structure. For a given constitution, we obtain a unique and unambiguous stereochemical representation. No limitation to predefined types or steregenic units exits; any conceivable relative spatial arrangement of atoms may be uniformly represented by one universally applicable formalism. &hellip;</p>
+<p><!-- raw HTML omitted --><a href="http://dx.doi.org/10.1021/ci00027a001">Andreas Dietz</a><!-- raw HTML omitted --></p>
+</blockquote>
+<p>A recent article <!-- raw HTML omitted -->introduced FlexMol<!-- raw HTML omitted -->, a molecular language designed to encode the multi-atom bonding arrangements present in molecules being increasingly made and used by today&rsquo;s chemists. But FlexMol was designed with much more than bonding in mind. Of all of the difficult areas in molecular representation, perhaps none are more daunting than stereochemistry. This article will introduce the basic ideas behind FlexMol&rsquo;s stereochemistry capabilities using the geometrical isomers of 2-butene as an example.</p>
+<h1 id="the-difference-between-configuration-and-conformation">The Difference Between Configuration and Conformation</h1>
+<p>FlexMol distinguishes between two complementary stereochemical concepts - conformation and configuration.  The difference between the two lies in whether isomers can be interconverted through bond rotations. To paraphrase Dietz:</p>
+<ul>
+<li><strong>Conformation.</strong> Two molecules with identical atom connectivities and bonding differ with respect to their conformation if if they possess different relative spatial arrangements of atoms that can be interconverted by rotations about bonds.</li>
+<li><strong>Configuration.</strong> Two molecules with identical atom connectivities and bonding differ with respect to their configuration if they possess different relative spatial arrangements of atoms that can not be interconverted by rotations about bonds.</li>
+</ul>
+<p>Notice that these definitions say nothing about whether a bond rotation is likely to occur; they simply refer to the possibility of isomer interconversion through bond rotation. Clearly, double bond geometrical isomerism arises from restricted bond rotation. So we&rsquo;ll be relying on FlexMol&rsquo;s support for conformational stereochemistry.</p>
+<h1 id="encoding-cistrans-isomerism-2-butene">Encoding Cis/Trans Isomerism: 2-Butene</h1>
+<p>Consider the two isomers of 2-butene. The cis isomer can be encoded in FlexMol as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- cis-2-butane --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; standalone=&#34;yes&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;molecule&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;constitution&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;atoms&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C0&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;3&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C1&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C2&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C3&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;3&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/atoms&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;bonding&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C0&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C1&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C1&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C2&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C2&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C3&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C3&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C4&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/bonding&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/constitution&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;conformation&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;conformationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;gammaSequence</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C1&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C2&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;connections&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C1&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C2&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/connections&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/gammaSequence&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;halfPlane&gt;&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;lower</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;C0&#34;</span><span style="color:#f92672">&gt;&lt;/lower&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;upper</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;C3&#34;</span><span style="color:#f92672">&gt;&lt;/upper&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/conformationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/conformation&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/molecule&gt;</span>
+</span></span></code></pre></div><p>In contrast to previous FlexMol examples, this representation contains a <code>conformation</code> element, which in turn contains a <code>conformationWeel</code> subelement. The <code>conformationWheel</code> is composed of a <code>gammaSequence</code> and two <code>halfPlanes</code>. The relationship among these elements can be seen in the diagram below.</p>
+<p><img src="/images/posts/20070102/cis_2_butene.png" alt="Cis-2-butene" title="Cis-2-butene"></p>
+<p>Stereochemical representation in FlexMol boils down to placing atoms into a set of half-planes intersecting a given axis (Dietz refers to this arrangement as a &ldquo;pencil of planes&rdquo;). In the case of cis-2-butene, this axis, or gamma sequence, is the atom pair between atoms <code>C1</code> and <code>C2</code>. A gamma sequence can consist of two or more atoms, a very useful feature for representing allene stereochemistry, for example. Half planes are specified in clockwise order about this axis. Because half planes always occur in pairs separated by 180 degrees about their common axis, the number of half planes will always be even. Each conformational half plane is further subdivided into two regions labeled appropriately enough &ldquo;upper&rdquo; and &ldquo;lower&rdquo;.</p>
+<p>A conformation wheel will always have an equivalent, but opposite representation. For example, cis-2-butene could also be represented with an axis of opposite orientation (C2-&gt;C1), opposite ordering of half planes (in this case the same ordering because there are only two half planes), and inverted upper/lower designations. FlexMol only requires that one of these two equivalent arrangements be specified.</p>
+<p>In a similar fashion, we can generate a FlexMol representation for trans-2-butene:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- trans-2-butane --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; standalone=&#34;yes&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;molecule&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;constitution&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;atoms&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C0&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;3&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C1&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C2&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;atom</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;C3&#34;</span> <span style="color:#a6e22e">symbol=</span><span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#a6e22e">hydrogens=</span><span style="color:#e6db74">&#34;3&#34;</span> <span style="color:#a6e22e">ionization=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/atom&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/atoms&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;bonding&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C0&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C1&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C1&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C2&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C2&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C3&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;bond</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C3&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C4&#34;</span> <span style="color:#a6e22e">bondingElectrons=</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">&gt;&lt;/bond&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/bonding&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/constitution&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;conformation&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;conformationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;gammaSequence</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C1&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C2&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;connections&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;atomPair</span> <span style="color:#a6e22e">source=</span><span style="color:#e6db74">&#34;C1&#34;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#34;C2&#34;</span><span style="color:#f92672">&gt;&lt;/atomPair&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/connections&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/gammaSequence&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;upper</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;C3&#34;</span><span style="color:#f92672">&gt;&lt;/upper&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;lower</span> <span style="color:#a6e22e">atom=</span><span style="color:#e6db74">&#34;C0&#34;</span><span style="color:#f92672">&gt;&lt;/lower&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/halfPlane&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/conformationWheel&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/conformation&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/molecule&gt;</span>
+</span></span></code></pre></div><p>This representation contains a <code>conformationWheel</code> with two filled half planes containing the atoms <code>C3</code> and <code>C0</code>, respectively. The arrangement among the conformational elements can be better seen in the following diagram:</p>
+<p><img src="/images/posts/20070102/trans_2_butene.png" alt="Trans-2-butene" title="Trans-2-butene"></p>
+<h1 id="so-what">So What?</h1>
+<p>There are many ways to represent alkene geometrical isomerism, most of which are far simpler than the one outlined here. So what does this additional complexity buy us? In FlexMol, we can use exactly the same formalisms we used for 2-butene isomers to represent the stereochemistries of molecules that simply can not be represented in other systems. Two specific examples include the axial chirality of allenes and biaryls. If you&rsquo;d like some hints on how to accomplish this, see the allene and binaphthyl FlexMol examples contained in the <!-- raw HTML omitted -->flexmol<!-- raw HTML omitted --> directory of the <!-- raw HTML omitted -->Octet source distribution<!-- raw HTML omitted -->.</p>
+<p>Notice how FlexMol does away with the need to define conformation in terms of sterochemical descriptors, which are quite limited. Instead, FlexMol provides a small set of modular concepts that, when used together, actually describe the underlying conformational features of a molecule. Of course, (E) and (Z) descriptors (and a host of others as well) can be derived from a FlexMol representation given the right software.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>We&rsquo;ve covered the essentials for conformational representation in FlexMol, and we&rsquo;ve seen how to differentiate double bond geometrical isomers. The same principles described here are also used in encoding stereochemical configuration, which will be the subject of a future tutorial.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://depth-first.com:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

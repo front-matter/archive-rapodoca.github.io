@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>SciFinder Web, Greasemonkey, and REST - Embracing Divergence in Chemical Information Systems | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Recently, Alain Borel posted a message to the CHMINF-L list describing his successful attempt to get links to external datasources to show up in SciFinder Web:
+
+I&rsquo;m dreaming of a world where chemical data is hyperlinked as thoroughly
+as text data is today (or even more)&hellip; here&rsquo;s my small contribution to
+this goal.
+&hellip;
+Basically, Greasemonkey allows you to rewrite the HTML content of a web
+page before it is rendered in the browser window. Thanks to this, I&rsquo;ve
+been able to write a script that adds links to external databases
+through registry numbers. Currently, ChemSpider, Chempedia and Chemexper [links added]
+are supported - I also have a private version that links to our Intranet
+chemical stocks application. The pleasant side for those who worry about
+intellectual property is that neither side of the link needs to know
+what&rsquo;s on the other side, and even the plugin doesn&rsquo;t know what&rsquo;s inside
+the database records.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2008/11/scifinder-web-greasemonkey-and-rest-embracing-divergence-in-chemical-information-systems/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2008/11/scifinder-web-greasemonkey-and-rest-embracing-divergence-in-chemical-information-systems/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="SciFinder Web, Greasemonkey, and REST - Embracing Divergence in Chemical Information Systems">
+  <meta property="og:description" content="Recently, Alain Borel posted a message to the CHMINF-L list describing his successful attempt to get links to external datasources to show up in SciFinder Web:
+I’m dreaming of a world where chemical data is hyperlinked as thoroughly as text data is today (or even more)… here’s my small contribution to this goal. … Basically, Greasemonkey allows you to rewrite the HTML content of a web page before it is rendered in the browser window. Thanks to this, I’ve been able to write a script that adds links to external databases through registry numbers. Currently, ChemSpider, Chempedia and Chemexper [links added] are supported - I also have a private version that links to our Intranet chemical stocks application. The pleasant side for those who worry about intellectual property is that neither side of the link needs to know what’s on the other side, and even the plugin doesn’t know what’s inside the database records.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2008-11-19T00:00:00+00:00">
+    <meta property="article:modified_time" content="2008-11-19T00:00:00+00:00">
+
+  <meta itemprop="name" content="SciFinder Web, Greasemonkey, and REST - Embracing Divergence in Chemical Information Systems">
+  <meta itemprop="description" content="Recently, Alain Borel posted a message to the CHMINF-L list describing his successful attempt to get links to external datasources to show up in SciFinder Web:
+I’m dreaming of a world where chemical data is hyperlinked as thoroughly as text data is today (or even more)… here’s my small contribution to this goal. … Basically, Greasemonkey allows you to rewrite the HTML content of a web page before it is rendered in the browser window. Thanks to this, I’ve been able to write a script that adds links to external databases through registry numbers. Currently, ChemSpider, Chempedia and Chemexper [links added] are supported - I also have a private version that links to our Intranet chemical stocks application. The pleasant side for those who worry about intellectual property is that neither side of the link needs to know what’s on the other side, and even the plugin doesn’t know what’s inside the database records.">
+  <meta itemprop="datePublished" content="2008-11-19T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2008-11-19T00:00:00+00:00">
+  <meta itemprop="wordCount" content="607">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="SciFinder Web, Greasemonkey, and REST - Embracing Divergence in Chemical Information Systems">
+  <meta name="twitter:description" content="Recently, Alain Borel posted a message to the CHMINF-L list describing his successful attempt to get links to external datasources to show up in SciFinder Web:
+I’m dreaming of a world where chemical data is hyperlinked as thoroughly as text data is today (or even more)… here’s my small contribution to this goal. … Basically, Greasemonkey allows you to rewrite the HTML content of a web page before it is rendered in the browser window. Thanks to this, I’ve been able to write a script that adds links to external databases through registry numbers. Currently, ChemSpider, Chempedia and Chemexper [links added] are supported - I also have a private version that links to our Intranet chemical stocks application. The pleasant side for those who worry about intellectual property is that neither side of the link needs to know what’s on the other side, and even the plugin doesn’t know what’s inside the database records.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">SciFinder Web, Greasemonkey, and REST - Embracing Divergence in Chemical Information Systems</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2008-11-19T00:00:00Z">November 19, 2008</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Recently, <a href="http://personnes.epfl.ch/alain.borel">Alain Borel</a> posted a message to the <a href="https://listserv.indiana.edu/cgi-bin/wa-iub.exe?A0=CHMINF-L">CHMINF-L list</a> describing his successful attempt to get links to external datasources to show up in SciFinder Web:</p>
+<blockquote>
+<p>I&rsquo;m dreaming of a world where chemical data is hyperlinked as thoroughly
+as text data is today (or even more)&hellip; here&rsquo;s my small contribution to
+this goal.
+&hellip;
+Basically, Greasemonkey allows you to rewrite the HTML content of a web
+page before it is rendered in the browser window. Thanks to this, I&rsquo;ve
+been able to write a script that adds links to external databases
+through registry numbers. Currently, <a href="http://chemspider.com">ChemSpider</a>, <a href="http://chempedia.com">Chempedia</a> and <a href="http://chemexper.com">Chemexper</a> [links added]
+are supported - I also have a private version that links to our Intranet
+chemical stocks application. The pleasant side for those who worry about
+intellectual property is that neither side of the link needs to know
+what&rsquo;s on the other side, and even the plugin doesn&rsquo;t know what&rsquo;s inside
+the database records.</p>
+</blockquote>
+<p><a href="http://personnes.epfl.ch/alain.borel">Greasemonkey</a> is the client-side script plugin engine that enables users to change the appearance and content of any site. Although originally designed as a Firefox extension, as least some Greasemonkey scripts can be run in <a href="http://www.simplehelp.net/2007/11/14/how-to-run-greasemonkey-scripts-in-safari/">Safari</a> and <a href="http://www.ghacks.net/2008/10/18/google-chrome-adds-greasemonkey-support/">Chrome</a>. A <a href="http://dx.doi.org/10.1186/1471-2105-8-487">recent paper</a> describes some of the potential for this form of scripting in the life sciences.</p>
+<p>Alain&rsquo;s script, which can be <a href="http://biscom.epfl.ch/scifinder_links.user.js">freely downloaded</a>, uses <a href="/articles/2008/05/26/simple-cas-number-lookup-and-more-with-chempedia">CAS numbers</a> to link SciFinder records to the external databases. Although I don&rsquo;t have access to SciFinder Web, Alain&rsquo;s description makes it sound like each entry for a specific substance in SciFinder Web is given an additional set of links out to external datasources.</p>
+<h1 id="whats-rest-got-to-do-with-it">What&rsquo;s REST Got To Do With It?</h1>
+<p>One of Alain&rsquo;s external datasources is <a href="http://chempedia.com">Chempedia</a>. A unique feature of Chempedia is the way it exposes a <a href="/articles/2008/05/26/simple-cas-number-lookup-and-more-with-chempedia">an electronic paper trail for CAS numbers</a>. Rather than just reporting a CAS registry number, it fully discloses which organization is asserting that a particular CAS number belongs with a structure.</p>
+<p>For example, see <a href="http://chempedia.com/registry_numbers/525-66-6">this entry on [525-66-6]</a>.</p>
+<p>Chempedia was designed from the start to apply the principles of <a href="/articles/2007/05/30/restful-cheminformatics">REST</a>. The big idea behind REST is that every resource on the Web, such as a CAS number, can be manipulated by exactly four methods: GET; PUT; POST; and DELETE.</p>
+<p>The highly-desirable side-effect of designing Web sites around the concept of resources being acted on by exactly four methods is that sites applying this philosophy become orders of magnitude easier to <a href="/articles/2006/09/23/mashups-for-fun-and-profit">mash up</a>.</p>
+<p>Alain&rsquo;s Greasemonkey script is an example of a client-side mashup. But how did he do it?</p>
+<h1 id="cas-numbers-are-first-class-citizens">CAS Numbers are First-Class Citizens</h1>
+<p>Each CAS number on Chempedia is a resource that can be accessed by a URL taking the form:</p>
+<p><code>http://chempedia.com/registry_numbers/REGISTRY\_NUMBER</code></p>
+<p>where <code>REGISTRY_NUMBER</code> is the CAS number of interest. For example, acetaminophen has the registry number [103-90-2] and it can be accessed with this URL:</p>
+<p><a href="http://chempedia.com/registry_numbers/103-90-2">http://chempedia.com/registry_numbers/103-90-2</a></p>
+<p>If you request a CAS number that doesn&rsquo;t exist, you should receive a 404 error, although a bug in Chempedia is currently preventing that from happening.</p>
+<p>To link SciFinder Web to Chempedia, Alain&rsquo;s user script simply looks for which CAS number the SciFinder page is talking about and constructs the RESTful URL. It doesn&rsquo;t get much simpler than that.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>Chemistry is a large, established field. Not surprisingly, <a href="/articles/2008/05/07/1908-and-all-that-the-long-tail-and-chemistry">specialization is an essential part of being a chemist</a>. It&rsquo;s therefore to be expected that chemical databases will diverge into a variety of specialized forms. One size will almost certainly not fit all.</p>
+<p>We can deny this simple fact and build ever more complex and unusable chemical information systems. Or we can accept it and custom-build our services for the job at hand.</p>
+<p>RESTful server architectures and mashups offer a powerful way to accomplish this goal.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

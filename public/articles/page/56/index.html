@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+    
+      <link href="/articles/index.xml" rel="alternate" type="application/rss+xml" title="Depth-First" />
+      <link href="/articles/index.xml" rel="feed" type="application/rss+xml" title="Depth-First" />
+      
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Articles">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="website">
+
+  <meta itemprop="name" content="Articles">
+  <meta itemprop="datePublished" content="2024-05-24T23:15:00+00:00">
+  <meta itemprop="dateModified" content="2024-05-24T23:15:00+00:00">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Articles">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+
+  <header>
+    <div class="pb3-m pb6-l bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv3 ph3 ph4-ns">
+        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
+          Articles
+        </h1>
+        
+      </div>
+    </div>
+  </header>
+
+
+    <main class="pb7" role="main">
+      
+  <article class="pa3 pa4-ns nested-copy-line-height">
+    <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy mid-gray"></section>
+    <section class="flex-ns flex-wrap justify-around mt5">
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Articles</span>
+    <h1 class="f3 near-black">
+      <a href="/articles/2008/06/03/acs-responds-to-request-for-information-on-the-new-nih-public-access-policy/" class="link black dim">
+        ACS Responds to Request For Information on the New NIH Public Access Policy
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>In case you haven&rsquo;t heard, a new law is now in effect that requires all recipients of NIH funding to deposit copies of their peer-reviewed manuscripts into PubMed Central. There&rsquo;s just one problem - if your work is published in an ACS journal, it&rsquo;s the ACS - not you - who owns the right to copy, reformat, and redistribute the manuscript.</p>
+<p>Setting aside the issue of whether the new law (<a href="http://www.govtrack.us/congress/billtext.xpd?bill=h110-2764">PL 110-161</a>) is good public policy, PL 110-161 raises some difficult intellectual property issues. This site has highlighted some of them, and the resources section at the end of this article contains some leading references.</p>
+    </div>
+    <a href="/articles/2008/06/03/acs-responds-to-request-for-information-on-the-new-nih-public-access-policy/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Articles</span>
+    <h1 class="f3 near-black">
+      <a href="/articles/2008/05/30/a-simple-and-portable-ruby-interface-to-inchi-part-2-silencing-console-output/" class="link black dim">
+        A Simple and Portable Ruby Interface to InChI Part 2 - Silencing Console Output
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>The previous article in this series described a <a href="http://depth-first.com/articles/2008/05/29/a-simple-and-portable-ruby-interface-to-inchi">simple and portable method</a> for interfacing Ruby to the cInChI-1 binary. One disadvantage was noisy console output. This article offers a minor modification to disable it.</p>
+<h1 id="the-code">The Code</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">module</span> InChI
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">inchi_for</span> molfile
+</span></span><span style="display:flex;"><span>    output <span style="color:#f92672">=</span> <span style="color:#e6db74">%x[echo &#34;</span><span style="color:#e6db74">#{</span>molfile<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34; | cInChI-1 -STDIO 2&amp;gt;/dev/null]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    output<span style="color:#f92672">.</span>eql?(<span style="color:#e6db74">&#34;&#34;</span>) ? <span style="color:#e6db74">&#34;&#34;</span> : output<span style="color:#f92672">.</span>split(<span style="color:#e6db74">/\n/</span>)<span style="color:#f92672">[</span><span style="color:#ae81ff">1</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>Here, we&rsquo;re taking advantage of the ability to redirect certain output streams to <code>/dev/null</code>.</p>
+<!-- raw HTML omitted -->
+<p>Saving the above in a file called <!-- raw HTML omitted -->inchi.rb<!-- raw HTML omitted -->, we can test it from IRB. To make things interesting, let&rsquo;s pull a molfile from <!-- raw HTML omitted -->Chempedia<!-- raw HTML omitted -->:</p>
+    </div>
+    <a href="/articles/2008/05/30/a-simple-and-portable-ruby-interface-to-inchi-part-2-silencing-console-output/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Articles</span>
+    <h1 class="f3 near-black">
+      <a href="/articles/2008/05/29/a-simple-and-portable-ruby-interface-to-inchi/" class="link black dim">
+        A Simple and Portable Ruby Interface to InChI
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Although the <a href="http://depth-first.com/articles/2007/09/27/inchi-for-newbies">InChI</a> software itself is written in C, it can still be used via Ruby. <a href="http://depth-first.com/articles/2007/03/19/customize-inchi-output-with-rino">Rino</a> offers one implementation of a Ruby InChI interface that makes use of a C extension. This article describes a more concise and portable solution.</p>
+<h1 id="the-code">The Code</h1>
+<p>The following code will accept a String encoding a molfile and return either its InChI, or an empty String if no InChI could be found:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">module</span> InChI
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">inchi_for</span> molfile
+</span></span><span style="display:flex;"><span>    output <span style="color:#f92672">=</span> <span style="color:#e6db74">%x[echo &#34;</span><span style="color:#e6db74">#{</span>molfile<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34; | cInChI-1 -STDIO]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    output<span style="color:#f92672">.</span>eql?(<span style="color:#e6db74">&#34;&#34;</span>) ? <span style="color:#e6db74">&#34;&#34;</span> : output<span style="color:#f92672">.</span>split(<span style="color:#e6db74">/\n/</span>)<span style="color:#f92672">[</span><span style="color:#ae81ff">1</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>This code takes advantage of Ruby&rsquo;s built-in support for <!-- raw HTML omitted -->Command Expansion<!-- raw HTML omitted -->.</p>
+    </div>
+    <a href="/articles/2008/05/29/a-simple-and-portable-ruby-interface-to-inchi/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Articles</span>
+    <h1 class="f3 near-black">
+      <a href="/articles/2008/05/26/simple-cas-number-lookup-and-more-with-chempedia/" class="link black dim">
+        Simple CAS Number Lookup (and More) with Chempedia
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>Despite many ingenious and energetic attempts, CAS Registry Numbers® remain chemistry&rsquo;s only universal method for referencing chemical structures and substances. They&rsquo;re so woven into the fabric of chemistry and trade that the <a href="http://www.uspto.gov/main/profiles/otherid.htm">US Patent and Trademark Office discusses them</a> in the same context as Domain Names, Drivers License Numbers, ZIP Codes, and UPC Barcodes. But for all of the system&rsquo;s advantages, it suffers from a significant limitation: without access to the CAS Registry database, it can be difficult if not impossible to link a chemical structure with a CAS Number. This article discusses a unique approach to this problem.</p>
+    </div>
+    <a href="/articles/2008/05/26/simple-cas-number-lookup-and-more-with-chempedia/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Articles</span>
+    <h1 class="f3 near-black">
+      <a href="/articles/2008/05/23/small-molecule-3d-coordinates-from-pubchem/" class="link black dim">
+        Small Molecule 3D Coordinates From PubChem
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>The PubChem team has quietly introduced a new feature - 3D coordinates for many of the small molecules in its compound collection. To my knowledge, these coordinates are only currently <a href="ftp://ftp.ncbi.nlm.nih.gov/pubchem/Compound_3D/">available via FTP</a>. From the <a href="ftp://ftp.ncbi.nlm.nih.gov/pubchem/Compound_3D/README">README</a>:</p>
+<blockquote>
+<p>The data contained here consists of a theoretical 3D description of PubChem Compound records computed using the MMFF94s force field without coulombic terms, including MMFF charges.  Each provided theoretical 3D conformer is not a stationary point on the hyper-potential surface (i.e., is not at a minimum energy).  Rather, the theoretical 3D description is a low energy conformer selected from a conformer model (a theoretical description of the conformational flexibility of a chemical structure consisting of multiple 3D representations or poses sampled using an RMSD {root mean squared distance} threshold) describing energetically-accessible and (potentially) biologically relevant coformations of a chemical structure.</p>
+    </div>
+    <a href="/articles/2008/05/23/small-molecule-3d-coordinates-from-pubchem/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Articles</span>
+    <h1 class="f3 near-black">
+      <a href="/articles/2008/05/21/building-chempedia-social-networking-applied-to-chemistry/" class="link black dim">
+        Building Chempedia: Social Networking Applied to Chemistry
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p><a href="http://chempedia.com">Chempedia</a> is a free online chemical encyclopedia; it&rsquo;s also a work in progress, the contents of which are being written by numerous volunteers worldwide. A previous article described initial work toward <a href="/articles/2008/05/15/building-chempedia-the-human-element">connecting the people behind Chempedia&rsquo;s content with the compound monographs they&rsquo;re writing</a>. This article will describe new features that take this idea much further.</p>
+<h1 id="contributors">Contributors</h1>
+<p>Chempedia now uses the concept of a &ldquo;Contributor&rdquo; as part of its data model. Each Compound Monograph has one associated Contributor, the Wikipedia user who last edited it. In other words, a one-to-many relationship exists between a Contributor and a Monograph.</p>
+    </div>
+    <a href="/articles/2008/05/21/building-chempedia-social-networking-applied-to-chemistry/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Articles</span>
+    <h1 class="f3 near-black">
+      <a href="/articles/2008/05/20/free-web-based-proton-nmr-prediction-and-assignment-with-nmrdb/" class="link black dim">
+        Free Web-Based Proton NMR Prediction and Assignment with NMRDB
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p><!-- raw HTML omitted -->NMR Prediction software can be a useful tool in spectral assignment and unknown identification. Until recently, the only available software consisted of rather expensive desktop-based packages. But a new Web service called <a href="http://nmrdb.org">nmrdb.org</a> looks ready to change that.</p>
+<h1 id="about-nmrdborg">About nmrdb.org</h1>
+<p><a href="http://nmrdb.org">nmrdb.org</a> is actually three services in one: <a href="http://www.nmrdb.org/resurector">NMR Resurrector</a>; <a href="http://www.nmrdb.org/nemo">NMR Assigner</a>; and <a href="http://www.nmrdb.org/predictor">NMR Predictor</a>.</p>
+<p>NMR Resurector is a remarkable tool that re-creates a proton NMR plot from tabulated peak frequencies. Output is available in PDF, and PNG image format.</p>
+    </div>
+    <a href="/articles/2008/05/20/free-web-based-proton-nmr-prediction-and-assignment-with-nmrdb/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Articles</span>
+    <h1 class="f3 near-black">
+      <a href="/articles/2008/05/19/building-chempedia-resizable-structures-with-chemwriter/" class="link black dim">
+        Building Chempedia - Resizable Structures With ChemWriter
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>One of the difficulties in viewing 2D chemical structures is that molecules vary in size. In particular, larger molecules become difficult to read when confined to a small section of a screen. This article shows how this problem has been addressed in <a href="http://chempedia.com">Chempedia</a> using the 2D rendering capabilities of the <a href="http://metamolecular.com/chemwriter">ChemWriter</a> package.</p>
+<p><img src="/images/posts/20080519/screen.png" alt="Screen"></p>
+<p>As an example, consider Chempedia&rsquo;s entry for <a href="http://chempedia.com/monographs/aluminon">Aluminon</a>. Although the summary box at the right shows the structure for Aluminon, it may not be completely readable due to the large size of the molecule.</p>
+    </div>
+    <a href="/articles/2008/05/19/building-chempedia-resizable-structures-with-chemwriter/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Articles</span>
+    <h1 class="f3 near-black">
+      <a href="/articles/2008/05/17/casual-saturdays-thinking-inside-the-box/" class="link black dim">
+        Casual Saturdays: Thinking Inside the Box
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <!-- raw HTML omitted -->
+    </div>
+    <a href="/articles/2008/05/17/casual-saturdays-thinking-inside-the-box/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Articles</span>
+    <h1 class="f3 near-black">
+      <a href="/articles/2008/05/15/building-chempedia-the-human-element/" class="link black dim">
+        Building Chempedia: The Human Element
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      <p>The study of chemistry is an inherently social activity. From the papers we use and cite, to the conferences we attend, to the informal discussions we engage in daily, being a chemist means interacting with your fellow chemists. Yet strangely, most chemical information systems either totally ignore this central fact, or provide only the most meager of tools to harness it to its full potential. This article discusses how <a href="http://chempedia.com">Chempedia</a> currently integrates the social with the scientific, and what may be in store for the future.</p>
+    </div>
+    <a href="/articles/2008/05/15/building-chempedia-the-human-element/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+</div>
+
+        </div>
+      
+    </section>
+    <ul class="pagination pagination-default">
+      <li class="page-item">
+        <a href="/articles/" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/articles/page/55/" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/articles/page/54/" aria-label="Page 54" class="page-link" role="button">54</a>
+      </li>
+      <li class="page-item">
+        <a href="/articles/page/55/" aria-label="Page 55" class="page-link" role="button">55</a>
+      </li>
+      <li class="page-item active">
+        <a aria-current="page" aria-label="Page 56" class="page-link" role="button">56</a>
+      </li>
+      <li class="page-item">
+        <a href="/articles/page/57/" aria-label="Page 57" class="page-link" role="button">57</a>
+      </li>
+      <li class="page-item">
+        <a href="/articles/page/58/" aria-label="Page 58" class="page-link" role="button">58</a>
+      </li>
+      <li class="page-item">
+        <a href="/articles/page/57/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/articles/page/92/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+      </li>
+    </ul></article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

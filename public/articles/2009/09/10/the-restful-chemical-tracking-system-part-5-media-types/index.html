@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>The RESTful Chemical Tracking System Part 5 - Media Types | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Laboratory information management systems are complex entities that evolve over time. Change takes many forms, including the support of new kinds of devices (e.g., mobile devices), new applications that make use of the underlying data, changes in data models, and additional services that need to be integrated. RESTful web services exposing narrow functionality through a uniform interface offer an approach to anticipating and effectively working with these kinds of changes.
+This article is the fifth part in a series exploring the idea that the REST architectural style can be applied to scientific laboratory information management problems, specifically chemical tracking. Previously, we identified five resources and described their interrelationships. This installment takes up the important question of how clients and servers will represent these resources through media types.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2009/09/10/the-restful-chemical-tracking-system-part-5-media-types/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2009/09/10/the-restful-chemical-tracking-system-part-5-media-types/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="The RESTful Chemical Tracking System Part 5 - Media Types">
+  <meta property="og:description" content="Laboratory information management systems are complex entities that evolve over time. Change takes many forms, including the support of new kinds of devices (e.g., mobile devices), new applications that make use of the underlying data, changes in data models, and additional services that need to be integrated. RESTful web services exposing narrow functionality through a uniform interface offer an approach to anticipating and effectively working with these kinds of changes.
+This article is the fifth part in a series exploring the idea that the REST architectural style can be applied to scientific laboratory information management problems, specifically chemical tracking. Previously, we identified five resources and described their interrelationships. This installment takes up the important question of how clients and servers will represent these resources through media types.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2009-09-10T00:00:00+00:00">
+    <meta property="article:modified_time" content="2009-09-10T00:00:00+00:00">
+
+  <meta itemprop="name" content="The RESTful Chemical Tracking System Part 5 - Media Types">
+  <meta itemprop="description" content="Laboratory information management systems are complex entities that evolve over time. Change takes many forms, including the support of new kinds of devices (e.g., mobile devices), new applications that make use of the underlying data, changes in data models, and additional services that need to be integrated. RESTful web services exposing narrow functionality through a uniform interface offer an approach to anticipating and effectively working with these kinds of changes.
+This article is the fifth part in a series exploring the idea that the REST architectural style can be applied to scientific laboratory information management problems, specifically chemical tracking. Previously, we identified five resources and described their interrelationships. This installment takes up the important question of how clients and servers will represent these resources through media types.">
+  <meta itemprop="datePublished" content="2009-09-10T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2009-09-10T00:00:00+00:00">
+  <meta itemprop="wordCount" content="987">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="The RESTful Chemical Tracking System Part 5 - Media Types">
+  <meta name="twitter:description" content="Laboratory information management systems are complex entities that evolve over time. Change takes many forms, including the support of new kinds of devices (e.g., mobile devices), new applications that make use of the underlying data, changes in data models, and additional services that need to be integrated. RESTful web services exposing narrow functionality through a uniform interface offer an approach to anticipating and effectively working with these kinds of changes.
+This article is the fifth part in a series exploring the idea that the REST architectural style can be applied to scientific laboratory information management problems, specifically chemical tracking. Previously, we identified five resources and described their interrelationships. This installment takes up the important question of how clients and servers will represent these resources through media types.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">The RESTful Chemical Tracking System Part 5 - Media Types</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2009-09-10T00:00:00Z">September 10, 2009</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Laboratory information management systems are complex entities that evolve over time. Change takes many forms, including the support of new kinds of devices (e.g., <a href="/articles/2009/09/04/tech-fridays-titanium-mobile-and-the-electronic-laboratory-notebook-usability-problem">mobile devices</a>), new applications that make use of the underlying data, changes in data models, and additional services that need to be integrated. RESTful web services exposing narrow functionality through a uniform interface offer an approach to anticipating and effectively working with these kinds of changes.</p>
+<p>This article is the fifth part in a series exploring the idea that the REST architectural style can be applied to scientific laboratory information management problems, specifically chemical tracking. Previously, we identified five resources and described their interrelationships. This installment takes up the important question of how clients and servers will represent these resources through media types.</p>
+<h1 id="all-articles-in-this-series">All Articles in This Series:</h1>
+<ol>
+<li><a href="/articles/2009/08/07/the-restful-chemical-tracking-system-part-1-introduction">The RESTful Chemical Tracking System Part 1: Introduction</a></li>
+<li><a href="/articles/2009/08/14/the-restful-chemical-tracking-system-part-2-resources">The RESTful Chemical Tracking System Part 2: Resources</a></li>
+<li><a href="/articles/2009/08/21/the-restful-chemical-tracking-system-part-3-resource-associations">The RESTful Chemical Tracking System Part 3: Resource Associations</a></li>
+<li><a href="/articles/2009/08/28/the-restful-chemical-tracking-system-part-4-resources-representations-hypertext-and-json">The RESTful Chemical Tracking System Part 4: Resources, Representations, Hypertext, and JSON</a></li>
+<li>The RESTful Chemical Tracking System Part 5: Media Types</li>
+</ol>
+<h1 id="resources-at-a-glance">Resources At a Glance</h1>
+<p>We previously defined an <a href="/articles/2009/08/21/%EF%BB%BFthe-restful-chemical-tracking-system-part-3-resource-associations">association diagram</a> that depicts how each of our resources relates to the others:</p>
+<p><img src="/images/posts/20090820/cts.png" alt="CTS" title="CTS"></p>
+<h1 id="using-media-types-with-hypertext-driven-apis">Using Media Types with Hypertext-driven APIs</h1>
+<p>As [previously described]](/articles/2009/08/28/%EF%BB%BFthe-restful-chemical-tracking-system-part-4-resources-representations-hypertext-and-json), media types for this chemical tracking system will be based on <a href="http://www.json.org/">JSON</a>. Because our API will be <a href="/articles/2009/07/31/restful-web-services-hypermedia-and-robot-scientists">hypertext-driven</a>, we&rsquo;ll need a mechanism for providing links for clients to follow. We&rsquo;ll do this by defining a JSON data structure called <strong>Link</strong>. A <strong>Link</strong> will communicate three things: (1) a URI; (2) a media type; (3) a human-readable name to aid in debugging and client development. The following is an example of a <strong>Link</strong> defined in JSON:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;human-readable description of this Link&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/transfers/123&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Transfer+json&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>When a client receives a representation containing a <strong>Link</strong>, it won&rsquo;t need to guess the media type to send or request from the server - it uses the media type supplied in the Link. For its part, the server can define as many media types for a given URI as it cares to without breaking any client code.</p>
+<h1 id="media-type-descriptions">Media Type Descriptions</h1>
+<p>Everything is now in place to offer some specific media type descriptions for the chemical tracking system. They each follow the same pattern consisting of: (1) a text description of the resource; (2) a table listing attributes and Links; and (3) an example representation.</p>
+<p>Within each attributes table, those attributes marked &ldquo;[create]&rdquo; can be used when creating a new resource, and those marked &ldquo;[update]&rdquo; can be used when updating a resource. All attributes are returned when viewing the representation.</p>
+<h1 id="index-applicationvndcommetamolecularctsindexjson">#Index [application/vnd.com.metamolecular.cts.Index+json]</h1>
+<p>A listing of resources of the same type and which supports pagination.</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;create&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;create a new location&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/locations&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Location+json&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;items&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;a location&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/locations/991&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Location+json&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;a location&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/locations/992&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Location+json&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;a location&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/locations/993&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Location+json&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;next_page&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;the next page of locations&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/locations?page=3&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Index+json&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;previous_page&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;the previous page of locations&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/locations?page=1&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Index+json&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="location-applicationvndcommetamolecularctslocationjson">Location [application/vnd.com.metamolecular.cts.Location+json]</h1>
+<p>The place in which a Sample resides (or once resided). This simplistic definition may work for a small lab; we can accomodate <a href="/articles/2009/08/14/%EF%BB%BFthe-restful-chemical-tracking-system-part-2-resources#comments">more complex arrangements</a> by breaking <em>Location</em> into subordinate resources such as <em>Building</em>, <em>Room</em>, <em>Rack</em>, and so on.</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;location&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;building&#34;</span>:<span style="color:#e6db74">&#34;Chemistry&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;room&#34;</span>:<span style="color:#ae81ff">104</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;station_type&#34;</span>:<span style="color:#e6db74">&#34;Fume Hood&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;station&#34;</span>:<span style="color:#e6db74">&#34;27-A&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;current_samples&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;samples currently stored at this location&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/locations/123/samples&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Index+json&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;transfers&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;transfers made to this location&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/locations/123/transfers&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Index+json&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;update&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;updates this location&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/locations/123&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Location+json&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;destroy&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;destroy this location&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/locations/123&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Location+json&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="transfer-applicationvndcommetamolecularctstransferjson">Transfer [application/vnd.com.metamolecular.cts.Transfer+json]</h1>
+<p>The act of a User moving a Sample from one Location to another. Notice that unlike other resources, a Transfer is not something we can physically interact with but instead something done to another resource. Note that the <em>sample_reference</em> and <em>location_reference</em> fields make use of URIs themselves as primary resource identifiers.</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;transfer&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;created_at&#34;</span>:<span style="color:#e6db74">&#34;Fri, 04 Sep 2009 18:44:44 +0000&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;location_reference&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/locations/123&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;sample_reference&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/samples/1234&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;user&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;the user initiating this transfer&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/users/123&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.User+json&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;location&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;the location to which the transfer was made&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/locations/123&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Location+json&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;sample&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;the sample being transferred&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/samples/1234&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Sample+json&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;destroy&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;destroy this transfer&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/transfers/1234&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Transfer+json&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="user-applicationvndcommetamolecularctsuserjson">User [application/vnd.com.metamolecular.cts.User+json]</h1>
+<p>Any entity capable of moving a Sample from one Location to another. Depending on the equipment available in a lab, a User may or may not be a person.</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;user&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;Xanthus-1&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;type&#34;</span>:<span style="color:#e6db74">&#34;Robot&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;transfers&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;the transfers made by this user&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/users/123/transfers&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Index+json&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;update&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;update this user&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/users/123&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.User+json&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;destroy&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;destroy this user&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/users/123&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.User+json&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="sample-applicationvndcommetamolecularctssamplejson">#Sample [application/vnd.com.metamolecular.cts.Sample+json]</h1>
+<p>The physical object we want to keep track of. We&rsquo;ll start with something simple here. But like <em>Location</em>, <em>Sample</em> is a resource we can refine by breaking it down into smaller resources. For example, we might enable a <em>Sample</em> to be divided by defining a <em>Partition</em> resource.</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;sample&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;mass&#34;</span>:<span style="color:#e6db74">&#34;275 mg&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;transfers&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;the transfers involving this sample&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/samples/1143/transfers&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Index+json&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;current_location&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;the current location this sample&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/locations/42&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Location+json&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;substance&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;the substance making up this sample&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/substances/1099&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Substance+json&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;update&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;updates this sample&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/samples/1234&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Sample+json&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;destroy&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;destroy this sample&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/samples/1234&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Sample+json&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="substance-applicationvndcommetamolecularctssubstancejson">Substance [application/vnd.com.metamolecular.cts.Substance+json]</h1>
+<p>The molecular entity (or entities) contained in a Sample. Here, we&rsquo;ll use a Substance ID assigned by another system (possibly by a company-wide substance registration app). If that system were RESTful (see <a href="http://chemcaster.com">Chemcaster</a>), we could link to it instead.</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;substance&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;identifer&#34;</span>:<span style="color:#e6db74">&#34;CB-10779751&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;samples&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;the samples in which this substance appears&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/substances/815/samples&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Index+json&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;update&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;update this substance&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/substances/123&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Substance+json&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;destroy&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;destroy this substance&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;http://example.com/substances/123&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;media_type&#34;</span>:<span style="color:#e6db74">&#34;application/vnd.com.metamolecular.cts.Substance+json&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="conclusions">Conclusions</h1>
+<p>We now have the blueprint for a RESTful chemical tracking system. Five resources with well-defined relationships can now be expressed in terms of simple media types. But how do we use these media types and resources to actually accomplish something useful? The next article in this series will offer some ideas.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Hacking PubChem: Direct Access with FTP | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="A previous article in the Hacking PubChem series pointed out that the entire PubChem database can be downloaded via FTP. This article shows how simple tools written in Ruby can be used to efficiently process the massive amount of data on PubChem&rsquo;s FTP-server.
+Prerequisites
+The only software you&rsquo;ll need for this tutorial is Ruby.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2006/09/hacking-pubchem-direct-access-with-ftp/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2006/09/hacking-pubchem-direct-access-with-ftp/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Hacking PubChem: Direct Access with FTP">
+  <meta property="og:description" content="A previous article in the Hacking PubChem series pointed out that the entire PubChem database can be downloaded via FTP. This article shows how simple tools written in Ruby can be used to efficiently process the massive amount of data on PubChem’s FTP-server.
+Prerequisites The only software you’ll need for this tutorial is Ruby.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2006-09-29T00:00:00+00:00">
+    <meta property="article:modified_time" content="2006-09-29T00:00:00+00:00">
+
+  <meta itemprop="name" content="Hacking PubChem: Direct Access with FTP">
+  <meta itemprop="description" content="A previous article in the Hacking PubChem series pointed out that the entire PubChem database can be downloaded via FTP. This article shows how simple tools written in Ruby can be used to efficiently process the massive amount of data on PubChem’s FTP-server.
+Prerequisites The only software you’ll need for this tutorial is Ruby.">
+  <meta itemprop="datePublished" content="2006-09-29T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2006-09-29T00:00:00+00:00">
+  <meta itemprop="wordCount" content="795">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Hacking PubChem: Direct Access with FTP">
+  <meta name="twitter:description" content="A previous article in the Hacking PubChem series pointed out that the entire PubChem database can be downloaded via FTP. This article shows how simple tools written in Ruby can be used to efficiently process the massive amount of data on PubChem’s FTP-server.
+Prerequisites The only software you’ll need for this tutorial is Ruby.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Hacking PubChem: Direct Access with FTP</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2006-09-29T00:00:00Z">September 29, 2006</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>A <!-- raw HTML omitted -->previous article<!-- raw HTML omitted --> in the <!-- raw HTML omitted -->Hacking PubChem<!-- raw HTML omitted --> series pointed out that the entire PubChem database can be <!-- raw HTML omitted -->downloaded via FTP<!-- raw HTML omitted -->. This article shows how simple tools written in Ruby can be used to efficiently process the massive amount of data on PubChem&rsquo;s FTP-server.</p>
+<h1 id="prerequisites">Prerequisites</h1>
+<p>The only software you&rsquo;ll need for this tutorial is <!-- raw HTML omitted -->Ruby<!-- raw HTML omitted -->.</p>
+<h1 id="organization-of-pubchems-ftp-server">Organization of PubChem&rsquo;s FTP-Server</h1>
+<p>PubChem is a big database. To deal with its size, the FTP-server spreads its contents over about 950 files. Each file contains a contiguous range of Compound Identification Numbers (CIDs), which appears to be set at 10,000 [<!-- raw HTML omitted -->Now 25,000, see below<!-- raw HTML omitted -->]. In some of the files I&rsquo;ve examined, the actual number of compounds in a given block was less than 10,000. The root directory containing the files can be accessed <!-- raw HTML omitted -->here<!-- raw HTML omitted -->.</p>
+<h1 id="compression-saves-the-day">Compression Saves the Day</h1>
+<p>For storage and transmission efficiency, PubChem&rsquo;s SDF files are compressed using the GZip algorithm, giving files that typically range in size from five to seven megabytes. Compression ratios for the files I&rsquo;ve examined are about 10:1. I&rsquo;m calling these files &ldquo;SDFGZ&rdquo; files, and they have the extension <code>*.sdf.gz</code>.</p>
+<p>A back of the envelope calculation, based on 950 files with an average size of 6 MB and a compression ratio of 10:1, gives an approximate storage requirement of 57 GB for the uncompressed PubChem database. Although storing this much data is feasible with today&rsquo;s hardware, there are many better uses for storage space. This is especially true if only a few fields of the PubChem database are of interest.</p>
+<h1 id="setting-up">Setting Up</h1>
+<p>You&rsquo;ll need to download some SDFGZ data. This tutorial uses the <!-- raw HTML omitted -->file containing CIDs 9540001-9550000<!-- raw HTML omitted -->. [<!-- raw HTML omitted -->Note: PubChem recently increased the number of compounds in each sdfgz file to 25,000. This means that the link to the file no longer works. Instead, choose a file from <!-- raw HTML omitted -->here<!-- raw HTML omitted --><!-- raw HTML omitted -->.] Put this file in your working directory.</p>
+<h1 id="a-short-library">A Short Library</h1>
+<p>Create a file called <!-- raw HTML omitted -->sdfgz.rb<!-- raw HTML omitted --> containing the following code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;zlib&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># A simple splitter for *.sdf.gz files available</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># from PubChem&#39;s FTP-server.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SDFGZSplitter</span>
+</span></span><span style="display:flex;"><span>  @@stop <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;$$$$</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>  @@blank <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Configures this SDFGZSplitter using the IO</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># object io.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">initialize</span>(io)
+</span></span><span style="display:flex;"><span>    @gzip <span style="color:#f92672">=</span> <span style="color:#66d9ef">Zlib</span><span style="color:#f92672">::</span><span style="color:#66d9ef">GzipReader</span><span style="color:#f92672">.</span>new(io)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Yield a sequence of SDFile records.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">each_record</span>
+</span></span><span style="display:flex;"><span>    record <span style="color:#f92672">=</span> get_record
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> record <span style="color:#f92672">!=</span> @@blank
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">yield</span> record
+</span></span><span style="display:flex;"><span>      record <span style="color:#f92672">=</span> get_record
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Gets the next record, or an empty string if</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># none is available.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_record</span>
+</span></span><span style="display:flex;"><span>    line <span style="color:#f92672">=</span> read_line
+</span></span><span style="display:flex;"><span>    record <span style="color:#f92672">=</span> <span style="color:#f92672">[</span>line<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> <span style="color:#f92672">!</span>(@@stop<span style="color:#f92672">.</span>eql?(line) <span style="color:#f92672">||</span> <span style="color:#66d9ef">nil</span> <span style="color:#f92672">==</span> line)
+</span></span><span style="display:flex;"><span>      line <span style="color:#f92672">=</span> read_line
+</span></span><span style="display:flex;"><span>      record <span style="color:#f92672">&lt;&lt;</span> line
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    record<span style="color:#f92672">.</span>join
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Reads the next line in the SDFGZ file.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">read_line</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>      line <span style="color:#f92672">=</span> @gzip<span style="color:#f92672">.</span>readline
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">rescue</span> <span style="color:#66d9ef">EOFError</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    line
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Utility class for getting data out of a SDFile record.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Extractor</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Gets the data from record associated with</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># key.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">self</span><span style="color:#f92672">.</span><span style="color:#a6e22e">extract_data</span>(record, key)
+</span></span><span style="display:flex;"><span>    record<span style="color:#f92672">.</span>match(<span style="color:#e6db74">/&gt; &lt;</span><span style="color:#e6db74">#{</span>key<span style="color:#e6db74">}</span><span style="color:#e6db74">&gt;\n(.+)\n/</span>)
+</span></span><span style="display:flex;"><span>    $1
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Gets the molfile for record.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">self</span><span style="color:#f92672">.</span><span style="color:#a6e22e">extract_molfile</span>(record)
+</span></span><span style="display:flex;"><span>    record<span style="color:#f92672">.</span>match(<span style="color:#e6db74">/M  END$/</span>)<span style="color:#f92672">.</span>pre_match <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;M  END</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>The <code>SDFGZSplitter</code> class uses Ruby&rsquo;s built-in GZip library to read SDFGZ files without inflating them. The method <code>each_record</code> is a <!-- raw HTML omitted -->Ruby iterator<!-- raw HTML omitted -->, one of the strangely cool things that makes Ruby the language it is. The iterator&rsquo;s job is to allow retrieval of each SDFGZ record individually, until all records have been retrieved.</p>
+<h1 id="using-the-library">Using the Library</h1>
+<p>As a test for the <code>sdfgz</code> library, lets scrape all PubChem CIDs and InChI identifiers from an SDFGZ file, and place the result into a new CSV file. Create the following code, either in a file to be run by <code>ruby</code> or in a terminal session using <code>irb</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;sdfgz&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>file <span style="color:#f92672">=</span> <span style="color:#66d9ef">File</span><span style="color:#f92672">.</span>new(<span style="color:#e6db74">&#39;Compound_09540001_09550000.sdf.gz&#39;</span>)
+</span></span><span style="display:flex;"><span>splitter <span style="color:#f92672">=</span> <span style="color:#66d9ef">SDFGZSplitter</span><span style="color:#f92672">.</span>new(file)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>puts <span style="color:#e6db74">&#34;parsing...&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">File</span><span style="color:#f92672">.</span>open(<span style="color:#e6db74">&#39;dictionary.csv&#39;</span>, <span style="color:#e6db74">&#39;w+&#39;</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>file<span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>  splitter<span style="color:#f92672">.</span>each_record <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>record<span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>    cid <span style="color:#f92672">=</span> <span style="color:#66d9ef">Extractor</span><span style="color:#f92672">.</span>extract_data(record, <span style="color:#e6db74">&#39;PUBCHEM_COMPOUND_CID&#39;</span>)
+</span></span><span style="display:flex;"><span>    inchi <span style="color:#f92672">=</span> <span style="color:#66d9ef">Extractor</span><span style="color:#f92672">.</span>extract_data(record, <span style="color:#e6db74">&#39;PUBCHEM_NIST_INCHI&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    file <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">#{</span>cid<span style="color:#e6db74">}</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">#{</span>inchi<span style="color:#e6db74">}</span><span style="color:#ae81ff">\&#34;\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>Running this test creates a (rather large) file called <!-- raw HTML omitted -->dictionary.csv<!-- raw HTML omitted --> in your working directory. Its contents consist of the following truncated output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>9540001,<span style="color:#e6db74">&#34;InChI=1/C20H22N2O4/c1-13-7-5-10-16(14(13)2)22-20(26)15-8-3-4-9-17(15)21-18(23)11-6-12-19(24)25/h3-5,7-10H,6,11-12H2,1-2H3,(H,21,23)(H,22,26)(H,24,25)/p-1/fC20H21N2O4/h21-22H/q-1&#34;</span>
+</span></span><span style="display:flex;"><span>9540002,<span style="color:#e6db74">&#34;InChI=1/C20H22N2O4/c1-13-7-5-10-16(14(13)2)22-20(26)15-8-3-4-9-17(15)21-18(23)11-6-12-19(24)25/h3-5,7-10H,6,11-12H2,1-2H3,(H,21,23)(H,22,26)(H,24,25)/f/h21-22,24H&#34;</span>
+</span></span><span style="display:flex;"><span>9540003,<span style="color:#e6db74">&#34;InChI=1/C19H20N2O5/c1-26-16-8-3-7-15(12-16)21-19(25)13-5-2-6-14(11-13)20-17(22)9-4-10-18(23)24/h2-3,5-8,11-12H,4,9-10H2,1H3,(H,20,22)(H,21,25)(H,23,24)/p-1/fC19H19N2O5/h20-21H/q-1&#34;</span>
+</span></span><span style="display:flex;"><span>9540004,<span style="color:#e6db74">&#34;InChI=1/C19H20N2O5/c1-26-16-8-3-7-15(12-16)21-19(25)13-5-2-6-14(11-13)20-17(22)9-4-10-18(23)24/h2-3,5-8,11-12H,4,9-10H2,1H3,(H,20,22)(H,21,25)(H,23,24)/f/h20-21,23H&#34;</span>
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Many customizations of the above code are possible. For example, it would not be difficult to programatically log into the PubChem FTP-server, download a file, and process it as shown. By parsing the SDFGZ filename, a program could even know which file contained a given CID. Because the <code>SDFGZSplitter</code> constructor takes a Ruby <code>IO</code> object, it&rsquo;s also feasible to process PubChem&rsquo;s SDFGZ files directly from the FTP-server, without downloading them beforehand. But that&rsquo;s a subject for another day.</p>
+<h1 id="summing-up">Summing Up</h1>
+<p>The PubChem FTP-server is a treasure trove of useful data that&rsquo;s available free of charge. Using simple tools like those discussed here, it&rsquo;s possible to generate a virtually infinite variety of customized views of this valuable resource. Many creative, and novel, applications are possible by combining the capabilities shown here with those of Open Source chemical informatics software, such as <!-- raw HTML omitted -->RCDK<!-- raw HTML omitted -->, and other Open data sources, such as <!-- raw HTML omitted -->NMRShiftDB<!-- raw HTML omitted -->.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

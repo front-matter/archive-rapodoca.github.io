@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Wikipedia for Cheminformatics - A Simple Web API for Finding CAS Numbers in Compound Monographs | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Good news for cheminformatics: Chemical Abstracts Service (CAS) has agreed to help Wikipedia users curate its collection of CAS numbers. As a result of the diligence of some hard-working volunteers, chemistry&rsquo;s most universal system for referring to chemicals can now be used far more effectively by the worlds biggest open repository of knowledge.
+Wouldn&rsquo;t it be great to be able to pull these CAS numbers from Wikipedia programmatically?
+Perspective
+Estimates place the number of Wikipedia pages dealing with individual inorganic and organic substances in the thousands. (I&rsquo;ll use the term &ldquo;compound monographs&rdquo; to describe them.) One factor acting to keep this number low is poor visibility of these entries. Unlike most chemical databases, Wikipedia can&rsquo;t, by itself, be easily searched by structure. As chemically-aware tools for indexing Wikipedia begin to emerge, look for six things to happen:">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/posts/2008-04-02-wikipedia-for-cheminformatics-a-simple-web-api-for-finding-cas-numbers-in-compound-monographs/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/posts/2008-04-02-wikipedia-for-cheminformatics-a-simple-web-api-for-finding-cas-numbers-in-compound-monographs/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="Wikipedia for Cheminformatics - A Simple Web API for Finding CAS Numbers in Compound Monographs">
+  <meta property="og:description" content="Good news for cheminformatics: Chemical Abstracts Service (CAS) has agreed to help Wikipedia users curate its collection of CAS numbers. As a result of the diligence of some hard-working volunteers, chemistry’s most universal system for referring to chemicals can now be used far more effectively by the worlds biggest open repository of knowledge.
+Wouldn’t it be great to be able to pull these CAS numbers from Wikipedia programmatically?
+Perspective Estimates place the number of Wikipedia pages dealing with individual inorganic and organic substances in the thousands. (I’ll use the term “compound monographs” to describe them.) One factor acting to keep this number low is poor visibility of these entries. Unlike most chemical databases, Wikipedia can’t, by itself, be easily searched by structure. As chemically-aware tools for indexing Wikipedia begin to emerge, look for six things to happen:">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2008-04-02T00:00:00+00:00">
+    <meta property="article:modified_time" content="2008-04-02T00:00:00+00:00">
+
+  <meta itemprop="name" content="Wikipedia for Cheminformatics - A Simple Web API for Finding CAS Numbers in Compound Monographs">
+  <meta itemprop="description" content="Good news for cheminformatics: Chemical Abstracts Service (CAS) has agreed to help Wikipedia users curate its collection of CAS numbers. As a result of the diligence of some hard-working volunteers, chemistry’s most universal system for referring to chemicals can now be used far more effectively by the worlds biggest open repository of knowledge.
+Wouldn’t it be great to be able to pull these CAS numbers from Wikipedia programmatically?
+Perspective Estimates place the number of Wikipedia pages dealing with individual inorganic and organic substances in the thousands. (I’ll use the term “compound monographs” to describe them.) One factor acting to keep this number low is poor visibility of these entries. Unlike most chemical databases, Wikipedia can’t, by itself, be easily searched by structure. As chemically-aware tools for indexing Wikipedia begin to emerge, look for six things to happen:">
+  <meta itemprop="datePublished" content="2008-04-02T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2008-04-02T00:00:00+00:00">
+  <meta itemprop="wordCount" content="614">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Wikipedia for Cheminformatics - A Simple Web API for Finding CAS Numbers in Compound Monographs">
+  <meta name="twitter:description" content="Good news for cheminformatics: Chemical Abstracts Service (CAS) has agreed to help Wikipedia users curate its collection of CAS numbers. As a result of the diligence of some hard-working volunteers, chemistry’s most universal system for referring to chemicals can now be used far more effectively by the worlds biggest open repository of knowledge.
+Wouldn’t it be great to be able to pull these CAS numbers from Wikipedia programmatically?
+Perspective Estimates place the number of Wikipedia pages dealing with individual inorganic and organic substances in the thousands. (I’ll use the term “compound monographs” to describe them.) One factor acting to keep this number low is poor visibility of these entries. Unlike most chemical databases, Wikipedia can’t, by itself, be easily searched by structure. As chemically-aware tools for indexing Wikipedia begin to emerge, look for six things to happen:">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Wikipedia for Cheminformatics - A Simple Web API for Finding CAS Numbers in Compound Monographs</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2008-04-02T00:00:00Z">April 2, 2008</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Good news for cheminformatics: Chemical Abstracts Service (CAS) <a href="http://en.wikipedia.org/wiki/Wikipedia_talk:WikiProject_Chemistry/CAS_validation">has agreed</a> to help Wikipedia users curate its collection of CAS numbers. As a result of the diligence of some hard-working volunteers, chemistry&rsquo;s most universal system for referring to chemicals can now be used far more effectively by the worlds biggest open repository of knowledge.</p>
+<p>Wouldn&rsquo;t it be great to be able to pull these CAS numbers from Wikipedia programmatically?</p>
+<h1 id="perspective">Perspective</h1>
+<p>Estimates place the number of Wikipedia pages dealing with individual <a href="http://en.wikipedia.org/wiki/Wikipedia:WikiProject_Chemicals/Inorganics">inorganic</a> and <a href="http://en.wikipedia.org/wiki/List_of_organic_compounds">organic</a> substances in the thousands. (I&rsquo;ll use the term &ldquo;compound monographs&rdquo; to describe them.) One factor acting to keep this number low is poor visibility of these entries. Unlike most <a href="http://depth-first.com/articles/2007/01/24/thirty-two-free-chemistry-databases">chemical databases</a>, Wikipedia can&rsquo;t, by itself, be easily searched by structure. As chemically-aware tools for indexing Wikipedia begin to emerge, look for six things to happen:</p>
+<ol>
+<li>The number of Wikipedia compound monographs will increase significantly.</li>
+<li>The quality of monographs for intermediate- to well-known compounds will increase substantially.</li>
+<li>Demand for user-friendly interfaces to Wikipedia&rsquo;s chemical content will increase.</li>
+<li>Wikipedia users will become interested in storing and finding ever more diverse kinds of information about each compound.</li>
+<li>Bench chemists will start to include Wikipedia as one of their preferred literature search techniques, leading to&hellip;</li>
+<li>More creative tools for using the chemical content of Wikipedia.</li>
+</ol>
+<p>As noted previously, it wasn&rsquo;t too long ago that indexing of the chemical literature <a href="http://depth-first.com/articles/2006/08/19/history-of-abstracting-at-chemical-abstracts-service">was done solely by volunteers</a>. Wikipedia offers an intriguing way to channel the innate drive for chemists to combine their own work and experience with that of others to build useful information tools for the community.</p>
+<p>But for now we are left with the question of how to index the chemical content of Wikipedia. Although a few systems have been proposed, the only practical method is through the use of CAS numbers. Which brings us to the subject of today&rsquo;s tutorial.</p>
+<h1 id="a-quick-cas-number-api-for-wikipedia">A Quick CAS Number API for Wikipedia</h1>
+<p>The Ruby program below will accept the title of any Wikipedia compound monograph title and return the CAS number for the compound being discussed, or an error message if none was found:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;rubygems&#39;</span>
+</span></span><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;hpricot&#39;</span>
+</span></span><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;open-uri&#39;</span>
+</span></span><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;cgi&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Wikikemi</span>
+</span></span><span style="display:flex;"><span>  @cas <span style="color:#f92672">=</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">attr_reader</span> <span style="color:#e6db74">:cas</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">initialize</span> title
+</span></span><span style="display:flex;"><span>    uri <span style="color:#f92672">=</span> <span style="color:#66d9ef">URI</span><span style="color:#f92672">.</span>escape(<span style="color:#e6db74">&#34;http://en.wikipedia.org/wiki/</span><span style="color:#e6db74">#{</span>title<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    puts <span style="color:#e6db74">&#34;loading... </span><span style="color:#e6db74">#{</span>uri<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    doc <span style="color:#f92672">=</span> <span style="color:#66d9ef">Hpricot</span>(open(uri))
+</span></span><span style="display:flex;"><span>    table <span style="color:#f92672">=</span> (doc<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;table&#34;</span>)<span style="color:#f92672">[</span><span style="color:#ae81ff">0</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    table<span style="color:#f92672">.</span>inner_html<span style="color:#f92672">.</span>match(<span style="color:#e6db74">/([0-9]{2,7}?\-[0-9]{2}\-[0-9])/</span>) <span style="color:#66d9ef">if</span> table
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    @cas <span style="color:#f92672">=</span> $1
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Returns the CAS number present in the Wikipedia monograph with</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># the indicated title, or an error message if none is found. Try, for example,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># &#34;benzene.&#34;.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  puts <span style="color:#e6db74">&#34;Enter the title of the Wikipedia page, for example: &#39;benzene&#39;&#34;</span>
+</span></span><span style="display:flex;"><span>  monograph_title <span style="color:#f92672">=</span> gets<span style="color:#f92672">.</span>chomp
+</span></span><span style="display:flex;"><span>  w <span style="color:#f92672">=</span> <span style="color:#66d9ef">Wikikemi</span><span style="color:#f92672">.</span>new monograph_title
+</span></span><span style="display:flex;"><span>  puts w<span style="color:#f92672">.</span>cas ? <span style="color:#e6db74">&#34;[</span><span style="color:#e6db74">#{</span>w<span style="color:#f92672">.</span>cas<span style="color:#e6db74">}</span><span style="color:#e6db74">]&#34;</span> : <span style="color:#e6db74">&#34;CAS number not found&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>This program makes use of the excellent Ruby HTML parser, <!-- raw HTML omitted -->Hpricot<!-- raw HTML omitted -->.</p>
+<p>Saving the above code to a file called <!-- raw HTML omitted -->wikikemi.rb<!-- raw HTML omitted -->, we can run it with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ruby wikikemi.rb
+</span></span></code></pre></div><p>For example, we can look up the CAS numbers for Ferrocene, Lipitor, or 1,2,3,4,4a,5,6,7,8,8a-Decahydronaphthalene:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ruby wikikemi.rb
+</span></span><span style="display:flex;"><span>Enter the title of the Wikipedia page, <span style="color:#66d9ef">for</span> example: <span style="color:#e6db74">&#39;benzene&#39;</span>
+</span></span><span style="display:flex;"><span>ferrocene
+</span></span><span style="display:flex;"><span>loading... http://en.wikipedia.org/wiki/ferrocene
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>102-54-5<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Enter the title of the Wikipedia page, <span style="color:#66d9ef">for</span> example: <span style="color:#e6db74">&#39;benzene&#39;</span>
+</span></span><span style="display:flex;"><span>lipitor
+</span></span><span style="display:flex;"><span>loading... http://en.wikipedia.org/wiki/lipitor
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>134523-00-5<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Enter the title of the Wikipedia page, <span style="color:#66d9ef">for</span> example: <span style="color:#e6db74">&#39;benzene&#39;</span>
+</span></span><span style="display:flex;"><span>1,2,3,4,4a,5,6,7,8,8a-Decahydronaphthalene
+</span></span><span style="display:flex;"><span>loading... http://en.wikipedia.org/wiki/1,2,3,4,4a,5,6,7,8,8a-Decahydronaphthalene
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>91-17-8<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>All this method requires is that the Wikipedia page lists the correct CAS number in its <a href="http://en.wikipedia.org/wiki/Template:Drugbox">Drugbox</a> or <a href="http://en.wikipedia.org/wiki/Template:Chembox_new">Chembox</a> template. Fortunately, CAS has agreed to help make this happen.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>A little Ruby code is all it takes to build a working CAS number lookup system using Wikipedia. Although this may be useful as a standalone tool, it becomes much more powerful when made part of <a href="http://depth-first.com/articles/2007/05/21/simple-cas-number-lookup-with-pubchem">a larger cheminformatics system</a>. But that&rsquo;s a story for another time.</p>
+<p>See also <a href="http://www.chemspider.com/blog/a-message-of-support-and-public-service-from-the-chemical-abstracts-service.html">Antony Williams&rsquo; announcement on CAS and Wikipedia</a>.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  My New Hugo Site 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

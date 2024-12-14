@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Scripting Molecular Fingerprints with Ruby CDK | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="A molecular fingerprint represents a molecule as series of bits. There are many situations in which this reduced form of molecular representation is useful. For example, fingerprints are frequently used as a fast prescreen for database substructure searches. They can also be used for &ldquo;fuzzy&rdquo; comparisons involving molecular similarity, a nice complement to binary queries such as substructure search.
+Fingerprints have their limitations. Being a form of hashing, they are imprecise in that two different molecules can have exactly the same fingerprint. The converse is also true: many molecular fingerprints exaggerate small differences between two molecules that most chemists would say are similar - for example between oxygen and sulfur analogs of the same structure.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2006/11/scripting-molecular-fingerprints-with-ruby-cdk/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2006/11/scripting-molecular-fingerprints-with-ruby-cdk/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Scripting Molecular Fingerprints with Ruby CDK">
+  <meta property="og:description" content="A molecular fingerprint represents a molecule as series of bits. There are many situations in which this reduced form of molecular representation is useful. For example, fingerprints are frequently used as a fast prescreen for database substructure searches. They can also be used for “fuzzy” comparisons involving molecular similarity, a nice complement to binary queries such as substructure search.
+Fingerprints have their limitations. Being a form of hashing, they are imprecise in that two different molecules can have exactly the same fingerprint. The converse is also true: many molecular fingerprints exaggerate small differences between two molecules that most chemists would say are similar - for example between oxygen and sulfur analogs of the same structure.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2006-11-22T00:00:00+00:00">
+    <meta property="article:modified_time" content="2006-11-22T00:00:00+00:00">
+
+  <meta itemprop="name" content="Scripting Molecular Fingerprints with Ruby CDK">
+  <meta itemprop="description" content="A molecular fingerprint represents a molecule as series of bits. There are many situations in which this reduced form of molecular representation is useful. For example, fingerprints are frequently used as a fast prescreen for database substructure searches. They can also be used for “fuzzy” comparisons involving molecular similarity, a nice complement to binary queries such as substructure search.
+Fingerprints have their limitations. Being a form of hashing, they are imprecise in that two different molecules can have exactly the same fingerprint. The converse is also true: many molecular fingerprints exaggerate small differences between two molecules that most chemists would say are similar - for example between oxygen and sulfur analogs of the same structure.">
+  <meta itemprop="datePublished" content="2006-11-22T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2006-11-22T00:00:00+00:00">
+  <meta itemprop="wordCount" content="670">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Scripting Molecular Fingerprints with Ruby CDK">
+  <meta name="twitter:description" content="A molecular fingerprint represents a molecule as series of bits. There are many situations in which this reduced form of molecular representation is useful. For example, fingerprints are frequently used as a fast prescreen for database substructure searches. They can also be used for “fuzzy” comparisons involving molecular similarity, a nice complement to binary queries such as substructure search.
+Fingerprints have their limitations. Being a form of hashing, they are imprecise in that two different molecules can have exactly the same fingerprint. The converse is also true: many molecular fingerprints exaggerate small differences between two molecules that most chemists would say are similar - for example between oxygen and sulfur analogs of the same structure.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Scripting Molecular Fingerprints with Ruby CDK</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2006-11-22T00:00:00Z">November 22, 2006</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>A <!-- raw HTML omitted -->molecular fingerprint<!-- raw HTML omitted --> represents a molecule as series of bits. There are many situations in which this reduced form of molecular representation is useful. For example, fingerprints are frequently used as a fast prescreen for database substructure searches. They can also be used for &ldquo;fuzzy&rdquo; comparisons involving molecular similarity, a nice complement to binary queries such as substructure search.</p>
+<p>Fingerprints have their limitations. Being a form of hashing, they are imprecise in that two different molecules can have exactly the same fingerprint. The converse is also true: many molecular fingerprints exaggerate small differences between two molecules that most chemists would say are similar - for example between oxygen and sulfur analogs of the same structure.</p>
+<p>Despite their limitations, the advantages of fingerprints make them useful in many situations. As a result, numerous fingerprinting systems have become popular. This tutorial will focus on creating and manipulating molecular fingerprints from Ruby using the Ruby Chemistry Development Kit (RCDK).</p>
+<h1 id="prerequisites">Prerequisites</h1>
+<p>For this tutorial, you&rsquo;ll need <!-- raw HTML omitted -->Ruby CDK<!-- raw HTML omitted --> (RCDK). A recent article described the small amount of system configuration required for <!-- raw HTML omitted -->RCDK on Linux<!-- raw HTML omitted -->. Another article showed how to install <!-- raw HTML omitted -->RCDK on Windows<!-- raw HTML omitted -->.</p>
+<h1 id="a-small-fingerprint-library">A Small Fingerprint Library</h1>
+<p>Let&rsquo;s build a small Ruby library for working with fingerprints. Place the following code into a file called <!-- raw HTML omitted -->fingerprint.rb<!-- raw HTML omitted --> in your working directory:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;rubygems&#39;</span>
+</span></span><span style="display:flex;"><span>require_gem <span style="color:#e6db74">&#39;rcdk&#39;</span>
+</span></span><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;rcdk/util&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>jrequire <span style="color:#e6db74">&#39;org.openscience.cdk.fingerprint.Fingerprinter&#39;</span>
+</span></span><span style="display:flex;"><span>jrequire <span style="color:#e6db74">&#39;org.openscience.cdk.similarity.Tanimoto&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Molecule fingerprinting</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Fingerprinter</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">initialize</span>
+</span></span><span style="display:flex;"><span>    @fingerprinter <span style="color:#f92672">=</span> <span style="color:#66d9ef">Org</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Openscience</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Cdk</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Fingerprint</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Fingerprinter</span><span style="color:#f92672">.</span>new
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fingerprint</span>(smiles)
+</span></span><span style="display:flex;"><span>    mol <span style="color:#f92672">=</span> <span style="color:#66d9ef">RCDK</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Util</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Lang</span><span style="color:#f92672">.</span>read_smiles smiles
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    fp <span style="color:#f92672">=</span> @fingerprinter<span style="color:#f92672">.</span>getFingerprint mol
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Metaprogramming!</span>
+</span></span><span style="display:flex;"><span>    fp<span style="color:#f92672">.</span>extend(<span style="color:#66d9ef">Fingerprint</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># BitSet comparison</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">module</span> Fingerprint
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Returns true of all of the bits set to true in this fingerprint are also set to true in the specified fingerprint</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">subset?</span>(fingerprint)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">Org</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Openscience</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Cdk</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Fingerprint</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Fingerprinter</span><span style="color:#f92672">.</span>isSubset(fingerprint, self)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Tanimoto similarity of this fingerprint and the specified fingerprint</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">tanimoto</span>(fingerprint)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">Org</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Openscience</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Cdk</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Similarity</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Tanimoto</span><span style="color:#f92672">.</span>calculate(self, fingerprint)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>Of particular note is the use of Ruby&rsquo;s <code>Object.extend</code> method. This method allows a single instance of an object to be extended at runtime - a form of <!-- raw HTML omitted -->metaprogramming<!-- raw HTML omitted -->. In this case, we add the <code>subset?</code> and <code>tanimoto</code> methods for determining whether all of the bits in one fingerprint are present in another, and for determining similarity, respectively. We use this technique here because currently RJB doesn&rsquo;t provide the complete interface into Java classes that would be required to create a Ruby class that directly inherits from Java&rsquo;s BitSet class.</p>
+<h1 id="testing-the-library">Testing the Library</h1>
+<p><img src="/images/posts/20061122/desloratadine.png" alt="Desloratadine" title="Desloratadine"></p>
+<p><!-- raw HTML omitted -->Claritin<!-- raw HTML omitted --> (loratadine, left) and <!-- raw HTML omitted -->Clarinex<!-- raw HTML omitted --> (desloratadine, right) are two structurally-related antihistamines. Can we quantitate the degree of similarity between these two structures? Fingerprints provide one way. The following code creates fingerprints for the two structures, determines if one is the subset of another, and assigns a Tanimoto similarity value:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;rubygems&#39;</span>
+</span></span><span style="display:flex;"><span>require_gem <span style="color:#e6db74">&#39;rcdk&#39;</span>
+</span></span><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;rcdk/util&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>jrequire <span style="color:#e6db74">&#39;org.openscience.cdk.fingerprint.Fingerprinter&#39;</span>
+</span></span><span style="display:flex;"><span>jrequire <span style="color:#e6db74">&#39;org.openscience.cdk.similarity.Tanimoto&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Molecule fingerprinting</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Fingerprinter</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">initialize</span>
+</span></span><span style="display:flex;"><span>    @fingerprinter <span style="color:#f92672">=</span> <span style="color:#66d9ef">Org</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Openscience</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Cdk</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Fingerprint</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Fingerprinter</span><span style="color:#f92672">.</span>new
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fingerprint</span>(smiles)
+</span></span><span style="display:flex;"><span>    mol <span style="color:#f92672">=</span> <span style="color:#66d9ef">RCDK</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Util</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Lang</span><span style="color:#f92672">.</span>read_smiles smiles
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    fp <span style="color:#f92672">=</span> @fingerprinter<span style="color:#f92672">.</span>getFingerprint mol
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Metaprogramming!</span>
+</span></span><span style="display:flex;"><span>    fp<span style="color:#f92672">.</span>extend(<span style="color:#66d9ef">Fingerprint</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># BitSet comparison</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">module</span> Fingerprint
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Returns true of all of the bits set to true in this fingerprint are also set to true in the specified fingerprint</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">subset?</span>(fingerprint)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">Org</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Openscience</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Cdk</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Fingerprint</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Fingerprinter</span><span style="color:#f92672">.</span>isSubset(fingerprint, self)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Tanimoto similarity of this fingerprint and the specified fingerprint</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">tanimoto</span>(fingerprint)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">Org</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Openscience</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Cdk</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Similarity</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Tanimoto</span><span style="color:#f92672">.</span>calculate(self, fingerprint)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><h1 id="variations">Variations</h1>
+<p>CDK&rsquo;s <a href="http://cdk.sourceforge.net/api/org/openscience/cdk/fingerprint/Fingerprinter.html"><code>Fingerprinter</code></a> class returns an instance of the Java class <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/BitSet.html"><code>BitSet</code></a> . This <code>BitSet</code> can be further manipulated in Ruby. For example, to find the size (the total number of bits) of the <code>BitSet</code>, we could use:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>loratadine<span style="color:#f92672">.</span>size <span style="color:#75715e"># =&gt; 1024</span>
+</span></span></code></pre></div><p>Similarly, to find the number of bits set to true, we would use:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>loratadine<span style="color:#f92672">.</span>cardinality <span style="color:#75715e"># =&gt; 278</span>
+</span></span></code></pre></div><p>To print out a list of all bits set to true, we could use the <code>toString</code> method:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>loratadine<span style="color:#f92672">.</span>toString <span style="color:#75715e"># =&gt; &#34;{2, 8, 11, 16, 18, 22, 32, 37, 38, 41, 42, 46, 47, 51, 57, 64, 65, 66, 69 ... }&#34;</span>
+</span></span></code></pre></div><h1 id="conclusions">Conclusions</h1>
+<p>Fingerprints enable many useful and fast comparisons between molecules. The form of fingerprint we&rsquo;ve used here is but one of possibilities offered by CDK. The next article in this series will discuss fingerprints in <!-- raw HTML omitted -->Open Babel<!-- raw HTML omitted --> using both Ruby and Python.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

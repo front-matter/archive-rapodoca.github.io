@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Saying No to Browser UI Frameworks | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Why the winning move in the JavaScript UI framework game may be not to play.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2020/09/07/saying-no-to-browser-ui-frameworks/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2020/09/07/saying-no-to-browser-ui-frameworks/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Saying No to Browser UI Frameworks">
+  <meta property="og:description" content="Why the winning move in the JavaScript UI framework game may be not to play.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2020-09-07T19:00:00+00:00">
+    <meta property="article:modified_time" content="2020-09-07T19:00:00+00:00">
+
+  <meta itemprop="name" content="Saying No to Browser UI Frameworks">
+  <meta itemprop="description" content="Why the winning move in the JavaScript UI framework game may be not to play.">
+  <meta itemprop="datePublished" content="2020-09-07T19:00:00+00:00">
+  <meta itemprop="dateModified" content="2020-09-07T19:00:00+00:00">
+  <meta itemprop="wordCount" content="1542">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Saying No to Browser UI Frameworks">
+  <meta name="twitter:description" content="Why the winning move in the JavaScript UI framework game may be not to play.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Saying No to Browser UI Frameworks</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-09-07T19:00:00Z">September 7, 2020</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>The last seven years has treated front-end developers to a banquet of browser UI frameworks. Names including React, Angular, Vue, Ember, and Backbone frequently top <a href="https://www.freecodecamp.org/news/complete-guide-for-front-end-developers-javascript-frameworks-2019/">annual roundups</a> and job postings. A host of lesser players also makes an appearance. What gets lost in the hype and buzzwords too often is a clear description of the main problem these tools solve. This post highlights the problem, and offers perspective on why less can be more when building complex browser UIs.</p>
+<h1 id="the-view-synchronization-problem">The View Synchronization Problem</h1>
+<p>Web applications differ in their specifics, but they all pose the same challenge. It inevitably flow from this sequence of events:</p>
+<ol>
+<li>The user takes an action, generating an event.</li>
+<li>The event causes an application state change.</li>
+<li>The view must be changed to reflect the new application state.</li>
+</ol>
+<p>Here, &ldquo;state&rdquo; refers to the totality of all pieces of information displayable directly or indirectly by the application. For example, state includes:</p>
+<ul>
+<li>whether a button is currently pressed</li>
+<li>whether a menu is currently active</li>
+<li>the current zoom factor</li>
+<li>the location and size of windows</li>
+<li>the configuration of objects specific to the application domain (e.g. &ldquo;model&rdquo;)</li>
+</ul>
+<p>And so on.</p>
+<p>For lack of a better term, I call the challenge of synchronizing the view with application state the &ldquo;View Synchronization Problem.&rdquo; Of course, this problem is hardly unique to browser-based applications. All applications need a way to update state while synchronizing one or more views.</p>
+<p>What makes browser UIs unique is the <em>Document Object Model</em> (DOM). A DOM is an in-memory tree of objects that map more or less 1:1 to HTML elements. A single root node usually serves as the ultimate ancestor for every node comprising the user interface. For all its complexity, rendering can be boiled down to producing a DOM tree consistent with the current application state.</p>
+<h1 id="solutions">Solutions</h1>
+<p>The cleanest approach to the View Synchronization Problem, conceptually at least, would be to re-render the DOM tree after each user action. Rendering could then be expressed as a function of application state. Mathematically, we might express the relationship as:</p>
+<pre tabindex="0"><code class="language-asciimath" data-lang="asciimath">V = f(S)
+</code></pre><p>where:</p>
+<ul>
+<li><del>V</del> is the DOM tree representing the view</li>
+<li><del>S</del> is the application state</li>
+</ul>
+<p>The big win here is the <a href="https://rauchg.com/2015/pure-ui">declarative expression</a> of the user interface. For example, in JavaScript we might write something like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// naive, impractical approach
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">render</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// TODO: analyze state
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">html</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;&lt;div id=&#34;ui&#34;&gt;&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// HTML content consistent with state
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#e6db74">&#39;&lt;div&gt;&#39;</span>
+</span></span><span style="display:flex;"><span>  ];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#39;&#39;</span>);
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;#app&#39;</span>).<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">render</span>(<span style="color:#a6e22e">state</span>);
+</span></span></code></pre></div><p>This naive approach can work for small applications, but things quickly degrade with scale. Performance is sometimes cited as a problem (&ldquo;the DOM is slow&rdquo;), and it can be with large collections of nodes. But a bigger problem is what this approach can do to the application using it. For example, re-rendering the DOM tree would mean re-attaching event listeners, some of which may have state of their own. The need to manage these re-attachments could quickly negate the original promise: simplicity.</p>
+<p>Alternatively, an application can update only those DOM nodes affected by a user action. This approach requires a way to identify the relevant nodes and make the appropriate change. As before, the solution scales poorly with increasing DOM node count.</p>
+<p>Sometimes a divide-and-conquer approach can work. An application is divided into zones of responsibility, each of which is responsible for listening to and updating its own DOM tree. The main limitation of this approach arises with state changes that affect multiple zones. When that happens, complexity returns with a vengeance. Listeners start popping up everywhere and program flow becomes as tangled as a pile of coat hangers.</p>
+<h1 id="frameworks">Frameworks</h1>
+<p>One way to distinguish today&rsquo;s major browser UI frameworks is their approach to DOM updates. The most popular is <a href="https://stackoverflow.com/questions/21965738/what-is-virtual-dom"><em>Virtual DOM</em></a> (VDOM). Like a DOM, a VDOM is a tree representing an application&rsquo;s view. Unlike a DOM, a VDOM is not rendered. Instead, a VDOM is compared with a DOM to identify those nodes to create, delete, or update in a process called <em>reconciliation</em>. VDOM and reconciliation are most often associated with React and Vue. Other frameworks offer different approaches.</p>
+<h1 id="the-case-against-frameworks">The Case against Frameworks</h1>
+<p>At this point, it&rsquo;s useful to distinguish between <em>frameworks</em> and <em>libraries</em>. Definitions vary, but for the most part the distinction relates to developer control.</p>
+<p>Whereas developer code calls a library, a framework calls developer code. For example, Ruby on Rails, Django, and Android are frameworks in that their main purpose is to call developer code filling in certain blanks. In this way, a framework drives the organization and structure of developer code. JQuery and (to a lesser extent) Boost act as libraries because developer code calls it. A library has little effect on the structure or organization of developer code. More technically, a framework&rsquo;s organizational principle is <a href="https://en.wikipedia.org/wiki/Inversion_of_control">Inversion of Control</a>, sometimes known as the &ldquo;Hollywood Principle.&rdquo; Don&rsquo;t call us, we&rsquo;ll call you.</p>
+<p>Inversion of control can impose more than just coding restrictions. For example, frameworks can trigger compiler dependencies. React uses JSX, a domain-specific language that combines JavaScript and HTML. Using JSX creates a dependency for tooling that supports it such as editors and compilers. Although it&rsquo;s possible to forego JSX, this isn&rsquo;t as common. Straying from the &ldquo;happy path&rdquo; when using a framework is rarely without costs in that most documentation and support will assume you&rsquo;re on it.</p>
+<p>A personal experience taught me that even a framework that does something not possible any other way should be approached with great caution. In 2009 my company began porting a browser component (<a href="https://chemwriter.com">ChemWriter</a>) from Java to JavaScript. The tooling for JavaScript, HTML, and CSS at the time can charitably be described as barbaric. Not coincidentally, Google had just open sourced its <a href="https://developers.google.com/closure/library">Closure</a> UI library. Using the library required opting into Closure&rsquo;s module system. At the time this seemed like a win because JavaScript had no module or build system compatible with large projects.</p>
+<p>What wasn&rsquo;t entirely clear at the time was how the &ldquo;Closure Library&rdquo; more closely resembles a framework rather than a library due to the bespoke module system it imposes.</p>
+<p>Eventually, JavaScript got <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">built-in module support</a>. It&rsquo;s now possible to build highly interactive applications without much of a library at all (see below). However, Closure has seeped into every nook and cranny of ChemWriter. It&rsquo;s impossible to disentangle this &ldquo;library,&rdquo; thanks to the Closure module system that was part of the deal. As Closure becomes ever more irrelevant, the decision to use it looks more ill-advised.</p>
+<p>Here&rsquo;s the lesson I draw. A framework should not be judged by the standard of solving today&rsquo;s problems, but by the standard of carrying its weight well into the future. Some software isn&rsquo;t destined for legacy status, but a lot of it is. And it&rsquo;s quite difficult to tell the difference.</p>
+<p>Like steady rainfall on a mountain, time will erode the advantages of today&rsquo;s browser UI frameworks. What remains will be tightly-coupled dead weight.</p>
+<h1 id="a-practical-alternative">A Practical Alternative</h1>
+<p>Since the appearance of React, a number of libraries addressing the View Synchronization Problem have been released. I find one in particular compelling due to its small size and limited scope: <a href="https://lit-html.polymer-project.org">lit-html</a>.</p>
+<p>lit-html is a 3KB library that leverages existing Web standards to enable fast DOM updates — without a VDOM or manual DOM management.</p>
+<!-- raw HTML omitted -->
+<p>Consider a simple application using the naive re-render approach described earlier. Pressing a button increments a counter. A UI element should report the number of clicks. We might write such a UI like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;Naive Render&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span>&gt;Increment&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;counter&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;module&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">count</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">template</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#e6db74">`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;p&gt;Count:&lt;/p&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;p&gt;</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">count</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&lt;/p&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      `</span>;
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>      document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;.counter&#39;</span>).<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">template</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;button&#39;</span>).<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;click&#39;</span>, <span style="color:#a6e22e">e</span> =&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">count</span><span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;.counter&#39;</span>).<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">template</span>();
+</span></span><span style="display:flex;"><span>      });
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><p>The UI consists of a listener added to the button. When called, it updates the <code>count</code> field and completely re-writes the the <code>innerHTML</code> of the <code>counter</code> element using <code>innerHTML</code>.</p>
+<p>Chrome developer tools allow us to monitor updates to the DOM by reporting a purple flash around those elements that were updated. As expected, the naive approach updates the entire DOM tree from the <code>counter</code> element down.</p>
+<!-- raw HTML omitted -->
+<p>Compare this behavior with the alternative using lit-html. The overall structure of the event handler is similar. After updating the <code>count</code> field, the UI is re-rendered.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;lit-html Render&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span>&gt;Increment&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;counter&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;module&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">import</span> {<span style="color:#a6e22e">html</span>, <span style="color:#a6e22e">render</span>} <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;https://unpkg.com/lit-html?module&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">count</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">template</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">html</span><span style="color:#e6db74">`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;p&gt;Count:&lt;/p&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;p&gt;</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">count</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&lt;/p&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      `</span>;
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">render</span>(<span style="color:#a6e22e">template</span>(), document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;.counter&#39;</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;button&#39;</span>).<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;click&#39;</span>, <span style="color:#a6e22e">e</span> =&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">count</span><span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">render</span>(<span style="color:#a6e22e">template</span>(), document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;.counter&#39;</span>));
+</span></span><span style="display:flex;"><span>      });
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><p>The difference here is that <code>render</code> doesn&rsquo;t naively replace the entire DOM subtree at <code>counter</code>. Instead, lit-html only updates the part of the DOM that changes. And that&rsquo;s just the text node of a single paragraph element.</p>
+<!-- raw HTML omitted -->
+<p>lit-html comes with some nice add-ons as well, including <a href="https://marketplace.visualstudio.com/items?itemName=bierner.lit-html">syntax highlighting</a> for VS Code.</p>
+<!-- raw HTML omitted -->
+<h1 id="conclusion">Conclusion</h1>
+<p>Browser user interfaces are unique in their use of a DOM. A crucial challenge faced by all browser application developers is how to update the DOM in response to application state changes. Many solutions to this problem have been developed over the years. Several frameworks, including React and Vue, are currently very popular. This article makes the case for considering far simpler and less invasive options.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

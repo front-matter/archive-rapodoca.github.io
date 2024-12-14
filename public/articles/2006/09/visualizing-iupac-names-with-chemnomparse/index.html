@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Visualizing IUPAC Names with ChemNomParse | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Nomenclature translation is the process of converting a human-readable chemical name into a machine-readable notational scheme such as a connection table. It plays a key role in linking the older chemical literature to modern information technologies, such as the Internet.
+Buried deep within the Chemistry Development Kit (CDK) is a library for nomenclature translation called ChemNomParse. At the heart of ChemNomParse is a remarkable piece of software called the Java Compiler Compiler (JavaCC), a parser generator and lexical analyzer generator for Java. A FAQ on JavaCC is available here.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2006/09/visualizing-iupac-names-with-chemnomparse/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2006/09/visualizing-iupac-names-with-chemnomparse/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Visualizing IUPAC Names with ChemNomParse">
+  <meta property="og:description" content="Nomenclature translation is the process of converting a human-readable chemical name into a machine-readable notational scheme such as a connection table. It plays a key role in linking the older chemical literature to modern information technologies, such as the Internet.
+Buried deep within the Chemistry Development Kit (CDK) is a library for nomenclature translation called ChemNomParse. At the heart of ChemNomParse is a remarkable piece of software called the Java Compiler Compiler (JavaCC), a parser generator and lexical analyzer generator for Java. A FAQ on JavaCC is available here.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2006-09-11T00:00:00+00:00">
+    <meta property="article:modified_time" content="2006-09-11T00:00:00+00:00">
+
+  <meta itemprop="name" content="Visualizing IUPAC Names with ChemNomParse">
+  <meta itemprop="description" content="Nomenclature translation is the process of converting a human-readable chemical name into a machine-readable notational scheme such as a connection table. It plays a key role in linking the older chemical literature to modern information technologies, such as the Internet.
+Buried deep within the Chemistry Development Kit (CDK) is a library for nomenclature translation called ChemNomParse. At the heart of ChemNomParse is a remarkable piece of software called the Java Compiler Compiler (JavaCC), a parser generator and lexical analyzer generator for Java. A FAQ on JavaCC is available here.">
+  <meta itemprop="datePublished" content="2006-09-11T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2006-09-11T00:00:00+00:00">
+  <meta itemprop="wordCount" content="536">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Visualizing IUPAC Names with ChemNomParse">
+  <meta name="twitter:description" content="Nomenclature translation is the process of converting a human-readable chemical name into a machine-readable notational scheme such as a connection table. It plays a key role in linking the older chemical literature to modern information technologies, such as the Internet.
+Buried deep within the Chemistry Development Kit (CDK) is a library for nomenclature translation called ChemNomParse. At the heart of ChemNomParse is a remarkable piece of software called the Java Compiler Compiler (JavaCC), a parser generator and lexical analyzer generator for Java. A FAQ on JavaCC is available here.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Visualizing IUPAC Names with ChemNomParse</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2006-09-11T00:00:00Z">September 11, 2006</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p><!-- raw HTML omitted -->Nomenclature translation<!-- raw HTML omitted --> is the process of converting a human-readable chemical name into a machine-readable notational scheme such as a connection table. It plays a key role in linking the <!-- raw HTML omitted -->older chemical literature<!-- raw HTML omitted --> to modern information technologies, such as the Internet.</p>
+<p>Buried deep within the <!-- raw HTML omitted -->Chemistry Development Kit<!-- raw HTML omitted --> (CDK) is a library for nomenclature translation called <!-- raw HTML omitted -->ChemNomParse<!-- raw HTML omitted -->. At the heart of ChemNomParse is a remarkable piece of software called the <!-- raw HTML omitted -->Java Compiler Compiler<!-- raw HTML omitted --> (JavaCC), a parser generator and lexical analyzer generator for Java. A FAQ on JavaCC is available <!-- raw HTML omitted -->here<!-- raw HTML omitted -->.</p>
+<p>This tutorial demonstrates how freely-available, open source tools can be used to parse an IUPAC chemical name and generate its corresponding 2-D structure rendering. A <!-- raw HTML omitted -->closely-related tutorial<!-- raw HTML omitted --> on generating 2-D structures from SMILES strings may be helpful as background.</p>
+<h1 id="ingredients">Ingredients</h1>
+<p>This tutorial uses Arton&rsquo;s <!-- raw HTML omitted -->Ruby Java Bridge<!-- raw HTML omitted -->, the installation and use of which has been outlined <!-- raw HTML omitted -->previously<!-- raw HTML omitted -->. In addition, you&rsquo;ll need to download <!-- raw HTML omitted -->Structure-CDK v0.1.2<!-- raw HTML omitted -->, also <!-- raw HTML omitted -->previously discussed<!-- raw HTML omitted -->. Be sure to download v0.1.2, as two upgrades have been released since the package was originally described. This tutorial has been tested on Mandriva Linux 2006.</p>
+<p>Create a working directory called <code>nom</code>. From the <code>lib</code> directory of the Structure-CDK distribution, copy <code>cdk-20060714.jar</code> and <code>structure-cdk-0.1.2.jar</code> into your <code>depict</code> working directory.</p>
+<h1 id="code">Code</h1>
+<p>Create a file called <code>depict.rb</code> and copy the following code into it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#39;CLASSPATH&#39;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;./cdk-20060714.jar:./structure-cdk-0.1.2.jar&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;rubygems&#39;</span>
+</span></span><span style="display:flex;"><span>require_gem <span style="color:#e6db74">&#39;rjb&#39;</span>
+</span></span><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;rjb&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">NomParser</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Rjb</span><span style="color:#f92672">::</span>import <span style="color:#e6db74">&#39;org.openscience.cdk.iupac.parser.NomParser&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">StructureDiagramGenerator</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Rjb</span><span style="color:#f92672">::</span>import <span style="color:#e6db74">&#39;org.openscience.cdk.layout.StructureDiagramGenerator&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ImageKit</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Rjb</span><span style="color:#f92672">::</span>import <span style="color:#e6db74">&#39;net.sf.structure.cdk.util.ImageKit&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Depictor</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">initialize</span>
+</span></span><span style="display:flex;"><span>    @sdg <span style="color:#f92672">=</span> <span style="color:#66d9ef">StructureDiagramGenerator</span><span style="color:#f92672">.</span>new
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">depict_png</span>(nom, width, height, path_to_png)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">ImageKit</span><span style="color:#f92672">::</span>writePNG(nom_to_mol(nom), width, height, path_to_png)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">depict_svg</span>(nom, width, height, path_to_svg)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">ImageKit</span><span style="color:#f92672">::</span>writeSVG(nom_to_mol(nom), width, height, path_to_svg)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">nom_to_mol</span>(nom)
+</span></span><span style="display:flex;"><span>    @sdg<span style="color:#f92672">.</span>setMolecule(<span style="color:#66d9ef">NomParser</span><span style="color:#f92672">::</span>generate(nom))
+</span></span><span style="display:flex;"><span>    @sdg<span style="color:#f92672">.</span>generateCoordinates
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    @sdg<span style="color:#f92672">.</span>getMolecule
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>After you save this file, you&rsquo;ll need to set your <!-- raw HTML omitted -->LD_LIBRARY_PATH<!-- raw HTML omitted --> on unix (or the equivalent on another OS):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export LD_LIBRARY_PATH<span style="color:#f92672">=</span>$JAVA_HOME/jre/lib/i386:$LD_LIBRARY_PATH
+</span></span></code></pre></div><p>This tells RJB where to find Java&rsquo;s native libraries. Because of RJB&rsquo;s current design, <!-- raw HTML omitted -->LD_LIBRARY_PATH<!-- raw HTML omitted --> needs to be set from the command line, rather than from within a Ruby process.</p>
+<p>Using the Depictor class is as simple as creating an instance and invoking <!-- raw HTML omitted -->depict_png<!-- raw HTML omitted --> or <!-- raw HTML omitted -->depict_svg<!-- raw HTML omitted --> on it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;nom&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>depictor <span style="color:#f92672">=</span> <span style="color:#66d9ef">Depictor</span><span style="color:#f92672">.</span>new
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>depictor<span style="color:#f92672">.</span>depict_png(<span style="color:#e6db74">&#39;2-phenylcyclohexan-1-ol&#39;</span>, <span style="color:#ae81ff">300</span>, <span style="color:#ae81ff">300</span>, <span style="color:#e6db74">&#39;output.png&#39;</span>)
+</span></span></code></pre></div><p>Executing the above code either through the Ruby interpreter (ruby) or via Interactive Ruby (irb) products a PNG image of the chiral auxiliary shown below:</p>
+<p>Other names correctly recognized by ChemNomParse include:</p>
+<ul>
+<li>phenylhexyne</li>
+<li>2-chloro-3-phenyl-4,4-dimethylhexane</li>
+<li>3-phenyl-1-aminopropane</li>
+<li>1,2-difluoro-3-hydroxycyclohexene</li>
+</ul>
+<h1 id="limitations">Limitations</h1>
+<p>Many chemical names, ranging from the simple to the complicated, were not be recognized at all by ChemNomParse. Some examples are:</p>
+<ul>
+<li>benzene</li>
+<li>piperidine</li>
+<li>1-methoxyhexane</li>
+<li>2-methyl-5-prop-1-en-2-yl-cyclohex-2-en-1-one (carvone)</li>
+</ul>
+<p>Some names were incorrectly interpreted due to misassigned locants. For example, 2-chloro-3-hydroxybutanoic acid produced the incorrectly asssigned structure shown below:</p>
+<p>ChemNomParse can accurately recognize chemical names representing simple substitutions on basic hydrocarbon scaffolds. More complicated structures, such as heterocycles, bicyclic systems, and systems involving nested substituents  do not appear to be handled at all. It is not clear to what extent these limitations reflect a small dictionary of morphemes (the basic nomenclature building blocks) versus deeper design issues.</p>
+<p>Despite its limitations, ChemNomParse is an interesting piece of open source software for working with chemical nomenclature. From this simple tutorial, it can be seen that nomenclature translation, when combined with other capabilities such as 2-D rendering, offers many exciting possibilities.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Rust and WebAssembly from Scratch: Hello World with Strings | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Bare bones approach to two-way string passing - without wasm-bindgen.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/posts/2020-07-07-rust-and-webassembly-from-scratch-hello-world-with-strings/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/posts/2020-07-07-rust-and-webassembly-from-scratch-hello-world-with-strings/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="Rust and WebAssembly from Scratch: Hello World with Strings">
+  <meta property="og:description" content="Bare bones approach to two-way string passing - without wasm-bindgen.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-07-07T04:00:00+00:00">
+    <meta property="article:modified_time" content="2020-07-07T04:00:00+00:00">
+
+  <meta itemprop="name" content="Rust and WebAssembly from Scratch: Hello World with Strings">
+  <meta itemprop="description" content="Bare bones approach to two-way string passing - without wasm-bindgen.">
+  <meta itemprop="datePublished" content="2020-07-07T04:00:00+00:00">
+  <meta itemprop="dateModified" content="2020-07-07T04:00:00+00:00">
+  <meta itemprop="wordCount" content="892">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Rust and WebAssembly from Scratch: Hello World with Strings">
+  <meta name="twitter:description" content="Bare bones approach to two-way string passing - without wasm-bindgen.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Rust and WebAssembly from Scratch: Hello World with Strings</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-07-07T04:00:00Z">July 7, 2020</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Like most successful duos, Rust and WebAssembly (Wasm) complement each other. Rust is a typesafe systems language with modern tooling and high-level features. WebAssembly is a portable compilation target/execution environment for the Web browser and beyond. The combination makes it possible to write fast, stable software that runs anywhere without recompilation.</p>
+<p>But there&rsquo;s a catch. Wasm only supports numeric types as function arguments, and documentation describing how to transfer strings is scarce. A vast network of tools such as <a href="https://github.com/rustwasm/wasm-bindgen">wasm-bindgen</a> has sprung up to make two-way data sharing more convenient. An advantage in some situations, these tools complicate understanding what&rsquo;s going on behind the scenes or if such abstraction is even necessary.</p>
+<p>This article takes a different approach with a simple Hello World written in Rust that compiles to WebAssembly using minimal tooling. Custom JavaScript executes the compiled Rust. <a href="https://github.com/rapodaca/hello_world_rust_wasm">The complete project</a> can be downloaded from GitHub. For the first article in this series, see <a href="/articles/2020/06/29/compiling-rust-to-webassembly-a-simple-example/">Compiling Rust to WebAssembly: A Simple Example</a>. That article contains some background information not re-iterated here.</p>
+<h1 id="prerequisites">Prerequisites</h1>
+<p>Begin by installing the Rust language tools with rustup if you haven&rsquo;t already. Next, install the Wasm toolchain:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rustup target add wasm32-unknown-unknown
+</span></span></code></pre></div><p>Finally, create a test project and change into it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cargo new hello --lib
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cd hello
+</span></span></code></pre></div><h1 id="update-cargotoml">Update <code>Cargo.toml</code></h1>
+<p>The file <a href="http://web.mit.edu/rust-lang_v1.25/arch/amd64_ubuntu1404/share/doc/rust/html/cargo/reference/manifest.html"><code>Cargo.toml</code></a> (aka &ldquo;manifest&rdquo;) contains the project&rsquo;s configuration. Leave everything, but append a new block called <code>[lib]</code>. The result should look something this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#75715e"># Cargo.toml</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">package</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;hello&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">version</span> = <span style="color:#e6db74">&#34;0.1.0&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">authors</span> = [<span style="color:#e6db74">&#34;Richard Apodaca &lt;rich.apodaca@gmail.com&gt;&#34;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">edition</span> = <span style="color:#e6db74">&#34;2018&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">dependencies</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># new material</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">lib</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">crate-type</span> = [<span style="color:#e6db74">&#34;cdylib&#34;</span>]
+</span></span></code></pre></div><h1 id="a-little-about-linear-memory">A Little About Linear Memory</h1>
+<p>JavaScript and WebAssembly work together using a feature called <a href="http://webassembly.org/docs/semantics/#linear-memory">linear memory</a>. On the JavaScript side, linear memory is usually represented as a regular <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays">typed array</a> such as <code>Uint8Array</code>. On the WebAssembly/Rust side, linear memory looks like regular memory. Both sides can write to linear memory, but they do so in different ways.</p>
+<h1 id="the-rust-side">The Rust Side</h1>
+<p>From Rust we export three functions:</p>
+<ul>
+<li><code>alloc</code> allocates a block of linear memory, returning a pointer to it</li>
+<li><code>dealloc</code> deallocates a previously-allocated block of linear memory given a pointer to it</li>
+<li><code>greet</code> uses a pointer passed to it to read <code>&lt;name&gt;</code> from linear memory, and write the greeting &ldquo;Hello, <code>&lt;name&gt;</code>!&rdquo;.</li>
+</ul>
+<p>Here&rsquo;s the complete listing:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// lib.rs
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">use</span> std::mem;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::ffi::{CString, CStr};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::os::raw::c_void;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#[no_mangle]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">extern</span> <span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">alloc</span>() -&gt; <span style="color:#f92672">*</span><span style="color:#66d9ef">mut</span> c_void {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> buf <span style="color:#f92672">=</span> Vec::with_capacity(<span style="color:#ae81ff">1024</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> ptr <span style="color:#f92672">=</span> buf.as_mut_ptr();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    mem::forget(buf);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ptr
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#[no_mangle]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">unsafe</span> <span style="color:#66d9ef">extern</span> <span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">dealloc</span>(ptr: <span style="color:#f92672">*</span><span style="color:#66d9ef">mut</span> c_void) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> _ <span style="color:#f92672">=</span> Vec::from_raw_parts(ptr, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1024</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#[no_mangle]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">unsafe</span> <span style="color:#66d9ef">extern</span> <span style="color:#e6db74">&#34;C&#34;</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">greet</span>(ptr: <span style="color:#f92672">*</span><span style="color:#66d9ef">mut</span> <span style="color:#66d9ef">u8</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> str_content <span style="color:#f92672">=</span> CStr::from_ptr(ptr <span style="color:#66d9ef">as</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">i8</span>).to_str().unwrap();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> string_content <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;Hello, &#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    string_content.push_str(str_content);
+</span></span><span style="display:flex;"><span>    string_content.push_str(<span style="color:#e6db74">&#34;!&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> c_headers <span style="color:#f92672">=</span> CString::new(string_content).unwrap();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> bytes <span style="color:#f92672">=</span> c_headers.as_bytes_with_nul();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> header_bytes <span style="color:#f92672">=</span> std::slice::from_raw_parts_mut(ptr, <span style="color:#ae81ff">1024</span>);
+</span></span><span style="display:flex;"><span>    header_bytes[<span style="color:#f92672">..</span>bytes.len()].copy_from_slice(bytes);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Nothing in the Rust code couples it to the environment in which it will run. All that&rsquo;s needed is the <a href="https://doc.rust-lang.org/std/ffi/index.html">FFI</a> module built into the standard library. As such, the same code could be used to create C or Python bindings. Coupling to WebAssembly occurs at compile time.</p>
+<p>The project can be compiled with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cargo build --target wasm32-unknown-unknown --release
+</span></span></code></pre></div><h1 id="the-javascript-side">The JavaScript Side</h1>
+<p>One the JavaScript side, three helper functions are used:</p>
+<ul>
+<li><code>createInstance</code> creates the WebAssembly instance from the compiled wasm file</li>
+<li><code>write</code> writes a string to Wasm linear memory</li>
+<li><code>read</code> reads a string from Wasm linear memory</li>
+</ul>
+<p>An anonymous IIFE function orchestrates the action, creating a Wasm instance, writing a name to linearm memory, executing the Wasm function <code>greet</code>, then reading the result from linear memory.</p>
+<p>Here&rsquo;s a complete listing, including the wrapping HTML boilerplate, which should be saved as <code>index.html</code> in your project:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;title&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createInstance</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> () =&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;target/wasm32-unknown-unknown/release/hello.wasm&#39;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">path</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">bytes</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">arrayBuffer</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">instance</span> } <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">WebAssembly</span>.<span style="color:#a6e22e">instantiate</span>(<span style="color:#a6e22e">bytes</span>, { });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">instance</span>;
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">write</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">string</span>, <span style="color:#a6e22e">buffer</span>, <span style="color:#a6e22e">pointer</span>) =&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">view</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Uint8Array</span>(<span style="color:#a6e22e">buffer</span>, <span style="color:#a6e22e">pointer</span>, <span style="color:#ae81ff">1024</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">encoder</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">TextEncoder</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">view</span>.<span style="color:#a6e22e">set</span>(<span style="color:#a6e22e">encoder</span>.<span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">string</span>));
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">read</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">buffer</span>, <span style="color:#a6e22e">pointer</span>) =&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">view</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Uint8Array</span>(<span style="color:#a6e22e">buffer</span>, <span style="color:#a6e22e">pointer</span>, <span style="color:#ae81ff">1024</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">length</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">view</span>.<span style="color:#a6e22e">findIndex</span>(<span style="color:#66d9ef">byte</span> =&gt; <span style="color:#66d9ef">byte</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">decoder</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">TextDecoder</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">decoder</span>.<span style="color:#a6e22e">decode</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Uint8Array</span>(<span style="color:#a6e22e">buffer</span>, <span style="color:#a6e22e">pointer</span>, <span style="color:#a6e22e">length</span>));
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      (<span style="color:#66d9ef">async</span>() =&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">instance</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">createInstance</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">memory</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">instance</span>.<span style="color:#a6e22e">exports</span>.<span style="color:#a6e22e">memory</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pointer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">instance</span>.<span style="color:#a6e22e">exports</span>.<span style="color:#a6e22e">alloc</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">write</span>(<span style="color:#e6db74">&#39;Satoshi&#39;</span>, <span style="color:#a6e22e">memory</span>.<span style="color:#a6e22e">buffer</span>, <span style="color:#a6e22e">pointer</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">instance</span>.<span style="color:#a6e22e">exports</span>.<span style="color:#a6e22e">greet</span>(<span style="color:#a6e22e">pointer</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;greeting&#39;</span>, <span style="color:#a6e22e">read</span>(<span style="color:#a6e22e">memory</span>.<span style="color:#a6e22e">buffer</span>, <span style="color:#a6e22e">pointer</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">instance</span>.<span style="color:#a6e22e">exports</span>.<span style="color:#a6e22e">dealloc</span>(<span style="color:#a6e22e">pointer</span>);
+</span></span><span style="display:flex;"><span>      })();
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><h1 id="watch-it-run">Watch It Run</h1>
+<p>After starting an HTTP server:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python -m SimpleHTTPServer
+</span></span></code></pre></div><p>browse to <a href="http://localhost:8000">http://localhost:8000</a>. After opening a developer console, you should see the greeting.</p>
+<!-- raw HTML omitted -->
+<h1 id="working-with-wasm-memory">Working with Wasm Memory</h1>
+<p>You may have noticed the the call to <code>dealloc</code> on the JavaScript side. This call isn&rsquo;t strictly needed because all Wasm memory is deallocated when JavaScript finishes execution. It does, however, illustrate how to free linear memory in case that&rsquo;s needed in your situation.</p>
+<p>Adding a second call to <code>dealloc</code> after the first results in a memory error. On Safari, it reads: <code>Unhandled Promise Rejection: Error: Out of bounds memory access (evaluating 'instance.exports.dealloc(pointer)')</code>. With this message the Rust memory allocator is reporting an attempt to manipulate memory that can no longer be used. This is exactly what we would expect.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>This tutorial illustrates two-way string communication between a WebAssembly instance compiled from Rust on one side, and JavaScript running in a browser on the other. No special tools are needed.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  My New Hugo Site 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

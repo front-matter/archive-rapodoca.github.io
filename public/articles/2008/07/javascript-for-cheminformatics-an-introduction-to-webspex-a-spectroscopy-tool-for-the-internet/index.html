@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>JavaScript for Cheminformatics: An Introduction to WebSpex, a Spectroscopy Tool for the Internet | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="The previous article in this series discussed the untapped potential of JavaScript for building rich, chemistry-oriented Web applications. This article will describe the design of WebSpex, a spectrum viewer designed for the Web and written entirely in JavaScript.
+Warning: Potential Vaporware Ahead
+WebSpex can&rsquo;t yet be download or deployed, and it may never be finished. Articles like this one will document the tool&rsquo;s transition from concept to hopefully something more substantial. There may be false-starts and dead-ends along the way. But I&rsquo;m hoping that there will also be feedback from readers like you. Feel free to chime in, regardless of your background.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2008/07/javascript-for-cheminformatics-an-introduction-to-webspex-a-spectroscopy-tool-for-the-internet/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2008/07/javascript-for-cheminformatics-an-introduction-to-webspex-a-spectroscopy-tool-for-the-internet/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="JavaScript for Cheminformatics: An Introduction to WebSpex, a Spectroscopy Tool for the Internet">
+  <meta property="og:description" content="The previous article in this series discussed the untapped potential of JavaScript for building rich, chemistry-oriented Web applications. This article will describe the design of WebSpex, a spectrum viewer designed for the Web and written entirely in JavaScript.
+Warning: Potential Vaporware Ahead WebSpex can’t yet be download or deployed, and it may never be finished. Articles like this one will document the tool’s transition from concept to hopefully something more substantial. There may be false-starts and dead-ends along the way. But I’m hoping that there will also be feedback from readers like you. Feel free to chime in, regardless of your background.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2008-07-17T00:00:00+00:00">
+    <meta property="article:modified_time" content="2008-07-17T00:00:00+00:00">
+
+  <meta itemprop="name" content="JavaScript for Cheminformatics: An Introduction to WebSpex, a Spectroscopy Tool for the Internet">
+  <meta itemprop="description" content="The previous article in this series discussed the untapped potential of JavaScript for building rich, chemistry-oriented Web applications. This article will describe the design of WebSpex, a spectrum viewer designed for the Web and written entirely in JavaScript.
+Warning: Potential Vaporware Ahead WebSpex can’t yet be download or deployed, and it may never be finished. Articles like this one will document the tool’s transition from concept to hopefully something more substantial. There may be false-starts and dead-ends along the way. But I’m hoping that there will also be feedback from readers like you. Feel free to chime in, regardless of your background.">
+  <meta itemprop="datePublished" content="2008-07-17T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2008-07-17T00:00:00+00:00">
+  <meta itemprop="wordCount" content="592">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="JavaScript for Cheminformatics: An Introduction to WebSpex, a Spectroscopy Tool for the Internet">
+  <meta name="twitter:description" content="The previous article in this series discussed the untapped potential of JavaScript for building rich, chemistry-oriented Web applications. This article will describe the design of WebSpex, a spectrum viewer designed for the Web and written entirely in JavaScript.
+Warning: Potential Vaporware Ahead WebSpex can’t yet be download or deployed, and it may never be finished. Articles like this one will document the tool’s transition from concept to hopefully something more substantial. There may be false-starts and dead-ends along the way. But I’m hoping that there will also be feedback from readers like you. Feel free to chime in, regardless of your background.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">JavaScript for Cheminformatics: An Introduction to WebSpex, a Spectroscopy Tool for the Internet</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2008-07-17T00:00:00Z">July 17, 2008</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>The <a href="/articles/2008/07/15/javascript-for-cheminformatics">previous article</a> in this series discussed the untapped potential of JavaScript for building rich, chemistry-oriented Web applications. This article will describe the design of WebSpex, a spectrum viewer designed for the Web and written entirely in JavaScript.</p>
+<h1 id="warning-potential-vaporware-ahead">Warning: Potential Vaporware Ahead</h1>
+<p>WebSpex can&rsquo;t yet be download or deployed, and it may never be finished. Articles like this one will document the tool&rsquo;s transition from concept to hopefully something more substantial. There may be false-starts and dead-ends along the way. But I&rsquo;m hoping that there will also be feedback from readers like you. Feel free to chime in, regardless of your background.</p>
+<p>This process will be necessarily non-linear. But I believe that being able to incorporate feedback in real-time increases the chances of creating a better product, and seeing mistakes, false-starts, and dead-ends in context can be useful to everyone.</p>
+<h1 id="the-problem">The Problem</h1>
+<p>Of all the forms of chemical data generated in labs around the world today, spectra are one of the most common. Although several tools can display and manipulate these data, few are capable of being used on the Web. If you agree with the hypothesis that the Web is fast becoming the only information exchange platform that matters, this presents a significant problem (or <a href="/articles/tag/broken">opportunity</a>, depending on your perspective).</p>
+<p>Recently, a series of articles on the Web-based spectroscopy tool <a href="/articles/2008/02/01/hacking-jspecview-enhancing-the-user-interface">JSpecView</a> appeared here. JSpecView is one of the only free tools currently available that enables spectra to be displayed and manipulated on the Web.</p>
+<p>JSpecView is written in Java and deployed as an applet. In very many situations, applets are the best technology for delivering interactive Web content of the kind required by spectroscopy.</p>
+<p>But no technology is perfect. One of the biggest limitations of applets is that they require the correct version of the Java plug-in to be installed on a users&rsquo; machine (a limitation shared by all plug-in technologies, including <a href="/articles/2008/06/10/adobe-flash-for-cheminformatics-fast-scalable-and-attractive-2d-depiction-of-chemical-structures-with-vector-graphics">Flash</a>). In situations where users either can&rsquo;t or won&rsquo;t install the plugin, or in which adequate resources are not available to ensure <a href="/articles/2008/03/12/demystifying-java-applets-part-3-failing-gracefully-when-your-users-dont-have-java">smooth applet deployment</a>, Java applets may not be the best technology platform.</p>
+<p>What if there were a <a href="/articles/2007/12/20/if-you-want-to-change-the-world-build-the-tool-first-part-2">spectroscopy tool</a> that worked on any browser without any plugin dependencies?</p>
+<h1 id="scenarios">Scenarios</h1>
+<p>For a better idea of what WebSpex will be about, consider some scenarios:</p>
+<p><strong>Viewing</strong> Sally logs into her research group&rsquo;s spectroscopy archive website. She clicks on the link to her most recently-collected IR spectrum and is taken to a page displaying an image of her spectrum along with textual metadata.</p>
+<p><strong>Zooming</strong> Fred is viewing an IR spectrum published on a chemical supplier&rsquo;s Website. Wanting a better view of the fingerprint region, he uses the mouse to zoom the spectrum.</p>
+<p><strong>Peak Picking</strong> Victor is using a publisher website to view the IR spectrum of a compound described in a recent paper. Wanting to match the carbonyl stretching frequency of the material he prepared, he uses the mouse to pick the peak.</p>
+<h1 id="data">Data</h1>
+<p>WebSpex will use as its input format <a href="http://dx.doi.org/10.1351/pac199163121781">JCAMP-DX</a>, the de facto standard for spectral data encoding. Although JCAMP-DX has been extended in many ways over the last several years, for now the goal of WebSpex will be to simply read and display <a href="http://wwwchem.uwimona.edu.jm:1104/spectra/testdata/index.html">error-free examples</a> of the original format specification.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>Good Web-based spectroscopy tools are a prerequisite for the open sharing of this important form of experimental data. WebSpex could fill this need by providing an installation-free tool that can be used in any browser without plugins. Currently consisting of nothing more than just some ideas, WebSpex successes and failures will be documented here in several installments.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

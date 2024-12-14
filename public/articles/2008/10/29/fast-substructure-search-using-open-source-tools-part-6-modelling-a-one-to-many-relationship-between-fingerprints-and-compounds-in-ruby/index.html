@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Fast Substructure Search Using Open Source Tools Part 6 - Modelling a One-To-Many Relationship Between Fingerprints and Compounds in Ruby | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="We can think of a fingerprint as a bucket into which every molecule in the universe can be reproducibly placed. Each molecule will belong to a single bucket, but each bucket may contain any number of molecules. In other words, there exists a one-to-many relationship between a fingerprint and its associated molecules. The previous article in this series discussed how to model this relationship using SQL. This article will take the idea one step further by describing one way to model this relationship in Ruby.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2008/10/29/fast-substructure-search-using-open-source-tools-part-6-modelling-a-one-to-many-relationship-between-fingerprints-and-compounds-in-ruby/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2008/10/29/fast-substructure-search-using-open-source-tools-part-6-modelling-a-one-to-many-relationship-between-fingerprints-and-compounds-in-ruby/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Fast Substructure Search Using Open Source Tools Part 6 - Modelling a One-To-Many Relationship Between Fingerprints and Compounds in Ruby">
+  <meta property="og:description" content="We can think of a fingerprint as a bucket into which every molecule in the universe can be reproducibly placed. Each molecule will belong to a single bucket, but each bucket may contain any number of molecules. In other words, there exists a one-to-many relationship between a fingerprint and its associated molecules. The previous article in this series discussed how to model this relationship using SQL. This article will take the idea one step further by describing one way to model this relationship in Ruby.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2008-10-29T00:00:00+00:00">
+    <meta property="article:modified_time" content="2008-10-29T00:00:00+00:00">
+
+  <meta itemprop="name" content="Fast Substructure Search Using Open Source Tools Part 6 - Modelling a One-To-Many Relationship Between Fingerprints and Compounds in Ruby">
+  <meta itemprop="description" content="We can think of a fingerprint as a bucket into which every molecule in the universe can be reproducibly placed. Each molecule will belong to a single bucket, but each bucket may contain any number of molecules. In other words, there exists a one-to-many relationship between a fingerprint and its associated molecules. The previous article in this series discussed how to model this relationship using SQL. This article will take the idea one step further by describing one way to model this relationship in Ruby.">
+  <meta itemprop="datePublished" content="2008-10-29T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2008-10-29T00:00:00+00:00">
+  <meta itemprop="wordCount" content="1033">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Fast Substructure Search Using Open Source Tools Part 6 - Modelling a One-To-Many Relationship Between Fingerprints and Compounds in Ruby">
+  <meta name="twitter:description" content="We can think of a fingerprint as a bucket into which every molecule in the universe can be reproducibly placed. Each molecule will belong to a single bucket, but each bucket may contain any number of molecules. In other words, there exists a one-to-many relationship between a fingerprint and its associated molecules. The previous article in this series discussed how to model this relationship using SQL. This article will take the idea one step further by describing one way to model this relationship in Ruby.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Fast Substructure Search Using Open Source Tools Part 6 - Modelling a One-To-Many Relationship Between Fingerprints and Compounds in Ruby</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2008-10-29T00:00:00Z">October 29, 2008</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>We can think of a fingerprint as a bucket into which every molecule in the universe can be reproducibly placed. Each molecule will belong to a single bucket, but each bucket may contain any number of molecules. In other words, there exists a one-to-many relationship between a fingerprint and its associated molecules. The <a href="/articles/2008/10/21/fast-substructure-search-using-open-source-tools-part-5-relating-molecules-to-fingerprints-with-sql">previous article in this series</a> discussed how to model this relationship using SQL. This article will take the idea one step further by describing one way to model this relationship in Ruby.</p>
+<p>All Articles in this Series:</p>
+<ul>
+<li><a href="/articles/2008/10/02/fast-substructure-search-using-open-source-tools-part-1-fingerprints-and-databases">Part 1: Fingerprints and Databases</a></li>
+<li><a href="/articles/2008/10/03/fast-substructure-search-using-open-source-tools-part-2-fingerprint-screen-with-sql">Part 2: Fingerprint Screen With SQL</a></li>
+<li><a href="/articles/2008/10/06/fast-substructure-search-using-open-source-tools-part-3-a-crud-api-for-fingerprints-in-ruby">Part 3: A CRUD API for Fingerprints in Ruby</a></li>
+<li><a href="/articles/2008/10/15/fast-substructure-search-using-open-source-tools-part-4-creating-fingerprints-from-chemical-structures">Part 4: Creating Fingerprints from Chemical Structures</a></li>
+<li><a href="/articles/2008/10/21/fast-substructure-search-using-open-source-tools-part-5-relating-molecules-to-fingerprints-with-sql">Part 5: Relating Molecules to Fingerprints with SQL</a></li>
+<li>Part 6: Modelling a One-To-Many Relationship Between Fingerprints and Compounds in Ruby</li>
+</ul>
+<h1 id="sql-recap">SQL Recap</h1>
+<p>So far, we&rsquo;ve set up a fingerprints database:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mysql&gt; describe fingerprints;
+</span></span><span style="display:flex;"><span>+--------+---------------------+------+-----+---------+----------------+
+</span></span><span style="display:flex;"><span>| Field  | Type                | Null | Key | Default | Extra          |
+</span></span><span style="display:flex;"><span>+--------+---------------------+------+-----+---------+----------------+
+</span></span><span style="display:flex;"><span>| id     | int<span style="color:#f92672">(</span>11<span style="color:#f92672">)</span>             | NO   | PRI | NULL    | auto_increment | 
+</span></span><span style="display:flex;"><span>| byte0  | bigint<span style="color:#f92672">(</span>64<span style="color:#f92672">)</span> unsigned | YES  |     | <span style="color:#ae81ff">0</span>       |                | 
+</span></span><span style="display:flex;"><span>| byte1  | bigint<span style="color:#f92672">(</span>64<span style="color:#f92672">)</span> unsigned | YES  |     | <span style="color:#ae81ff">0</span>       |                | 
+</span></span><span style="display:flex;"><span>| byte2  | bigint<span style="color:#f92672">(</span>64<span style="color:#f92672">)</span> unsigned | YES  |     | <span style="color:#ae81ff">0</span>       |                | 
+</span></span><span style="display:flex;"><span>| byte3  | bigint<span style="color:#f92672">(</span>64<span style="color:#f92672">)</span> unsigned | YES  |     | <span style="color:#ae81ff">0</span>       |                | 
+</span></span><span style="display:flex;"><span>| byte4  | bigint<span style="color:#f92672">(</span>64<span style="color:#f92672">)</span> unsigned | YES  |     | <span style="color:#ae81ff">0</span>       |                | 
+</span></span><span style="display:flex;"><span>| byte5  | bigint<span style="color:#f92672">(</span>64<span style="color:#f92672">)</span> unsigned | YES  |     | <span style="color:#ae81ff">0</span>       |                | 
+</span></span><span style="display:flex;"><span>| byte6  | bigint<span style="color:#f92672">(</span>64<span style="color:#f92672">)</span> unsigned | YES  |     | <span style="color:#ae81ff">0</span>       |                | 
+</span></span><span style="display:flex;"><span>| byte7  | bigint<span style="color:#f92672">(</span>64<span style="color:#f92672">)</span> unsigned | YES  |     | <span style="color:#ae81ff">0</span>       |                | 
+</span></span><span style="display:flex;"><span>| byte8  | bigint<span style="color:#f92672">(</span>64<span style="color:#f92672">)</span> unsigned | YES  |     | <span style="color:#ae81ff">0</span>       |                | 
+</span></span><span style="display:flex;"><span>| byte9  | bigint<span style="color:#f92672">(</span>64<span style="color:#f92672">)</span> unsigned | YES  |     | <span style="color:#ae81ff">0</span>       |                | 
+</span></span><span style="display:flex;"><span>| byte10 | bigint<span style="color:#f92672">(</span>64<span style="color:#f92672">)</span> unsigned | YES  |     | <span style="color:#ae81ff">0</span>       |                | 
+</span></span><span style="display:flex;"><span>| byte11 | bigint<span style="color:#f92672">(</span>64<span style="color:#f92672">)</span> unsigned | YES  |     | <span style="color:#ae81ff">0</span>       |                | 
+</span></span><span style="display:flex;"><span>| byte12 | bigint<span style="color:#f92672">(</span>64<span style="color:#f92672">)</span> unsigned | YES  |     | <span style="color:#ae81ff">0</span>       |                | 
+</span></span><span style="display:flex;"><span>| byte13 | bigint<span style="color:#f92672">(</span>64<span style="color:#f92672">)</span> unsigned | YES  |     | <span style="color:#ae81ff">0</span>       |                | 
+</span></span><span style="display:flex;"><span>| byte14 | bigint<span style="color:#f92672">(</span>64<span style="color:#f92672">)</span> unsigned | YES  |     | <span style="color:#ae81ff">0</span>       |                | 
+</span></span><span style="display:flex;"><span>| byte15 | bigint<span style="color:#f92672">(</span>64<span style="color:#f92672">)</span> unsigned | YES  |     | <span style="color:#ae81ff">0</span>       |                | 
+</span></span><span style="display:flex;"><span>+--------+---------------------+------+-----+---------+----------------+
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">17</span> rows in set <span style="color:#f92672">(</span>0.00 sec<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>This database contains a single (empty) fingerprint:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mysql&gt; <span style="color:#66d9ef">select</span> * from fingerprints;
+</span></span><span style="display:flex;"><span>+----+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+--------+--------+--------+--------+--------+--------+
+</span></span><span style="display:flex;"><span>| id | byte0 | byte1 | byte2 | byte3 | byte4 | byte5 | byte6 | byte7 | byte8 | byte9 | byte10 | byte11 | byte12 | byte13 | byte14 | byte15 |
+</span></span><span style="display:flex;"><span>+----+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+--------+--------+--------+--------+--------+--------+
+</span></span><span style="display:flex;"><span>|  <span style="color:#ae81ff">1</span> |     <span style="color:#ae81ff">0</span> |     <span style="color:#ae81ff">0</span> |     <span style="color:#ae81ff">0</span> |     <span style="color:#ae81ff">0</span> |     <span style="color:#ae81ff">0</span> |     <span style="color:#ae81ff">0</span> |     <span style="color:#ae81ff">0</span> |     <span style="color:#ae81ff">0</span> |     <span style="color:#ae81ff">0</span> |     <span style="color:#ae81ff">0</span> |      <span style="color:#ae81ff">0</span> |      <span style="color:#ae81ff">0</span> |      <span style="color:#ae81ff">0</span> |      <span style="color:#ae81ff">0</span> |      <span style="color:#ae81ff">0</span> |      <span style="color:#ae81ff">0</span> | 
+</span></span><span style="display:flex;"><span>+----+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+--------+--------+--------+--------+--------+--------+
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> row in set <span style="color:#f92672">(</span>0.00 sec<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>We&rsquo;ve also set up a compounds database containing a foreign key (<code>fingerprint_id</code>) into the fingerprints table:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mysql&gt; describe compounds;
+</span></span><span style="display:flex;"><span>+----------------+---------+------+-----+---------+----------------+
+</span></span><span style="display:flex;"><span>| Field          | Type    | Null | Key | Default | Extra          |
+</span></span><span style="display:flex;"><span>+----------------+---------+------+-----+---------+----------------+
+</span></span><span style="display:flex;"><span>| id             | int<span style="color:#f92672">(</span>11<span style="color:#f92672">)</span> | NO   | PRI | NULL    | auto_increment | 
+</span></span><span style="display:flex;"><span>| fingerprint_id | int<span style="color:#f92672">(</span>11<span style="color:#f92672">)</span> | YES  |     | NULL    |                | 
+</span></span><span style="display:flex;"><span>| smiles         | text    | YES  |     | NULL    |                | 
+</span></span><span style="display:flex;"><span>+----------------+---------+------+-----+---------+----------------+
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span> rows in set <span style="color:#f92672">(</span>0.00 sec<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>In this hypothetical example, the compounds database is populated by two molecules, benzene and bromobenzene, both of which share the same fingerprint:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mysql&gt; <span style="color:#66d9ef">select</span> * from compounds;
+</span></span><span style="display:flex;"><span>+----+----------------+------------+
+</span></span><span style="display:flex;"><span>| id | fingerprint_id | smiles     |
+</span></span><span style="display:flex;"><span>+----+----------------+------------+
+</span></span><span style="display:flex;"><span>|  <span style="color:#ae81ff">1</span> |              <span style="color:#ae81ff">1</span> | c1ccccc1   | 
+</span></span><span style="display:flex;"><span>|  <span style="color:#ae81ff">2</span> |              <span style="color:#ae81ff">1</span> | c1ccccc1Br | 
+</span></span><span style="display:flex;"><span>+----+----------------+------------+
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span> rows in set <span style="color:#f92672">(</span>0.00 sec<span style="color:#f92672">)</span>
+</span></span></code></pre></div><h1 id="adding-the-ruby-layer">Adding the Ruby Layer</h1>
+<p>In <a href="/articles/2008/10/06/fast-substructure-search-using-open-source-tools-part-3-a-crud-api-for-fingerprints-in-ruby">Part 3</a>, we created a CRUD API for fingerprints in Ruby. We now need to modify the class we created there, Fingerprint, to make it aware of the Compounds it will be associated with.</p>
+<p>For brevity, you can <a href="/images/posts/20081029/fingerprint.rb">view the updated Fingerprint class here</a>. The main change has been to add a single line of code that tells <code>Fingerprint</code> that it&rsquo;s now associated with a class called <code>Compound</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;pre class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;prettyprint&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  has_many :compounds
+</span></span></code></pre></div><p>All that remains is to bring the <code>Compound</code> class into being:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;rubygems&#39;</span>
+</span></span><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;active_record&#39;</span>
+</span></span><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;fingerprint&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ActiveRecord::Base.establish_connection<span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>  :adapter    <span style="color:#f92672">=</span>&amp;gt; <span style="color:#e6db74">&#39;mysql&#39;</span>,
+</span></span><span style="display:flex;"><span>  :host       <span style="color:#f92672">=</span>&amp;gt; <span style="color:#e6db74">&#39;localhost&#39;</span>,
+</span></span><span style="display:flex;"><span>  :username   <span style="color:#f92672">=</span>&amp;gt;  <span style="color:#e6db74">&#39;root&#39;</span>,
+</span></span><span style="display:flex;"><span>  :password   <span style="color:#f92672">=</span>&amp;gt;  <span style="color:#e6db74">&#39;&#39;</span>,
+</span></span><span style="display:flex;"><span>  :database   <span style="color:#f92672">=</span>&amp;gt;  <span style="color:#e6db74">&#39;compounds&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>class Compound &amp;lt; ActiveRecord::Base
+</span></span><span style="display:flex;"><span>  belongs_to :fingerprint
+</span></span><span style="display:flex;"><span>end
+</span></span></code></pre></div><p>The <code>belongs_to</code> line is the counterpart to <code>Fingerprint's</code> <code>has_many</code> line. Together, both <code>Fingerprint</code> and <code>Compound</code> create a system in which each <code>Fingerprint</code> can reference multiple <code>Compounds</code> and each <code>Compound</code> references one <code>Fingerprint</code>.</p>
+<p>Let&rsquo;s test this with interactive Ruby:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ irb
+</span></span><span style="display:flex;"><span>irb<span style="color:#f92672">(</span>main<span style="color:#f92672">)</span>:001:0&amp;gt; require <span style="color:#e6db74">&#39;fingerprint&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=</span>&amp;gt; true
+</span></span><span style="display:flex;"><span>irb<span style="color:#f92672">(</span>main<span style="color:#f92672">)</span>:002:0&amp;gt; f<span style="color:#f92672">=</span>Fingerprint.find 1
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=</span>&amp;gt; <span style="color:#75715e">#&amp;lt;Fingerprint id: 1, byte0: 0, byte1: 0, byte2: 0, byte3: 0, byte4: 0, byte5: 0, byte6: 0, byte7: 0, byte8: 0, byte9: 0, byte10: 0, byte11: 0, byte12: 0, byte13: 0, byte14: 0, byte15: 0&amp;gt;</span>
+</span></span><span style="display:flex;"><span>irb<span style="color:#f92672">(</span>main<span style="color:#f92672">)</span>:003:0&amp;gt; f.compounds
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=</span>&amp;gt; <span style="color:#f92672">[</span><span style="color:#75715e">#&amp;lt;Compound id: 1, fingerprint_id: 1, smiles: &#34;c1ccccc1&#34;&amp;gt;, #&amp;lt;Compound id: 2, fingerprint_id: 1, smiles: &#34;c1ccccc1Br&#34;&amp;gt;]</span>
+</span></span></code></pre></div><p>Looks good. Our code has made the correct association between a <code>Fingerprint</code> and its <code>Compounds</code>. What about the other way around?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ irb
+</span></span><span style="display:flex;"><span>irb<span style="color:#f92672">(</span>main<span style="color:#f92672">)</span>:001:0&amp;gt; require <span style="color:#e6db74">&#39;compound&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=</span>&amp;gt; true
+</span></span><span style="display:flex;"><span>irb<span style="color:#f92672">(</span>main<span style="color:#f92672">)</span>:002:0&amp;gt; c<span style="color:#f92672">=</span>Compound.find 1
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=</span>&amp;gt; <span style="color:#75715e">#&amp;lt;Compound id: 1, fingerprint_id: 1, smiles: &#34;c1ccccc1&#34;&amp;gt;</span>
+</span></span><span style="display:flex;"><span>irb<span style="color:#f92672">(</span>main<span style="color:#f92672">)</span>:003:0&amp;gt; c.fingerprint
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=</span>&amp;gt; <span style="color:#75715e">#&amp;lt;Fingerprint id: 1, byte0: 0, byte1: 0, byte2: 0, byte3: 0, byte4: 0, byte5: 0, byte6: 0, byte7: 0, byte8: 0, byte9: 0, byte10: 0, byte11: 0, byte12: 0, byte13: 0, byte14: 0, byte15: 0&amp;gt;</span>
+</span></span></code></pre></div><p>As expected, the first <code>Compound</code> became associated with the correct <code>Fingerprint</code>.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>Our system can now store and query molecular fingerprints in a relational database. It also associates multiple compounds with each fingerprint.</p>
+<p>We have a complete fingerprint screening system, but not a substructure search system.</p>
+<p>What&rsquo;s missing? For one thing, we&rsquo;d need a way to perform atom-by-atom searches (ABAS) of all candidate structures after the fingerprint screening process is complete. Recall that just because a query fingerprint matches a candidate fingerprint doesn&rsquo;t necessarily mean that a substructure match has been found.</p>
+<p>We&rsquo;d also need a way to conveniently get real compounds with real fingerprints into our database. Only then would we be able to test the chemical validity of substructure queries.</p>
+<p>The remaining articles in this series will discuss approaches to each of these requirements.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

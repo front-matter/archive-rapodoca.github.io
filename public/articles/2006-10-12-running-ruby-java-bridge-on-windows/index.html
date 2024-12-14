@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Running Ruby Java Bridge on Windows | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="The Ruby Java Bridge (RJB) is one of the most useful Ruby integration packages available. For example, RJB enables the complete use of the Chemistry Development Kit (CDK) from within Ruby. Past articles have been written from a  unix-centric perspective. This article will show how Windows users can  join in the fun.
+Prerequisites
+The only software you&rsquo;ll need for this tutorial is Sun&rsquo;s Java Development Kit (JDK).  RJB requires the JDK and won&rsquo;t work with Sun&rsquo;s Java Runtime Environment (JRE).">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+      <meta name="author" content = "Richard L. Apodaca">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://depth-first.com:1313/articles/2006-10-12-running-ruby-java-bridge-on-windows/">
+    
+
+    <meta property="og:url" content="https://depth-first.com:1313/articles/2006-10-12-running-ruby-java-bridge-on-windows/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Running Ruby Java Bridge on Windows">
+  <meta property="og:description" content="The Ruby Java Bridge (RJB) is one of the most useful Ruby integration packages available. For example, RJB enables the complete use of the Chemistry Development Kit (CDK) from within Ruby. Past articles have been written from a unix-centric perspective. This article will show how Windows users can join in the fun.
+Prerequisites The only software you’ll need for this tutorial is Sun’s Java Development Kit (JDK). RJB requires the JDK and won’t work with Sun’s Java Runtime Environment (JRE).">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2006-10-12T00:00:00+00:00">
+    <meta property="article:modified_time" content="2006-10-12T00:00:00+00:00">
+
+  <meta itemprop="name" content="Running Ruby Java Bridge on Windows">
+  <meta itemprop="description" content="The Ruby Java Bridge (RJB) is one of the most useful Ruby integration packages available. For example, RJB enables the complete use of the Chemistry Development Kit (CDK) from within Ruby. Past articles have been written from a unix-centric perspective. This article will show how Windows users can join in the fun.
+Prerequisites The only software you’ll need for this tutorial is Sun’s Java Development Kit (JDK). RJB requires the JDK and won’t work with Sun’s Java Runtime Environment (JRE).">
+  <meta itemprop="datePublished" content="2006-10-12T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2006-10-12T00:00:00+00:00">
+  <meta itemprop="wordCount" content="330">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Running Ruby Java Bridge on Windows">
+  <meta name="twitter:description" content="The Ruby Java Bridge (RJB) is one of the most useful Ruby integration packages available. For example, RJB enables the complete use of the Chemistry Development Kit (CDK) from within Ruby. Past articles have been written from a unix-centric perspective. This article will show how Windows users can join in the fun.
+Prerequisites The only software you’ll need for this tutorial is Sun’s Java Development Kit (JDK). RJB requires the JDK and won’t work with Sun’s Java Runtime Environment (JRE).">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Running Ruby Java Bridge on Windows</h1>
+      
+      <p class="tracked">
+        By <strong>Richard L. Apodaca</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2006-10-12T00:00:00Z">October 12, 2006</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>The <!-- raw HTML omitted -->Ruby Java Bridge<!-- raw HTML omitted --> (RJB) is one of the most useful Ruby integration packages available. For example, RJB enables the complete use of the Chemistry Development Kit (CDK) <!-- raw HTML omitted -->from within Ruby<!-- raw HTML omitted -->. Past articles have been written from a  unix-centric perspective. This article will show how Windows users can  join in the fun.</p>
+<h1 id="prerequisites">Prerequisites</h1>
+<p>The only software you&rsquo;ll need for this tutorial is <!-- raw HTML omitted -->Sun&rsquo;s Java Development Kit<!-- raw HTML omitted --> (JDK).  RJB requires the JDK and won&rsquo;t work with Sun&rsquo;s Java Runtime Environment (JRE).</p>
+<h1 id="install-ruby-and-rjb">Install Ruby and RJB</h1>
+<p>The simplest way to get started with Ruby on Windows is to download and install the <!-- raw HTML omitted -->Ruby One-Click Installer<!-- raw HTML omitted -->. Be sure RubyGems support is enabled.</p>
+<p>Once Ruby is installed, RJB can then be installed by using the RubyGems packaging system (from a dos prompt - see below):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo gem install rjb
+</span></span></code></pre></div><p>Choose the most recent Win32 version (1.0.2 at the time of this writing). This will automatically compile and install RJB on your system.</p>
+<p>If you&rsquo;d like, now would be a good time to also install Ruby CDK (rcdk):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gem install rcdk
+</span></span></code></pre></div><h1 id="post-install-configuration">Post-Install Configuration</h1>
+<p>You&rsquo;ll need to make sure your system&rsquo;s <!-- raw HTML omitted -->JAVA_HOME<!-- raw HTML omitted --> environment variable points to your JDK installation. If you&rsquo;re running Windows XP, a convenient way to do so is to use Start-&gt;Control Panel-&gt;(Switch to Classic View)-&gt;System-&gt;Advanced Tab-&gt;Environment Variables. Add a new variable called <!-- raw HTML omitted -->JAVA_HOME<!-- raw HTML omitted --> with the path to the JDK installation as a value. On my system, this path is <!-- raw HTML omitted -->C:\Program Files\Java\JDK1.5.0_09<!-- raw HTML omitted -->. Simply installing JDK does not set your system&rsquo;s <!-- raw HTML omitted -->JAVA_HOME<!-- raw HTML omitted --> environment variable.</p>
+<h1 id="testing-rjb">Testing RJB</h1>
+<p>You can verify that RJB is installed and working as described in <!-- raw HTML omitted -->my previous article on RJB<!-- raw HTML omitted -->. A command line prompt can be obtained in Windows XP through Start-&gt;Run followed by typing <!-- raw HTML omitted -->command.com<!-- raw HTML omitted --> and enter. The screenshot below shows RJB working via IRB:</p>
+<p><img src="/images/posts/20061012/ruby_rjb.png" alt="Ruby RJB"></p>
+<h1 id="summing-up">Summing Up</h1>
+<p>Using Ruby and RJB on Windows is not that much different than doing so on unix. With this background, future articles will return to the theme of Ruby&rsquo;s role in chemical informatics software integration.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://depth-first.com:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

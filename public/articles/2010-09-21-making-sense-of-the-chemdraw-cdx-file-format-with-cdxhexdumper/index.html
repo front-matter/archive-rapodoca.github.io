@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Making Sense of the ChemDraw CDX File Format with CDXHexDumper | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="ChemDraw CDX is the native file format of CambridgeSoft&rsquo;s ChemDraw application. A previous article discussed the importance of ChemDraw CDX to the business and science of chemistry. Another described how to use Open Babel to read (at least in part) CDX files. But if we&rsquo;re interested in an API for reading and manipulating ChemDraw CDX files with high-fidelity, we&rsquo;ll need to dig a little deeper into understanding the CDX format. This article offers one perspective on this topic.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+      <meta name="author" content = "Richard L. Apodaca">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://depth-first.com:1313/articles/2010-09-21-making-sense-of-the-chemdraw-cdx-file-format-with-cdxhexdumper/">
+    
+
+    <meta property="og:url" content="https://depth-first.com:1313/articles/2010-09-21-making-sense-of-the-chemdraw-cdx-file-format-with-cdxhexdumper/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="Making Sense of the ChemDraw CDX File Format with CDXHexDumper">
+  <meta property="og:description" content="ChemDraw CDX is the native file format of CambridgeSoft’s ChemDraw application. A previous article discussed the importance of ChemDraw CDX to the business and science of chemistry. Another described how to use Open Babel to read (at least in part) CDX files. But if we’re interested in an API for reading and manipulating ChemDraw CDX files with high-fidelity, we’ll need to dig a little deeper into understanding the CDX format. This article offers one perspective on this topic.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2010-09-21T00:00:00+00:00">
+    <meta property="article:modified_time" content="2010-09-21T00:00:00+00:00">
+
+  <meta itemprop="name" content="Making Sense of the ChemDraw CDX File Format with CDXHexDumper">
+  <meta itemprop="description" content="ChemDraw CDX is the native file format of CambridgeSoft’s ChemDraw application. A previous article discussed the importance of ChemDraw CDX to the business and science of chemistry. Another described how to use Open Babel to read (at least in part) CDX files. But if we’re interested in an API for reading and manipulating ChemDraw CDX files with high-fidelity, we’ll need to dig a little deeper into understanding the CDX format. This article offers one perspective on this topic.">
+  <meta itemprop="datePublished" content="2010-09-21T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2010-09-21T00:00:00+00:00">
+  <meta itemprop="wordCount" content="1277">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Making Sense of the ChemDraw CDX File Format with CDXHexDumper">
+  <meta name="twitter:description" content="ChemDraw CDX is the native file format of CambridgeSoft’s ChemDraw application. A previous article discussed the importance of ChemDraw CDX to the business and science of chemistry. Another described how to use Open Babel to read (at least in part) CDX files. But if we’re interested in an API for reading and manipulating ChemDraw CDX files with high-fidelity, we’ll need to dig a little deeper into understanding the CDX format. This article offers one perspective on this topic.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Making Sense of the ChemDraw CDX File Format with CDXHexDumper</h1>
+      
+      <p class="tracked">
+        By <strong>Richard L. Apodaca</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2010-09-21T00:00:00Z">September 21, 2010</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>ChemDraw CDX is the native file format of CambridgeSoft&rsquo;s <a href="http://www.cambridgesoft.com/software/ChemDraw/">ChemDraw</a> application. A previous article discussed the <a href="http://depth-first.com/articles/2010/09/13/a-brief-introduction-to-the-chemdraw-cdx-file-format">importance of ChemDraw CDX to the business and science of chemistry</a>. Another described how to <a href="http://depth-first.com/articles/2010/09/17/reading-and-translating-chemdraw-cdx-files-with-openbabel">use Open Babel to read (at least in part) CDX files</a>. But if we&rsquo;re interested in an API for reading and manipulating ChemDraw CDX files with high-fidelity, we&rsquo;ll need to dig a little deeper into understanding the CDX format. This article offers one perspective on this topic.</p>
+<h1 id="a-free-tool-from-cambridgesoft">A Free Tool from CambridgeSoft</h1>
+<p>Understanding binary file formats is quite a bit more tricky than understanding text formats. Fortunately, CabridgeSoft offers a free tool that can help developers interested in creating CDX readers: <a href="http://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/General.htm">CDXHexDumper.exe</a> (hereafter just &lsquo;Dumper&rsquo;).</p>
+<p>Dumper accepts a CDX file and produces as output a text file in which the nesting of objects and attribute associations can be examined conveniently.</p>
+<h1 id="using-dumper">Using Dumper</h1>
+<p>Dumper is launched by double-clicking on its icon in a Windows environment. This pulls up an empty MFC application window (ahh, the memories this conjures). File-&gt;Open opens a CDX file and dumps the output to c:\temp\dump.txt. Note that if your c: drive does not contain a &rsquo;temp&rsquo; directory, you&rsquo;ll need to make one for Dumper to work.</p>
+<p>Let&rsquo;s look at the the <a href="http://github.com/metamolecular/fugu">benzene.cdx</a> example available from GitHub.</p>
+<h1 id="looking-at-dumpers-output">Looking at Dumper&rsquo;s Output</h1>
+<p>Dumper produces this output for the &lsquo;benzene.cdx&rsquo; file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>CDX Header: <span style="color:#f92672">[</span><span style="color:#ae81ff">8</span> bytes<span style="color:#f92672">]</span> VjCD0100
+</span></span><span style="display:flex;"><span>Backward compatibility: <span style="color:#f92672">[</span><span style="color:#ae81ff">4</span> bytes<span style="color:#f92672">]</span> 0x16909060
+</span></span><span style="display:flex;"><span>Nulls: <span style="color:#f92672">[</span><span style="color:#ae81ff">16</span> bytes<span style="color:#f92672">]</span> 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 
+</span></span><span style="display:flex;"><span>Property 0x0204 <span style="color:#f92672">[</span><span style="color:#ae81ff">16</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">17</span> 9c <span style="color:#ae81ff">67</span> <span style="color:#ae81ff">01</span> a7 <span style="color:#ae81ff">01</span> ed <span style="color:#ae81ff">00</span> 6e 9c a3 <span style="color:#ae81ff">01</span> b4 f7 <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">01</span> 
+</span></span><span style="display:flex;"><span>Property 0x0804 <span style="color:#f92672">[</span><span style="color:#ae81ff">4</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 1e <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>Property 0x0300 <span style="color:#f92672">[</span><span style="color:#ae81ff">14</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">02</span> <span style="color:#ae81ff">00</span> ff ff ff ff ff ff <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>Property 0x0100 <span style="color:#f92672">[</span><span style="color:#ae81ff">19</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">27</span> <span style="color:#ae81ff">09</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">53</span> <span style="color:#ae81ff">61</span> 6e <span style="color:#ae81ff">73</span> <span style="color:#ae81ff">53</span> <span style="color:#ae81ff">65</span> <span style="color:#ae81ff">72</span> <span style="color:#ae81ff">69</span> <span style="color:#ae81ff">66</span> 
+</span></span><span style="display:flex;"><span>Object 0x8001 <span style="color:#f92672">[</span><span style="color:#ae81ff">6</span> bytes<span style="color:#f92672">]</span>  with Object ID 0x2
+</span></span><span style="display:flex;"><span>|   Object 0x8003 <span style="color:#f92672">[</span><span style="color:#ae81ff">6</span> bytes<span style="color:#f92672">]</span>  with Object ID 0x3
+</span></span><span style="display:flex;"><span>|   |   Property 0x0204 <span style="color:#f92672">[</span><span style="color:#ae81ff">16</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">17</span> 9c <span style="color:#ae81ff">67</span> <span style="color:#ae81ff">01</span> a7 <span style="color:#ae81ff">01</span> ed <span style="color:#ae81ff">00</span> 6e 9c a3 <span style="color:#ae81ff">01</span> b4 f7 <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">01</span> 
+</span></span><span style="display:flex;"><span>|   |   Object 0x8004 <span style="color:#f92672">[</span><span style="color:#ae81ff">6</span> bytes<span style="color:#f92672">]</span>  with Object ID 0x4
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0200 <span style="color:#f92672">[</span><span style="color:#ae81ff">8</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">17</span> 9c <span style="color:#ae81ff">67</span> <span style="color:#ae81ff">01</span> ad fc <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">01</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0402 <span style="color:#f92672">[</span><span style="color:#ae81ff">2</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0437 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">06</span> 
+</span></span><span style="display:flex;"><span>|   |   ObjectEnd 0x8004/0x4
+</span></span><span style="display:flex;"><span>|   |   Object 0x8004 <span style="color:#f92672">[</span><span style="color:#ae81ff">6</span> bytes<span style="color:#f92672">]</span>  with Object ID 0x5
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0200 <span style="color:#f92672">[</span><span style="color:#ae81ff">8</span> bytes<span style="color:#f92672">]</span>  2d 9c <span style="color:#ae81ff">76</span> <span style="color:#ae81ff">01</span> a7 <span style="color:#ae81ff">01</span> ed <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0402 <span style="color:#f92672">[</span><span style="color:#ae81ff">2</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0437 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">06</span> 
+</span></span><span style="display:flex;"><span>|   |   ObjectEnd 0x8004/0x5
+</span></span><span style="display:flex;"><span>|   |   Object 0x8004 <span style="color:#f92672">[</span><span style="color:#ae81ff">6</span> bytes<span style="color:#f92672">]</span>  with Object ID 0x6
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0200 <span style="color:#f92672">[</span><span style="color:#ae81ff">8</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">58</span> 9c <span style="color:#ae81ff">94</span> <span style="color:#ae81ff">01</span> a7 <span style="color:#ae81ff">01</span> ed <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0402 <span style="color:#f92672">[</span><span style="color:#ae81ff">2</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0437 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">06</span> 
+</span></span><span style="display:flex;"><span>|   |   ObjectEnd 0x8004/0x6
+</span></span><span style="display:flex;"><span>|   |   Object 0x8004 <span style="color:#f92672">[</span><span style="color:#ae81ff">6</span> bytes<span style="color:#f92672">]</span>  with Object ID 0x7
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0200 <span style="color:#f92672">[</span><span style="color:#ae81ff">8</span> bytes<span style="color:#f92672">]</span>  6e 9c a3 <span style="color:#ae81ff">01</span> ad fc <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">01</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0402 <span style="color:#f92672">[</span><span style="color:#ae81ff">2</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0437 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">06</span> 
+</span></span><span style="display:flex;"><span>|   |   ObjectEnd 0x8004/0x7
+</span></span><span style="display:flex;"><span>|   |   Object 0x8004 <span style="color:#f92672">[</span><span style="color:#ae81ff">6</span> bytes<span style="color:#f92672">]</span>  with Object ID 0x8
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0200 <span style="color:#f92672">[</span><span style="color:#ae81ff">8</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">58</span> 9c <span style="color:#ae81ff">94</span> <span style="color:#ae81ff">01</span> b4 f7 <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">01</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0402 <span style="color:#f92672">[</span><span style="color:#ae81ff">2</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0437 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">06</span> 
+</span></span><span style="display:flex;"><span>|   |   ObjectEnd 0x8004/0x8
+</span></span><span style="display:flex;"><span>|   |   Object 0x8004 <span style="color:#f92672">[</span><span style="color:#ae81ff">6</span> bytes<span style="color:#f92672">]</span>  with Object ID 0x9
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0200 <span style="color:#f92672">[</span><span style="color:#ae81ff">8</span> bytes<span style="color:#f92672">]</span>  2d 9c <span style="color:#ae81ff">76</span> <span style="color:#ae81ff">01</span> b4 f7 <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">01</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0402 <span style="color:#f92672">[</span><span style="color:#ae81ff">2</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0437 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">06</span> 
+</span></span><span style="display:flex;"><span>|   |   ObjectEnd 0x8004/0x9
+</span></span><span style="display:flex;"><span>|   |   Object 0x8005 <span style="color:#f92672">[</span><span style="color:#ae81ff">6</span> bytes<span style="color:#f92672">]</span>  with Object ID 0xa
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0604 <span style="color:#f92672">[</span><span style="color:#ae81ff">4</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">04</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0605 <span style="color:#f92672">[</span><span style="color:#ae81ff">4</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">05</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0600 <span style="color:#f92672">[</span><span style="color:#ae81ff">2</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0601 <span style="color:#f92672">[</span><span style="color:#ae81ff">2</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   ObjectEnd 0x8005/0xa
+</span></span><span style="display:flex;"><span>|   |   Object 0x8005 <span style="color:#f92672">[</span><span style="color:#ae81ff">6</span> bytes<span style="color:#f92672">]</span>  with Object ID 0xb
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0604 <span style="color:#f92672">[</span><span style="color:#ae81ff">4</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">04</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0605 <span style="color:#f92672">[</span><span style="color:#ae81ff">4</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">09</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0600 <span style="color:#f92672">[</span><span style="color:#ae81ff">2</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">02</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0601 <span style="color:#f92672">[</span><span style="color:#ae81ff">2</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   ObjectEnd 0x8005/0xb
+</span></span><span style="display:flex;"><span>|   |   Object 0x8005 <span style="color:#f92672">[</span><span style="color:#ae81ff">6</span> bytes<span style="color:#f92672">]</span>  with Object ID 0xc
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0604 <span style="color:#f92672">[</span><span style="color:#ae81ff">4</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">05</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0605 <span style="color:#f92672">[</span><span style="color:#ae81ff">4</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0600 <span style="color:#f92672">[</span><span style="color:#ae81ff">2</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">02</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0601 <span style="color:#f92672">[</span><span style="color:#ae81ff">2</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   ObjectEnd 0x8005/0xc
+</span></span><span style="display:flex;"><span>|   |   Object 0x8005 <span style="color:#f92672">[</span><span style="color:#ae81ff">6</span> bytes<span style="color:#f92672">]</span>  with Object ID 0xd
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0604 <span style="color:#f92672">[</span><span style="color:#ae81ff">4</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0605 <span style="color:#f92672">[</span><span style="color:#ae81ff">4</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">07</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0600 <span style="color:#f92672">[</span><span style="color:#ae81ff">2</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0601 <span style="color:#f92672">[</span><span style="color:#ae81ff">2</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   ObjectEnd 0x8005/0xd
+</span></span><span style="display:flex;"><span>|   |   Object 0x8005 <span style="color:#f92672">[</span><span style="color:#ae81ff">6</span> bytes<span style="color:#f92672">]</span>  with Object ID 0xe
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0604 <span style="color:#f92672">[</span><span style="color:#ae81ff">4</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">07</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0605 <span style="color:#f92672">[</span><span style="color:#ae81ff">4</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">08</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0600 <span style="color:#f92672">[</span><span style="color:#ae81ff">2</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">02</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0601 <span style="color:#f92672">[</span><span style="color:#ae81ff">2</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   ObjectEnd 0x8005/0xe
+</span></span><span style="display:flex;"><span>|   |   Object 0x8005 <span style="color:#f92672">[</span><span style="color:#ae81ff">6</span> bytes<span style="color:#f92672">]</span>  with Object ID 0xf
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0604 <span style="color:#f92672">[</span><span style="color:#ae81ff">4</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">08</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0605 <span style="color:#f92672">[</span><span style="color:#ae81ff">4</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">09</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0600 <span style="color:#f92672">[</span><span style="color:#ae81ff">2</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   |   Property 0x0601 <span style="color:#f92672">[</span><span style="color:#ae81ff">2</span> bytes<span style="color:#f92672">]</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span>|   |   ObjectEnd 0x8005/0xf
+</span></span><span style="display:flex;"><span>|   ObjectEnd 0x8003/0x3
+</span></span><span style="display:flex;"><span>ObjectEnd 0x8001/0x2
+</span></span><span style="display:flex;"><span>ObjectEnd Empty/Empty
+</span></span><span style="display:flex;"><span>Eof read
+</span></span></code></pre></div><p>Working with the <a href="http://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/IntroCDX.htm">CDX documentation</a>, we can begin to make some sense of Dumper&rsquo;s output.</p>
+<p>The first thing to notice is that, like XML, for every start tag we find a matching end tag. Also noteworthy is how Dumper reveals the nested object structure of the CDX file.</p>
+<p>Lines 1-3 make up the header section. Eight bytes (encoding &lsquo;VjCD0100&rsquo;) start the file off, followed by four reserved bytes and then sixteen reserved bytes that all encode &lsquo;0&rsquo;.</p>
+<p>The fourth line represents the first content specific to our file. &lsquo;Property 0x0204&rsquo; represents a <a href="http://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/properties/BoundingBox.htm">kCDXProp_BoundingBox</a>. This is the bounding box for the Page defined in this CDX file (see below). We can see from the documentation that the type of this property is a <a href="http://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/DataType/CDXCoordinates.htm">CDXRectangle</a>, which itself is composed of four four-byte <a href="http://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/DataType/CDXCoordinates.htm">CDXCoordinates</a> arranged in the order: top; left; bottom; and right. Each CDXCoordinate is further defined as an <a href="http://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/DataType/CDXNumeric.htm">INT32</a>, specified in little-endian order.</p>
+<p>In the case of the Dumper output, we see that the document&rsquo;s bounding box has a top value of &lsquo;17 9c 67 01&rsquo;, or 23567383:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>irb
+</span></span><span style="display:flex;"><span>&gt;&gt; <span style="color:#e6db74">&#39;01679c17&#39;</span>.hex
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=</span>&gt; <span style="color:#ae81ff">23567383</span>
+</span></span></code></pre></div><p>Likewise, the bottom value for the bounding box is &lsquo;6e 9c a3 01&rsquo; or 27499630. Apparently, we have a coordinate system in which the y-axis increases in the downward direction.</p>
+<p>Line eight encodes the start tag for the <a href="http://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/Page.htm">Page</a> object itself (&lsquo;Object 0x8001&rsquo;). It should be clear that the page contains all of the other objects in this particular CDX file. The first of these is the <a href="http://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/Fragment.htm">Fragment</a>, or the benzene molecule representation. This fragment is itself made up of six <a href="http://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/Node.htm">Node objects</a> (atoms) and six <a href="http://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/Bond.htm">Bond objects</a>.</p>
+<h1 id="summary">Summary</h1>
+<p>CDXHexDumper is a valuable utility for anyone wishing to explore the structure of CDX documents. A parser it&rsquo;s not, but this program provides plenty of clues for how to write one. But that&rsquo;s a story for another time.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://depth-first.com:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

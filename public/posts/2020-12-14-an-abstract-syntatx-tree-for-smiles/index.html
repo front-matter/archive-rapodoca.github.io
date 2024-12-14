@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Abstract Syntax Trees for SMILES | My New Hugo Site</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Designing a suite of power tools for SMILES manipulation in Rust.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/posts/2020-12-14-an-abstract-syntatx-tree-for-smiles/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/posts/2020-12-14-an-abstract-syntatx-tree-for-smiles/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="Abstract Syntax Trees for SMILES">
+  <meta property="og:description" content="Designing a suite of power tools for SMILES manipulation in Rust.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-12-14T21:00:00+00:00">
+    <meta property="article:modified_time" content="2020-12-14T21:00:00+00:00">
+
+  <meta itemprop="name" content="Abstract Syntax Trees for SMILES">
+  <meta itemprop="description" content="Designing a suite of power tools for SMILES manipulation in Rust.">
+  <meta itemprop="datePublished" content="2020-12-14T21:00:00+00:00">
+  <meta itemprop="dateModified" content="2020-12-14T21:00:00+00:00">
+  <meta itemprop="wordCount" content="3119">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Abstract Syntax Trees for SMILES">
+  <meta name="twitter:description" content="Designing a suite of power tools for SMILES manipulation in Rust.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        My New Hugo Site
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">Abstract Syntax Trees for SMILES</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-12-14T21:00:00Z">December 14, 2020</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>SMILES is the de facto standard for information exchange in cheminformatics. But despite this language&rsquo;s prominent role, low-level tools and documentation remain sparse and incomplete. Recent articles here have highlighted the development of <a href="/articles/2020/04/20/smiles-formal-grammar/">a SMILES grammar</a> and <a href="/articles/2020/05/25/lets-build-a-smiles-parser-in-rust/">a parser implementation in Rust</a>. This article extends that theme by introducing another powerful tool for the analysis and manipulation of SMILES using Rust.</p>
+<h1 id="blazingly-fast-smiles-processing">Blazingly Fast SMILES Processing</h1>
+<p>Strings offer a convenient format in which to encode SMILES, but this convenience comes at a cost. Reading and writing SMILES requires nontrivial string manipulation, validation, and interpretation steps. One option is to reach for a cheminformatics toolkit. But this general-purpose approach necessarily incurs overhead, and potentially a great deal of it. Sometimes the performance hit won&rsquo;t matter. But sometimes it will. When it does, it&rsquo;s nice to have options.</p>
+<p>Andrew Dalke discusses this problem in <em><a href="http://www.dalkescientific.com/writings/diary/archive/2016/03/28/find_element_in_smiles.html">Fun with SMILES I: Does an element exist?</a></em>. There he explores the ways that valid SMILES strings can be directly manipulated. The emphasis on raw strings necessarily limits the range of possible applications to atom/bond screening. For example, we can test whether a particular atom or set of atoms is found within a SMILES string. But that still leaves a lot of problems on the table, including: semantic validation; hydrogen counting; stereochemical analysis; and so on.</p>
+<p>Between raw string manipulation and a full-blown cheminformatics toolkit lies a set of tools that I think has gone mostly ignored. And the advantages of working at that level extend beyond performance boosts.</p>
+<h1 id="abstract-syntax-trees">Abstract Syntax Trees</h1>
+<p>We can bridge the gap between raw strings and powerful in-memory representations with an <em>abstract syntax tree</em> (AST). An AST is a treelike data structure that captures the ways that a language&rsquo;s elements relate to each other, while ignoring syntactic details. The tree contains three kinds of nodes, which are characterized by the presence or absence of parents and children:</p>
+<ul>
+<li><strong>Root Node</strong>. No parent and zero or more children.</li>
+<li><strong>Interior Node</strong>. One parent and one or more children.</li>
+<li><strong>Leaf Node</strong>. One parent and zero children.</li>
+</ul>
+<p>The overall structure of an AST is recursive. An interior node can be detached from its parent to yield the root of a new tree. The process is reversible. This means that iteration and/or recursion can be used to assemble complex ASTs from simpler fragments.</p>
+<p>Abstract syntax trees stand in contrast to concrete syntax trees (aka &ldquo;parse trees&rdquo;). The main difference is focus. Whereas a parse tree encodes relationships between tokens, an AST focuses on the relationship between language elements. For example, SMILES requires certain atoms to be wrapped in square brackets (<code>[</code> and <code>]</code>). A parse tree would include the brackets, but an AST would not.</p>
+<p>For more on abstract syntax trees, see <em><a href="https://ruslanspivak.com/lsbasi-part7/">Let’s Build A Simple Interpreter. Part 7: Abstract Syntax Trees</a></em>.</p>
+<h1 id="rust-as-an-abstract-syntax-tree-design-language">Rust as an Abstract Syntax Tree Design Language</h1>
+<p>Rust lends itself remarkably well to the formulation of abstract syntax trees. For one thing, static typing provides rigorous validation at compile time at no cost. If implemented with care, an AST offers the valuable property of <em>infallibility</em>; it will literally be impossible to construct a syntactically invalid AST. This constraint eliminates complexity and inefficiency that would otherwise occur through runtime checks.</p>
+<p>But beyond static typing, Rust supports a highly refined type system. In particular, Rust includes <a href="https://doc.rust-lang.org/std/keyword.enum.html">algebraic types</a> out of the box. Although they&rsquo;re called &ldquo;enums,&rdquo; they go far beyond the enums found in most other languages. For one thing, Rust&rsquo;s enums can hold data either as tuples, or as structs.</p>
+<p>Better still, Rust supports these custom enum types through a a rich syntax that includes the <code>match</code> keyword. Among other benefits, these constructs enable efficient branching, early return, and safe unwrapping of tuple and struct enums. The examples that follow later illustrate some of the possibilities.</p>
+<p>In a nutshell, Rust&rsquo;s type system makes it possible to represent any valid SMILES string as a compiler-validated live data structure. The next few sections make the idea more concrete by presenting parts of a SMILES AST individually. We start with some simple leaf nodes, working our way up to interior/root nodes.</p>
+<p>A <a href="https://github.com/rapodaca/smiles_ast">project containing the full source</a> is available.</p>
+<h1 id="the-chemical-elements">The Chemical Elements</h1>
+<p>Consider the ways in which a SMILES aliphatic atom might be represented. An aliphatic atom conforms to a set of <a href="/articles/2020/06/08/hydrogen-suppression-in-smiles/">valence rules</a>, can be written without brackets, and must derive from an element found in the set: &ldquo;B&rdquo;; &ldquo;C&rdquo;; &ldquo;N&rdquo;; &ldquo;O&rdquo;; &ldquo;S&rdquo;; &ldquo;P&rdquo;; &ldquo;F&rdquo;; &ldquo;Cl&rdquo;; &ldquo;Br&rdquo;; &ldquo;I&rdquo;; &ldquo;At&rdquo;; and &ldquo;Ts.&rdquo;</p>
+<p>Rust&rsquo;s <a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a> type is one candidate, but there are two problems. First, a <code>String</code> is expensive relative the purpose it would serve, namely identification. Second, <code>String</code> can&rsquo;t constrain its values to just the aliphatic subset elements. We&rsquo;d constantly find ourselves checking for membership at runtime, defeating the goals of blazingly fast SMILES processing and clarifying syntax. We need something better.</p>
+<p>Enter <code>enum</code>, with which the set of aliphatic atom kinds can be represented as:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Aliphatic</span> {
+</span></span><span style="display:flex;"><span>    B, C, N, O, S, P, F, Cl, Br, I, At, Ts
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>To obtain a particular variant, we select it as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> carbon <span style="color:#f92672">=</span> Aliphatic::C;
+</span></span></code></pre></div><p>Testing for the presence of specific aliphatic atoms can be done with <code>match</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">handle_aliphatic</span>(aliphatic: <span style="color:#a6e22e">Aliphatic</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">match</span> aliphatic {
+</span></span><span style="display:flex;"><span>        Aliphatic::B <span style="color:#f92672">=&gt;</span> unimplemented!(), <span style="color:#75715e">// do something boron-specific
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Aliphatic::C <span style="color:#f92672">=&gt;</span> unimplemented!(), <span style="color:#75715e">// do something carbon-specific
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Aliphatic::N <span style="color:#f92672">=&gt;</span> unimplemented!(), <span style="color:#75715e">// do something nitrogen-specific
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        _ <span style="color:#f92672">=&gt;</span> unimplemented!()             <span style="color:#75715e">// ... and so on
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Using a similar approach, we can define enums for <code>Aromatic</code>, <code>BracketAromatic</code>, and <code>Element</code> types:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Aromatic</span> {
+</span></span><span style="display:flex;"><span>    B, C, N, O, S, P
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">BracketAromatic</span> {
+</span></span><span style="display:flex;"><span>    B, C, N, O, S, P, Se, As
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Element</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//  0   1   2   3   4   5   6   7   8   9
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            H,  He, Li, Be, B,  C,  N,  O,  F,  <span style="color:#75715e">// 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Ne, Na, Mg, Al, Si, P,  S,  Cl, Ar, K,  <span style="color:#75715e">// 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Ca, Sc, Ti, V,  Cr, Mn, Fe, Co, Ni, Cu, <span style="color:#75715e">// 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Zn, Ga, Ge, As, Se, Br, Kr, Rb, Sr, Y,  <span style="color:#75715e">// 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Zr, Nb, Mo, Tc, Ru, Rh, Pd, Ag, Cd, In, <span style="color:#75715e">// 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Sn, Sb, Te, I,  Xe, Cs, Ba, La, Ce, Pr, <span style="color:#75715e">// 5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Nd, Pm, Sm, Eu, Gd, Tb, Dy, Ho, Er, Tm, <span style="color:#75715e">// 6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Yb, Lu, Hf, Ta, W,  Re, Os, Ir, Pt, Au, <span style="color:#75715e">// 7
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Hg, Tl, Pb, Bi, Po, At, Rn, Fr, Ra, Ac, <span style="color:#75715e">// 8
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Th, Pa, U,  Np, Pu, Am, Cm, Bk, Cf, Es, <span style="color:#75715e">// 9
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Fm, Md, No, Lr, Rf, Db, Sg, Bh, Hs, Mt, <span style="color:#75715e">// 10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Ds, Rg, Cn, Nh, Fl, Mc, Lv, Ts, Og      <span style="color:#75715e">// 11
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p><code>BracketAromatic</code> appears to be a superset of <code>Aromatic</code>, so it might be tempting to capture this relationship with some kind of &ldquo;is-a&rdquo; relationship. However, this makes little sense semantically. Other than a superficial resemblance, <code>BracketAromatic</code> and <code>Aromatic</code> mean very different things and occur in completely different contexts.</p>
+<p>Dividing atom kinds into separate <code>Aromatic</code> and <code>Aliphatic</code> enums may seem wasteful. Why not use an aromatic boolean flag instead? It may not be obvious, but this would actually be a step backward because it would allow the expression of invalid states. For example, we might set the aromaticity flag to <code>true</code> on an atom kind of fluorine. SMILES specifically disallows this state. Once again we&rsquo;d be forced to use runtime checks, exactly the approach we&rsquo;re trying to avoid. By defining separate aromatic and aliphatic atom kinds, it becomes impossible to ever express the illegal state in the first place.</p>
+<h1 id="bond-kinds">Bond Kinds</h1>
+<p>The set of possible SMILES bond kinds can be represented by the following enum:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">BondKind</span> {
+</span></span><span style="display:flex;"><span>    Elided,
+</span></span><span style="display:flex;"><span>    Single,
+</span></span><span style="display:flex;"><span>    Double,
+</span></span><span style="display:flex;"><span>    Triple,
+</span></span><span style="display:flex;"><span>    Quadruple,
+</span></span><span style="display:flex;"><span>    Aromatic,
+</span></span><span style="display:flex;"><span>    Up,
+</span></span><span style="display:flex;"><span>    Down
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This is mostly straightforward. The expected bond orders are all there: <code>Single</code>; <code>Double</code>; <code>Triple</code>; and <code>Quadruple</code>. Also present is the <code>Aromatic</code> bond kind, which has <a href="/articles/2020/02/10/a-comprehensive-treatment-of-aromaticity-in-the-smiles-language/">additional semantics</a>. <code>Up</code> and <code>Down</code> correspond to the SMILES directional bonds used in double bond conformation. In strings they are encoded by the forward slash (&rsquo;/&rsquo;) and backslash (&rsquo;\&rsquo;) characters, respectively.</p>
+<p>The presence of an <code>Elided</code> bond kind might be more surprising because it never appears in a SMILES string. For example, the bond between the two carbons in <code>CC</code> is elided, but the one in <code>C-C</code> is not. It may seem that an optional <code>BondKind</code> (i.e., <code>Option&lt;BondKind&gt;</code>) would be appropriate here, but there are two reasons to avoid it. First, it complicates the processing of bonds by requiring an additional Some/None check. More importantly, it makes little sense semantically. An elided bond is most certainly there, just not explicitly.</p>
+<p>Notice the absence of a <code>Dot</code> variant, which is what an optional bond kind of <code>None</code> would actually imply: literally no bond. We&rsquo;ll come back to this point later.</p>
+<h1 id="bracketsymbol">BracketSymbol</h1>
+<p>The enums <code>Aromatic</code> and <code>Aliphatic</code> fully specify an atomic identity. As such, these leaf nodes can be used without further qualification. However, SMILES allows for customization of properties such as isotope, charge, and hydrogen count. For that we&rsquo;ll need an interior node.</p>
+<p>Wrapping an element symbol in bracket characters (<code>[</code> and <code>]</code>) in a SMILES string signals intent to customize one or more atomic properties. This makes a much wider range of atomic symbols and properties possible. To represent these choices, we introduce <code>BracketSymbol</code>. SMILES support three distinct kinds of bracket symbol: star (unknown); element (a chemical element symbol); and aromatic. The following enum captures the relationships between these language elements:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">BracketSymbol</span> {
+</span></span><span style="display:flex;"><span>    Star,
+</span></span><span style="display:flex;"><span>    Element(Element),
+</span></span><span style="display:flex;"><span>    Aromatic(BracketAromatic)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Notice that both <code>Element</code> and <code>Aromatic</code> variants are tuples holding data (an <code>Element</code> and <code>BracketAromatic</code> respectively). They can be used as in the following example.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">handle_bracket_symbol</span>(symbol: <span style="color:#a6e22e">BracketSymbol</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">match</span> symbol {
+</span></span><span style="display:flex;"><span>        Star <span style="color:#f92672">=&gt;</span> unimplemented!(),                   <span style="color:#75715e">// handle [*]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Element(element) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">match</span> element {
+</span></span><span style="display:flex;"><span>            Element::N <span style="color:#f92672">=&gt;</span> unimplemented!(),         <span style="color:#75715e">// handle [N]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            _ <span style="color:#f92672">=&gt;</span> unimplemented!()                   <span style="color:#75715e">// ... and so on
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        },
+</span></span><span style="display:flex;"><span>        Aromatic(bracket_aromatic) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">match</span> bracket_aromatic {
+</span></span><span style="display:flex;"><span>            BracketAromatic::N <span style="color:#f92672">=&gt;</span> unimplemented!(), <span style="color:#75715e">// handle [n]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            _ <span style="color:#f92672">=&gt;</span> unimplemented!()                   <span style="color:#75715e">// ... and so on
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The <code>Star</code> variant is used when some atomic properties are defined, but the element is not. In SMILES strings, it would appear as <code>[*]</code>. It might seem like a good idea to instead represent the <code>Star</code> variant as an optional <code>BracketSymbol</code> (i.e., <code>Option&lt;BracketSymbol&gt;</code>). Although this would be semantically consistent, it would increase the complexity of using <code>BracketSymbol</code>. For this reason, the simpler approach of defining a <code>BracketAtom::Star</code> variant is used.</p>
+<h1 id="atomkind">AtomKind</h1>
+<p>SMILES supports four distinct kinds of atom: a bare star (<code>*</code>); aliphatic (e.g., <code>N</code>); aromatic: (e.g., <code>n</code>); and bracket (e.g., <code>[N]</code> or <code>[n]</code>). These are all captured by the <code>AtomKind</code> type:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">AtomKind</span> {
+</span></span><span style="display:flex;"><span>    Star,
+</span></span><span style="display:flex;"><span>    Aliphatic(Aliphatic),
+</span></span><span style="display:flex;"><span>    Aromatic(Aromatic),
+</span></span><span style="display:flex;"><span>    Bracket {
+</span></span><span style="display:flex;"><span>        isotope: Option<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">u16</span><span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>        symbol: <span style="color:#a6e22e">BracketSymbol</span>,
+</span></span><span style="display:flex;"><span>        parity: Option<span style="color:#f92672">&lt;</span>Parity<span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>        hcount: Option<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">u8</span><span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>        charge: Option<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i8</span><span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>        map: Option<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">u16</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Rust offers some powerful tools for working with complex algebraic types like <code>AtomKind</code>. For example, a function that only needs to process the isotope found within a bracket atom would look something like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">handle_isotope</span>(kind: <span style="color:#a6e22e">AtomKind</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> isotope <span style="color:#f92672">=</span> <span style="color:#66d9ef">match</span> kind {
+</span></span><span style="display:flex;"><span>        AtomKind::Bracket { isotope, <span style="color:#f92672">..</span> } <span style="color:#f92672">=&gt;</span> isotope,
+</span></span><span style="display:flex;"><span>        _ <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">return</span> <span style="color:#75715e">// early return
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// handle isotope
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>The <code>AtomKind::Bracket</code> variant supports an optional field of type <code>Parity</code>. This is a leaf node enum with two variants, representing the two forms of tetrahedral stereo parity:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Parity</span> {
+</span></span><span style="display:flex;"><span>    Clockwise,
+</span></span><span style="display:flex;"><span>    Counterclockwise
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>A function can select for only those SMILES atoms with a stereocenter like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">handle_stereo</span>(kind: <span style="color:#a6e22e">AtomKind</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> parity <span style="color:#f92672">=</span> <span style="color:#66d9ef">match</span> kind {
+</span></span><span style="display:flex;"><span>        Bracket { parity, <span style="color:#f92672">..</span> } <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">match</span> parity {
+</span></span><span style="display:flex;"><span>            Some(parity) <span style="color:#f92672">=&gt;</span> parity,
+</span></span><span style="display:flex;"><span>            None <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        _ <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">match</span> parity {
+</span></span><span style="display:flex;"><span>        Parity::Clockwise <span style="color:#f92672">=&gt;</span> unimplemented!(), <span style="color:#75715e">// handle @@ parity,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Parity::Counterclockwise <span style="color:#f92672">=&gt;</span> unimplemented!() <span style="color:#75715e">// @ parity
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="atom">Atom</h1>
+<p>Having defined the properties of an atom, it&rsquo;s possible to specify <code>Atom</code> itself with the following struct:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Atom</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> kind: <span style="color:#a6e22e">AtomKind</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> links: Vec<span style="color:#f92672">&lt;</span>Link<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This formulation requires every SMILES atom to have exactly one <code>AtomKind</code>, which itself must be selected from one of exactly four choices: star; aliphatic; aromatic; or bracket. It&rsquo;s impossible to construct or even encounter an invalid atom because it&rsquo;s impossible to make invalid versions of its two required components <code>AtomKind</code> and <code>Link</code>.</p>
+<p>By itself, <code>Atom</code> acts like a root node in that it has no parent. However, an Atom can become an interior node through association with a <code>Link</code>, as described in the next section.</p>
+<h1 id="link">Link</h1>
+<p>A SMILES <code>Atom</code> connects to its children through the <code>Link</code> enum. This enum allows for two variants: (1) parent and child are connected through a bond (<code>Link::Bond</code>); and (2) parent and child are disconnected with no bond between them (<code>Link::Split</code>).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Link</span> {
+</span></span><span style="display:flex;"><span>    Bond {  <span style="color:#75715e">// e.g., CC, C-C, C=C, etc
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        kind: <span style="color:#a6e22e">BondKind</span>,
+</span></span><span style="display:flex;"><span>        target: <span style="color:#a6e22e">Target</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    Split(Atom) <span style="color:#75715e">// e.g., C.C
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>The <code>Link::Bond</code> variant allows two <code>Atom</code>s to be connected through a bond. It has two properties: <code>kind</code> and <code>target</code>. <code>kind</code> is one of the SMILES bond kinds enumerated previously. <code>target</code> is itself an enum that can be present in one of two variants: <code>Target::Join</code> and <code>Target::Atom</code>. The former represents a ring closure and the latter is used to connect two <code>Atom</code>s. The <code>Target::Join</code> variant holds a <code>u16</code> value representing a ring closure number (aka &ldquo;rnum&rdquo;). The <code>Target::Atom</code> variant holds an <code>Atom</code> enum, which was defined in the previous section.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Target</span> {
+</span></span><span style="display:flex;"><span>    Join(<span style="color:#66d9ef">u16</span>),
+</span></span><span style="display:flex;"><span>    Atom(Atom)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Consider ethane, encoded by the string <code>CC</code>. This SMILES can be represented with the following data structure:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> ethane <span style="color:#f92672">=</span> Atom {
+</span></span><span style="display:flex;"><span>    kind: <span style="color:#a6e22e">AtomKind</span>::Aliphatic(Aliphatic::C),
+</span></span><span style="display:flex;"><span>    links: <span style="color:#a6e22e">vec</span><span style="color:#f92672">!</span>[
+</span></span><span style="display:flex;"><span>        Link::Bond {
+</span></span><span style="display:flex;"><span>            kind: <span style="color:#a6e22e">BondKind</span>::Elided,
+</span></span><span style="display:flex;"><span>            target: <span style="color:#a6e22e">Target</span>::Atom(Atom {
+</span></span><span style="display:flex;"><span>                kind: <span style="color:#a6e22e">AtomKind</span>::Aliphatic(Aliphatic::C),
+</span></span><span style="display:flex;"><span>                links: <span style="color:#a6e22e">vec</span><span style="color:#f92672">!</span>[ ]
+</span></span><span style="display:flex;"><span>            })
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>assert_eq!(ethane.kind, AtomKind::Aliphatic(Aliphatic::C));
+</span></span></code></pre></div><p>Notice how we reference the entire tree through its root node only. We can traverse the tree any way we&rsquo;d like, but random access of nodes is not possible without first indexing them. We&rsquo;ll come back to this point later.</p>
+<p>In addition to explicit parent-child relationships through bonds, SMILES also supports disconnections. In SMILES strings, this is accomplished with the dot character (e.g., <code>C.C</code>). The AST supports this relationship with the <code>Link::Split</code> variant. Its presence means that a parent and child atom are not connected. <code>Link::Split</code> solves the problem of representing multiple disconnected components found in the same molecular graph, but there are more advanced uses that don&rsquo;t result in disconnected components (e.g., <code>C1.CC1</code>).</p>
+<p>Consider a SMILES string representing two isolated methane molecules (<code>C.C</code>). An AST representation would be:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> methanes <span style="color:#f92672">=</span> Atom {
+</span></span><span style="display:flex;"><span>    kind: <span style="color:#a6e22e">AtomKind</span>::Aliphatic(Aliphatic::C),
+</span></span><span style="display:flex;"><span>    links: <span style="color:#a6e22e">vec</span><span style="color:#f92672">!</span>[
+</span></span><span style="display:flex;"><span>        Link::Split(Atom {
+</span></span><span style="display:flex;"><span>            kind: <span style="color:#a6e22e">AtomKind</span>::Aliphatic(Aliphatic::C),
+</span></span><span style="display:flex;"><span>            links: <span style="color:#a6e22e">vec</span><span style="color:#f92672">!</span>[ ]
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>Notice how the Rust compiler enforces the rules of SMILES syntax. For example, the string <code>C.1CC1</code> is <a href="http://opensmiles.org/opensmiles.html#_disconnected_structures">not a valid SMILES</a> because the dot character may not separate an atom and an rnum. There is no way to compile a Rust program with the corresponding AST because <code>Link::Split</code> takes a value of type <code>Atom</code> only.</p>
+<h1 id="uses-of-a-smiles-abstract-syntax-tree">Uses of a SMILES Abstract Syntax Tree</h1>
+<p>An AST offers a high-level view of a language that&rsquo;s difficult to obtain any other way. Omitting minor syntactic details brings fundamental relationships between language elements into sharp focus. This perspective clarifies the language, which can be seen from a perspective unburdened by low-level concerns over character selection and placement.</p>
+<p>But this is just a start. With an AST implemented in a type safe language, flexible processing becomes possible. We can, for example implement readers and writers for new SMILES syntaxes. A case in point is <a href="/articles/2019/03/19/chemical-line-notations-for-deep-learning-deepsmiles-and-beyond/">DeepSMILES</a>, which modifies SMILES syntax while retaining its semantics. Another would be <a href="https://arxiv.org/ct?url=https%3A%2F%2Fdx.doi.org%2F10.1088%2F2632-2153%2Faba947&amp;v=cd51ce2f">SELFIES</a> and similar approaches. Developing readers and writers for such SMILES variants becomes easier given an AST.</p>
+<p>One form of SMILES customization that has received a lot of attention is canonicalization. Without an AST, the ordering of atoms must take place at the level of the cheminformatics toolkit, which may or may not share the same set of features as SMILES. Given an AST, canonicalization can take place on a data structure that will by definition be directly writable as a string.</p>
+<p>ASTs can also help improve the quality of readers and writers. On one hand, they provide a clean boundary between semantics and syntax. This kind of segregation makes implementations easier to write, test, and reason about. On the other hand, an AST makes it possible to create a data structure that&rsquo;s guaranteed to be syntactically valid. That guarantee comes from <a href="https://neilmadden.blog/2020/11/25/parse-dont-type-check/">making it impossible to represent invalid states</a>.</p>
+<p>Useful though they may be, ASTs have their limits — especially for SMILES. Trees can be unwieldy for some operations compared to graphs. The AST presented here, for example, gives an <code>Atom</code> knowledge of its children only. It has has no information about its parent or even whether one exists. Even simple molecular property determinations such as valence require walking the entire tree to build secondary state. For some applications this will be no problem at all. For others, a somewhat higher level representation would be better.</p>
+<p>On option would be to introduce an <em>intermediate representation</em>. An intermediate representation transforms an AST in one or more useful ways. In the case of a SMILES, an IR might provide a more graph-like API. This could offer a stepping-stone toward a full molecular graph as found in a cheminformatics toolkit, but without the overhead.</p>
+<p>A more flexible approach would be to support customizable traversal followers. The follower would accumulate state as the AST is traversed. Traversal could occur in depth-first or breadth-first order, and could use pre-order or post-order processing to generate more sophisticated representations in linear time complexity. Separating AST traversal and analysis in this way would then support a wide range of analyses.</p>
+<h1 id="other-work">Other Work</h1>
+<p>Low-level tools for SMILES manipulation are not common, but some examples have appeared over the years:</p>
+<ul>
+<li><a href="https://github.com/johnmay/beam">Beam</a>. As noted by the README, the purpose of the library is &ldquo;&hellip; to elegantly handle the SMILES™ syntax and as fast as possible.&rdquo; Both input and output are supported. Beam is written in Java and has been integrated into the <a href="https://github.com/cdk/cdk">Chemistry Development Kit</a>.</li>
+<li><a href="https://github.com/timvdm/Smiley">Smiley</a>. A C++ library that parses SMILES and SMARTS.</li>
+<li><a href="https://pypi.org/project/pysmiles/">pysmiles</a>. A SMILES reader/writer combination written in Python.</li>
+<li><a href="https://crates.io/crates/purr">Purr</a>. A Rust crate for reading SMILES written by yours truly.</li>
+<li><a href="https://github.com/caseykneale/OpenSMILES.jl">OpenSMILES.jl</a>. A more recent parser written in Julia.</li>
+</ul>
+<p>None of these projects defines or uses a type safe abstract syntax tree of the kind described in this article.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>The SMILES language is much more complex that it might appear at first glance. This complexity makes direct string manipulation useful in only a handful of cases. Cheminformatics toolkits offer a wide range of functionality, but at the cost of suboptimal performance. Abstract syntax trees implemented in fast, type safe languages such as Rust address a problem area that has not been widely explored to date: efficient low-level tools for SMILES manipulation. More than this, a well-crafted abstract syntax tree can capture and reveal subtle language concepts that are difficult to convey through examples or even grammars.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  My New Hugo Site 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

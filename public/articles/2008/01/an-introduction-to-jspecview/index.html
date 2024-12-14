@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>An Introduction to JSpecView | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Like chemical structures, X-Y graphical data such as NMRs, chromatograms, mass spectra, and IRs are a ubiquitous and essential part of the language of chemistry. Although many software tools have been developed for sharing and manipulating X-Y data, few of them are suited for use on the Web. This article, the first in a series, introduces one X-Y data tool that can be used with the Web, JSpecView.
+
+Jean-Claude Bradley&rsquo;s introductory video gives a feel for what JSpecView is capable of. Another overview is available in the Chemistry Central JSpecView article written by JSpecView&rsquo;s project lead, Robert Lancashire. Here are some of the highlights:">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2008/01/an-introduction-to-jspecview/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2008/01/an-introduction-to-jspecview/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="An Introduction to JSpecView">
+  <meta property="og:description" content="Like chemical structures, X-Y graphical data such as NMRs, chromatograms, mass spectra, and IRs are a ubiquitous and essential part of the language of chemistry. Although many software tools have been developed for sharing and manipulating X-Y data, few of them are suited for use on the Web. This article, the first in a series, introduces one X-Y data tool that can be used with the Web, JSpecView.
+Jean-Claude Bradley’s introductory video gives a feel for what JSpecView is capable of. Another overview is available in the Chemistry Central JSpecView article written by JSpecView’s project lead, Robert Lancashire. Here are some of the highlights:">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2008-01-22T00:00:00+00:00">
+    <meta property="article:modified_time" content="2008-01-22T00:00:00+00:00">
+
+  <meta itemprop="name" content="An Introduction to JSpecView">
+  <meta itemprop="description" content="Like chemical structures, X-Y graphical data such as NMRs, chromatograms, mass spectra, and IRs are a ubiquitous and essential part of the language of chemistry. Although many software tools have been developed for sharing and manipulating X-Y data, few of them are suited for use on the Web. This article, the first in a series, introduces one X-Y data tool that can be used with the Web, JSpecView.
+Jean-Claude Bradley’s introductory video gives a feel for what JSpecView is capable of. Another overview is available in the Chemistry Central JSpecView article written by JSpecView’s project lead, Robert Lancashire. Here are some of the highlights:">
+  <meta itemprop="datePublished" content="2008-01-22T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2008-01-22T00:00:00+00:00">
+  <meta itemprop="wordCount" content="220">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="An Introduction to JSpecView">
+  <meta name="twitter:description" content="Like chemical structures, X-Y graphical data such as NMRs, chromatograms, mass spectra, and IRs are a ubiquitous and essential part of the language of chemistry. Although many software tools have been developed for sharing and manipulating X-Y data, few of them are suited for use on the Web. This article, the first in a series, introduces one X-Y data tool that can be used with the Web, JSpecView.
+Jean-Claude Bradley’s introductory video gives a feel for what JSpecView is capable of. Another overview is available in the Chemistry Central JSpecView article written by JSpecView’s project lead, Robert Lancashire. Here are some of the highlights:">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">An Introduction to JSpecView</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2008-01-22T00:00:00Z">January 22, 2008</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Like <a href="http://depth-first.com/articles/2007/11/27/chemwriter-chemical-structures-and-the-web">chemical structures</a>, X-Y graphical data such as NMRs, chromatograms, mass spectra, and IRs are a ubiquitous and essential part of the language of chemistry. Although many software tools have been developed for sharing and manipulating X-Y data, few of them are suited for use on the Web. This article, the first in a series, introduces one X-Y data tool that can be used with the Web, <a href="http://jspecview.sourceforge.net/">JSpecView</a>.</p>
+<!-- raw HTML omitted -->
+<p>Jean-Claude Bradley&rsquo;s introductory video gives a feel for what JSpecView is capable of. Another overview is available in the <a href="http://dx.doi.org/10.1186/1752-153X-1-31">Chemistry Central JSpecView article</a> written by JSpecView&rsquo;s project lead, Robert Lancashire. Here are some of the highlights:</p>
+<ul>
+<li>Displays full range of <a href="http://www.iupac.org/standing/cpep/wp_jcamp_dx.html">JCAMP-DX</a> formats and protocols.</li>
+<li>Zoom in and out.</li>
+<li>NMR integration.</li>
+<li>Absorbance/Transmission toggle for IR spectra.</li>
+<li>Multiple plot overlap.</li>
+<li>Browser-scriptable with JavaScript.</li>
+<li>JDK 1.5 and above.</li>
+</ul>
+<p>A number of <a href="http://jspecview.sourceforge.net/">JSpecView demonstrations</a> are available. Some of the most illustrative include:</p>
+<ul>
+<li><a href="http://wwwchem.uwimona.edu.jm/spectra/JSpecView/sample/sample1.html">N-ethylaniline 1H NMR and IR</a></li>
+<li><a href="http://wwwchem.uwimona.edu.jm/spectra/JSpecView/iranim/pclanilineJ/pclaniline.html">4-chloroaniline interactive IR and vibrational modes</a></li>
+<li><a href="http://wwwchem.uwimona.edu.jm/spectra/JSpecView/gcms/coffee/index.html">GC headspace from coffee</a></li>
+<li><a href="http://wwwchem.uwimona.edu.jm/spectra/JSpecView/nmranim/aspirinJ/aspirin.html">1H NMR spectral assignment of aspirin</a></li>
+<li><a href="http://wwwchem.uwimona.edu.jm/spectra/JSpecView/combo/acetophenoneJ/acetophenone.html">1H NMR, 13C NMR, and IR spectral assignment of aspirin</a></li>
+<li><a href="http://wwwchem.uwimona.edu.jm/spectra/JSpecView/combo/PeakTable/PeakTable.html">Interactive peak table generation</a></li>
+</ul>
+<p>JSpecView is Open Source software licensed under the <a href="http://opensource.org/licenses/lgpl-license.php">LGPL</a>. The <a href="http://sourceforge.net/projects/jspecview/">SourceForge Project Page</a> hosts the source code, documentation, and subversion repository.</p>
+<p>Future articles will discuss JSpecView from the developer perspective, including ways to build, deploy, extend, and adapt it.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

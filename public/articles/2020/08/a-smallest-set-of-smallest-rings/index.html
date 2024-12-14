@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>A Smallest Set of Smallest Rings | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Understanding a useful but limited tool for chemical structure analysis.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/articles/2020/08/a-smallest-set-of-smallest-rings/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/articles/2020/08/a-smallest-set-of-smallest-rings/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="A Smallest Set of Smallest Rings">
+  <meta property="og:description" content="Understanding a useful but limited tool for chemical structure analysis.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2020-08-31T14:00:00+00:00">
+    <meta property="article:modified_time" content="2020-08-31T14:00:00+00:00">
+
+  <meta itemprop="name" content="A Smallest Set of Smallest Rings">
+  <meta itemprop="description" content="Understanding a useful but limited tool for chemical structure analysis.">
+  <meta itemprop="datePublished" content="2020-08-31T14:00:00+00:00">
+  <meta itemprop="dateModified" content="2020-08-31T14:00:00+00:00">
+  <meta itemprop="wordCount" content="1939">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="A Smallest Set of Smallest Rings">
+  <meta name="twitter:description" content="Understanding a useful but limited tool for chemical structure analysis.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">A Smallest Set of Smallest Rings</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-08-31T14:00:00Z">August 31, 2020</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Cycles within molecular graphs (aka &ldquo;rings&rdquo;) play a central role in many chemistry subdisciplines. Not surprisingly, computational chemistry and cheminformatics procedures often depend on cycle perception. But cycle perception turns out to be much more complex than first appearances suggest. Part of the problem is the sheer number of approaches. Compounding the problem is the vast literature on the topic, most of which is written by and for experts.</p>
+<p>Of all the angles from which cycle perception in cheminformatics can be approached, one stands out for its historical and conceptual importance: Smallest Set of Smallest Rings (SSSR). This article takes a closer look at SSSR, describing the problem it solves and its limitations.</p>
+<h1 id="why-not-all-cycles">Why Not All Cycles?</h1>
+<p>As the name suggests, an SSSR is a subset of cycles within a molecular graph. Before going further, it&rsquo;s important to understand why a cycle subset should be used in the first place. Can&rsquo;t any problem be solved with the set of all cycles?</p>
+<p>Imagine computing the cycle membership of each atom in a decalin molecule. The set of all cycles contains three members: two of length 6 and one of length 10 (where &ldquo;length&rdquo; refers to the number of edges). Naive application of the set of all cycles would lead to the conclusion that the bridgehead atoms (4, 5) participate in three cycles and the other atoms (0, 1, 2, 3, 6, 7, 8, 9) participate in two. For certain niche applications, this might be a suitable result but in others it will not.</p>
+<!-- raw HTML omitted -->
+<p>Cheminformatics algorithms often require a set of cycles that filter &ldquo;envelopes,&rdquo; leaving only the smaller, more relevant cycles. This is a surprisingly difficult problem, as evidenced by a long line of papers extending back to the 1960s. For in-depth discussion of several of them, see <em><a href="https://doi.org/10.1021/ci030405d">Counterexamples in Chemical Ring Perception</a></em>.</p>
+<h1 id="welcome-to-cycle-space">Welcome to Cycle Space</h1>
+<p>Before discussing ways to filter cycles, it&rsquo;s crucial to put the entire concept of cycle sets on a more solid mathematical footing. The key to doing so is <em>cycle space</em>. The definition of cycle space for a simple graph <em>G</em> by <a href="https://books.google.com/books?id=-7Q_POGh-2cC&amp;pg=PA197">Gross and Yellen</a> is both concise and instructive:</p>
+<blockquote>
+<p>The <em>cycle space</em> of a graph <em>G</em>, denoted by <em>W<!-- raw HTML omitted -->c<!-- raw HTML omitted -->(G)</em>, is the subset of the edge space <em>W<!-- raw HTML omitted -->E<!-- raw HTML omitted -->(G)</em> consisting of the null set (graph) ∅, all cycles in <em>G</em>, and all unions of edge-disjoint cycles of <em>G</em>.</p>
+</blockquote>
+<p>This definition implicitly views each member of cycle space as a subset of edges in <em>G</em>. The null set (∅) has no edges and is therefore empty. The definition also references &ldquo;unions of edge-disjoint cycles,&rdquo; which is explained in the next section. Before that, some definitions will help avoid confusion when talking about cycles:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Edge_and_vertex_spaces">edge space</a>: the set of all edges in G</li>
+<li><a href="https://en.wikipedia.org/wiki/Cycle_(graph_theory)">cycle</a>: &ldquo;a non-empty trail in which the only repeated vertices are the first and last vertices&rdquo;</li>
+<li><a href="https://en.wikipedia.org/wiki/Path_(graph_theory)#Walk,_trail,_path">trail, walk</a>: &ldquo;A walk is a finite or infinite sequence of edges which joins a sequence of vertices. &hellip; A trail is a walk in which all edges are distinct.&rdquo;</li>
+</ul>
+<p>To summarize these definitions, a cycle in graph <em>G</em> is a nonempty sequence of adjacent edges in which only the first and last nodes repeat. Two practical consequences follow: (1) a cycle has at least three edges; and (2) the nodes of a cycle have degree two.</p>
+<p>To make this more concrete, consider decalin. Its cycle space, like all cycles spaces, contains the empty cycle ∅. Additionally, the three cycles enumerated in the previous section are also present.</p>
+<!-- raw HTML omitted -->
+<h1 id="cycle-math">Cycle Math</h1>
+<p>Cycle space&rsquo;s mathematical grounding enables provable statements and valid generalizations to be made. This grounding desirable because it&rsquo;s wasteful to work on implementing an algorithm only to discover a counterexample.</p>
+<p>The math behind cycle space is based on an addition operator (&quot;⊕&quot;). As we&rsquo;ll see, cycle addition is defined in such a way that cycle space is <a href="https://en.wikipedia.org/wiki/Closed_set">closed</a> with respect to it. This means that adding any member of a cycle space with any other member (including itself) yields another member of cycle space.</p>
+<p>Closure with respect to an operation is a common property in many well-behaved systems. For example, the integers are closed with respect to addition. Summing any of them yields another integer.</p>
+<p>The cycle addition operation is based on a concept borrowed from mathematics called <em><a href="https://en.wikipedia.org/wiki/Symmetric_difference">symmetric difference</a></em> (aka &ldquo;XOR&rdquo;). Given two sets, <em>S</em><!-- raw HTML omitted -->1<!-- raw HTML omitted --> and <em>S</em><!-- raw HTML omitted -->2<!-- raw HTML omitted -->, a symmetric difference yields a new set that includes all members present in either <em>S</em><!-- raw HTML omitted -->1<!-- raw HTML omitted --> or <em>S</em><!-- raw HTML omitted -->2<!-- raw HTML omitted -->, but not both.</p>
+<p>Viewing a cycle as a set of edges, we can define addition using just two rules:</p>
+<ol>
+<li>if an edge exists in one cycle but not the other, include it in the sum;</li>
+<li>if an edge exists in both cycles, exclude it from the sum.</li>
+</ol>
+<p>Consider the members of the cycle basis for decalin. Adding the two small cycles together yields the large cycle. Likewise, adding one of the small cycles with the large cycle yields the other small cycle. Finally, adding any cycle with itself yields the null cycle, also a member of cycle space as defined in the previous section.</p>
+<!-- raw HTML omitted -->
+<p>One nuance of cycle addition deserves special attention: symmetric difference doesn&rsquo;t always yield a cycle. In other words, cycle space isn&rsquo;t just populated with cycles and the null cycle. The <a href="https://dl.acm.org/doi/book/10.5555/1212553">book</a> by Gross and Yellen linked to in the previous section contains this rather thought-provoking figure:</p>
+<!-- raw HTML omitted -->
+<p>C<!-- raw HTML omitted -->1<!-- raw HTML omitted --> through C<!-- raw HTML omitted -->6<!-- raw HTML omitted --> look like cycles, but why is C<!-- raw HTML omitted -->1<!-- raw HTML omitted -->⊕C<!-- raw HTML omitted -->3<!-- raw HTML omitted --> included in the cycle space for <em>G</em>? This subgraph (also known as the <a href="https://en.wikipedia.org/wiki/Butterfly_graph">butterfly graph</a>) clearly isn&rsquo;t a cycle, but is nevertheless a member of a cycle space. This follows from the definition for cycle addition. The cycle space for <em>G</em> contains both cycles and all &ldquo;unions of edge-disjoint cycles,&rdquo; where &ldquo;union&rdquo; means cycle addition. The butterfly graph is the symmetric difference of cycles C<!-- raw HTML omitted -->1<!-- raw HTML omitted --> and C<!-- raw HTML omitted -->3<!-- raw HTML omitted -->.</p>
+<p>From this vantage point, we can appreciate the simplified definition of cycle space given by <a href="https://en.wikipedia.org/wiki/Cycle_space">Wikipedia</a>:</p>
+<blockquote>
+<p>In graph theory, a branch of mathematics, the (binary) cycle space of an undirected graph is the set of its even-degree subgraphs.</p>
+</blockquote>
+<p>Cycles clearly fit the definition of &ldquo;even-degree subgraph&rdquo;, but so do certain non-cycles. The butterfly graph is not a cycle, but it is an even-degree subgraph of <em>G</em>, just like the other members of the graph&rsquo;s cycle space.</p>
+<h1 id="cycle-basis-and-cycle-rank">Cycle Basis and Cycle Rank</h1>
+<p>Cycle space and cycle addition suggest a special role for certain cycles. In particular, some members of cycle space can be viewed as precursors to other members. We call the set of cycles capable of producing all members of a cycle space a <em><a href="https://en.wikipedia.org/wiki/Cycle_basis">cycle basis</a></em>. A given cycle space can have one or more cycle bases. Each of them contains the same number of cycles.</p>
+<p>To make this more concrete, consider the three cycle bases of decalin. Each contains not three cycles, but only two. All members of cycle space can be obtained through addition of one basis member to another (or itself).</p>
+<!-- raw HTML omitted -->
+<p>It&rsquo;s often useful to know how many cycles are present in the cycle bases of a graph <em>G</em>. The answer can be found by computing the <em><a href="https://en.wikipedia.org/wiki/Cycle_rank">cycle rank</a></em> for <em>G</em>. This value, which is also known as &ldquo;cyclomatic number&rdquo; or &ldquo;Frèrejacque number,&rdquo; represents the size of the cycle bases <em>G</em>. It also represents the number of edges that must be removed from <em>G</em> to yield an acyclic graph.</p>
+<p>Cycle rank (<del>r</del>) is computed as:</p>
+<pre tabindex="0"><code class="language-asciimath" data-lang="asciimath">r = m - n + c
+</code></pre><p>where:</p>
+<ul>
+<li><del>m</del> is the number of edges (size)</li>
+<li><del>n</del> is the number of nodes (order)</li>
+<li><del>c</del> is the number of connected components</li>
+</ul>
+<p>For example, the cycle rank for decalin is two (11 - 10 + 1). From this we conclude that any cycle basis for decalin should contain two members. Similarly, we predict that removing just two edges from decalin will yield an acyclic graph. Inspection proves both predictions to be valid.</p>
+<h1 id="minimum-cycle-basis">Minimum Cycle Basis</h1>
+<p>It should now be clear that: (1) the cycle space of a graph <em>G</em> can be represented with a subset of cycles called a basis; and (2) a graph can posses multiple cycle bases. Therefore, the problem of filtering useless cycles boils down to choosing a cycle basis.</p>
+<p>A 1970 paper by <a href="https://doi.org/10.1021/ci60017a011">Plotkin</a> described the first widely-implemented procedure for doing just that. The crux of Plotkin&rsquo;s analysis is contained in &ldquo;Procedure P&rdquo;, which yield a &ldquo;smallest set of smallest rings.&rdquo; Procedure P can be summarized as follows:</p>
+<ol>
+<li>Identify the set of all cycles <em>C</em>.</li>
+<li>Order the members of <em>C</em> by ascending edge count.</li>
+<li>Create an empty set <em>S</em> that will contain the SSSR.</li>
+<li>Add the first member of <em>C</em> to <em>S</em>.</li>
+<li>For each remaining cycle in <em>C</em>, <em>C</em><!-- raw HTML omitted -->n<!-- raw HTML omitted -->, add <em>C</em><!-- raw HTML omitted -->n<!-- raw HTML omitted --> to <em>S</em> only if it is not the sum of cycles already added to <em>S</em>.</li>
+</ol>
+<p>Think of Procedure P as a method for describing the contents of an SSSR, not necessary the best way to implement SSSR in software. Plotkin&rsquo;s paper itself goes on to describe a different algorithm for finding an SSSR. Since then, <a href="https://www.pnas.org/content/106/41/17355.full">others</a> have been published.</p>
+<p>SSSR turns out to be equivalent to the concept of <a href="https://en.wikipedia.org/wiki/Cycle_basis#Minimum_weight">Minimum Cycle Basis</a> (MBC). The first polynomial time algorithm for finding MCB was reported by <a href="https://doi.org/10.1137/0216026">Horton</a> in 1984. A twist on the idea was <a href="https://www.pnas.org/content/106/41/17355.full">later published</a>.</p>
+<h1 id="sssr-and-uniqueness">SSSR and Uniqueness</h1>
+<p>Although the set of all SSSRs for a graph <em>G</em> is invariant, a single SSSR is not. This feature has been the topic of sometimes prickly debate, as exemplified, by OpenEye Software&rsquo;s provocatively-titled essay <em><a href="https://www.ics.uci.edu/~dock/manuals/oechem/pyprog/node123.html">Smallest Set of Smallest Rings (SSSR) considered Harmful</a></em>.</p>
+<p>Consider finding an SSSR for decalin. The cycle rank (2) ensures SSSR sizes of two. Procedure P yields an SSSR containing two cycles, each of length 6. SSSR yields an invariant set of cycles because only one SSSR exists.</p>
+<p>But this is a special case. Consider repeating the procedure with oxabicyclo[2.2.2]octane. The cycle rank is 2 (9 - 8 + 1). The cycle space of the molecule contains three cycles of length 6, implying that one of them must be dropped to make an SSSR. Which one should it be — the carbocycle or one of the heterocycles? According to Procedure P, any of them can be discarded. The upshot? Two of three possible SSSRs contain a carbocycle paired with a heterocycle. A third SSSR contains two heterocycles.</p>
+<!-- raw HTML omitted -->
+<p>This lack of determinism makes SSSR ill-suited for many cheminformatics applications. In particular, any analysis that requires the enumeration of cycle membership will fail to return consistent results under SSSR in the general case. Global analyses (e.g., heterocycle/carbocycle count) can fail for the same reason.</p>
+<p>This problem becomes especially vexing if SSSR is codified into standards. Perhaps the best-known example can be found in the SMARTS language which is tightly coupled to SSSR through the <a href="https://www.daylight.com/dayhtml/doc/theory/theory.smarts.html">ring membership and ring size primitives</a> (<code>R&lt;n&gt;</code> and <code>r&lt;n&gt;</code>, respectively). The first primitive counts the number of SSSR rings in which an atom appears, and the second counts the smallest SSSR ring size. Clearly these properties are not invariant and will therefore lead to erroneous, nondeterministic results. SMARTS patterns including these primitives should be avoided. Algorithms and implementations should adopt SSSR only when determinism can be proven unnecessary.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>Smallest Set of Smallest Rings was the first widely-used cycle set in cheminformatics. It offers a limited solution to the problem of molecular cycle perception. Unlike the set of all cycles, an SSSR can filter useless or interfering envelope cycles. Unlike the set of all cycles, an SSSR offers no guarantee of uniqueness. A given molecular graph can produce multiple SSSRs with no constraints on which one will be obtained. This lack of determinism interferes with many of the applications for cycle sets. Future articles will return to this problem and describe some solutions.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

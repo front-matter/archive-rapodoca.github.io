@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>JavaScript for Cheminformatics - Calculate Molecular Mass in Your Browser Without Applets, Flash, or Other Plugins | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Recently, Duan Lian raised the very interesting possibility of using the Google Web Toolkit to cross-compile Java to JavaScript rather than bytecode. I suggested that MX, the lightweight cheminformatics toolkit, might be a good target due its small size, modular design, and lack of external dependencies.
+Today Duan blew me away by posting this link to a working demonstration of what he calls &ldquo;MX-GWT&rdquo;.
+Duan&rsquo;s demonstration accepts a molfile and calculates the corresponding molecular mass after you click a button.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+      <meta name="author" content = "Richard L. Apodaca">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://depth-first.com:1313/articles/2008-12-11-javascript-for-cheminformatics-calculate-molecular-mass-in-your-browser-without-applets-flash-or-other-plugins/">
+    
+
+    <meta property="og:url" content="https://depth-first.com:1313/articles/2008-12-11-javascript-for-cheminformatics-calculate-molecular-mass-in-your-browser-without-applets-flash-or-other-plugins/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="JavaScript for Cheminformatics - Calculate Molecular Mass in Your Browser Without Applets, Flash, or Other Plugins">
+  <meta property="og:description" content="Recently, Duan Lian raised the very interesting possibility of using the Google Web Toolkit to cross-compile Java to JavaScript rather than bytecode. I suggested that MX, the lightweight cheminformatics toolkit, might be a good target due its small size, modular design, and lack of external dependencies.
+Today Duan blew me away by posting this link to a working demonstration of what he calls “MX-GWT”.
+Duan’s demonstration accepts a molfile and calculates the corresponding molecular mass after you click a button.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2008-12-11T00:00:00+00:00">
+    <meta property="article:modified_time" content="2008-12-11T00:00:00+00:00">
+
+  <meta itemprop="name" content="JavaScript for Cheminformatics - Calculate Molecular Mass in Your Browser Without Applets, Flash, or Other Plugins">
+  <meta itemprop="description" content="Recently, Duan Lian raised the very interesting possibility of using the Google Web Toolkit to cross-compile Java to JavaScript rather than bytecode. I suggested that MX, the lightweight cheminformatics toolkit, might be a good target due its small size, modular design, and lack of external dependencies.
+Today Duan blew me away by posting this link to a working demonstration of what he calls “MX-GWT”.
+Duan’s demonstration accepts a molfile and calculates the corresponding molecular mass after you click a button.">
+  <meta itemprop="datePublished" content="2008-12-11T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2008-12-11T00:00:00+00:00">
+  <meta itemprop="wordCount" content="323">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="JavaScript for Cheminformatics - Calculate Molecular Mass in Your Browser Without Applets, Flash, or Other Plugins">
+  <meta name="twitter:description" content="Recently, Duan Lian raised the very interesting possibility of using the Google Web Toolkit to cross-compile Java to JavaScript rather than bytecode. I suggested that MX, the lightweight cheminformatics toolkit, might be a good target due its small size, modular design, and lack of external dependencies.
+Today Duan blew me away by posting this link to a working demonstration of what he calls “MX-GWT”.
+Duan’s demonstration accepts a molfile and calculates the corresponding molecular mass after you click a button.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">JavaScript for Cheminformatics - Calculate Molecular Mass in Your Browser Without Applets, Flash, or Other Plugins</h1>
+      
+      <p class="tracked">
+        By <strong>Richard L. Apodaca</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2008-12-11T00:00:00Z">December 11, 2008</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Recently, <a href="http://chemhack.com/">Duan Lian</a> raised the very interesting possibility of using the <a href="http://code.google.com/webtoolkit/">Google Web Toolkit</a> to <a href="/articles/2008/12/09/javascript-for-cheminformatics-cross-compiling-java-to-javascript-with-gwt">cross-compile Java to JavaScript rather than bytecode</a>. I suggested that <a href="http://code.google.com/p/mx-java/">MX</a>, the lightweight cheminformatics toolkit, might be a good target due its small size, modular design, and lack of external dependencies.</p>
+<p>Today Duan blew me away by posting <a href="http://chemhack.com/mx-gwt/">this link to a working demonstration</a> of what he calls &ldquo;MX-GWT&rdquo;.</p>
+<p>Duan&rsquo;s demonstration accepts a molfile and calculates the corresponding molecular mass after you click a button.</p>
+<p>&ldquo;Big deal,&rdquo; you might say, but consider:</p>
+<ul>
+<li>The page uses no applets or Flash.</li>
+<li>No Java bytecode is involved.</li>
+<li>No remote call is made to a server.</li>
+<li>MX-GWT builds a highly-functional, in-memory representation of a chemical structure that can be used for a variety of other purposes.</li>
+<li>Duan&rsquo;s code is currently the <strong>only</strong> way to do this that I&rsquo;m aware of.</li>
+<li>MX-GWT developers can take full advantage of the awesome array of Java development tools.</li>
+</ul>
+<p>You might ask &ldquo;why do this?&rdquo; The answer is simple: JavaScript may well be the most widely-distributed runtime on the planet. For this reason, the user experience with a pure HTML/JavaScript site can be far smoother than a site using Java applets, Silverlight, or even Flash.</p>
+<p>Building interactive chemically-driven websites with HTML/JavaScript has the potential to make life a lot easier for both chemists and developers.</p>
+<p>There are some technical points to work out. For example, regular expression support is somewhat limited with GWT. As MX-GWT progresses, other areas needing attention will no doubt come to light. After all, GWT only partially implements the Java core API.</p>
+<p>Nevertheless, this proof of concept clearly demonstrates that you don&rsquo;t need applets or other browser plugins to do cheminformatics on the Web client. MX-Java&rsquo;s <a href="http://github.com/rapodaca/mx/">brisk addition of new features</a> and forking (<a href="http://github.com/chemhack/mx">here</a> and <a href="http://github.com/giorgil/mx-dsl">here</a>) even at this early stage suggests that there will be no shortage of easy-to-use Web-based cheminformatics applications made possible through MX-GWT and the <a href="/articles/2008/09/05/chrome-and-a-v8-javascript-takes-a-giant-leap-forward">ever-improving performance of JavaScript</a>.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://depth-first.com:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

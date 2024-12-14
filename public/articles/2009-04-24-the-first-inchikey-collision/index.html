@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>The First InChIKey Collision | Depth-First</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Noel O&rsquo;Boyle raises an important question about the canonicalization algorithms used in chemical line notations such as SMILES and InChI:
+
+Can their canonicalisation procedures ensure that two identical molecular graphs result in the same canonical SMILES or InChI?
+
+This isn&rsquo;t merely an academic exercise. One of the best uses for InChI that I&rsquo;ve found is as a private primary key in a molecular database. For example, instead of performing a computationally intensive exact structure search to determine if a newly-submitted molecule already exists as part of a chemical registration system, we can simply convert the molecule into a string with InChI and query an indexed field in the &lsquo;molecule&rsquo; table, using code highly-optimized by our database system.">
+    <meta name="generator" content="Hugo 0.139.4">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+      <meta name="author" content = "Richard L. Apodaca">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://depth-first.com:1313/articles/2009-04-24-the-first-inchikey-collision/">
+    
+
+    <meta property="og:url" content="https://depth-first.com:1313/articles/2009-04-24-the-first-inchikey-collision/">
+  <meta property="og:site_name" content="Depth-First">
+  <meta property="og:title" content="The First InChIKey Collision">
+  <meta property="og:description" content="Noel O’Boyle raises an important question about the canonicalization algorithms used in chemical line notations such as SMILES and InChI:
+Can their canonicalisation procedures ensure that two identical molecular graphs result in the same canonical SMILES or InChI?
+This isn’t merely an academic exercise. One of the best uses for InChI that I’ve found is as a private primary key in a molecular database. For example, instead of performing a computationally intensive exact structure search to determine if a newly-submitted molecule already exists as part of a chemical registration system, we can simply convert the molecule into a string with InChI and query an indexed field in the ‘molecule’ table, using code highly-optimized by our database system.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2009-04-24T00:00:00+00:00">
+    <meta property="article:modified_time" content="2009-04-24T00:00:00+00:00">
+
+  <meta itemprop="name" content="The First InChIKey Collision">
+  <meta itemprop="description" content="Noel O’Boyle raises an important question about the canonicalization algorithms used in chemical line notations such as SMILES and InChI:
+Can their canonicalisation procedures ensure that two identical molecular graphs result in the same canonical SMILES or InChI?
+This isn’t merely an academic exercise. One of the best uses for InChI that I’ve found is as a private primary key in a molecular database. For example, instead of performing a computationally intensive exact structure search to determine if a newly-submitted molecule already exists as part of a chemical registration system, we can simply convert the molecule into a string with InChI and query an indexed field in the ‘molecule’ table, using code highly-optimized by our database system.">
+  <meta itemprop="datePublished" content="2009-04-24T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2009-04-24T00:00:00+00:00">
+  <meta itemprop="wordCount" content="367">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="The First InChIKey Collision">
+  <meta name="twitter:description" content="Noel O’Boyle raises an important question about the canonicalization algorithms used in chemical line notations such as SMILES and InChI:
+Can their canonicalisation procedures ensure that two identical molecular graphs result in the same canonical SMILES or InChI?
+This isn’t merely an academic exercise. One of the best uses for InChI that I’ve found is as a private primary key in a molecular database. For example, instead of performing a computationally intensive exact structure search to determine if a newly-submitted molecule already exists as part of a chemical registration system, we can simply convert the molecule into a string with InChI and query an indexed field in the ‘molecule’ table, using code highly-optimized by our database system.">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Depth-First
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Articles
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">The First InChIKey Collision</h1>
+      
+      <p class="tracked">
+        By <strong>Richard L. Apodaca</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2009-04-24T00:00:00Z">April 24, 2009</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Noel O&rsquo;Boyle <a href="http://baoilleach.blogspot.com/2009/04/broken-symmetry-can-smiles-and-inchi.html">raises an important question</a> about the canonicalization algorithms used in <a href="/articles/2007/03/14/eleven-qualities-of-the-perfect-line-notation-for-the-web">chemical line notations</a> such as SMILES and InChI:</p>
+<blockquote>
+<p>Can their canonicalisation procedures ensure that two identical molecular graphs result in the same canonical SMILES or InChI?</p>
+</blockquote>
+<p>This isn&rsquo;t merely an academic exercise. One of the best uses for InChI that I&rsquo;ve found is as a private primary key in a molecular database. For example, instead of performing a computationally intensive exact <a href="/articles/2008/10/02/fast-substructure-search-using-open-source-tools-part-1-fingerprints-and-databases">structure search</a> to determine if a newly-submitted molecule already exists as part of a <a href="/articles/2009/01/15/build-a-restful-chemical-registration-system-from-scratch-part-1-tools-of-the-trade">chemical registration system</a>, we can simply convert the molecule into a string with InChI and query an indexed field in the &lsquo;molecule&rsquo; table, using code highly-optimized by our database system.</p>
+<p>Not only that, but the way InChIs are generated assures us that some of the trickier problems in creating chemical registration systems, such as stereoisomer identification and tautomer detection, have been addressed at virtually no cost.</p>
+<p>If there ever were a failure in a line notation canonicalization algorithm, it would probably be detected by a database maintainer noticing that the system failed to register a molecule that clearly wasn&rsquo;t already present, or registered a molecule that already was present.</p>
+<p>In other words, this kind of &lsquo;bug&rsquo; might be difficult to detect.</p>
+<p>If it&rsquo;s any consolation, <a href="http://pubchem.ncbi.nlm.nih.gov/">PubChem</a> maintains the world&rsquo;s largest collection of <a href="/articles/2006/09/29/hacking-pubchem-direct-access-with-ftp">freely-downloadable</a> InChI-structure correlations (tens of millions), and as far as I know has not encountered a single InChI failure.</p>
+<p>Another kind of failure is possible, though highly unlikely, when using InChIKey, which is generated from a <a href="http://en.wikipedia.org/wiki/SHA_hash_functions">cryptograpic hash</a> of the full InChI. From the <a href="http://www.iupac.org/inchi/release102.html">Official InChI site</a>:</p>
+<blockquote>
+<p>There is a finite, but very small probability of finding two structures with the same InChIKey. For duplication of only the first block of 14 characters this is 1.3% in 10<!-- raw HTML omitted -->9<!-- raw HTML omitted -->, equivalent to a single collision in one of 75 databases of 10<!-- raw HTML omitted -->9<!-- raw HTML omitted --> compounds each.</p>
+</blockquote>
+<p>Those are pretty slim odds indeed. But they&rsquo;re not zero, either. As far as I know, not one InChI Key collision has been reported to date. But that doesn&rsquo;t mean one won&rsquo;t be found later on today.</p>
+<p>If you wanted to create an efficient system for finding InChIKey collisions, how would you go about doing it?</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://depth-first.com:1313/" >
+    &copy;  Depth-First 2024 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>
