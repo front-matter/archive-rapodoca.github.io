@@ -4,7 +4,7 @@ title = 'Depth-First'
 theme = ["github.com/theNewDynamic/gohugo-theme-ananke/v2"]
 [permalinks]
   [permalinks.page]
-    articles = '/articles/:year/:month/:day/:slug/'
+    posts = '/articles/:year/:month/:day/:slug/'
   [permalinks.section]
     posts = '/articles/'
 [pagination]

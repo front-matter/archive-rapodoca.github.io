@@ -63,7 +63,7 @@ The new release introduces SDFileReader. In interactive JRuby:
 jirb irb(main):001:0&gt; require &#39;mx-0.107.0.jar&#39; =&gt; true irb(main):002:0&gt; import com.metamolecular.mx.io.mdl.SDFileReader =&gt; Java::ComMetamolecularMxIoMdl::SDFileReader irb(main):003:0&gt; r=SDFileReader.new &#39;pubchem_sample_33.sdf&#39; =&gt; #&amp;lt;Java::ComMetamolecularMxIoMdl::SDFileReader:0x40b181 @java_object=com.metamolecular.mx.io.mdl.SDFileReader@145b02f&gt; irb(main):004:0&gt; r.next_record =&gt; nil irb(main):005:0&gt; m=r.get_molecule =&gt; #&amp;lt;Java::ComMetamolecularMxModel::DefaultMolecule:0xcb754f @java_object=com.metamolecular.mx.model.DefaultMolecule@60b407&gt; irb(main):006:0&gt; m.count_atoms =&gt; 31 irb(main):007:0&gt; r.get_keys =&gt; #&amp;lt;Java::JavaUtil::ArrayList:0x381d92 @java_object=[PUBCHEM_COMPOUND_CID, PUBCHEM_COMPOUND_CANONICALIZED, PUBCHEM_CACTVS_COMPLEXITY, PUBCHEM_CACTVS_HBOND_ACCEPTOR, PUBCHEM_CACTVS_HBOND_DONOR, PUBCHEM_CACTVS_ROTATABLE_BOND, PUBCHEM_CACTVS_SUBSKEYS, PUBCHEM_IUPAC_OPENEYE_NAME, PUBCHEM_IUPAC_CAS_NAME, PUBCHEM_IUPAC_NAME, PUBCHEM_IUPAC_SYSTEMATIC_NAME, PUBCHEM_IUPAC_TRADITIONAL_NAME, PUBCHEM_NIST_INCHI, PUBCHEM_EXACT_MASS, PUBCHEM_MOLECULAR_FORMULA, PUBCHEM_MOLECULAR_WEIGHT, PUBCHEM_OPENEYE_CAN_SMILES, PUBCHEM_OPENEYE_ISO_SMILES, PUBCHEM_CACTVS_TPSA, PUBCHEM_MONOISOTOPIC_WEIGHT, PUBCHEM_TOTAL_CHARGE, PUBCHEM_HEAVY_ATOM_COUNT, PUBCHEM_ATOM_DEF_STEREO_COUNT, PUBCHEM_ATOM_UDEF_STEREO_COUNT, PUBCHEM_BOND_DEF_STEREO_COUNT, PUBCHEM_BOND_UDEF_STEREO_COUNT, PUBCHEM_ISOTOPIC_ATOM_COUNT, PUBCHEM_COMPONENT_COUNT, PUBCHEM_CACTVS_TAUTO_COUNT, PUBCHEM_BONDANNOTATIONS]&gt; irb(main):008:0&gt; r.get_data &#39;PUBCHEM_COMPOUND_CID&#39; =&amp;gt; &#34;1&#34; SDFileReader implements lazy iteration with Molecules and data only being created when requested.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
-    <meta property="article:section" content="articles">
+    <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2008-12-15T00:00:00+00:00">
     <meta property="article:modified_time" content="2008-12-15T00:00:00+00:00">
 
@@ -120,7 +120,7 @@ jirb irb(main):001:0&gt; require &#39;mx-0.107.0.jar&#39; =&gt; true irb(main):0
     <header class="mt4 w-100">
       <aside class="instapaper_ignoref b helvetica tracked ttu">
           
-        Articles
+        Posts
       </aside><div id="sharing" class="mt3 ananke-socials"></div>
 <h1 class="f1 athelas mt3 mb1">Reading and Writing SD Files With MX</h1>
       

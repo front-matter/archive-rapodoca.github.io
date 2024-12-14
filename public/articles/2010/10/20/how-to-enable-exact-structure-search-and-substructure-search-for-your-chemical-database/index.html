@@ -53,7 +53,7 @@ Felix, a user of your site, wants to search for indole substructures. Browsing t
 The Components Web Application Framework. This is the high-level software on which your current site is built or will be built. Popular packages include: PHP; Ruby on Rails; ASP .NET; and Django. A Database. There are many varieties to choose from. SQL flavors include MySQL and PostgreSQL. NoSQL flavors include CouchDB. Machine-Readable Structure Representations. A number of formats have been developed over the years. Due to its nearly universal support by software packages, one of the most widely-used is molfile. Structure Canonicalizer. This software is used for fast exact structure search. A canonicalizer converts a chemical structure into a unique string of text that can be stored and searched using standard database technologies. InChI should be the default choice. Fingerprint Generator. Converting chemical structures into fixed-length binary fingerprints, this software is used to pre-screen structures during substructure search. The reason is simple: substructure search is computationally expensive and good fingerprints can eliminate many unnecessary substructure searches. A number of open source packages are suitable, including: MX; CDK; OpenBabel; RDKit and a few closed-source offerings. Substructure Matcher. Performs substructure matching through atom-by-atom search (ABAS). This software is used after an initial fingerprint screen. Although fingerprints never generate a false negative, they can and do generate false positives. A substructure matcher ensures no false positives get presented to your users. Packages that can generate fingerprints can usually perform substructure matches as well. Chemical Structure Editor. Allows chemists to draw structures to be searched. A few free structure editors are available. One ergonomic and fast-loading commercial product is ChemWriter, which is sold by my company. Workflow Felix, a user of your site, wants to search for indole substructures. Browsing to the “search” page, he draws indole using a structure editor and clicks the “Substructure Search” button. A JavaScript handler extracts the structure Felix drew into a hidden text field, then the form gets POSTED to your server. For details, see Posting a Molfile in a Form.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
-    <meta property="article:section" content="articles">
+    <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2010-10-20T00:00:00+00:00">
     <meta property="article:modified_time" content="2010-10-20T00:00:00+00:00">
 
@@ -106,7 +106,7 @@ The Components Web Application Framework. This is the high-level software on whi
     <header class="mt4 w-100">
       <aside class="instapaper_ignoref b helvetica tracked ttu">
           
-        Articles
+        Posts
       </aside><div id="sharing" class="mt3 ananke-socials"></div>
 <h1 class="f1 athelas mt3 mb1">How to Enable Exact Structure Search and Substructure Search for Your Chemical Database</h1>
       
