@@ -9,9 +9,10 @@ theme = ["github.com/theNewDynamic/gohugo-theme-ananke/v2"]
     posts = '/articles/'
 [pagination]
   pagerSize = 10
-defaultContentLanguage = "en"
 enableRobotsTXT = true
 [services]
   [services.rss]
     limit = -1
 ignoreLogs = ['warning-goldmark-raw-html']
+[params]
+  author = 'Richard L. Apodaca'
