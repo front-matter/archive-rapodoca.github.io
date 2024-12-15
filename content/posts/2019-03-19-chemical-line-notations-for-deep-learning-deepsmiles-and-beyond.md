@@ -3,7 +3,8 @@ title: "Chemical Line Notations for Deep Learning: DeepSMILES and Beyond"
 summary: "Can machine learning breathe new life into trusty old molecular languages?"
 twitter: true
 disqus: true
-feature_image: images/posts/20190319/summary.png
+params:
+  feature_image: images/posts/20190319/summary.png
 published: "2019-03-19T14:00:00.000Z"
 updated: "2019-03-30T15:00:00.000Z"
 ---

@@ -2,7 +2,8 @@
 title: "Rust Ownership by Example"
 summary: "A deep dive for beginners into Rust's most important big idea."
 twitter: true
-feature_image: images/posts/20200127/summary.png
+params:
+  feature_image: images/posts/20200127/summary.png
 published: "2020-01-27T14:00:00Z"
 updated: "2021-05-01T15:50:00Z"
 ---

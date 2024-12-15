@@ -2,7 +2,8 @@
 title: InChI Syntax
 summary: "Understanding the internal structure of InChI identifiers."
 twitter: true
-feature_image: images/posts/20210421/summary.png
+params:
+  feature_image: images/posts/20210421/summary.png
 published: "2021-04-21T15:30:00Z"
 ---
 

@@ -2,7 +2,8 @@
 title: Formal Charge and Bond Order are Side Effects
 summary: "Thinking differently about an old problem."
 twitter: true
-feature_image: images/posts/20200316/summary.png
+params:
+  feature_image: images/posts/20200316/summary.png
 published: "2020-03-16T19:00:00Z"
 ---
 

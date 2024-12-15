@@ -5,7 +5,8 @@ enables:
   - df-0030
 summary: "Improving code quality by moving bugs from run time to compile time."
 twitter: true
-feature_image: images/posts/20230228/summary.png
+params:
+  feature_image: images/posts/20230228/summary.png
 published: "2023-02-28T15:30:00Z"
 ---
 

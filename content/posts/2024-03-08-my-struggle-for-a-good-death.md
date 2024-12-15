@@ -3,7 +3,8 @@ id: df-0092
 title: My Struggle for a Good Death
 summary: "Choosing from a wide selection of bad options."
 twitter: true
-feature_image: images/posts/20240311/summary.png
+params:
+  feature_image: images/posts/20240311/summary.png
 published: "2024-03-11T16:15:00Z"
 ---
 

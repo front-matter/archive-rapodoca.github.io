@@ -2,7 +2,8 @@
 title: A Rust PostgreSQL Extension for CAS Numbers
 summary: Making domain-specific types first-class citizens in one of the most popular database systems.
 twitter: true
-feature_image: images/posts/20210907/summary.png
+params:
+  feature_image: images/posts/20210907/summary.png
 published: "2021-09-07T15:00:00Z"
 ---
 

@@ -3,7 +3,8 @@ title: Toward a Standard InChI Formal Grammar
 genre: Artifact
 summary: "Building a base layer for third-party InchI readers and writers."
 twitter: true
-feature_image: images/posts/20220810/summary.png
+params:
+  feature_image: images/posts/20220810/summary.png
 published: "2022-08-10T15:00:00Z"
 ---
 

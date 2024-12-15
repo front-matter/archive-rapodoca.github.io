@@ -2,7 +2,8 @@
 title: "Beyond SMILES"
 summary: Charting a new course for an old language.
 twitter: true
-feature_image: images/posts/20210922/summary.png
+params:
+  feature_image: images/posts/20210922/summary.png
 published: "2021-09-22T17:30:00Z"
 updated: "2021-09-23T22:30:00Z"
 ---

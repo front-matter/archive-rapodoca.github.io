@@ -2,7 +2,8 @@
 title: "Let's Build a SMILES Parser in Rust"
 summary: "Toward a suite of toolkit-agnostic utilities for the SMILES language."
 twitter: true
-feature_image: images/posts/20200525/summary.png
+params:
+  feature_image: images/posts/20200525/summary.png
 published: "2020-05-25T16:00:00Z"
 updated: "2020-06-01T16:30:00Z"
 ---

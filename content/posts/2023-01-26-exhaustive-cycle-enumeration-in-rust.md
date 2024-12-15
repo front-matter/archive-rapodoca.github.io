@@ -7,7 +7,8 @@ enables:
   - df-0027
 summary: "Generating the set of all cycles for undirected graphs."
 twitter: true
-feature_image: images/posts/20230126/summary.png
+params:
+  feature_image: images/posts/20230126/summary.png
 published: "2023-01-26T15:30:00Z"
 ---
 

@@ -2,7 +2,8 @@
 title: ProtoSMILES
 summary: "Searching for the common ancestor of all SMILES dialects."
 twitter: true
-feature_image: images/posts/20220601/summary.png
+params:
+  feature_image: images/posts/20220601/summary.png
 published: "2022-06-01T20:00:00Z"
 ---
 

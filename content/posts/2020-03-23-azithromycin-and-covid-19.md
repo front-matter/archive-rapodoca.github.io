@@ -2,7 +2,8 @@
 title: Azithromycin and COVID-19
 summary: "Yet another take on a promising, but flawed clinical study."
 twitter: true
-feature_image: images/posts/20200323/summary.png
+params:
+  feature_image: images/posts/20200323/summary.png
 published: "2020-03-23T15:00:00Z"
 ---
 

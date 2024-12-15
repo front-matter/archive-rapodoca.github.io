@@ -3,7 +3,8 @@ id: df-0082
 title: Living with Glioblastoma
 summary: "It's the end of the line for treatment."
 twitter: true
-feature_image: images/posts/20231106/summary.png
+params:
+  feature_image: images/posts/20231106/summary.png
 published: "2023-11-06T20:30:00Z"
 ---
 

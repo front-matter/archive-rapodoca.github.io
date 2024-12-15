@@ -2,7 +2,8 @@
 title: Molecular Graph Canonicalization
 summary: "Building a mental model for fast graph comparison techniques."
 twitter: true
-feature_image: images/posts/20211006/summary.png
+params:
+  feature_image: images/posts/20211006/summary.png
 published: "2021-10-06T17:30:00Z"
 ---
 

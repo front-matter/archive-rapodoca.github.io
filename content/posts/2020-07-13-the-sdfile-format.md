@@ -2,7 +2,8 @@
 title: The SDfile Format
 summary: "A close look at the ubiquitous cheminformatics data exchange format."
 twitter: true
-feature_image: images/posts/20200713/summary.png
+params:
+  feature_image: images/posts/20200713/summary.png
 published: "2020-07-13T16:00:00Z"
 updated: "2021-07-27T17:05:00Z"
 ---

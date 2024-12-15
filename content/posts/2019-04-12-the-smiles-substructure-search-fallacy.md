@@ -2,7 +2,8 @@
 title: "The SMILES Substructure Search Fallacy"
 summary: "Beautiful though it may appear, this glittering idea is fool's gold."
 twitter: true
-feature_image: images/posts/20190412/summary.png
+params:
+  feature_image: images/posts/20190412/summary.png
 published: "2019-04-12T13:20:00.000Z"
 ---
 

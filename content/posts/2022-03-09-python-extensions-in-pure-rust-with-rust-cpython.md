@@ -2,7 +2,8 @@
 title: Python Extensions in Pure Rust with Rust-CPython
 summary: Mixing Python and Rust with a low-level API.
 twitter: true
-feature_image: images/posts/20220309/summary.png
+params:
+  feature_image: images/posts/20220309/summary.png
 published: "2022-03-09T18:00:00Z"
 ---
 

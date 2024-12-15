@@ -2,7 +2,8 @@
 title: "Running InChI Anywhere with WebAssembly"
 summary: "A solution to an immediate problem, and a peek into a possible future for computational chemistry and cheminformatics."
 twitter: true
-feature_image: images/posts/20210325/summary.png
+params:
+  feature_image: images/posts/20210325/summary.png
 published: "2021-03-25T17:30:00Z"
 ---
 

@@ -3,7 +3,8 @@ id: df-0050
 title: "Buried Alive"
 summary: "Getting my first post-operation MRI was no fun."
 twitter: true
-feature_image: images/posts/20230625/summary.png
+params:
+  feature_image: images/posts/20230625/summary.png
 published: "2023-06-25T20:25:00Z"
 ---
 

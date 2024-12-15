@@ -3,7 +3,8 @@ id: df-0081
 title: Beating Swords into Ploughshares
 summary: "A returning WWII veteran takes up an unlikely field of study."
 twitter: true
-feature_image: images/posts/20231101/summary.png
+params:
+  feature_image: images/posts/20231101/summary.png
 published: "2023-11-01T20:30:00Z"
 updated: "2023-11-01T23:13:00Z"
 ---

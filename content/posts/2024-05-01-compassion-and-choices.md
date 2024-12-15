@@ -2,7 +2,8 @@
 title: Compassion & Choices
 summary: "Progress toward the best bad option."
 twitter: true
-feature_image: images/posts/20240501/summary.png
+params:
+  feature_image: images/posts/20240501/summary.png
 published: "2024-05-01T23:15:00Z"
 ---
 

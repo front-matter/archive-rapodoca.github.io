@@ -2,7 +2,8 @@
 title: Rust for Cheminformatics
 summary: "Lots of potential, but not much in the way of cheminformatics libraries or community yet."
 twitter: true
-feature_image: images/posts/20200120/summary.png
+params:
+  feature_image: images/posts/20200120/summary.png
 published: "2020-01-20T18:00:00Z"
 ---
 

@@ -3,7 +3,8 @@ id: df-0044
 title: Brain Surgery or Die in Three Months
 summary: A runaway train gathers speed.
 twitter: true
-feature_image: images/posts/20230529/summary.png
+params:
+  feature_image: images/posts/20230529/summary.png
 published: "2023-05-29T22:06:00Z"
 ---
 

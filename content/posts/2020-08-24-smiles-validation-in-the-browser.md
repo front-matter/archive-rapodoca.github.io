@@ -2,7 +2,8 @@
 title: SMILES Validation in the Browser
 summary: "A Project using Rust and WebAssembly."
 twitter: true
-feature_image: images/posts/20200824/summary.png
+params:
+  feature_image: images/posts/20200824/summary.png
 published: "2020-08-24T17:00:00Z"
 ---
 

@@ -3,7 +3,8 @@ title: Beyond Stereochemical Templates
 genre: Big Idea
 summary: "Developing a general approach to configurational and conformational representation."
 twitter: true
-feature_image: images/posts/20220824/summary.png
+params:
+  feature_image: images/posts/20220824/summary.png
 published: "2022-08-24T22:00:00Z"
 ---
 

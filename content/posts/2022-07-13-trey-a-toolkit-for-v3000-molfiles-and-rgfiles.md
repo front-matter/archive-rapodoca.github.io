@@ -2,7 +2,8 @@
 title: "Trey: A Toolkit for V3000 Molfiles and RGfiles"
 summary: "Building a suite of power tools for CTfile manipulation."
 twitter: true
-feature_image: images/posts/20220713/summary.png
+params:
+  feature_image: images/posts/20220713/summary.png
 published: "2022-07-13T21:40:00Z"
 ---
 

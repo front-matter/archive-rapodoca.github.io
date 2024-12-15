@@ -2,7 +2,8 @@
 title: An Introduction to the ChemDraw CDXML Format
 summary: "Filling in some blanks for one of the most important standards in chemistry."
 twitter: true
-feature_image: images/posts/20210407/summary.png
+params:
+  feature_image: images/posts/20210407/summary.png
 published: "2021-04-07T17:00:00Z"
 ---
 

@@ -2,7 +2,8 @@
 title: The RDKit/Postgres Ordered Substructure Search Problem
 summary: Diagnosis and partial solution to a thorny performance issue affecting simple queries.
 twitter: true
-feature_image: images/posts/20210811/summary.png
+params:
+  feature_image: images/posts/20210811/summary.png
 published: "2021-08-11T15:00:00Z"
 ---
 

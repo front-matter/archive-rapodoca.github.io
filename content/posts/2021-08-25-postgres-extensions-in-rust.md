@@ -2,7 +2,8 @@
 title: Postgres Extensions in Rust
 summary: Opening a new path to high-performance, domain-specific database applications.
 twitter: true
-feature_image: images/posts/20210825/summary.png
+params:
+  feature_image: images/posts/20210825/summary.png
 published: "2021-08-25T15:00:00Z"
 ---
 

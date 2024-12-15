@@ -2,7 +2,8 @@
 title: "Compiling C to WebAssembly and Running It - without Emscripten"
 summary: "The tools for deploying C code to Web browsers are rapidly evolving. It's now possible to compile complex libraries to WebAssembly with nothing but LLVM."
 twitter: true
-feature_image: images/posts/20191016/summary.png
+params:
+  feature_image: images/posts/20191016/summary.png
 published: "2019-10-16T17:00:00Z"
 ---
 

@@ -3,7 +3,8 @@ id: df-0066
 title: "Just Saying \"No\" to Adjuvant Temozolomide"
 summary: "Discovering that the medicine cabinet for my terminal disease was filled with fluff."
 twitter: true
-feature_image: images/posts/20230831/summary.png
+params:
+  feature_image: images/posts/20230831/summary.png
 published: "2023-08-31T14:30:00Z"
 ---
 

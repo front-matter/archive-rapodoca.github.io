@@ -3,7 +3,8 @@ title: "The Maximum Matching Problem"
 summary: "Kekulization is just one of many situations in which this important graph theory problem shows up."
 twitter: true
 disqus: true
-feature_image: images/posts/20190403/summary.png
+params:
+  feature_image: images/posts/20190403/summary.png
 published: "2019-04-03T13:20:00.000Z"
 ---
 

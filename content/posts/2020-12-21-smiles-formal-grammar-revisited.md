@@ -2,7 +2,8 @@
 title: SMILES Formal Grammar Revisited
 summary: "Encapsulating the full OpenSMILES syntax using a set of streamlined production rules."
 twitter: true
-feature_image: images/posts/20201221/summary.png
+params:
+  feature_image: images/posts/20201221/summary.png
 published: "2020-12-22T18:00:00Z"
 ---
 

@@ -2,7 +2,8 @@
 title: A Guide to Molecular Standardization
 summary: "Toward practical rules for improved data quality in cheminformatics."
 twitter: true
-feature_image: images/posts/20200727/summary.png
+params:
+  feature_image: images/posts/20200727/summary.png
 published: "2020-07-27T19:00:00Z"
 ---
 

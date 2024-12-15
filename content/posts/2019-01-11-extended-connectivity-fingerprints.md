@@ -3,7 +3,8 @@ title: "Computing Extended Connectivity Fingerprints"
 summary: "ECFPs offer a number of advantages over other kinds of fingerprints. This article describes the structure and generation of ECFPs at a high level."
 twitter: true
 disqus: true
-feature_image: images/posts/20190114/summary.png
+params:
+  feature_image: images/posts/20190114/summary.png
 published: "2019-01-14T16:30:00.000Z"
 ---
 

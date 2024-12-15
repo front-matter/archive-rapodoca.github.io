@@ -2,7 +2,8 @@
 title: Running the RDKit Postgres Cartridge with Docker
 summary: Build structure-searchable databases on a versatile foundation.
 twitter: true
-feature_image: images/posts/20210728/summary.png
+params:
+  feature_image: images/posts/20210728/summary.png
 published: "2021-07-28T14:50:00Z"
 ---
 

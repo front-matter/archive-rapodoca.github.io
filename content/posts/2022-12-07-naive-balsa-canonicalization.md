@@ -3,7 +3,8 @@ title: Naive Balsa Canonicalization
 genre: Big Idea
 summary: "A ground-up approach to unique molecular naming."
 twitter: true
-feature_image: images/posts/20221207/summary.png
+params:
+  feature_image: images/posts/20221207/summary.png
 published: "2022-12-07T15:00:00Z"
 ---
 

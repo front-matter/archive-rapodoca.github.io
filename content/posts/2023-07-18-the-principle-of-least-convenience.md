@@ -3,7 +3,8 @@ id: df-0058
 title: "The Principle of Least Convenience"
 summary: "Clawing back lost abilities, one at a time."
 twitter: true
-feature_image: images/posts/20230718/summary.png
+params:
+  feature_image: images/posts/20230718/summary.png
 published: "2023-07-18T19:30:00Z"
 ---
 

@@ -2,7 +2,8 @@
 title: TUCAN Canonicalization
 summary: "Conceptualizing the selection of a canonical string with TUCAN."
 twitter: true
-feature_image: images/posts/20220420/summary.png
+params:
+  feature_image: images/posts/20220420/summary.png
 published: "2022-04-20T17:00:00Z"
 updated: "2022-05-04T17:30:00Z"
 ---

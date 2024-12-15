@@ -2,7 +2,8 @@
 title: "Wrapping Rust Types as Python Classes"
 summary: "A step-by-step guide to rolling your own pythonic Rust wrappers."
 twitter: true
-feature_image: images/posts/20200803/summary.png
+params:
+  feature_image: images/posts/20200803/summary.png
 published: "2020-08-03T19:00:00Z"
 ---
 

@@ -2,7 +2,8 @@
 title: The Trouble with Hückel
 summary: Postmortem of a head-on collision between computational chemistry and cheminformatics.
 twitter: true
-feature_image: images/posts/20210714/summary.png
+params:
+  feature_image: images/posts/20210714/summary.png
 published: "2021-07-14T04:30:00Z"
 updated: "2021-07-14T21:00:00Z"
 ---

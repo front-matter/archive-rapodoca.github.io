@@ -3,7 +3,8 @@ title: Element-to-Atom Mapping in InChI
 genre: Technical Note
 summary: "Toward lossless encoding and decoding for new applications."
 twitter: true
-feature_image: images/posts/20220727/summary.png
+params:
+  feature_image: images/posts/20220727/summary.png
 published: "2022-07-27T17:00:00Z"
 ---
 

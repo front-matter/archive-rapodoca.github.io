@@ -7,7 +7,8 @@ enables:
   - completion of balsa ri
 summary: "Overcoming the limitations of two-atom bonding with with a little help from graph theory."
 twitter: true
-feature_image: images/posts/20230208/summary.png
+params:
+  feature_image: images/posts/20230208/summary.png
 published: "2023-02-08T15:30:00Z"
 ---
 

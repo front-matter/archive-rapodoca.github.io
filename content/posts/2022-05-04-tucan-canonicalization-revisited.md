@@ -2,7 +2,8 @@
 title: TUCAN Canonicalization Revisited
 summary: "A revised first-principles approach to canonicalization of a new molecular identifier."
 twitter: true
-feature_image: images/posts/20220504/summary.png
+params:
+  feature_image: images/posts/20220504/summary.png
 published: "2022-05-04T17:30:00Z"
 ---
 

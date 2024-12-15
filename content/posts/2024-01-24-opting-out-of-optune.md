@@ -3,7 +3,8 @@ id: df-0085
 title: Opting out of Optune
 summary: "A treatment with small benefit and notable costs leads to a tough call."
 twitter: true
-feature_image: images/posts/20240124/summary.png
+params:
+  feature_image: images/posts/20240124/summary.png
 published: "2024-01-24T16:15:00Z"
 updated: "2024-02-06T15:00:00Z"
 ---

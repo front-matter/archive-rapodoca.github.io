@@ -2,7 +2,8 @@
 title: "Parsing InChI: It's Complicated"
 summary: "SMILES and InChI may look like two solutions to the same problem, but looks can be deceiving."
 twitter: true
-feature_image: images/posts/20210310/summary.png
+params:
+  feature_image: images/posts/20210310/summary.png
 published: "2021-03-10T16:00:00Z"
 ---
 

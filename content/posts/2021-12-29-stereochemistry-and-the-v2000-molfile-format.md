@@ -2,7 +2,8 @@
 title: Stereochemistry and the V2000 Molfile Format
 summary: Making sense of some confusing but core features in a de facto standard.
 twitter: true
-feature_image: images/posts/20211229/summary.png
+params:
+  feature_image: images/posts/20211229/summary.png
 published: "2021-12-29T20:00:00Z"
 updated: "2021-12-30T16:00:00Z"
 ---

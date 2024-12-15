@@ -2,7 +2,8 @@
 title: "18 SMILES Problems as Seen through Twitter Polls"
 summary: "Understanding the problem is the first step toward solving it."
 twitter: true
-feature_image: images/posts/20220615/summary.png
+params:
+  feature_image: images/posts/20220615/summary.png
 published: "2022-06-15T16:30:00Z"
 ---
 

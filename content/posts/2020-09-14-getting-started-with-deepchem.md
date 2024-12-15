@@ -2,7 +2,8 @@
 title: Getting Started with DeepChem
 summary: "Build a workbench for exploring machine learning primitives in chemistry."
 twitter: true
-feature_image: images/posts/20200914/summary.png
+params:
+  feature_image: images/posts/20200914/summary.png
 published: "2020-09-14T14:00:00Z"
 ---
 

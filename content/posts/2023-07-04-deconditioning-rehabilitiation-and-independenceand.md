@@ -3,7 +3,8 @@ id: df-0054
 title: "Deconditioning, Rehabilitation, and Independence"
 summary: "Learning that rehabilitation is not something given, but rather something taken back."
 twitter: true
-feature_image: images/posts/20230704/summary.png
+params:
+  feature_image: images/posts/20230704/summary.png
 published: "2023-07-04T18:30:00Z"
 ---
 

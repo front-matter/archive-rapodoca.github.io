@@ -2,7 +2,8 @@
 title: Multi-Atom Bonding in Cheminformatics
 summary: "A critical look at the industry-standard approach to bonding, and an alternative."
 twitter: true
-feature_image: images/posts/20200427/summary.png
+params:
+  feature_image: images/posts/20200427/summary.png
 published: "2020-04-27T18:00:00Z"
 ---
 

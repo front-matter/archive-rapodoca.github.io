@@ -2,7 +2,8 @@
 title: Saying No to Browser UI Frameworks
 summary: "Why the winning move in the JavaScript UI framework game may be not to play."
 twitter: true
-feature_image: images/posts/20200907/summary.png
+params:
+  feature_image: images/posts/20200907/summary.png
 published: "2020-09-07T19:00:00Z"
 ---
 

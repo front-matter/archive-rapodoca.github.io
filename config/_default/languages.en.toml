@@ -12,7 +12,7 @@ title = "Depth-First"
   logo = "images/logo.png"
   # secondaryLogo = "img/secondary-logo.png"
   # description = "My awesome website"
-  copyright = "© 2006-2014"
+  copyright = "© 2006-2014 Depth-First"
 
 [params.author]
   name = "Richard L. Apodaca"

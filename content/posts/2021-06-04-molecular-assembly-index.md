@@ -2,7 +2,8 @@
 title: Molecular Assembly Index
 summary: Searching for life with a biosignature based on graph theory.
 twitter: true
-feature_image: images/posts/20210604/summary.png
+params:
+  feature_image: images/posts/20210604/summary.png
 published: "2021-06-04T15:00:00Z"
 ---
 

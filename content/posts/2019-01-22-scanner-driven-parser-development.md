@@ -2,7 +2,8 @@
 title: "Scanner-Driven Parser Development"
 summary: "Writing a parser shouldn't require unnecessary detours into linguistic theory or unproductive coding dead-ends. Find out how to start and finish a parser quickly with this in-depth guide."
 twitter: true
-feature_image: images/posts/20190122/summary.png
+params:
+  feature_image: images/posts/20190122/summary.png
 published: "2019-01-22T15:30:00.000Z"
 ---
 

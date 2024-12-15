@@ -3,7 +3,8 @@ id: df-0039
 title: I Finally Get that Brain MRI
 summary: "My plan to get at some faster answers works."
 twitter: true
-feature_image: images/posts/20230525/summary.png
+params:
+  feature_image: images/posts/20230525/summary.png
 published: "2023-05-25T21:30:00Z"
 ---
 

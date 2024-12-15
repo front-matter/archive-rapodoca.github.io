@@ -2,7 +2,8 @@
 title: Hydrogen Suppression in SMILES
 summary: "On the differences - and similarities - between implicit and virtual hydrogens."
 twitter: true
-feature_image: images/posts/20200608/summary.png
+params:
+  feature_image: images/posts/20200608/summary.png
 published: "2020-06-08T16:00:00Z"
 ---
 

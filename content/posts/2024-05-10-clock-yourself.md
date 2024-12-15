@@ -2,7 +2,8 @@
 title: Clock Yourself
 summary: My struggle against fear of falling and the app that helped me.
 twitter: true
-feature_image: images/posts/20240510/summary.png
+params:
+  feature_image: images/posts/20240510/summary.png
 published: "2024-05-10T23:15:00Z"
 ---
 

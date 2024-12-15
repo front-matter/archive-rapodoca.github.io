@@ -31,7 +31,7 @@
 {{- $pages = $pages | first $limit }}
 {{- end }}
 {{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
     <title>{{ if eq .Title .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} on {{ end }}{{ .Site.Title }}{{ end }}</title>
     <link>{{ .Permalink }}</link>
@@ -52,6 +52,8 @@
       <pubDate>{{ .PublishDate.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
       <author>{{ with $authorName }}{{ . }}{{ end }}</author>
       <guid>{{ .Permalink }}</guid>
+      {{- $suffix := path.Ext .Params.feature_image | strings.TrimLeft "." }}
+      <media:content url="{{ .Site.BaseURL }}{{ .Params.feature_image }}" medium="image" type="image/{{ $suffix }}"/>
       <description>{{ .Content | transform.XMLEscape | safeHTML }}</description>
     </item>
     {{- end }}

@@ -2,7 +2,8 @@
 title: Matched Molecular Pairs
 summary: "Stepping outside the black box to answer the question of what to test next."
 twitter: true
-feature_image: images/posts/20210113/summary.png
+params:
+  feature_image: images/posts/20210113/summary.png
 published: "2021-01-13T22:00:00Z"
 ---
 

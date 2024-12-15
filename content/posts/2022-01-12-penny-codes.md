@@ -2,7 +2,8 @@
 title: Penny Codes
 summary: "Unravelling the mystery of the lost molecular fingerprint."
 twitter: true
-feature_image: images/posts/20220112/summary.png
+params:
+  feature_image: images/posts/20220112/summary.png
 published: "2022-01-12T14:00:00Z"
 ---
 

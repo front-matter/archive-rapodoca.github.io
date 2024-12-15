@@ -2,7 +2,8 @@
 title: Running a SMILES Validation Benchmark
 summary: Cleaner cheminformatics datasets begin with standards.
 twitter: true
-feature_image: images/posts/20201005/summary.png
+params:
+  feature_image: images/posts/20201005/summary.png
 published: "2020-10-05T18:00:00Z"
 updated: "2020-10-05T21:30:00Z"
 ---

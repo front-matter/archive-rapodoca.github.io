@@ -2,7 +2,8 @@
 title: "Abstract Syntax Trees for SMILES"
 summary: "Designing a suite of power tools for SMILES manipulation in Rust."
 twitter: true
-feature_image: images/posts/20201214/summary.png
+params:
+  feature_image: images/posts/20201214/summary.png
 published: "2020-12-14T21:00:00Z"
 ---
 

@@ -3,7 +3,8 @@ title: CTfile Character Encoding
 genre: Technical Note
 summary: Math, science, history - unraveling the mystery at the base layer of cheminformatics.
 twitter: true
-feature_image: images/posts/20221026/summary.png
+params:
+  feature_image: images/posts/20221026/summary.png
 published: "2022-10-26T18:50:00Z"
 ---
 

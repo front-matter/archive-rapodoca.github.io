@@ -3,7 +3,8 @@ id: df-0079
 title: "Sowing Seeds on Rocky Soil"
 summary: "Tracing my physicist grandfather's origins to an unexpected place."
 twitter: true
-feature_image: images/posts/20231022/summary.png
+params:
+  feature_image: images/posts/20231022/summary.png
 published: "2023-10-22T21:30:00Z"
 updated: "2023-10-31T06:30:00Z"
 ---

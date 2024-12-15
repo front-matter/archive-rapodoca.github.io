@@ -2,7 +2,8 @@
 title: "Class-Free Object-Oriented Programming"
 summary: "Like the GOTO statement of yore, has the notion of class outlived its original purpose in object-oriented programming?"
 twitter: true
-feature_image: images/posts/20190304/summary.png
+params:
+  feature_image: images/posts/20190304/summary.png
 published: "2019-03-04T09:00:00.000Z"
 ---
 

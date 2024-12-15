@@ -2,7 +2,8 @@
 title: A Workbench for Machine Learning in Chemistry
 summary: Kick the tires on a short, hackable aqueous solubility predictor built from a DeepChem graph convolutional network.
 twitter: true
-feature_image: images/posts/20201026/summary.png
+params:
+  feature_image: images/posts/20201026/summary.png
 published: "2020-10-26T16:00:00Z"
 ---
 

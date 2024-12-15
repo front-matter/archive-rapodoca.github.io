@@ -2,7 +2,8 @@
 title: "Cheminformatics in Rust: Implementing a Minimal Molecule API"
 summary: "Laying the foundation for a new cheminformatics toolkit."
 twitter: true
-feature_image: images/posts/20200511/summary.png
+params:
+  feature_image: images/posts/20200511/summary.png
 published: "2020-05-11T14:00:00Z"
 ---
 

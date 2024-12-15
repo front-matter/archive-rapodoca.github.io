@@ -2,7 +2,8 @@
 title: "Hydrogen Suppression in Molfiles"
 summary: "How to avoid a hydrogen assignment free-for-all when reading and writing molfiles."
 twitter: true
-feature_image: images/posts/20200413/summary.png
+params:
+  feature_image: images/posts/20200413/summary.png
 published: "2020-04-13T16:00:00Z"
 ---
 

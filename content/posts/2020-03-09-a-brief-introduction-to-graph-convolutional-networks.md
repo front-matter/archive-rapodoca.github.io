@@ -2,7 +2,8 @@
 title: "A Brief Introduction to Graph Convolutional Networks"
 summary: "Using graphs in machine learning."
 twitter: true
-feature_image: images/posts/20200309/summary.jpg
+params:
+  feature_image: images/posts/20200309/summary.jpg
 published: "2020-03-09T14:00:00Z"
 ---
 

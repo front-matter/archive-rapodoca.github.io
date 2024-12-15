@@ -2,7 +2,8 @@
 title: V3000 Molfile Enhanced Stereochemistry Representation
 summary: A practical approach to encoding stereochemical mixtures and unknowns.
 twitter: true
-feature_image: images/posts/20220209/summary.png
+params:
+  feature_image: images/posts/20220209/summary.png
 published: "2022-02-09T20:00:00Z"
 ---
 

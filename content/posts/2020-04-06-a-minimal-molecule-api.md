@@ -2,7 +2,8 @@
 title: "A Minimal Molecule API"
 summary: "Cataloging the essential behaviors of molecule-like objects."
 twitter: true
-feature_image: images/posts/20200406/summary.png
+params:
+  feature_image: images/posts/20200406/summary.png
 published: "2020-04-06T16:00:00Z"
 ---
 

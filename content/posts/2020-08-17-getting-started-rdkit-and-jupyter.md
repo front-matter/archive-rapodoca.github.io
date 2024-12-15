@@ -2,7 +2,8 @@
 title: Getting Started with RDKit and Jupyter
 summary: "Quickly set up an environment for cheminformatics and machine learning experimentation."
 twitter: true
-feature_image: images/posts/20200817/summary.png
+params:
+  feature_image: images/posts/20200817/summary.png
 published: "2020-08-17T17:00:00Z"
 ---
 

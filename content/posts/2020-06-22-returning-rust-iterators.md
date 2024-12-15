@@ -2,7 +2,8 @@
 title: Returning Rust Iterators
 summary: "Some simple tricks go a long way when dealing with iterators as return values."
 twitter: true
-feature_image: images/posts/20200622/summary.png
+params:
+  feature_image: images/posts/20200622/summary.png
 published: "2020-06-22T17:00:00Z"
 ---
 

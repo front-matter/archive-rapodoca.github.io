@@ -3,7 +3,8 @@ id: df-0074
 title: Beware Oncologists Bearing Hope
 summary: "Why interpretations from this special breed of doctor should be considered carefully."
 twitter: true
-feature_image: images/posts/20231004/summary.png
+params:
+  feature_image: images/posts/20231004/summary.png
 published: "2023-10-04T23:30:00Z"
 ---
 

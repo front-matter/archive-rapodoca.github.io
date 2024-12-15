@@ -3,7 +3,8 @@ id: df-0058
 title: "The Ambiguously Alarming Brain MRI"
 summary: "A close look at one reason that glioblastoma remains incurable despite decades of research."
 twitter: true
-feature_image: images/posts/20230721/summary.png
+params:
+  feature_image: images/posts/20230721/summary.png
 published: "2023-07-21T21:30:00Z"
 ---
 

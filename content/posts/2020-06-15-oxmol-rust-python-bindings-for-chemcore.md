@@ -2,7 +2,8 @@
 title: "OxMol: Rust/Python Bindings for ChemCore"
 summary: "First steps toward bringing ChemCore to a Python interpreter near you."
 twitter: true
-feature_image: images/posts/20200615/summary.png
+params:
+  feature_image: images/posts/20200615/summary.png
 published: "2020-06-15T16:00:00Z"
 ---
 
