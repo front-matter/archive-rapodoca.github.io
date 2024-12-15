@@ -2,7 +2,7 @@
 title: Delocalization-Induced Molecular Equality
 summary: "Exploring the limits of molecular representation and their practical consequences."
 twitter: true
-summary-image: images/posts/20210617/summary.png
+feature_image: images/posts/20210617/summary.png
 published: "2021-06-17T04:30:00Z"
 updated: "2021-06-17T21:00:00Z"
 ---

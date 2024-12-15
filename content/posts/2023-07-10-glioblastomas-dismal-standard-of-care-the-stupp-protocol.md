@@ -3,7 +3,7 @@ id: df-0056
 title: "Glioblastoma's Dismal Standard of Care: The Stupp Protocol"
 summary: "Coming to grips with a disease whose best treatment is not very good."
 twitter: true
-summary-image: images/posts/20230710/summary.png
+feature_image: images/posts/20230710/summary.png
 published: "2023-07-10T18:30:00Z"
 ---
 

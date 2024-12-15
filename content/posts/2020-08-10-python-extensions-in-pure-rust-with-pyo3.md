@@ -2,7 +2,7 @@
 title: Python Extensions in Pure Rust with PyO3
 summary: "Avoid a lot of manual labor when creating Python wrappers."
 twitter: true
-summary-image: images/posts/20200810/summary.png
+feature_image: images/posts/20200810/summary.png
 published: "2020-08-10T17:00:00Z"
 ---
 

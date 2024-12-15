@@ -3,7 +3,7 @@ id: df-0040
 title: The Scary Stuff
 summary: "Unmasking my attacker."
 twitter: true
-summary-image: images/posts/20230527/summary.png
+feature_image: images/posts/20230527/summary.png
 published: "2023-05-27T21:27:00Z"
 edited: "2023-09-09T19:30:000Z"
 ---

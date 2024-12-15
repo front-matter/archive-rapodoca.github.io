@@ -2,7 +2,7 @@
 title: Introducing Balsa
 summary: "Improving data quality in chemistry by constraining SMILES."
 twitter: true
-summary-image: images/posts/20220629/summary.png
+feature_image: images/posts/20220629/summary.png
 published: "2022-06-29T21:40:00Z"
 ---
 

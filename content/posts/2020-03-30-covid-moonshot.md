@@ -2,7 +2,7 @@
 title: COVID MoonShot
 summary: "Open Source Drug Discovery takes on COVID-19."
 twitter: true
-summary-image: images/posts/20200330/summary.png
+feature_image: images/posts/20200330/summary.png
 published: "2020-03-30T15:00:00Z"
 ---
 

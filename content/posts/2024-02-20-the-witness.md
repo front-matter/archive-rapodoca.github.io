@@ -2,7 +2,7 @@
 title: The Witness
 summary: "A short story."
 twitter: true
-summary-image: images/posts/20240220/summary.png
+feature_image: images/posts/20240220/summary.png
 published: "2024-02-20T16:15:00Z"
 updated: "2024-02-21T15:30:00Z"
 ---

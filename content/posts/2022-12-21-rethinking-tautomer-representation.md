@@ -3,7 +3,7 @@ title: Rethinking Tautomer Representation
 genre: Big Idea
 summary: "A unified approach to dealing with tautomers and electron delocalization."
 twitter: true
-summary-image: images/posts/20221221/summary.png
+feature_image: images/posts/20221221/summary.png
 published: "2022-12-21T22:20:00Z"
 ---
 

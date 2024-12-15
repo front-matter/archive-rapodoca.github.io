@@ -2,7 +2,7 @@
 title: Interactive Rust in a REPL and Jupyter Notebook with EVCXR
 summary: "Explore Rust and its libraries with immediate feedback."
 twitter: true
-summary-image: images/posts/20200921/summary.png
+feature_image: images/posts/20200921/summary.png
 published: "2020-09-21T14:00:00Z"
 ---
 

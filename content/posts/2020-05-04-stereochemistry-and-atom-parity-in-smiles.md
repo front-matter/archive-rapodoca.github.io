@@ -2,7 +2,7 @@
 title: Stereochemistry and Atom Parity in SMILES
 summary: "Everything you ever wanted to know about tetrahedral stereo SMILES but were afraid to ask."
 twitter: true
-summary-image: images/posts/20200504/summary.png
+feature_image: images/posts/20200504/summary.png
 published: "2020-05-04T16:00:00Z"
 ---
 

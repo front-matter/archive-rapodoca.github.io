@@ -3,7 +3,7 @@ title: Dealing with Delocalization
 genre: Big Idea
 summary: "Building a practical approach to electron delocalization, tautomerism, and more."
 twitter: true
-summary-image: images/posts/20220921/summary.png
+feature_image: images/posts/20220921/summary.png
 published: "2022-09-21T18:50:00Z"
 ---
 

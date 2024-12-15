@@ -2,7 +2,7 @@
 title: Ten Reasons to Adopt the V3000 Molfile Format
 summary: "Balancing benefits and costs of the oldest new file format in cheminformatics."
 twitter: true
-summary-image: images/posts/20211117/summary.png
+feature_image: images/posts/20211117/summary.png
 published: "2021-11-17T14:30:00Z"
 ---
 

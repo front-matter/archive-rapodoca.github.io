@@ -2,7 +2,7 @@
 title: Reading Large SDfiles in Rust
 summary: "Learn the basics of Rust file I/O and Iterators while solving a common cheminformatics problem."
 twitter: true
-summary-image: images/posts/20200720/summary.jpg
+feature_image: images/posts/20200720/summary.jpg
 published: "2020-07-22T19:00:00Z"
 ---
 

@@ -3,7 +3,7 @@ id: df-0045
 title: Reflections on My Brain Surgery
 summary: "One nerd's attempt to cope with an overwhelming situation."
 twitter: true
-summary-image: images/posts/20230602/summary.png
+feature_image: images/posts/20230602/summary.png
 published: "2023-06-02T22:06:00Z"
 updated: "2023-06-03T21:55:00Z"
 ---

@@ -2,7 +2,7 @@
 title: Writing Aromatic SMILES
 summary: "What seems like a simple process oozes complexity below the surface."
 twitter: true
-summary-image: images/posts/20210630/summary.png
+feature_image: images/posts/20210630/summary.png
 published: "2021-06-30T17:00:00Z"
 updated: "2022-07-13T11:00:00Z"
 ---

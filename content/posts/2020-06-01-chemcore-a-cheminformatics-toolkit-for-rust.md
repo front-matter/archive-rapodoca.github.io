@@ -2,7 +2,7 @@
 title: "ChemCore: A Cheminformatics Toolkit for Rust"
 summary: "Design, implementation, and future prospects."
 twitter: true
-summary-image: images/posts/20200601/summary.png
+feature_image: images/posts/20200601/summary.png
 published: "2020-06-01T16:00:00Z"
 ---
 

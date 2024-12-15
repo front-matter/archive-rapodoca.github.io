@@ -2,7 +2,7 @@
 title: "Compiling InChI to WebAssembly Part 1: Hello InChI"
 summary: "A step-by-step approach to building WebAssembly from an existing C project."
 twitter: true
-summary-image: images/posts/20190515/summary.png
+feature_image: images/posts/20190515/summary.png
 published: "2019-05-15T13:30:00Z"
 ---
 

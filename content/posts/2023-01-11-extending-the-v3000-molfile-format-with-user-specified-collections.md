@@ -6,7 +6,7 @@ enables:
     - df-0024
 summary: "A practical look at a unique feature."
 twitter: true
-summary-image: images/posts/20230111/summary.png
+feature_image: images/posts/20230111/summary.png
 published: "2023-01-11T15:00:00Z"
 ---
 

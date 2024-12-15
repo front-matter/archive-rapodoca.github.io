@@ -3,7 +3,7 @@ id: df-0068
 title: Progression
 summary: "The Standard of Care treatment fails."
 twitter: true
-summary-image: images/posts/20230914/summary.png
+feature_image: images/posts/20230914/summary.png
 published: "2023-09-14T21:30:00Z"
 ---
 

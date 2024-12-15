@@ -3,7 +3,7 @@ id: df-0059
 title: "Tumor Board"
 summary: "The disquieting limits to glioblastoma's front-line diagnostic technique."
 twitter: true
-summary-image: images/posts/20230727/summary.png
+feature_image: images/posts/20230727/summary.png
 published: "2023-07-27T18:30:00Z"
 ---
 

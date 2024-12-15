@@ -3,7 +3,7 @@ id: df-0074
 title: "Grandpa, What Did You Do at the Atom Bomb Factory?"
 summary: "First in a series investigating what exactly my grandfather did at the Hanford Engineer works."
 twitter: true
-summary-image: images/posts/20231014/summary.png
+feature_image: images/posts/20231014/summary.png
 published: "2023-10-14T21:30:00Z"
 ---
 

@@ -2,7 +2,7 @@
 title: "Benchmarking Iteration from a Rust Trait"
 summary: "Quantitating the relative performance of slices and boxed Iterators in graphs."
 twitter: true
-summary-image: images/posts/20210127/summary.png
+feature_image: images/posts/20210127/summary.png
 published: "2021-01-26T19:00:00Z"
 ---
 

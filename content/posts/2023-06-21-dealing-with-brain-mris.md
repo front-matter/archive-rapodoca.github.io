@@ -3,7 +3,7 @@ id: df-0048
 title: "Dealing with Brain MRIs"
 summary: "Shedding light on a little-discussed aspect of having brain cancer."
 twitter: true
-summary-image: images/posts/20230621/summary.png
+feature_image: images/posts/20230621/summary.png
 published: "2023-06-22T23:00:00Z"
 ---
 

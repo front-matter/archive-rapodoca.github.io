@@ -3,7 +3,7 @@ id: df-0076.md
 title: How I Bought and Estimated the Purity of Sodium Dichloroacetate
 summary: "Trust, but verify. On second thought, just verify."
 twitter: true
-summary-image: images/posts/20231010/summary.png
+feature_image: images/posts/20231010/summary.png
 published: "2023-10-10T21:30:00Z"
 ---
 

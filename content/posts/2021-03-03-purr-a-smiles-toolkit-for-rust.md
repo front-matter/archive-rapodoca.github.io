@@ -2,7 +2,7 @@
 title: "Purr: A SMILES Toolkit for Rust"
 summary: "Pulling back the covers on a new way to work with SMILES."
 twitter: true
-summary-image: images/posts/20210303/summary.png
+feature_image: images/posts/20210303/summary.png
 published: "2021-03-03T17:00:00Z"
 ---
 

@@ -3,7 +3,7 @@ id: df-0084
 title: Crystal Gardens
 summary: "A chance encounter leads to a new life."
 twitter: true
-summary-image: images/posts/20240105/summary.png
+feature_image: images/posts/20240105/summary.png
 published: "2024-01-05T16:15:00Z"
 ---
 

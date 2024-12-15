@@ -2,7 +2,7 @@
 title: MDL Valence-Mageddon
 summary: "Understanding what happened to the molfile format in 2014, and what it means today."
 twitter: true
-summary-image: images/posts/20211201/summary.png
+feature_image: images/posts/20211201/summary.png
 published: "2021-12-01T23:45:00Z"
 ---
 

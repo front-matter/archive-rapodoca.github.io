@@ -3,7 +3,7 @@ id: df-0060
 title: Temodar, MGMT Methylation, and the Endless Loop of Bad Glioblastoma Treatments
 summary: "Understanding why half of patients will take a drug offering little to no benefit."
 twitter: true
-summary-image: images/posts/20230806/summary.png
+feature_image: images/posts/20230806/summary.png
 published: "2023-08-06T20:20:00Z"
 revised: "2023-08-16T20:20:00Z"
 ---

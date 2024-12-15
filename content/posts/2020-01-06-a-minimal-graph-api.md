@@ -2,7 +2,7 @@
 title: A Minimal Graph API
 summary: "An attempt to define the essential behaviors of graph-like objects."
 twitter: true
-summary-image: images/posts/20200106/summary.png
+feature_image: images/posts/20200106/summary.png
 published: "2020-01-06T17:00:00Z"
 ---
 

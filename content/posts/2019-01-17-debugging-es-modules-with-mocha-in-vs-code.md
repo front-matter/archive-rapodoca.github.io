@@ -3,7 +3,7 @@ title: "Debugging ES Modules in Node.js and Mocha Using VS Code"
 summary: "Integrate in-editor debugging, unit tests, and JavaScript's new module system seamlessly with this simple trick."
 twitter: true
 disqus: true
-summary-image: images/posts/20190117/summary.png
+feature_image: images/posts/20190117/summary.png
 published: "2019-01-17T18:30:00.000Z"
 ---
 

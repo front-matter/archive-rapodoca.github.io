@@ -2,7 +2,7 @@
 title: "SMILES Reading Performance: RDKit vs ChemCore"
 summary: "Rust and C++/Python cheminformatics toolkits face off on a core task."
 twitter: true
-summary-image: images/posts/20201019/summary.png
+feature_image: images/posts/20201019/summary.png
 published: "2020-10-19T15:00:00Z"
 ---
 

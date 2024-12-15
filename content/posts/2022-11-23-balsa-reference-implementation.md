@@ -3,7 +3,7 @@ title: Balsa Reference Implementation
 genre: Artifact
 summary: "Pairing theory with practice for better molecular serialization."
 twitter: true
-summary-image: images/posts/20221123/summary.png
+feature_image: images/posts/20221123/summary.png
 published: "2022-11-23T15:00:00Z"
 ---
 

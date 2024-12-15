@@ -2,7 +2,7 @@
 title: "Security Theater and the Blockchain Project"
 summary: "A recent proposal for clinical trial block chains exposes an all-too-common misconception."
 twitter: true
-summary-image: images/posts/20190917/summary.png
+feature_image: images/posts/20190917/summary.png
 published: "2019-09-17T09:00:00Z"
 ---
 

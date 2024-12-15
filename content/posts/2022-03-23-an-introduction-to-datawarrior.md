@@ -2,7 +2,7 @@
 title: "An Introduction to DataWarrior"
 summary: Building a simple data set to learn the core principles behind a powerful application.
 twitter: true
-summary-image: images/posts/20220323/summary.png
+feature_image: images/posts/20220323/summary.png
 published: "2022-03-23T18:00:00Z"
 ---
 

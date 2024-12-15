@@ -2,7 +2,7 @@
 title: A Beginner's Guide to Parsing in Rust
 summary: "Using a flexible system for writing custom parsers in Rust and other languages."
 twitter: true
-summary-image: images/posts/20211216/summary.png
+feature_image: images/posts/20211216/summary.png
 published: "2021-12-16T18:00:00Z"
 updated: "2021-12-17T16:30:00Z"
 ---

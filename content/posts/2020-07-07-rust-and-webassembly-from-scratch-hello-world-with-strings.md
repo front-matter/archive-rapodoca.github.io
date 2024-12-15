@@ -2,7 +2,7 @@
 title: "Rust and WebAssembly from Scratch: Hello World with Strings"
 summary: "Bare bones approach to two-way string passing - without wasm-bindgen."
 twitter: true
-summary-image: images/posts/20200707/summary.png
+feature_image: images/posts/20200707/summary.png
 published: "2020-07-07T04:00:00Z"
 ---
 

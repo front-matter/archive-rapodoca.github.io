@@ -2,7 +2,7 @@
 title: "Graphs in Rust: An Introduction to Petgraph"
 summary: "Discussion and code examples for Rust's most popular graph library."
 twitter: true
-summary-image: images/posts/20200203/summary.png
+feature_image: images/posts/20200203/summary.png
 published: "2020-02-03T14:00:00Z"
 ---
 

@@ -2,7 +2,7 @@
 title: Big Reaction Data
 summary: Ways to bring a comprehensive, open collection of reaction data closer to reality.
 twitter: true
-summary-image: images/posts/20220223/summary.png
+feature_image: images/posts/20220223/summary.png
 published: "2022-02-23T18:00:00Z"
 ---
 

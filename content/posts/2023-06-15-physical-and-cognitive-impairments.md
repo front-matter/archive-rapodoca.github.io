@@ -3,7 +3,7 @@ id: df-0047
 title: "Physical and Cognitive Impairments"
 summary: "My symptoms get much worse after brain surgery."
 twitter: true
-summary-image: images/posts/20230617/summary.png
+feature_image: images/posts/20230617/summary.png
 published: "2023-06-17T18:00:00Z"
 ---
 

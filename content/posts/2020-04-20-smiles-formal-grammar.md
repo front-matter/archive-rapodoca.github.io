@@ -2,7 +2,7 @@
 title: SMILES Formal Grammar
 summary: "A human- and machine readable blueprint for a popular cheminformatics language."
 twitter: true
-summary-image: images/posts/20200420/summary.png
+feature_image: images/posts/20200420/summary.png
 published: "2020-04-20T18:00:00Z"
 ---
 

@@ -2,7 +2,7 @@
 title: Types without TypeScript
 summary: "Build type-safety into JavaScript projects without sacrificing language or tooling."
 twitter: true
-summary-image: images/posts/20211020/summary.png
+feature_image: images/posts/20211020/summary.png
 published: "2021-10-21T02:30:00Z"
 updated: "2021-10-21T14:20:00Z"
 ---

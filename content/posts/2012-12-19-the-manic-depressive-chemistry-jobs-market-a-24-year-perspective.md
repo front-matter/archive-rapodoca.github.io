@@ -2,7 +2,7 @@
 title: "The Manic Depressive Chemistry Jobs Market: A 24-Year Perspective"
 summary: If you don't like where things are, just stick around.
 twitter: true
-summary-image: images/posts/20121219/summary.png
+feature_image: images/posts/20121219/summary.png
 published: "2012-12-19T00:00:00.000Z"
 updated: "2021-09-04T17:00:00.000Z"
 ---

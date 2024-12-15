@@ -2,7 +2,7 @@
 title: "Hydrogen Suppression in Cheminformatics"
 summary: "The fine art of dealing with what isn't there."
 twitter: true
-summary-image: images/posts/20200518/summary.png
+feature_image: images/posts/20200518/summary.png
 published: "2020-05-18T16:00:00Z"
 ---
 

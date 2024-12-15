@@ -2,7 +2,7 @@
 title: "The Language of Organic Chemistry"
 summary: "If chemical structures constitute a language, what are its words and what can be done with that knowledge?"
 twitter: true
-summary-image: images/posts/20190220/summary.png
+feature_image: images/posts/20190220/summary.png
 published: "2019-02-20T09:16:00.000Z"
 ---
 

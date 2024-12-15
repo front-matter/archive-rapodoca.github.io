@@ -3,7 +3,7 @@ title: "Reading CTfiles with CTcore"
 genre: Artifact
 summary: "Precision tools for processing CTfile member formats such as molfile and SDfile."
 twitter: true
-summary-image: images/posts/20221109/summary.png
+feature_image: images/posts/20221109/summary.png
 published: "2022-11-09T22:00:00Z"
 ---
 

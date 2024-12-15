@@ -2,7 +2,7 @@
 title: "Typed JavaScript"
 summary: "Improve the scalability and maintainability of JavaScript projects through static typing."
 twitter: true
-summary-image: images/posts/20211103/summary.png
+feature_image: images/posts/20211103/summary.png
 published: "2021-11-03T13:30:00Z"
 ---
 

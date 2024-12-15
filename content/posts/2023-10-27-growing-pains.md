@@ -3,7 +3,7 @@ id: df-0078
 title: "Growing Pains"
 summary: A chaotic childhood leads to education and opportunity.
 twitter: true
-summary-image: images/posts/20231027/summary.png
+feature_image: images/posts/20231027/summary.png
 published: "2023-10-27T21:30:00Z"
 ---
 

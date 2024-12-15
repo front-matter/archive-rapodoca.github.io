@@ -3,7 +3,7 @@ title: Everyone Has a Plan
 id: df-0037
 summary: "Part one of a true story I never saw coming."
 twitter: true
-summary-image: images/posts/20230518/summary.png
+feature_image: images/posts/20230518/summary.png
 published: "2023-05-19T01:30:00Z"
 ---
 

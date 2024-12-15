@@ -2,7 +2,7 @@
 title: "Graphs in Rust: Introducing Gamma"
 summary: "A new library for applied graph theory."
 twitter: true
-summary-image: images/posts/20200217/summary.jpg
+feature_image: images/posts/20200217/summary.jpg
 published: "2020-02-17T14:00:00Z"
 updated:   "2020-03-13T01:15:00Z"
 ---

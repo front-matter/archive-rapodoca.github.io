@@ -3,7 +3,7 @@ title: Direct Molecular Translation
 genre: Big Idea
 summary: "Weighing two approaches to a perennial problem."
 twitter: true
-summary-image: images/posts/20221116/summary.png
+feature_image: images/posts/20221116/summary.png
 published: "2022-11-16T15:00:00Z"
 ---
 

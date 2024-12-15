@@ -3,7 +3,7 @@ id: df-0067
 title: Dichloroacetate
 summary: "Treating my terminal disease like a research problem and finding a lead."
 twitter: true
-summary-image: images/posts/20230926/summary.png
+feature_image: images/posts/20230926/summary.png
 published: "2023-09-26T21:30:00Z"
 ---
 

@@ -2,7 +2,7 @@
 title: Standard InChI
 summary: Expectation meets reality in this benchmarking puzzle.
 twitter: true
-summary-image: images/posts/20210519/summary.png
+feature_image: images/posts/20210519/summary.png
 published: "2021-05-19T20:00:00Z"
 ---
 

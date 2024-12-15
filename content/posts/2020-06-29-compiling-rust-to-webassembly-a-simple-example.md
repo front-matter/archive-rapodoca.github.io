@@ -2,7 +2,7 @@
 title: "Compiling Rust to WebAssembly: A Simple Example"
 summary: "A short, no-frills guide from blank project to running code."
 twitter: true
-summary-image: images/posts/20200629/summary.png
+feature_image: images/posts/20200629/summary.png
 published: "2020-06-29T17:00:00Z"
 ---
 

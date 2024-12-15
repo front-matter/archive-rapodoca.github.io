@@ -3,7 +3,7 @@ id: df-0055
 title: "The California End of Life Option Act"
 summary: "Time to face the elephant in the room."
 twitter: true
-summary-image: images/posts/20230906/summary.png
+feature_image: images/posts/20230906/summary.png
 published: "2023-09-06T14:30:00Z"
 ---
 

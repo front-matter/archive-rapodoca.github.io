@@ -3,7 +3,7 @@ title: "Chemception: Deep Learning from 2D Chemical Structure Images"
 summary: "This deep learning method breaks the mold by training itself, not on abstract binary fingerprints, but on simple, human-recognizable images."
 twitter: true
 disqus: true
-summary-image: images/posts/20190204/summary.png
+feature_image: images/posts/20190204/summary.png
 published: "2019-02-04T19:30:00.000Z"
 ---
 

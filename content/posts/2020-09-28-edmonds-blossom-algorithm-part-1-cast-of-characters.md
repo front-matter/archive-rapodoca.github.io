@@ -2,7 +2,7 @@
 title: "Edmonds' Blossom Algorithm Part 1: Cast of Characters"
 summary: "Understanding a classic algorithm in graph theory that remains relevant today."
 twitter: true
-summary-image: images/posts/20200928/summary.png
+feature_image: images/posts/20200928/summary.png
 published: "2020-09-28T13:00:00Z"
 ---
 

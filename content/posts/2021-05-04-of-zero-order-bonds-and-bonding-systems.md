@@ -2,7 +2,7 @@
 title: Of Zero-Order Bonds and Bonding Systems
 summary: "In search of a backward-compatible upgrade path to multi-atom bonding."
 twitter: true
-summary-image: images/posts/20210505/summary.png
+feature_image: images/posts/20210505/summary.png
 published: "2021-05-05T18:00:00Z"
 ---
 

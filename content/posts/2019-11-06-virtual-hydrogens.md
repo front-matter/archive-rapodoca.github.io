@@ -2,7 +2,7 @@
 title: "Virtual Hydrogens"
 summary: "A proposal to clarify the language around hydrogen suppression."
 twitter: true
-summary-image: images/posts/20191106/summary.png
+feature_image: images/posts/20191106/summary.png
 published: "2019-11-06T17:30:00Z"
 updated: "2020-05-26T20:00:00Z"
 ---

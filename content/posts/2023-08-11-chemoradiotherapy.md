@@ -3,7 +3,7 @@ id: df-0062
 title: Chemoradiotherapy
 summary: "Undergoing a chemical and radiological exorcism."
 twitter: true
-summary-image: images/posts/20230811/summary.png
+feature_image: images/posts/20230811/summary.png
 published: "2023-08-11T20:20:00Z"
 ---
 

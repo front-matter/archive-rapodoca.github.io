@@ -3,7 +3,7 @@ id: df-0083
 title: The Geiger Counter
 summary: "Senior year at Willamette University brings new opportunities."
 twitter: true
-summary-image: images/posts/20231114/summary.png
+feature_image: images/posts/20231114/summary.png
 published: "2023-11-14T20:30:00Z"
 updated: "2023-11-15T16:15:00Z"
 ---

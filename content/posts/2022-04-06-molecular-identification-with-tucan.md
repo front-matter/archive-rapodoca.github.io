@@ -2,7 +2,7 @@
 title: Molecular Identification with TUCAN
 summary: "A new approach to an old and vexing problem."
 twitter: true
-summary-image: images/posts/20220406/summary.png
+feature_image: images/posts/20220406/summary.png
 published: "2022-04-06T19:00:00Z"
 updated: "2022-04-13T17:00:00Z"
 ---

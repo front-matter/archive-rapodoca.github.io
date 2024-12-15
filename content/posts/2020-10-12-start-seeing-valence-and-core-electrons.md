@@ -2,7 +2,7 @@
 title: Start Seeing Valence and Core Electrons
 summary: "Inexpensive molecular validation through simple integer arithmetic."
 twitter: true
-summary-image: images/posts/20201012/summary.png
+feature_image: images/posts/20201012/summary.png
 published: "2020-10-12T18:00:00Z"
 ---
 

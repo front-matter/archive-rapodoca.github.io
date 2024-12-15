@@ -2,7 +2,7 @@
 title: "A Smallest Set of Smallest Rings"
 summary: "Understanding a useful but limited tool for chemical structure analysis."
 twitter: true
-summary-image: images/posts/20200831/summary.png
+feature_image: images/posts/20200831/summary.png
 published: "2020-08-31T14:00:00Z"
 ---
 

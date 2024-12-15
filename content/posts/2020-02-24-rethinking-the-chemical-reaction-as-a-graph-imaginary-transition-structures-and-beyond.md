@@ -2,7 +2,7 @@
 title: "Rethinking the Chemical Reaction as a Graph: Imaginary Transition Structures and Beyond"
 summary: "Bridging the divide between reactions and molecules in cheminformatics."
 twitter: true
-summary-image: images/posts/20200224/summary.png
+feature_image: images/posts/20200224/summary.png
 published: "2020-02-24T14:00:00Z"
 ---
 

@@ -2,7 +2,7 @@
 title: "A Comprehensive Treatment of Aromaticity in the SMILES Language"
 summary: "Untangling one of SMILES' most misunderstood features."
 twitter: true
-summary-image: images/posts/20200210/summary.png
+feature_image: images/posts/20200210/summary.png
 published: "2020-02-10T14:00:00Z"
 updated: "2021-07-01T15:00:00Z"
 ---

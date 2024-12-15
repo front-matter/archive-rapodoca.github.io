@@ -3,7 +3,7 @@ title: "The NextMove Patent Reaction Dataset"
 summary: "No longer restricted to well-funded research groups, large databases of real organic reactions are now available for free to all."
 twitter: true
 disqus: true
-summary-image: images/posts/20190128/summary.png
+feature_image: images/posts/20190128/summary.png
 published: "2019-01-28T14:30:00.000Z"
 ---
 

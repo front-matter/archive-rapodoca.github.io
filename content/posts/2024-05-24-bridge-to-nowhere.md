@@ -2,7 +2,7 @@
 title: Bridge to Nowhere
 summary: Taking a closer look at the opening act of a glioblastoma diagnosis.
 twitter: true
-summary-image: images/posts/20240524/summary.png
+feature_image: images/posts/20240524/summary.png
 published: "2024-05-24T23:15:00Z"
 ---
 

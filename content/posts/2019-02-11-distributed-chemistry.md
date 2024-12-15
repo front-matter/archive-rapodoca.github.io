@@ -2,7 +2,7 @@
 title: "Distributed Chemistry"
 summary: "A recent paper describes the design, assembly, and operation of a network of robotic lab assistants."
 twitter: true
-summary-image: images/posts/20190211/summary.png
+feature_image: images/posts/20190211/summary.png
 published: "2019-02-11T23:00:00.000Z"
 ---
 

@@ -2,7 +2,7 @@
 title: "Compiling InChI to WebAssembly Part 2: From Molfile to InChI"
 summary: "A comprehensive tutorial with working demos."
 twitter: true
-summary-image: images/posts/20200302/summary.png
+feature_image: images/posts/20200302/summary.png
 published: "2020-03-02T14:00:00Z"
 ---
 

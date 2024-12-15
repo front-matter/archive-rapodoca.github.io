@@ -2,7 +2,7 @@
 title: "First Steps in WebAssembly: Hello World"
 summary: "A simple program that prints text and demonstrates bidirectional JavaScript-Wasm interaction."
 twitter: true
-summary-image: images/posts/20200113/summary.png
+feature_image: images/posts/20200113/summary.png
 published: "2020-01-13T14:00:00Z"
 ---
 

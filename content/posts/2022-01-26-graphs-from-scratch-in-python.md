@@ -2,7 +2,7 @@
 title: Graphs from Scratch in Python
 summary: Boiling the complexity of graphs down to a few methods, then implementing them.
 twitter: true
-summary-image: images/posts/20220126/summary.png
+feature_image: images/posts/20220126/summary.png
 published: "2022-01-26T17:30:00Z"
 ---
 

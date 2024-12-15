@@ -2,7 +2,7 @@
 title: Fast Hydrogen Counting in SMILES
 summary: "What gets removed must be added back. The question is how?"
 twitter: true
-summary-image: images/posts/20210210/summary.png
+feature_image: images/posts/20210210/summary.png
 published: "2021-02-10T19:30:00Z"
 ---
 

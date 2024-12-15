@@ -3,7 +3,7 @@ title: "JavaScript for Cheminformatics, Part 2"
 summary: "Once barely regarded as a real programming language, JavaScript's role in chemistry is growing quickly."
 twitter: true
 disqus: true
-summary-image: images/posts/20190501/summary.png
+feature_image: images/posts/20190501/summary.png
 published: "2019-05-01T11:00:00Z"
 ---
 

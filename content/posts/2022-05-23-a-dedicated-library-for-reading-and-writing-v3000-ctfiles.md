@@ -2,7 +2,7 @@
 title: A Dedicated Library for Reading and Writing V3000 CTfiles
 summary: "Fleshing out a minimalist, modular approach to molecular serialization."
 twitter: true
-summary-image: images/posts/20220523/summary.png
+feature_image: images/posts/20220523/summary.png
 published: "2022-05-23T17:30:00Z"
 ---
 
