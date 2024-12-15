@@ -1,53 +1,70 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Self-Referential | Depth-First</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="One of the strange things about writing a blog is stumbling on your own work in Google&rsquo;s search results. In doing some research for a talk, I noticed that Depth-First articles appear at the top of many Google searches. I&rsquo;m not sure what to make of this, but for what it&rsquo;s worth, here are some unquoted Google search terms that currently return a Depth-First article in the top-three results:
-
-free chemistry databases Number two. Currently, the hit is being lit up by users of StumbleUpon.
-ruby cheminformatics Number one. This one&rsquo;s not surprising, given how new the language is to cheminformatics, and how much of what&rsquo;s available is on Depth-First. The top result shows how to programatically connect to NMRShiftDB with Ruby.
-2d structure editor Number one. Google sure doesn&rsquo;t waste any time because the link is only five days old.
-cheminformatics scripting Number one and two. This one is surprising given the large amount of work done in the area, especially with Python, Perl and proprietary languages.
-inchi parse Number one. The link discusses the InChI parser Ninja.
-structure diagram generation Number one. This one is also surprising given how few articles on the subject appear on Depth-First.
-pubchem ftp Number three, after two links from the PubChem site itself.
-sd file html Number three. The hit describes a small Ruby program to convert SD files to a Web-ready HTML fileset.
-chemistry web 2.0 Number one. I don&rsquo;t much care for the term &ldquo;Web 2.0&rdquo;, but it&rsquo;s too useful to ignore. The hit actually talks about how little progress has been made in chemically-enabling the Web over the last eleven years. The fourth hit links to Andrew Walkingshaw&rsquo;s excellent talk that is more to the point.
-">
-    <meta name="generator" content="Hugo 0.139.4">
-    
-    
-    
-    
-      <meta name="robots" content="noindex, nofollow">
-    
-    
-      <meta name="author" content = "Richard L. Apodaca">
-    
-
-    
-<link rel="stylesheet" href="/ananke/css/main.min.css" >
-
-
-
-    
-
-    
-      
-
-    
-
-    
-
-    
-      <link rel="canonical" href="http://localhost:1313/articles/2007/04/20/self-referential/">
-    
-
-    <meta property="og:url" content="http://localhost:1313/articles/2007/04/20/self-referential/">
+<html lang="en-us" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en-us" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>Self-Referential &middot; Depth-First</title>
+  <meta name="title" content="Self-Referential &middot; Depth-First" />
+  
+  
+  
+  
+  
+  <link rel="canonical" href="http://localhost:1313/articles/2007/04/20/self-referential/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.e27868ab1485f7ed7b06b122b4980bd38b19526eb8f7de885181204d28f04a0c47e9c334eff19a06c0278eb2ff8415b983a5d0fb80fd6b5680c926457cc61c57.css"
+    integrity="sha512-4nhoqxSF9&#43;17BrEitJgL04sZUm64996IUYEgTSjwSgxH6cM07/GaBsAnjrL/hBW5g6XQ&#43;4D9a1aAySZFfMYcVw==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.c178288131a2f1ad46910438db47ac5f7e1c48cf949e49f6dc3310c8ec9660e23fe505805eba4e2e73711335808500360d773a2b64322feb35df52856edca286.js"
+    integrity="sha512-wXgogTGi8a1GkQQ420esX34cSM&#43;Unkn23DMQyOyWYOI/5QWAXrpOLnNxEzWAhQA2DXc6K2QyL&#43;s131KFbtyihg==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/articles/2007/04/20/self-referential/">
   <meta property="og:site_name" content="Depth-First">
   <meta property="og:title" content="Self-Referential">
   <meta property="og:description" content="One of the strange things about writing a blog is stumbling on your own work in Google’s search results. In doing some research for a talk, I noticed that Depth-First articles appear at the top of many Google searches. I’m not sure what to make of this, but for what it’s worth, here are some unquoted Google search terms that currently return a Depth-First article in the top-three results:
@@ -58,111 +75,551 @@ free chemistry databases Number two. Currently, the hit is being lit up by users
     <meta property="article:published_time" content="2007-04-20T00:00:00+00:00">
     <meta property="article:modified_time" content="2007-04-20T00:00:00+00:00">
 
-  <meta itemprop="name" content="Self-Referential">
-  <meta itemprop="description" content="One of the strange things about writing a blog is stumbling on your own work in Google’s search results. In doing some research for a talk, I noticed that Depth-First articles appear at the top of many Google searches. I’m not sure what to make of this, but for what it’s worth, here are some unquoted Google search terms that currently return a Depth-First article in the top-three results:
-free chemistry databases Number two. Currently, the hit is being lit up by users of StumbleUpon. ruby cheminformatics Number one. This one’s not surprising, given how new the language is to cheminformatics, and how much of what’s available is on Depth-First. The top result shows how to programatically connect to NMRShiftDB with Ruby. 2d structure editor Number one. Google sure doesn’t waste any time because the link is only five days old. cheminformatics scripting Number one and two. This one is surprising given the large amount of work done in the area, especially with Python, Perl and proprietary languages. inchi parse Number one. The link discusses the InChI parser Ninja. structure diagram generation Number one. This one is also surprising given how few articles on the subject appear on Depth-First. pubchem ftp Number three, after two links from the PubChem site itself. sd file html Number three. The hit describes a small Ruby program to convert SD files to a Web-ready HTML fileset. chemistry web 2.0 Number one. I don’t much care for the term “Web 2.0”, but it’s too useful to ignore. The hit actually talks about how little progress has been made in chemically-enabling the Web over the last eleven years. The fourth hit links to Andrew Walkingshaw’s excellent talk that is more to the point.">
-  <meta itemprop="datePublished" content="2007-04-20T00:00:00+00:00">
-  <meta itemprop="dateModified" content="2007-04-20T00:00:00+00:00">
-  <meta itemprop="wordCount" content="287">
+  
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Self-Referential">
   <meta name="twitter:description" content="One of the strange things about writing a blog is stumbling on your own work in Google’s search results. In doing some research for a talk, I noticed that Depth-First articles appear at the top of many Google searches. I’m not sure what to make of this, but for what it’s worth, here are some unquoted Google search terms that currently return a Depth-First article in the top-three results:
 free chemistry databases Number two. Currently, the hit is being lit up by users of StumbleUpon. ruby cheminformatics Number one. This one’s not surprising, given how new the language is to cheminformatics, and how much of what’s available is on Depth-First. The top result shows how to programatically connect to NMRShiftDB with Ruby. 2d structure editor Number one. Google sure doesn’t waste any time because the link is only five days old. cheminformatics scripting Number one and two. This one is surprising given the large amount of work done in the area, especially with Python, Perl and proprietary languages. inchi parse Number one. The link discusses the InChI parser Ninja. structure diagram generation Number one. This one is also surprising given how few articles on the subject appear on Depth-First. pubchem ftp Number three, after two links from the PubChem site itself. sd file html Number three. The hit describes a small Ruby program to convert SD files to a Web-ready HTML fileset. chemistry web 2.0 Number one. I don’t much care for the term “Web 2.0”, but it’s too useful to ignore. The hit actually talks about how little progress has been made in chemically-enabling the Web over the last eleven years. The fourth hit links to Andrew Walkingshaw’s excellent talk that is more to the point.">
 
-	
-  </head><body class="ma0 avenir bg-near-white development">
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "Self-Referential",
+    "headline": "Self-Referential",
+    
+    "abstract": "\u003cp\u003eOne of the strange things about writing a blog is stumbling on your own work in Google\u0026rsquo;s search results. In doing some research for a talk, I noticed that Depth-First articles appear at the top of many Google searches. I\u0026rsquo;m not sure what to make of this, but for what it\u0026rsquo;s worth, here are some unquoted Google search terms that currently return a Depth-First article in the top-three results:\u003c\/p\u003e\n\u003cul\u003e\n\u003cli\u003e\u003cstrong\u003e\u003ca href=\u0022http:\/\/www.google.com\/search?hl=en\u0026amp;q=free\u0026#43;chemistry\u0026#43;databases\u0026amp;btnG=Search\u0022 target=\u0022_blank\u0022\u003efree chemistry databases\u003c\/a\u003e\u003c\/strong\u003e Number two. Currently, \u003ca href=\u0022http:\/\/depth-first.com\/articles\/2007\/01\/24\/thirty-two-free-chemistry-databases\u0022 target=\u0022_blank\u0022\u003ethe hit\u003c\/a\u003e is being lit up by users of \u003ca href=\u0022http:\/\/www.stumbleupon.com\/\u0022 target=\u0022_blank\u0022\u003eStumbleUpon\u003c\/a\u003e.\u003c\/li\u003e\n\u003cli\u003e\u003cstrong\u003e\u003ca href=\u0022http:\/\/www.google.com\/search?hl=en\u0026amp;q=ruby\u0026#43;cheminformatics\u0026amp;btnG=Search\u0022 target=\u0022_blank\u0022\u003eruby cheminformatics\u003c\/a\u003e\u003c\/strong\u003e Number one. This one\u0026rsquo;s not surprising, given \u003ca href=\u0022http:\/\/blade.nagaokaut.ac.jp\/cgi-bin\/scat.rb\/ruby\/ruby-talk\/171481\u0022 target=\u0022_blank\u0022\u003ehow new\u003c\/a\u003e the language is to cheminformatics, and how much of what\u0026rsquo;s available is on Depth-First. The \u003ca href=\u0022http:\/\/depth-first.com\/articles\/2006\/09\/04\/hacking-nmrshiftdb\u0022 target=\u0022_blank\u0022\u003etop result\u003c\/a\u003e shows how to programatically connect to \u003ca href=\u0022http:\/\/nmrshiftdb.org\/\u0022 target=\u0022_blank\u0022\u003eNMRShiftDB\u003c\/a\u003e with Ruby.\u003c\/li\u003e\n\u003cli\u003e\u003cstrong\u003e\u003ca href=\u0022http:\/\/www.google.com\/search?hl=en\u0026amp;q=2d\u0026#43;structure\u0026#43;editor\u0026amp;btnG=Search\u0022 target=\u0022_blank\u0022\u003e2d structure editor\u003c\/a\u003e\u003c\/strong\u003e Number one. Google sure doesn\u0026rsquo;t waste any time because \u003ca href=\u0022http:\/\/depth-first.com\/articles\/2007\/04\/16\/the-structure-editor-forgotten-link-between-chemistry-and-cheminformatics\u0022 target=\u0022_blank\u0022\u003ethe link\u003c\/a\u003e is only five days old.\u003c\/li\u003e\n\u003cli\u003e\u003cstrong\u003e\u003ca href=\u0022http:\/\/www.google.com\/search?hl=en\u0026amp;q=cheminformatics\u0026#43;scripting\u0026amp;btnG=Search\u0022 target=\u0022_blank\u0022\u003echeminformatics scripting\u003c\/a\u003e\u003c\/strong\u003e Number one and two. This one is surprising given the large amount of work done in the area, especially with Python, Perl and proprietary languages.\u003c\/li\u003e\n\u003cli\u003e\u003cstrong\u003e\u003ca href=\u0022http:\/\/www.google.com\/search?hl=en\u0026amp;q=inchi\u0026#43;parse\u0026amp;btnG=Google\u0026#43;Search\u0022 target=\u0022_blank\u0022\u003einchi parse\u003c\/a\u003e\u003c\/strong\u003e Number one. The link discusses the InChI parser \u003ca href=\u0022http:\/\/depth-first.com\/articles\/tag\/ninja\u0022 target=\u0022_blank\u0022\u003eNinja\u003c\/a\u003e.\u003c\/li\u003e\n\u003cli\u003e\u003cstrong\u003e\u003ca href=\u0022http:\/\/www.google.com\/search?hl=en\u0026amp;q=structure\u0026#43;diagram\u0026#43;generation\u0026amp;btnG=Search\u0022 target=\u0022_blank\u0022\u003estructure diagram generation\u003c\/a\u003e\u003c\/strong\u003e Number one. \u003ca href=\u0022http:\/\/depth-first.com\/articles\/2007\/04\/11\/structure-diagram-generation\u0022 target=\u0022_blank\u0022\u003eThis one\u003c\/a\u003e is also surprising given how few articles on the subject appear on Depth-First.\u003c\/li\u003e\n\u003cli\u003e\u003cstrong\u003e\u003ca href=\u0022http:\/\/www.google.com\/search?hl=en\u0026amp;q=pubchem\u0026#43;ftp\u0026amp;btnG=Search\u0022 target=\u0022_blank\u0022\u003epubchem ftp\u003c\/a\u003e\u003c\/strong\u003e \u003ca href=\u0022http:\/\/depth-first.com\/articles\/2006\/09\/29\/hacking-pubchem-direct-access-with-ftp\u0022 target=\u0022_blank\u0022\u003eNumber three\u003c\/a\u003e, after two links from the PubChem site itself.\u003c\/li\u003e\n\u003cli\u003e\u003cstrong\u003e\u003ca href=\u0022http:\/\/www.google.com\/search?hl=en\u0026amp;q=sd\u0026#43;file\u0026#43;html\u0026amp;btnG=Google\u0026#43;Search\u0022 target=\u0022_blank\u0022\u003esd file html\u003c\/a\u003e\u003c\/strong\u003e Number three. \u003ca href=\u0022http:\/\/depth-first.com\/articles\/2006\/11\/13\/cheminformatics-for-the-web-convert-sd-files-to-html-with-ruby-cdk\u0022 target=\u0022_blank\u0022\u003eThe hit\u003c\/a\u003e describes a small Ruby program to convert SD files to a Web-ready HTML fileset.\u003c\/li\u003e\n\u003cli\u003e\u003cstrong\u003e\u003ca href=\u0022http:\/\/www.google.com\/search?hl=en\u0026amp;q=chemistry\u0026#43;web\u0026#43;2.0\u0026amp;btnG=Search\u0022 target=\u0022_blank\u0022\u003echemistry web 2.0\u003c\/a\u003e\u003c\/strong\u003e \u003ca href=\u0022http:\/\/depth-first.com\/articles\/2007\/03\/12\/web-2-0-and-chemistry\u0022 target=\u0022_blank\u0022\u003eNumber one\u003c\/a\u003e. I don\u0026rsquo;t much care for the term \u0026ldquo;Web 2.0\u0026rdquo;, but it\u0026rsquo;s too useful to ignore. \u003ca href=\u0022http:\/\/depth-first.com\/articles\/2007\/03\/12\/web-2-0-and-chemistry\u0022 target=\u0022_blank\u0022\u003eThe hit\u003c\/a\u003e actually talks about how little progress has been made in chemically-enabling the Web over the last eleven years. The \u003ca href=\u0022http:\/\/usefulchem.blogspot.com\/2007\/03\/walkingshaw-science-web-20-talk.html\u0022 target=\u0022_blank\u0022\u003efourth hit\u003c\/a\u003e links to Andrew Walkingshaw\u0026rsquo;s excellent talk that is more to the point.\u003c\/li\u003e\n\u003c\/ul\u003e",
+    "inLanguage": "en-us",
+    "url" : "http:\/\/localhost:1313\/articles\/2007\/04\/20\/self-referential\/",
+    "author" : {
+      "@type": "Person",
+      "name": ""
+    },
+    "copyrightYear": "2007",
+    "dateCreated": "2007-04-20T00:00:00\u002b00:00",
+    "datePublished": "2007-04-20T00:00:00\u002b00:00",
+    
+    "dateModified": "2007-04-20T00:00:00\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "287"
+  }]
+  </script>
+
+
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">Depth-First</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      Self-Referential
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2007-04-20T00:00:00&#43;00:00">April 20, 2007</time><span class="px-2 text-primary-500">&middot;</span><span>287 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">2 mins</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
 
     
-   
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
   
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
-      
-        Depth-First
-      
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      <div class="ananke-socials"></div>
-
-    </div>
-  </div>
-</nav>
-
-    </div>
-  </header>
-
-
-
-    <main class="pb7" role="main">
-      
-  
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
-    <header class="mt4 w-100">
-      <aside class="instapaper_ignoref b helvetica tracked ttu">
-          
-        Posts
-      </aside><div id="sharing" class="mt3 ananke-socials"></div>
-<h1 class="f1 athelas mt3 mb1">Self-Referential</h1>
-      
-      <p class="tracked">
-        By <strong>Richard L. Apodaca</strong>
-      </p>
-      
-      
-      
-      <time class="f6 mv4 dib tracked" datetime="2007-04-20T00:00:00Z">April 20, 2007</time>
-      
-
-      
-      
-    </header>
-    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>One of the strange things about writing a blog is stumbling on your own work in Google&rsquo;s search results. In doing some research for a talk, I noticed that Depth-First articles appear at the top of many Google searches. I&rsquo;m not sure what to make of this, but for what it&rsquo;s worth, here are some unquoted Google search terms that currently return a Depth-First article in the top-three results:</p>
-<ul>
-<li><strong><a href="http://www.google.com/search?hl=en&amp;q=free+chemistry+databases&amp;btnG=Search">free chemistry databases</a></strong> Number two. Currently, <a href="http://depth-first.com/articles/2007/01/24/thirty-two-free-chemistry-databases">the hit</a> is being lit up by users of <a href="http://www.stumbleupon.com/">StumbleUpon</a>.</li>
-<li><strong><a href="http://www.google.com/search?hl=en&amp;q=ruby+cheminformatics&amp;btnG=Search">ruby cheminformatics</a></strong> Number one. This one&rsquo;s not surprising, given <a href="http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-talk/171481">how new</a> the language is to cheminformatics, and how much of what&rsquo;s available is on Depth-First. The <a href="http://depth-first.com/articles/2006/09/04/hacking-nmrshiftdb">top result</a> shows how to programatically connect to <a href="http://nmrshiftdb.org/">NMRShiftDB</a> with Ruby.</li>
-<li><strong><a href="http://www.google.com/search?hl=en&amp;q=2d+structure+editor&amp;btnG=Search">2d structure editor</a></strong> Number one. Google sure doesn&rsquo;t waste any time because <a href="http://depth-first.com/articles/2007/04/16/the-structure-editor-forgotten-link-between-chemistry-and-cheminformatics">the link</a> is only five days old.</li>
-<li><strong><a href="http://www.google.com/search?hl=en&amp;q=cheminformatics+scripting&amp;btnG=Search">cheminformatics scripting</a></strong> Number one and two. This one is surprising given the large amount of work done in the area, especially with Python, Perl and proprietary languages.</li>
-<li><strong><a href="http://www.google.com/search?hl=en&amp;q=inchi+parse&amp;btnG=Google+Search">inchi parse</a></strong> Number one. The link discusses the InChI parser <a href="http://depth-first.com/articles/tag/ninja">Ninja</a>.</li>
-<li><strong><a href="http://www.google.com/search?hl=en&amp;q=structure+diagram+generation&amp;btnG=Search">structure diagram generation</a></strong> Number one. <a href="http://depth-first.com/articles/2007/04/11/structure-diagram-generation">This one</a> is also surprising given how few articles on the subject appear on Depth-First.</li>
-<li><strong><a href="http://www.google.com/search?hl=en&amp;q=pubchem+ftp&amp;btnG=Search">pubchem ftp</a></strong> <a href="http://depth-first.com/articles/2006/09/29/hacking-pubchem-direct-access-with-ftp">Number three</a>, after two links from the PubChem site itself.</li>
-<li><strong><a href="http://www.google.com/search?hl=en&amp;q=sd+file+html&amp;btnG=Google+Search">sd file html</a></strong> Number three. <a href="http://depth-first.com/articles/2006/11/13/cheminformatics-for-the-web-convert-sd-files-to-html-with-ruby-cdk">The hit</a> describes a small Ruby program to convert SD files to a Web-ready HTML fileset.</li>
-<li><strong><a href="http://www.google.com/search?hl=en&amp;q=chemistry+web+2.0&amp;btnG=Search">chemistry web 2.0</a></strong> <a href="http://depth-first.com/articles/2007/03/12/web-2-0-and-chemistry">Number one</a>. I don&rsquo;t much care for the term &ldquo;Web 2.0&rdquo;, but it&rsquo;s too useful to ignore. <a href="http://depth-first.com/articles/2007/03/12/web-2-0-and-chemistry">The hit</a> actually talks about how little progress has been made in chemically-enabling the Web over the last eleven years. The <a href="http://usefulchem.blogspot.com/2007/03/walkingshaw-science-web-20-talk.html">fourth hit</a> links to Andrew Walkingshaw&rsquo;s excellent talk that is more to the point.</li>
-</ul>
-<ul class="pa0">
-  
-</ul>
-<div class="mt6 instapaper_ignoref">
-      
-      
-      </div>
-    </div>
-
-    <aside class="w-30-l mt6-l">
-
-
-
-
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
-    &copy;  Depth-First 2024 
-  </a>
-    <div><div class="ananke-socials"></div>
+  <div class="place-self-center">
+    
+    
+    <div class="text-2xl sm:text-lg">
 </div>
   </div>
-</footer>
+</div>
 
-  </body>
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+    
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p>One of the strange things about writing a blog is stumbling on your own work in Google&rsquo;s search results. In doing some research for a talk, I noticed that Depth-First articles appear at the top of many Google searches. I&rsquo;m not sure what to make of this, but for what it&rsquo;s worth, here are some unquoted Google search terms that currently return a Depth-First article in the top-three results:</p>
+<ul>
+<li><strong><a href="http://www.google.com/search?hl=en&amp;q=free&#43;chemistry&#43;databases&amp;btnG=Search" target="_blank">free chemistry databases</a></strong> Number two. Currently, <a href="http://depth-first.com/articles/2007/01/24/thirty-two-free-chemistry-databases" target="_blank">the hit</a> is being lit up by users of <a href="http://www.stumbleupon.com/" target="_blank">StumbleUpon</a>.</li>
+<li><strong><a href="http://www.google.com/search?hl=en&amp;q=ruby&#43;cheminformatics&amp;btnG=Search" target="_blank">ruby cheminformatics</a></strong> Number one. This one&rsquo;s not surprising, given <a href="http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-talk/171481" target="_blank">how new</a> the language is to cheminformatics, and how much of what&rsquo;s available is on Depth-First. The <a href="http://depth-first.com/articles/2006/09/04/hacking-nmrshiftdb" target="_blank">top result</a> shows how to programatically connect to <a href="http://nmrshiftdb.org/" target="_blank">NMRShiftDB</a> with Ruby.</li>
+<li><strong><a href="http://www.google.com/search?hl=en&amp;q=2d&#43;structure&#43;editor&amp;btnG=Search" target="_blank">2d structure editor</a></strong> Number one. Google sure doesn&rsquo;t waste any time because <a href="http://depth-first.com/articles/2007/04/16/the-structure-editor-forgotten-link-between-chemistry-and-cheminformatics" target="_blank">the link</a> is only five days old.</li>
+<li><strong><a href="http://www.google.com/search?hl=en&amp;q=cheminformatics&#43;scripting&amp;btnG=Search" target="_blank">cheminformatics scripting</a></strong> Number one and two. This one is surprising given the large amount of work done in the area, especially with Python, Perl and proprietary languages.</li>
+<li><strong><a href="http://www.google.com/search?hl=en&amp;q=inchi&#43;parse&amp;btnG=Google&#43;Search" target="_blank">inchi parse</a></strong> Number one. The link discusses the InChI parser <a href="http://depth-first.com/articles/tag/ninja" target="_blank">Ninja</a>.</li>
+<li><strong><a href="http://www.google.com/search?hl=en&amp;q=structure&#43;diagram&#43;generation&amp;btnG=Search" target="_blank">structure diagram generation</a></strong> Number one. <a href="http://depth-first.com/articles/2007/04/11/structure-diagram-generation" target="_blank">This one</a> is also surprising given how few articles on the subject appear on Depth-First.</li>
+<li><strong><a href="http://www.google.com/search?hl=en&amp;q=pubchem&#43;ftp&amp;btnG=Search" target="_blank">pubchem ftp</a></strong> <a href="http://depth-first.com/articles/2006/09/29/hacking-pubchem-direct-access-with-ftp" target="_blank">Number three</a>, after two links from the PubChem site itself.</li>
+<li><strong><a href="http://www.google.com/search?hl=en&amp;q=sd&#43;file&#43;html&amp;btnG=Google&#43;Search" target="_blank">sd file html</a></strong> Number three. <a href="http://depth-first.com/articles/2006/11/13/cheminformatics-for-the-web-convert-sd-files-to-html-with-ruby-cdk" target="_blank">The hit</a> describes a small Ruby program to convert SD files to a Web-ready HTML fileset.</li>
+<li><strong><a href="http://www.google.com/search?hl=en&amp;q=chemistry&#43;web&#43;2.0&amp;btnG=Search" target="_blank">chemistry web 2.0</a></strong> <a href="http://depth-first.com/articles/2007/03/12/web-2-0-and-chemistry" target="_blank">Number one</a>. I don&rsquo;t much care for the term &ldquo;Web 2.0&rdquo;, but it&rsquo;s too useful to ignore. <a href="http://depth-first.com/articles/2007/03/12/web-2-0-and-chemistry" target="_blank">The hit</a> actually talks about how little progress has been made in chemically-enabling the Web over the last eleven years. The <a href="http://usefulchem.blogspot.com/2007/03/walkingshaw-science-web-20-talk.html" target="_blank">fourth hit</a> links to Andrew Walkingshaw&rsquo;s excellent talk that is more to the point.</li>
+</ul>
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+          
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_posts\/2007-04-20-self-referential.md"
+        var oid_likes = "likes_posts\/2007-04-20-self-referential.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/articles/2007/04/18/a-2d-chemical-structure-editor-for-the-web-embracing-constraints-in-firefly/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >A 2D Chemical Structure Editor for the Web - Embracing Constraints in Firefly</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2007-04-18T00:00:00&#43;00:00">April 18, 2007</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/articles/2007/04/22/update-four-free-2-d-structure-editors-for-web-applications/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Update: Four Free 2-D Structure Editors for Web Applications</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2007-04-22T00:00:00&#43;00:00">April 22, 2007</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top" title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2024
+      
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="http://localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
 </html>

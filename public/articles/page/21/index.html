@@ -1,347 +1,1427 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Depth-First</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.139.4">
-    
-    
-    
-    
-      <meta name="robots" content="noindex, nofollow">
-    
-    
-      <meta name="author" content = "Richard L. Apodaca">
-    
-
-    
-<link rel="stylesheet" href="/ananke/css/main.min.css" >
-
-
-
-    
-
-    
-      
-
-    
-
-    
-    
-      <link href="/articles/index.xml" rel="alternate" type="application/rss+xml" title="Depth-First" />
-      <link href="/articles/index.xml" rel="feed" type="application/rss+xml" title="Depth-First" />
-      
-    
-
-    
-      <link rel="canonical" href="http://localhost:1313/articles/">
-    
-
-    <meta property="og:url" content="http://localhost:1313/articles/">
+<html lang="en-us" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en-us" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>Posts &middot; Depth-First</title>
+  <meta name="title" content="Posts &middot; Depth-First" />
+  
+  
+  
+  
+  
+  <link rel="canonical" href="http://localhost:1313/articles/" />
+  
+  <link rel="alternate" type="application/rss+xml" href="/articles/index.xml" title="Depth-First" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.e27868ab1485f7ed7b06b122b4980bd38b19526eb8f7de885181204d28f04a0c47e9c334eff19a06c0278eb2ff8415b983a5d0fb80fd6b5680c926457cc61c57.css"
+    integrity="sha512-4nhoqxSF9&#43;17BrEitJgL04sZUm64996IUYEgTSjwSgxH6cM07/GaBsAnjrL/hBW5g6XQ&#43;4D9a1aAySZFfMYcVw==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.c178288131a2f1ad46910438db47ac5f7e1c48cf949e49f6dc3310c8ec9660e23fe505805eba4e2e73711335808500360d773a2b64322feb35df52856edca286.js"
+    integrity="sha512-wXgogTGi8a1GkQQ420esX34cSM&#43;Unkn23DMQyOyWYOI/5QWAXrpOLnNxEzWAhQA2DXc6K2QyL&#43;s131KFbtyihg==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/articles/">
   <meta property="og:site_name" content="Depth-First">
   <meta property="og:title" content="Posts">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="website">
 
-  <meta itemprop="name" content="Posts">
-  <meta itemprop="datePublished" content="2024-05-24T23:15:00+00:00">
-  <meta itemprop="dateModified" content="2024-05-24T23:15:00+00:00">
+  
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Posts">
 
-	
-  </head><body class="ma0 avenir bg-near-white development">
+  
+  
+
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">Depth-First</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+ <header>
+  
+  <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">Posts</h1>
+  <div class="mt-1 mb-2 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+</div>
+
+
+  </div>
+  
+  
+  </header>
+  <section class="mt-0 prose flex max-w-full flex-col dark:prose-invert lg:flex-row">
+    
+    <div class="min-w-0 min-h-0 max-w-prose">
+      
+    </div>
+
+
+
+
+  </section>
+  
+
+    
+    
+    
+    
+    
 
     
 
-  <header>
-    <div class="pb3-m pb6-l bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+    <section class="space-y-10 w-full">
       
-        Depth-First
-      
-    </a>
-    <div class="flex-l items-center">
-      
+        
+        
+        <h2 class="mt-12 text-2xl font-bold text-neutral-700 first:mt-8 dark:text-neutral-300">
+          2011
+        </h2>
+        
+        
+        
 
-      
-      <div class="ananke-socials"></div>
 
-    </div>
-  </div>
-</nav>
 
-      <div class="tc-l pv3 ph3 ph4-ns">
-        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
-          Posts
-        </h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2011/10/17/mobile-technologies-in-chemistry-session-at-spring-acs-meeting-in-san-diego/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2011/10/17/mobile-technologies-in-chemistry-session-at-spring-acs-meeting-in-san-diego/">Mobile Technologies in Chemistry Session at Spring ACS Meeting in San Diego</div>
+        
+        
         
       </div>
-    </div>
-  </header>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
 
 
-    <main class="pb7" role="main">
-      
-  <article class="pa3 pa4-ns nested-copy-line-height">
-    <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy mid-gray"></section>
-    <section class="flex-ns flex-wrap justify-around mt5">
-      
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2011/10/17/mobile-technologies-in-chemistry-session-at-spring-acs-meeting-in-san-diego/" class="link black dim">
-        Mobile Technologies in Chemistry Session at Spring ACS Meeting in San Diego
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>Are you creating a chemistry mobile app or eBook? Are you using mobile technologies in chemical research or education settings? Do you have an interesting story to tell?</p>
-<p>If so, you&rsquo;re invited to share your story at the <a href="http://portal.acs.org/portal/PublicWebSite/meetings/spring2012/index.htm">Spring 2012 American Chemical Society Meeting</a> in lovely San Diego, California. There, I&rsquo;ll be hosting a session titled &ldquo;Mobile Space and E-Books&rdquo;. Presentations will be 25 minutes long with ten minutes reserved for questions and answers.</p>
-    </div>
-    <a href="/articles/2011/10/17/mobile-technologies-in-chemistry-session-at-spring-acs-meeting-in-san-diego/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2011-10-17T00:00:00&#43;00:00">October 17, 2011</time><span class="px-2 text-primary-500">&middot;</span><span>103 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">1 min</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2011/10/13/shoreline-a-google-closure-project-template/" class="link black dim">
-        Shoreline: A Google Closure Project Template
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p><a href="http://code.google.com/closure/">Google Closure</a> is a suite of tools for building scalable JavaScript software. I&rsquo;ve used it in numerous projects with success.</p>
-<p>Closure&rsquo;s biggest limitation is complexity. It can take thirty minutes or more just to get a new project set up and debugged. And if you&rsquo;re new to Closure, that time can stretch into hours or days.</p>
-<p>My solution is <a href="https://github.com/metamolecular/shoreline">Shoreline</a>, a complete template for Closure projects. With it, you can:</p>
-<ul>
-<li>Create BDD-style tests using <a href="http://pivotal.github.com/jasmine/">Jasmine</a>.</li>
-<li>Autotest your project (save any file and your Jasmine test-suite re-runs).</li>
-<li>Build and compile your project using <a href="http://cappuccino.org/discuss/2010/04/28/introducing-jake-a-build-tool-for-javascript/">Jake</a>.</li>
-</ul>
-<p>The directory structure is set up according to a system I&rsquo;ve been using and improving over the course of a year:</p>
     </div>
-    <a href="/articles/2011/10/13/shoreline-a-google-closure-project-template/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2011/10/13/shoreline-a-google-closure-project-template/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2011/10/13/shoreline-a-google-closure-project-template/">Shoreline: A Google Closure Project Template</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2011-10-13T00:00:00&#43;00:00">October 13, 2011</time><span class="px-2 text-primary-500">&middot;</span><span>245 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">2 mins</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2011/10/12/sixty-four-free-chemistry-databases/" class="link black dim">
-        Sixty-Four Free Chemistry Databases
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>The open Web offers a rich collection of diverse chemical data sources - if you know where to look. It&rsquo;s been over four years since I wrote the <a href="/articles/2007/01/24/thirty-two-free-chemistry-databases/">previous post in this series</a> describing some emerging chemical databases, and a lot has happened in this space. The time seems right for an update.</p>
-<p>Although some of the original databases are no longer active, it&rsquo;s encouraging to see that a number of them continue to run and even prosper. It&rsquo;s of course likely that still more services will be created and retired in the coming years. If you know of a free chemistry database that&rsquo;s missing from this list, please leave a comment or <a href="/about/">contact me directly</a>.</p>
     </div>
-    <a href="/articles/2011/10/12/sixty-four-free-chemistry-databases/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2011/10/12/sixty-four-free-chemistry-databases/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2011/10/12/sixty-four-free-chemistry-databases/">Sixty-Four Free Chemistry Databases</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2011-10-12T00:00:00&#43;00:00">October 12, 2011</time><span class="px-2 text-primary-500">&middot;</span><span>2379 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">12 mins</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2011/09/10/acs-v.-leadscope-oral-arguments-in-ohio-supreme-court/" class="link black dim">
-        ACS v. Leadscope: Oral Arguments in Ohio Supreme Court
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>Video courtesy of <a href="http://www.supremecourtofohiomedialibrary.org/Media.aspx?fileId=132663">The Ohio Supreme Court</a>.</p>
-<p>For source documents, see <a href="http://www.supremecourt.ohio.gov/Clerk/ecms/resultsbycasenumber.asp?year=2010&amp;number=1335">the official American Chemical Society v. Leadscope record</a>. For background presented earlier here, see:</p>
-<ul>
-<li><a href="http://depth-first.com/articles/2010/11/03/the-acs-versus-leadscope-case/">The ACS Versus Leadscope Case</a> The story begins with three former Chemical Abstracts Service (CAS) employees who leave to form their own software company - Leadscope. On being granted a U.S. patent for their software, Leadscope is sued by ACS.</li>
-<li><a href="http://depth-first.com/articles/2008/03/28/acs-loses-27-million-case-against-leadscope/">ACS Loses $27 Million Case Against Leadscope</a> On winning the case against them, Leadscope countersues the ACS - and wins big.</li>
-<li><a href="http://depth-first.com/articles/2010/11/04/acs-versus-leadscope-leadscope-tells-its-story-in-court-document/">ACS Versus Leadscope - Leadscope Tells Its Story in Court Document</a> This story, told from the perspective of Leadscope through documents filed with the Ohio Supreme Court, documents in a very approachable manner the Ohio jury&rsquo;s findings.</li>
-<li><a href="http://depth-first.com/articles/2010/08/13/acs-appeals-leadscope-case-to-ohio-supreme-court/">ACS Appeals Leadscope Case to Ohio Supreme Court</a> Announcement that the court would hear the case. At this point it&rsquo;s important to remember that the ACS does not dispute the  activities Leadscope accused them of. They are instead disputing the size of punitive damages and their legal underpinning.</li>
-<li><a href="http://depth-first.com/articles/2010/07/01/the-elephant-in-the-room-should-chemical-abstracts-service-become-a-for-profit-company/">The Elephant in the Room: Should Chemical Abstracts Service Become a For-Profit Company?</a> 80% of ACS revenues come from &rsquo;electronic services&rsquo;, of which CAS is a major component. Member dues total a mere 2.6%.</li>
-</ul>
-<p>For recent legal commentary from <a href="http://www.legallyspeakingohio.com/">Marianna Brown Bettman</a>, see:</p>
     </div>
-    <a href="/articles/2011/09/10/acs-v.-leadscope-oral-arguments-in-ohio-supreme-court/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2011/09/10/acs-v.-leadscope-oral-arguments-in-ohio-supreme-court/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2011/09/10/acs-v.-leadscope-oral-arguments-in-ohio-supreme-court/">ACS v. Leadscope: Oral Arguments in Ohio Supreme Court</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2011-09-10T00:00:00&#43;00:00">September 10, 2011</time><span class="px-2 text-primary-500">&middot;</span><span>235 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">2 mins</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2011/03/16/learn-webgl-by-building-a-3d-molecule-viewer/" class="link black dim">
-        Learn WebGL by Building a 3D Molecule Viewer
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>Are you curious about <a href="http://www.khronos.org/webgl/wiki/Main_Page">WebGL</a> and want to learn more? The <a href="http://blog.metamolecular.com">Signals Blog</a>, is running a series of tutorials on <a href="http://blog.metamolecular.com/articles/2011/03/07/webgl-for-chemistry-part-1-introduction/">WebGL for Chemistry</a>.</p>
-<p>The goal: build a 3D molecular viewer for the Web browser using WebGL and no plugins. Each lesson builds on the last one, leading - hopefully - to an MIT-licensed component suitable for further open- or closed-source development.</p>
-<p>This is a bit of a high-wire act as I have little previous experience programming 3D graphics or OpenGL, although I have some experience building complex JavaScript applications. I&rsquo;ll be learning about WebGL just as much as everyone else reading - if not more, so comments and feedback are most welcome.</p>
     </div>
-    <a href="/articles/2011/03/16/learn-webgl-by-building-a-3d-molecule-viewer/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2011/03/16/learn-webgl-by-building-a-3d-molecule-viewer/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2011/03/16/learn-webgl-by-building-a-3d-molecule-viewer/">Learn WebGL by Building a 3D Molecule Viewer</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2011-03-16T00:00:00&#43;00:00">March 16, 2011</time><span class="px-2 text-primary-500">&middot;</span><span>162 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">1 min</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2011/03/08/spex-spectrum-and-chromatogram-analysis-for-the-web-browser/" class="link black dim">
-        Spex: Spectrum and Chromatogram Analysis for the Web Browser
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p><a href="/articles/2008/07/17/javascript-for-cheminformatics-an-introduction-to-webspex-a-spectroscopy-tool-for-the-internet/">WebSpex</a> was an idea for a 100% JavaScript spectroscopy and chromatography tool. At <a href="http://metamolecular.com">Metamolecular</a>, we&rsquo;ve been turning this basic concept into reality.</p>
-<p>Spex, our codename for this new software, is now capable of reading JCAMP-DX files and presenting them graphically within a Web browser - no plugins needed. Spex runs on all browsers we&rsquo;ve tested, including IE6.</p>
-<p>The <a href="http://blog.metamolecular.com/articles/2011/03/08/plugin-free-spectrum-and-chromatograph-analysis-for-the-web-browser-preview-of-spex-and-chromatogray-/">full story on Spex</a> is available from the <a href="http://blog.metamolecular.com/">Signals blog</a>.</p>
-<p><img src="/images/posts/c-13.png" alt="C-13" title="C-13"></p>
     </div>
-    <a href="/articles/2011/03/08/spex-spectrum-and-chromatogram-analysis-for-the-web-browser/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2011/03/08/spex-spectrum-and-chromatogram-analysis-for-the-web-browser/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2011/03/08/spex-spectrum-and-chromatogram-analysis-for-the-web-browser/">Spex: Spectrum and Chromatogram Analysis for the Web Browser</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2011-03-08T00:00:00&#43;00:00">March 8, 2011</time><span class="px-2 text-primary-500">&middot;</span><span>69 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">1 min</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2011/02/14/changes/" class="link black dim">
-        Changes
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>It&rsquo;s time to close a chapter on Depth-First and some of the other Web projects I&rsquo;ve undertaken. In this post, I&rsquo;ll explain why and what comes next.</p>
-<p>Depth-First&rsquo;s <a href="/articles/2006/08/12/changes/">first post</a> appeared on August 12, 2006. The events that inspired that first post included the appearance of the public-facing <a href="http://pubchem.ncbi.nlm.nih.gov/">PubChem</a> and <a href="http://zinc.docking.org/">Zinc</a> chemical structure databases. But there was more to it than that. I wanted a way to keep notes to myself about the things I learned as I entered the new field (to me) of cheminformatics. As I immersed myself in the field, I noticed a distinct lack of open source tools, so I also wanted to document my findings in a way others could benefit from.</p>
     </div>
-    <a href="/articles/2011/02/14/changes/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2011/02/14/changes/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2011/02/14/changes/">Changes</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2011-02-14T00:00:00&#43;00:00">February 14, 2011</time><span class="px-2 text-primary-500">&middot;</span><span>708 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">4 mins</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2011/02/09/drugable.com-web-software-for-drug-discovery/" class="link black dim">
-        Drugable.com: Web Software for Drug Discovery
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>[Flash Content Scrubbed]</p>
-<p><a href="http://drugable.com">Drugable.com</a> is an early-stage, NLM-funded collaboration to build a web-based drug discovery platform. Closed beta is expected to begin in March of 2011. If you view the Web as the natural platform for collaboration in drug discovery, Drugable.com and projects like it will no doubt offer a wealth of lessons to learn from.</p>
     </div>
-    <a href="/articles/2011/02/09/drugable.com-web-software-for-drug-discovery/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2011/02/09/drugable.com-web-software-for-drug-discovery/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2011/02/09/drugable.com-web-software-for-drug-discovery/">Drugable.com: Web Software for Drug Discovery</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2011-02-09T00:00:00&#43;00:00">February 9, 2011</time><span class="px-2 text-primary-500">&middot;</span><span>56 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">1 min</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2011/02/08/chemwriter-on-chrome-for-linux-and-windows-working-around-the-chrome-svg-bug/" class="link black dim">
-        ChemWriter on Chrome for Linux and Windows: Working Around the Chrome SVG Bug
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>I&rsquo;m happy to report that <a href="http://chemwriter.com">ChemWriter</a> now runs without known issues on Chrome for Linux and Windows.</p>
-<p>As reported here previously, SVG on Chrome for Linux and Windows suffers from <a href="http://code.google.com/p/chromium/issues/detail?id=65238">a known bug that prevents attachment of event listeners to SVG DOM elements under certain conditions</a>. Fortunately, the bug was pinpointed and a <a href="/demos/chrome-bug-65238/chrome-on-linux-windows-svg-event-bug.xhtml">simple XHTML file</a> can be used to reproduce the behavior.</p>
-<p>Although Chrome recently pushed Version 9 to clients, this update unfortunately didn&rsquo;t fix the problem.</p>
     </div>
-    <a href="/articles/2011/02/08/chemwriter-on-chrome-for-linux-and-windows-working-around-the-chrome-svg-bug/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2011/02/08/chemwriter-on-chrome-for-linux-and-windows-working-around-the-chrome-svg-bug/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2011/02/08/chemwriter-on-chrome-for-linux-and-windows-working-around-the-chrome-svg-bug/">ChemWriter on Chrome for Linux and Windows: Working Around the Chrome SVG Bug</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2011-02-08T00:00:00&#43;00:00">February 8, 2011</time><span class="px-2 text-primary-500">&middot;</span><span>151 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">1 min</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2011/02/07/standardization-in-lab-automation-the-sila-consortium/" class="link black dim">
-        Standardization in Lab Automation: The SiLA Consortium
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>The growing trend toward chemical and biological laboratory automation has great potential to accelerate scientific discovery. But with this trend comes the need for better coordination among devices built by an increasingly large number of players and based on a bewildering array of specifications. Throw in the explosion of LIMS and ELN software designed to make good use of the resulting increase in data, and the problem becomes crystal clear - the field is ripe for standardization.</p>
     </div>
-    <a href="/articles/2011/02/07/standardization-in-lab-automation-the-sila-consortium/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2011/02/07/standardization-in-lab-automation-the-sila-consortium/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2011/02/07/standardization-in-lab-automation-the-sila-consortium/">Standardization in Lab Automation: The SiLA Consortium</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2011-02-07T00:00:00&#43;00:00">February 7, 2011</time><span class="px-2 text-primary-500">&middot;</span><span>588 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">3 mins</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
+      
+    </div>
+  </a>
+
+        
+        
       
     </section>
-    <ul class="pagination pagination-default">
-      <li class="page-item">
-        <a href="/articles/" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="/articles/page/20/" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="/articles/page/19/" aria-label="Page 19" class="page-link" role="button">19</a>
-      </li>
-      <li class="page-item">
-        <a href="/articles/page/20/" aria-label="Page 20" class="page-link" role="button">20</a>
-      </li>
-      <li class="page-item active">
-        <a aria-current="page" aria-label="Page 21" class="page-link" role="button">21</a>
-      </li>
-      <li class="page-item">
-        <a href="/articles/page/22/" aria-label="Page 22" class="page-link" role="button">22</a>
-      </li>
-      <li class="page-item">
-        <a href="/articles/page/23/" aria-label="Page 23" class="page-link" role="button">23</a>
-      </li>
-      <li class="page-item">
-        <a href="/articles/page/22/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="/articles/page/92/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
-      </li>
-    </ul></article>
 
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
-    &copy;  Depth-First 2024 
-  </a>
-    <div><div class="ananke-socials"></div>
-</div>
+    
+
+  
+
+    <ul class="flex flex-row mt-8 justify-center">
+    <li>
+      <a
+          href="/articles/page/20/"
+          class="mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          rel="prev"
+      >&larr;</a>
+    </li>
+    <li>
+          <a
+              href="/articles/"
+              class=" mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          >1</a>
+      </li><li class="page-item ">
+          <span class="page-link" aria-hidden="true">&hellip;</span>
+        </li><li>
+          <a
+              href="/articles/page/19/"
+              class=" mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          >19</a>
+      </li><li>
+          <a
+              href="/articles/page/20/"
+              class=" mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          >20</a>
+      </li><li>
+          <a
+              href="/articles/page/21/"
+              class="
+          bg-primary-200 dark:bg-primary-400 dark:text-neutral-800
+         mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          >21</a>
+      </li><li>
+          <a
+              href="/articles/page/22/"
+              class=" mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          >22</a>
+      </li><li>
+          <a
+              href="/articles/page/23/"
+              class=" mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          >23</a>
+      </li><li class="page-item ">
+          <span class="page-link" aria-hidden="true">&hellip;</span>
+        </li><li>
+          <a
+              href="/articles/page/92/"
+              class=" mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          >92</a>
+      </li>
+    <li>
+      <a
+          href="/articles/page/22/"
+          class="mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          rel="next"
+      >&rarr;</a>
+    </li>
+    
+  </ul>
+
+  
+      
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2024
+      
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
   </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
 </footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="http://localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
 
-  </body>
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
 </html>

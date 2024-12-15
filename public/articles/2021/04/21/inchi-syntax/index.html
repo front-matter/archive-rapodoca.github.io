@@ -1,42 +1,70 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>InChI Syntax | Depth-First</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="Understanding the internal structure of InChI identifiers.">
-    <meta name="generator" content="Hugo 0.139.4">
-    
-    
-    
-    
-      <meta name="robots" content="noindex, nofollow">
-    
-    
-      <meta name="author" content = "Richard L. Apodaca">
-    
-
-    
-<link rel="stylesheet" href="/ananke/css/main.min.css" >
-
-
-
-    
-
-    
-      
-
-    
-
-    
-
-    
-      <link rel="canonical" href="http://localhost:1313/articles/2021/04/21/inchi-syntax/">
-    
-
-    <meta property="og:url" content="http://localhost:1313/articles/2021/04/21/inchi-syntax/">
+<html lang="en-us" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en-us" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>InChI Syntax &middot; Depth-First</title>
+  <meta name="title" content="InChI Syntax &middot; Depth-First" />
+  
+  <meta name="description" content="Understanding the internal structure of InChI identifiers." />
+  
+  
+  
+  <link rel="canonical" href="http://localhost:1313/articles/2021/04/21/inchi-syntax/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.e27868ab1485f7ed7b06b122b4980bd38b19526eb8f7de885181204d28f04a0c47e9c334eff19a06c0278eb2ff8415b983a5d0fb80fd6b5680c926457cc61c57.css"
+    integrity="sha512-4nhoqxSF9&#43;17BrEitJgL04sZUm64996IUYEgTSjwSgxH6cM07/GaBsAnjrL/hBW5g6XQ&#43;4D9a1aAySZFfMYcVw==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.c178288131a2f1ad46910438db47ac5f7e1c48cf949e49f6dc3310c8ec9660e23fe505805eba4e2e73711335808500360d773a2b64322feb35df52856edca286.js"
+    integrity="sha512-wXgogTGi8a1GkQQ420esX34cSM&#43;Unkn23DMQyOyWYOI/5QWAXrpOLnNxEzWAhQA2DXc6K2QyL&#43;s131KFbtyihg==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/articles/2021/04/21/inchi-syntax/">
   <meta property="og:site_name" content="Depth-First">
   <meta property="og:title" content="InChI Syntax">
   <meta property="og:description" content="Understanding the internal structure of InChI identifiers.">
@@ -46,91 +74,389 @@
     <meta property="article:published_time" content="2021-04-21T15:30:00+00:00">
     <meta property="article:modified_time" content="2021-04-21T15:30:00+00:00">
 
-  <meta itemprop="name" content="InChI Syntax">
-  <meta itemprop="description" content="Understanding the internal structure of InChI identifiers.">
-  <meta itemprop="datePublished" content="2021-04-21T15:30:00+00:00">
-  <meta itemprop="dateModified" content="2021-04-21T15:30:00+00:00">
-  <meta itemprop="wordCount" content="1390">
+  
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="InChI Syntax">
   <meta name="twitter:description" content="Understanding the internal structure of InChI identifiers.">
 
-	
-  </head><body class="ma0 avenir bg-near-white development">
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "InChI Syntax",
+    "headline": "InChI Syntax",
+    
+    "abstract": "Understanding the internal structure of InChI identifiers.",
+    "inLanguage": "en-us",
+    "url" : "http:\/\/localhost:1313\/articles\/2021\/04\/21\/inchi-syntax\/",
+    "author" : {
+      "@type": "Person",
+      "name": ""
+    },
+    "copyrightYear": "2021",
+    "dateCreated": "2021-04-21T15:30:00\u002b00:00",
+    "datePublished": "2021-04-21T15:30:00\u002b00:00",
+    
+    "dateModified": "2021-04-21T15:30:00\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1396"
+  }]
+  </script>
+
+
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">Depth-First</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      InChI Syntax
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2021-04-21T15:30:00&#43;00:00">April 21, 2021</time><span class="px-2 text-primary-500">&middot;</span><span>1396 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">7 mins</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
 
     
-   
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
   
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
-      
-        Depth-First
-      
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      <div class="ananke-socials"></div>
-
-    </div>
+  <div class="place-self-center">
+    
+    
+    <div class="text-2xl sm:text-lg">
+</div>
   </div>
-</nav>
+</div>
 
-    </div>
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
   </header>
-
-
-
-    <main class="pb7" role="main">
-      
   
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
-    <header class="mt4 w-100">
-      <aside class="instapaper_ignoref b helvetica tracked ttu">
-          
-        Posts
-      </aside><div id="sharing" class="mt3 ananke-socials"></div>
-<h1 class="f1 athelas mt3 mb1">InChI Syntax</h1>
-      
-      <p class="tracked">
-        By <strong>Richard L. Apodaca</strong>
-      </p>
-      
-      
-      
-      <time class="f6 mv4 dib tracked" datetime="2021-04-21T15:30:00Z">April 21, 2021</time>
-      
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+    
 
-      
-      
-    </header>
-    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p><a href="https://iupac.org/who-we-are/divisions/division-details/inchi/">InChI</a> is an IUPAC standard and software package for chemical identification. For most small organic molecules likely to be found in a drug discovery program, a stockroom, or a chemical database, the InChI software creates a unique character sequence. InChI is useful because it enables fast exact-structure lookup within a single database and among different databases.</p>
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p><a href="https://iupac.org/who-we-are/divisions/division-details/inchi/" target="_blank">InChI</a> is an IUPAC standard and software package for chemical identification. For most small organic molecules likely to be found in a drug discovery program, a stockroom, or a chemical database, the InChI software creates a unique character sequence. InChI is useful because it enables fast exact-structure lookup within a single database and among different databases.</p>
 <p>But moving past the practical win InChI offers, we&rsquo;re faced with a question that at first glance may seem rather esoteric. What rules, if any, can every InChI identifier be expected to follow? It turns out that this question and its answers have some important practical consequences for many InChI users.</p>
-<h1 id="does-inchi-have-syntax">Does InChI Have Syntax?</h1>
-<p>Recently, I ran a Twitter poll about InChI as a standard. The idea was to explore which of two possible sources should be considered &ldquo;authoritative&rdquo; on the topic of what InChI is: the <a href="https://www.inchi-trust.org/downloads/">source code distribution</a> or the <a href="https://www.inchi-trust.org/download/104/InChI_TechMan.pdf">Technical Manual</a>.</p>
+
+
+<h1 class="relative group">Does InChI Have Syntax? 
+    <div id="does-inchi-have-syntax" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#does-inchi-have-syntax" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>Recently, I ran a Twitter poll about InChI as a standard. The idea was to explore which of two possible sources should be considered &ldquo;authoritative&rdquo; on the topic of what InChI is: the <a href="https://www.inchi-trust.org/downloads/" target="_blank">source code distribution</a> or the <a href="https://www.inchi-trust.org/download/104/InChI_TechMan.pdf" target="_blank">Technical Manual</a>.</p>
 <!-- raw HTML omitted -->
 <p>The third option, &ldquo;There is no InChI syntax,&rdquo; was added as an afterthought. I expected it to get no votes. Then it tied for first (with &ldquo;See results&rdquo;). Maybe my earlier article, <em><a href="/articles/2021/03/10/parsing-inchi-its-complicated/">Parsing InChI: It&rsquo;s Complicated</a></em>, had something to do with this. There, I noted that it&rsquo;s not generally possible to transform an InChI into the molecular graph that created it.</p>
 <p>Either way, is it possible that InChI has no syntax?</p>
-<h1 id="identifiers-and-syntax">Identifiers and Syntax</h1>
+
+
+<h1 class="relative group">Identifiers and Syntax 
+    <div id="identifiers-and-syntax" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#identifiers-and-syntax" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>InChI can be regarded as a black-box identifier, devoid of any meaningful internal structure. From this perspective, it&rsquo;s possible to think that InChI itself has no syntax, or that any syntax that may exist is irrelevant.</p>
 <p>The problem is that <em>all</em> identifiers by their very nature have internal structure, even if that structure is primitive. Without internal structure, there would be no way to even recognize an identifier as such. Worse, there would be no practical way for users to avail themselves of the services being offered by the identifier.</p>
-<p>Many examples from everyday life support this view. Consider national identification numbers such as a <a href="https://www.ssa.gov/ssnumber/">Social Security number</a> (SSN). A claim that a social security number contained the letter &ldquo;P&rdquo; would rightly be viewed as suspect. As the IRS itself notes, &ldquo;Your nine-digit Social Security number is your first and continuous connection with Social Security.&rdquo; A valid SSN therefore consists of exactly nine digits. SSN is a dumb identifier in that there isn&rsquo;t much internal structure, but the structure is undeniable.</p>
+<p>Many examples from everyday life support this view. Consider national identification numbers such as a <a href="https://www.ssa.gov/ssnumber/" target="_blank">Social Security number</a> (SSN). A claim that a social security number contained the letter &ldquo;P&rdquo; would rightly be viewed as suspect. As the IRS itself notes, &ldquo;Your nine-digit Social Security number is your first and continuous connection with Social Security.&rdquo; A valid SSN therefore consists of exactly nine digits. SSN is a dumb identifier in that there isn&rsquo;t much internal structure, but the structure is undeniable.</p>
 <!-- raw HTML omitted -->
-<p>Chemical Abstracts Service Registry Numbers (CAS numbers) offer a more chemistry-specific example of a dumb identifier with syntax. As <a href="https://www.cas.org/support/documentation/chemical-substances/checkdig">noted</a> by CAS itself:</p>
+<p>Chemical Abstracts Service Registry Numbers (CAS numbers) offer a more chemistry-specific example of a dumb identifier with syntax. As <a href="https://www.cas.org/support/documentation/chemical-substances/checkdig" target="_blank">noted</a> by CAS itself:</p>
 <blockquote>
 <p>A CAS Registry Number® includes up to 10 digits which are separated into 3 groups by hyphens. The first part of the number, starting from the left, has 2 to 7 digits; the second part has 2 digits. The final part consists of a single check digit.</p>
 </blockquote>
-<p>Every identifier, regardless of what it identifies or how, has an internal structure of some kind. The name for this characteristic is, of course, <em>syntax</em>. The most relevant definition of the word by <a href="https://www.merriam-webster.com/dictionary/syntax">Merriam-Webster</a> says that syntax is:</p>
+<p>Every identifier, regardless of what it identifies or how, has an internal structure of some kind. The name for this characteristic is, of course, <em>syntax</em>. The most relevant definition of the word by <a href="https://www.merriam-webster.com/dictionary/syntax" target="_blank">Merriam-Webster</a> says that syntax is:</p>
 <blockquote>
 <p>a connected or orderly system : harmonious arrangement of parts or element</p>
 </blockquote>
 <p>Given that InChI is a chemical identifier, what can be said about its harmonious arrangement of parts or elements?</p>
-<h1 id="why-syntax-matters">Why Syntax Matters</h1>
+
+
+<h1 class="relative group">Why Syntax Matters 
+    <div id="why-syntax-matters" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#why-syntax-matters" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Before discussing what some authoritative sources have to say about InChI syntax, it&rsquo;s important to understand why InChI&rsquo;s syntax matters in a practical sense. I&rsquo;ve identified four reasons:</p>
 <ol>
 <li><strong>Extracting information.</strong> As we&rsquo;ll see, InChI exhibits the characteristics of both an identifier and a representation. Information about the molecule being identified might be available, with some <a href="/articles/2021/03/10/parsing-inchi-its-complicated/">caveats</a>, by treating InChI as a kind of molecular representation. For example, InChIKey works on this principle. As we&rsquo;ll see, InChI was even designed specifically with this use case in mind.</li>
@@ -138,8 +464,19 @@
 <li><strong>Extending InChI.</strong> When InChI lacks the internal structure for a given application, it might be possible to fill the gap with an extension. However, that extension must not conflict with existing syntax.</li>
 <li><strong>Validating InChI.</strong> If an InChI identifier broke one or more syntax rules, should it be considered valid? Even more importantly, how would you know that a rule had been broken? These questions can only be answered with a detailed, systematic description of InChI&rsquo;s syntax.</li>
 </ol>
-<h1 id="inchi-syntax">InChI Syntax</h1>
-<p>The most detailed and authoritative source of information on InChI&rsquo;s syntax can be found in the <a href="https://www.inchi-trust.org/download/104/InChI_TechMan.pdf">Technical Manual</a> published by InChI Trust. The Manual describes a chemical line notation whose organizing principle is <em>layers</em>.</p>
+
+
+<h1 class="relative group">InChI Syntax 
+    <div id="inchi-syntax" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#inchi-syntax" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>The most detailed and authoritative source of information on InChI&rsquo;s syntax can be found in the <a href="https://www.inchi-trust.org/download/104/InChI_TechMan.pdf" target="_blank">Technical Manual</a> published by InChI Trust. The Manual describes a chemical line notation whose organizing principle is <em>layers</em>.</p>
 <p>An InChI layer is a sequence of characters that encodes a particular aspect of molecular structure. Each layer is separated from its successor by a forward-slash symbol (<code>/</code>). The following figure from the <em>Technical Manual</em> gives an overview.</p>
 <!-- raw HTML omitted -->
 <p>An entire section (III. Discussion) is mainly dedicated to elaborating the concept of InChI layers:</p>
@@ -156,11 +493,22 @@
 <li><strong>Appendix 3. Extracting Layers from InChI.</strong> How to disassemble an InChI into meaningful segments.</li>
 <li><strong>Appendix 4. Comparing InChI Representations for Finding Identical Compounds.</strong> Attenuating the precision of an InChI though selective deletion of layers.</li>
 </ul>
-<p>Layers are clearly the central abstraction in InChI. The InChI team re-enforced this idea in its article <em><a href="https://jcheminf.biomedcentral.com/articles/10.1186/s13321-015-0068-4">InChI, the IUPAC International Chemical Identifier</a></em>, noting: &ldquo;The most important aspect of InChI is its hierarchical, layered nature.&rdquo;</p>
+<p>Layers are clearly the central abstraction in InChI. The InChI team re-enforced this idea in its article <em><a href="https://jcheminf.biomedcentral.com/articles/10.1186/s13321-015-0068-4" target="_blank">InChI, the IUPAC International Chemical Identifier</a></em>, noting: &ldquo;The most important aspect of InChI is its hierarchical, layered nature.&rdquo;</p>
 <p>To summarize, a rich syntax courses through the veins of each InChI identifier. From its inception, InChI identifiers were designed to be split up and repurposed as explained by the authoritative documentation.</p>
 <p>Clearly an InChI syntax exists. But this just brings us back to the question I posed in my Twitter poll: where does the specification of the InChI syntax reside — in the source code of the InChI distribution or in the Technical manual? Which one is &ldquo;the standard?&rdquo;</p>
 <p>That&rsquo;s really a question for the InChI team to answer. For now it&rsquo;s clear that rules of InChI syntax not only exist, but were deliberately designed from the outset. A more immediate question is: what are the syntax rules for InChI and how should that information be conveyed?</p>
-<h1 id="informal-syntax-descriptions">Informal Syntax Descriptions</h1>
+
+
+<h1 class="relative group">Informal Syntax Descriptions 
+    <div id="informal-syntax-descriptions" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#informal-syntax-descriptions" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>For as long as people have been analyzing languages, they&rsquo;ve tried to come up with ways to describe syntax. The InChI Technical Manual offers some examples of why spoken language descriptions (and graphics) often fall short when used to describe syntax:</p>
 <ul>
 <li>It&rsquo;s hard to write spoken languages both concisely and precisely.</li>
@@ -168,7 +516,7 @@
 <li>It&rsquo;s hard to keep all the context needed to parse a spoken language standard in your head at the same time.</li>
 <li>There&rsquo;s no automated way to transform a spoken language technical description into running code.</li>
 </ul>
-<p>Fortunately, there is an answer to all of these problems when it comes to describing syntax: a <a href="https://en.wikipedia.org/wiki/Formal_grammar">formal grammar</a>. A formal grammar, being a very limited form of expression, can be both concise and precise in describing syntax. As a result, ambiguities and contradictions are easy to spot. Because they&rsquo;re compact, formal grammars can be much easier to understand than freeform text and graphics. Finally, formal grammars can be machine-translated into running code that can parse and validate examples of the underlying language.</p>
+<p>Fortunately, there is an answer to all of these problems when it comes to describing syntax: a <a href="https://en.wikipedia.org/wiki/Formal_grammar" target="_blank">formal grammar</a>. A formal grammar, being a very limited form of expression, can be both concise and precise in describing syntax. As a result, ambiguities and contradictions are easy to spot. Because they&rsquo;re compact, formal grammars can be much easier to understand than freeform text and graphics. Finally, formal grammars can be machine-translated into running code that can parse and validate examples of the underlying language.</p>
 <p>This blog has covered formal grammars from several angles. Here are some articles that show how to apply formal grammars to the SMILES language:</p>
 <ul>
 <li><a href="/articles/2020/04/20/smiles-formal-grammar/">SMILES Formal Grammar</a></li>
@@ -176,36 +524,223 @@
 <li><a href="/articles/2020/12/14/an-abstract-syntatx-tree-for-smiles/">Abstract Syntax Trees for SMILES</a></li>
 <li><a href="/articles/2020/05/25/lets-build-a-smiles-parser-in-rust/">Let&rsquo;s Build a SMILES Parser in Rust</a></li>
 </ul>
-<h1 id="conclusion">Conclusion</h1>
+
+
+<h1 class="relative group">Conclusion 
+    <div id="conclusion" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#conclusion" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>InChI is both a chemical identifier and a chemical representation system. This dual nature can be both confusing and empowering. As an identifier, InChI enables fast exact structure lookup. As a representation, InChIs offers much more. The key to using InChI as a representation lies in understanding its syntax. What&rsquo;s lacking is a concise yet precise description of it. A future article will address this point.</p>
-<ul class="pa0">
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+          
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_posts\/2021-04-21-inchi-syntax.md"
+        var oid_likes = "likes_posts\/2021-04-21-inchi-syntax.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
   
-</ul>
-<div class="mt6 instapaper_ignoref">
-      
-      
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/articles/2021/04/07/an-introduction-to-the-chemdraw-cdxml-format/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >An Introduction to the ChemDraw CDXML Format</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2021-04-07T17:00:00&#43;00:00">April 7, 2021</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/articles/2021/05/05/of-zero-order-bonds-and-bonding-systems/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Of Zero-Order Bonds and Bonding Systems</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2021-05-05T18:00:00&#43;00:00">May 5, 2021</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
       </div>
     </div>
-
-    <aside class="w-30-l mt6-l">
-
+  
 
 
+    
+  </footer>
+</article>
 
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
-    &copy;  Depth-First 2024 
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top" title="Scroll to top">
+    &uarr;
   </a>
-    <div><div class="ananke-socials"></div>
 </div>
-  </div>
-</footer>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
 
-  </body>
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2024
+      
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="http://localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
 </html>

@@ -1,42 +1,70 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>The Trouble with Hückel | Depth-First</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="Postmortem of a head-on collision between computational chemistry and cheminformatics.">
-    <meta name="generator" content="Hugo 0.139.4">
-    
-    
-    
-    
-      <meta name="robots" content="noindex, nofollow">
-    
-    
-      <meta name="author" content = "Richard L. Apodaca">
-    
-
-    
-<link rel="stylesheet" href="/ananke/css/main.min.css" >
-
-
-
-    
-
-    
-      
-
-    
-
-    
-
-    
-      <link rel="canonical" href="http://localhost:1313/articles/2021/07/14/the-trouble-with-h%C3%BCckel/">
-    
-
-    <meta property="og:url" content="http://localhost:1313/articles/2021/07/14/the-trouble-with-h%C3%BCckel/">
+<html lang="en-us" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en-us" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>The Trouble with Hückel &middot; Depth-First</title>
+  <meta name="title" content="The Trouble with Hückel &middot; Depth-First" />
+  
+  <meta name="description" content="Postmortem of a head-on collision between computational chemistry and cheminformatics." />
+  
+  
+  
+  <link rel="canonical" href="http://localhost:1313/articles/2021/07/14/the-trouble-with-h%C3%BCckel/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.e27868ab1485f7ed7b06b122b4980bd38b19526eb8f7de885181204d28f04a0c47e9c334eff19a06c0278eb2ff8415b983a5d0fb80fd6b5680c926457cc61c57.css"
+    integrity="sha512-4nhoqxSF9&#43;17BrEitJgL04sZUm64996IUYEgTSjwSgxH6cM07/GaBsAnjrL/hBW5g6XQ&#43;4D9a1aAySZFfMYcVw==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.c178288131a2f1ad46910438db47ac5f7e1c48cf949e49f6dc3310c8ec9660e23fe505805eba4e2e73711335808500360d773a2b64322feb35df52856edca286.js"
+    integrity="sha512-wXgogTGi8a1GkQQ420esX34cSM&#43;Unkn23DMQyOyWYOI/5QWAXrpOLnNxEzWAhQA2DXc6K2QyL&#43;s131KFbtyihg==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/articles/2021/07/14/the-trouble-with-h%C3%BCckel/">
   <meta property="og:site_name" content="Depth-First">
   <meta property="og:title" content="The Trouble with Hückel">
   <meta property="og:description" content="Postmortem of a head-on collision between computational chemistry and cheminformatics.">
@@ -46,76 +74,363 @@
     <meta property="article:published_time" content="2021-07-14T04:30:00+00:00">
     <meta property="article:modified_time" content="2021-07-14T04:30:00+00:00">
 
-  <meta itemprop="name" content="The Trouble with Hückel">
-  <meta itemprop="description" content="Postmortem of a head-on collision between computational chemistry and cheminformatics.">
-  <meta itemprop="datePublished" content="2021-07-14T04:30:00+00:00">
-  <meta itemprop="dateModified" content="2021-07-14T04:30:00+00:00">
-  <meta itemprop="wordCount" content="2854">
+  
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="The Trouble with Hückel">
   <meta name="twitter:description" content="Postmortem of a head-on collision between computational chemistry and cheminformatics.">
 
-	
-  </head><body class="ma0 avenir bg-near-white development">
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "The Trouble with Hückel",
+    "headline": "The Trouble with Hückel",
+    
+    "abstract": "Postmortem of a head-on collision between computational chemistry and cheminformatics.",
+    "inLanguage": "en-us",
+    "url" : "http:\/\/localhost:1313\/articles\/2021\/07\/14\/the-trouble-with-h%C3%BCckel\/",
+    "author" : {
+      "@type": "Person",
+      "name": ""
+    },
+    "copyrightYear": "2021",
+    "dateCreated": "2021-07-14T04:30:00\u002b00:00",
+    "datePublished": "2021-07-14T04:30:00\u002b00:00",
+    
+    "dateModified": "2021-07-14T04:30:00\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "2862"
+  }]
+  </script>
+
+
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">Depth-First</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      The Trouble with Hückel
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2021-07-14T04:30:00&#43;00:00">July 14, 2021</time><span class="px-2 text-primary-500">&middot;</span><span>2862 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">14 mins</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
 
     
-   
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
   
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
-      
-        Depth-First
-      
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      <div class="ananke-socials"></div>
-
-    </div>
+  <div class="place-self-center">
+    
+    
+    <div class="text-2xl sm:text-lg">
+</div>
   </div>
-</nav>
+</div>
 
-    </div>
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
   </header>
-
-
-
-    <main class="pb7" role="main">
-      
   
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
-    <header class="mt4 w-100">
-      <aside class="instapaper_ignoref b helvetica tracked ttu">
-          
-        Posts
-      </aside><div id="sharing" class="mt3 ananke-socials"></div>
-<h1 class="f1 athelas mt3 mb1">The Trouble with Hückel</h1>
-      
-      <p class="tracked">
-        By <strong>Richard L. Apodaca</strong>
-      </p>
-      
-      
-      
-      <time class="f6 mv4 dib tracked" datetime="2021-07-14T04:30:00Z">July 14, 2021</time>
-      
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+    
 
-      
-      
-    </header>
-    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>As the joke goes, the difference between computational chemistry and cheminformatics is that in computational chemistry molecules get to keep their hydrogens. The two fields clearly start from different assumptions, using them to answer different kinds of questions. One of the more striking differences between the two fields is the treatment of aromaticity. Today&rsquo;s article highlights the problems that can result when concepts are carelessly transplanted from one field to the other. A way forward is also proposed.</p>
-<h1 id="in-a-nutshell">In a Nutshell</h1>
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p>As the joke goes, the difference between computational chemistry and cheminformatics is that in computational chemistry molecules get to keep their hydrogens. The two fields clearly start from different assumptions, using them to answer different kinds of questions. One of the more striking differences between the two fields is the treatment of aromaticity. Today&rsquo;s article highlights the problems that can result when concepts are carelessly transplanted from one field to the other. A way forward is also proposed.</p>
+
+
+<h1 class="relative group">In a Nutshell 
+    <div id="in-a-nutshell" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#in-a-nutshell" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>SMILES supports an atomic property, which I&rsquo;ll refer to as <code>aromatic</code>, defined in terms of &ldquo;Hückel&rsquo;s rule.&rdquo; This rule, the result of applying simplifying assumptions to quantum mechanics, has a long history in chemistry. Unfortunately, Hückel&rsquo;s rule was never formulated in a way that is both detailed enough to reduce to software and general enough to cover all of organic chemistry. The result has been widespread disagreement over a foundational piece of cheminformatics infrastructure.</p>
-<h1 id="hückels-rule">Hückel&rsquo;s Rule</h1>
+
+
+<h1 class="relative group">Hückel&rsquo;s Rule 
+    <div id="h%C3%BCckels-rule" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#h%C3%BCckels-rule" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Certain molecules containing alternating circuits of single and double bonds display much higher chemical stability than others. How can this phenomenon be understood, or at least predicted? The most widely-used tool is <em>Hückel&rsquo;s rule</em>.</p>
-<p>Despite its widespread use in <a href="http://www.chem.ucla.edu/~harding/IGOC/H/huckels_rule.html">undergraduate courses</a> and research, a concise yet complete description of Hückel&rsquo;s rule is not easy to find. The original work by Erich Hückel in the 1930s is verbose and written in German. Later formulations cited &ldquo;4n+2&rdquo; as the rule without enumerating the exact set of conditions that must apply. And as we&rsquo;ll see, the details matter.</p>
-<p>The clearest and most complete expression of Hückel&rsquo;s rule can be found in the <em><a href="https://doi.org/10.1351/pac199466051077">IUPAC Glossary of terms used in physical organic chemistry</a></em>. Under the heading &ldquo;Hückel&rsquo;s (4<em>n</em> + 2) rule, we find:</p>
+<p>Despite its widespread use in <a href="http://www.chem.ucla.edu/~harding/IGOC/H/huckels_rule.html" target="_blank">undergraduate courses</a> and research, a concise yet complete description of Hückel&rsquo;s rule is not easy to find. The original work by Erich Hückel in the 1930s is verbose and written in German. Later formulations cited &ldquo;4n+2&rdquo; as the rule without enumerating the exact set of conditions that must apply. And as we&rsquo;ll see, the details matter.</p>
+<p>The clearest and most complete expression of Hückel&rsquo;s rule can be found in the <em><a href="https://doi.org/10.1351/pac199466051077" target="_blank">IUPAC Glossary of terms used in physical organic chemistry</a></em>. Under the heading &ldquo;Hückel&rsquo;s (4<em>n</em> + 2) rule, we find:</p>
 <blockquote>
 <p>Monocyclic planar (or almost planar) systems of trigonally (or sometimes digonally) hybridized atoms that contain (4<!-- raw HTML omitted -->n<!-- raw HTML omitted --> + 2) π-electrons (where <!-- raw HTML omitted -->n<!-- raw HTML omitted --> is a non-negative integer) will exhibit aromatic character. The rule is generally limited to <!-- raw HTML omitted -->n<!-- raw HTML omitted --> = 0-5.
 This rule is derived from the Huckel MO calculation on planar monocyclic conjugated hydrocarbons (CH<!-- raw HTML omitted --><!-- raw HTML omitted -->m<!-- raw HTML omitted --><!-- raw HTML omitted -->, where <em>m</em> is an integer equal to or greater than 3 according to which (4<!-- raw HTML omitted -->n<!-- raw HTML omitted -->+2) π-electrons are contained in a closed-shell system. Examples of systems that obey the Hückel rule include:
@@ -129,9 +444,20 @@ Systems containing 4<!-- raw HTML omitted -->n<!-- raw HTML omitted --> π-elect
 <li>All atoms are &ldquo;trigonally&rdquo; or &ldquo;digonally&rdquo; hybridized. This requires a model for orbital hybridization.</li>
 <li>The π-electron count for the atoms in the cycle is typically equal to: 2; 6, 10; 14; 18; or 22. This requires a method for assigning atomic π-electron contributions.</li>
 </ol>
-<p>The most widely-disregarded aspect of Hückel&rsquo;s rule is that it applies to single cycles only. Even naphthalenes, ubiquitous motifs in research and commerce, are disqualified. <a href="https://doi.org/10.1021/ja01138a038">In 1952</a>, Streitwieser and coworkers showed that independently calculated delocalization energies were inconsistent with the application of Hückel&rsquo;s rule over fused cycles.</p>
+<p>The most widely-disregarded aspect of Hückel&rsquo;s rule is that it applies to single cycles only. Even naphthalenes, ubiquitous motifs in research and commerce, are disqualified. <a href="https://doi.org/10.1021/ja01138a038" target="_blank">In 1952</a>, Streitwieser and coworkers showed that independently calculated delocalization energies were inconsistent with the application of Hückel&rsquo;s rule over fused cycles.</p>
 <p>Even a casual reading of the IUPAC formulation reveals that Hückel&rsquo;s rule assumes some information that won&rsquo;t always be available in the context of using SMILES. For example, SMILES by definition lacks atomic coordinates so determining planarity in the general sense will be impossible. Similarly, models of hybridization are likely to be primitive at best when using SMILES. But perhaps the biggest problem with the IUPAC definition is what it doesn&rsquo;t say.</p>
-<h1 id="the-quiet-parts">The Quiet Parts</h1>
+
+
+<h1 class="relative group">The Quiet Parts 
+    <div id="the-quiet-parts" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#the-quiet-parts" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>The IUPAC formulation of Hückel&rsquo;s rule leaves some very important points as exercises for the reader. Consider these questions:</p>
 <ul>
 <li>Can a cycle be &ldquo;peeled&rdquo; away from another cycle to reveal a singular cycle, as we might want to do in naphthalene?</li>
@@ -142,101 +468,332 @@ Systems containing 4<!-- raw HTML omitted -->n<!-- raw HTML omitted --> π-elect
 </ul>
 <!-- raw HTML omitted -->
 <p>Answering these questions consistently is no easy task. Each new corner case is sure to resurface the decades-old conflict between viewing aromaticity as a structural vs. behavioral phenomenon. The result would almost certainly be a patchwork of possibly contradictory rules that would provide a safe haven for the nastiest bugs. No two organizations faced with this problem would develop quite the same solutions, and even within an organization conflicts would be unavoidable.</p>
-<h1 id="smiles-and-hückels-rule">SMILES and Hückel&rsquo;s Rule</h1>
+
+
+<h1 class="relative group">SMILES and Hückel&rsquo;s Rule 
+    <div id="smiles-and-h%C3%BCckels-rule" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#smiles-and-h%C3%BCckels-rule" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>SMILES supports an atomic boolean flag with the label <code>aromatic</code>. Setting this flag adds the atom to a construct I call the &ldquo;delocalization subgraph.&rdquo; This construct and its uses were <a href="/articles/2021/06/30/writing-aromatic-smiles/">previously described</a>. In a nutshell, the delocalization subgraph is a possibly empty, induced subgraph representing a delocalized electron system.</p>
-<p>What value does the <code>aromatic</code> flag add? According to Dave Weininger, the creator of SMILES, the idea was to aid canonicalization. In the <a href="https://doi.org/10.1021/ci00057a005">SMILES introductory paper</a> he explains:</p>
+<p>What value does the <code>aromatic</code> flag add? According to Dave Weininger, the creator of SMILES, the idea was to aid canonicalization. In the <a href="https://doi.org/10.1021/ci00057a005" target="_blank">SMILES introductory paper</a> he explains:</p>
 <blockquote>
 <p>The SMILES language was specifically designed to be “canonicalizable”, i.e. not only to provide an unambiguous chemical nomenclature but also be able to express a single, unique SMILES for every structure in the same language. This implies a fundamental requirement to express the symmetry of a molecule correctly. Consider the problem of generating a unique SMILES for OclccccclF ortho-fluorophenol, but without aromatic bonds. There are two ways to write it, OCl=CC=CC=ClF (with the substituted carbons joined by a single bond) and OCl=C(F)C=CC=Cl (with the substituted carbons joined by a double bond). These are two different molecular graphs: the SMILES for these will always differ. For purposes of unique nomenclature, it is not acceptable to have two different “unique SMILES” for the same molecule. SMILES language provides an “aromatic” concept to avoid this conundrum.</p>
 </blockquote>
-<p>Given its poor suitability to the task at hand, Hückel&rsquo;s rule was a surprising concept on which to base the SMILES aromaticity features. Nevertheless, the two are linked both in the primary literature and in software documentation. As noted by Weininger later in the <a href="https://doi.org/10.1021/ci00057a005">introductory paper</a>:</p>
+<p>Given its poor suitability to the task at hand, Hückel&rsquo;s rule was a surprising concept on which to base the SMILES aromaticity features. Nevertheless, the two are linked both in the primary literature and in software documentation. As noted by Weininger later in the <a href="https://doi.org/10.1021/ci00057a005" target="_blank">introductory paper</a>:</p>
 <blockquote>
 <p>SMILES algorithms detect accurately the vast majority of aromatic compounds and ions. The system will accept either aromatic or nonaromatic input specifications; it will detect aromaticity and will convert the input structure accordingly. This is accomplished with an extended version of rule to identify aromatic molecules and ions.[reference an undergraduate organic chemistry textbook] <strong>To qualify as aromatic, all atoms in the ring must be sp2 hybridized and the number of available “excess” π electrons must satisfy Hückel’s 4N+2 criterion.</strong>[my emphasis] As an example, benzene is written clcccccl, but an entry of Cl=CC=CC=Cl (cyclo- hexatriene) - the Kekulé form - leads to detection of aromaticity and results in an internal structural conversion to aromatic representation. Entries of clcccl and clcccccccl will produce the correct antiaromatic structures for cyclobutadiene and cyclooctatetraene, Cl=CC=Cl and C1= CC=CC=CC=Cl, respectively. In such cases the SMILES system looks for a structure that preserves the implied sp2 hybridization, the implied hydrogen count, and the specified formal charge if any. Some inputs, however, may be not only formally incorrect but also nonsensical such as clccccl. Here clccccl is not the same as Cl=CCC=Cl (which is a valid SMILES for cyclopentadiene) since one of the carbon atoms is sp3 with two attached hydrogens. In such a structure, alternating single- and double-bond assignments cannot be made. The SMILES system will flag this as an “impossible” input.</p>
 </blockquote>
 <p>There&rsquo;s a lot to parse here (including incompatible statements about aromaticity and antiaromaticity), but the bolded part is the most important. Setting the <code>aromatic</code> flag is a promise by the writer that the atom is part of a cycle that obeys Hückel&rsquo;s rule.</p>
-<p>Ten years later, Weininger <a href="http://doi.wiley.com/10.1002/9783527618279.ch5">reiterated</a> the same association between Hückel&rsquo;s rule and the <code>aromatic</code> flag:</p>
+<p>Ten years later, Weininger <a href="http://doi.wiley.com/10.1002/9783527618279.ch5" target="_blank">reiterated</a> the same association between Hückel&rsquo;s rule and the <code>aromatic</code> flag:</p>
 <blockquote>
 <p>How does SMILES determine “aromaticity ”?</p>
 <p>Unfortunately it is not as trivial as “alternating single and double bonds”, but it is not rocket science, either. The SMILES algorithm uses an extended version of Hueckel’s rule to identify aromatic molecules and ions. To qualify as aromatic all atoms in a ring must be sp2 hybridized and the number of available “shared&rdquo; π electrons must satisfy Hückel’s 4 N +2 criterion.</p>
 </blockquote>
-<p>Similar statements can be found in the <a href="https://www.daylight.com/dayhtml/doc/theory/theory.smiles.html">Daylight documentation</a>.</p>
-<p><a href="http://opensmiles.org/opensmiles.html">OpenSMILES</a> was an effort to resolve some of the ambiguities in the SMILES primary literature and documentation. Unfortunately, it adopted the same approach to the <code>aromatic</code> flag as its predecessors:</p>
+<p>Similar statements can be found in the <a href="https://www.daylight.com/dayhtml/doc/theory/theory.smiles.html" target="_blank">Daylight documentation</a>.</p>
+<p><a href="http://opensmiles.org/opensmiles.html" target="_blank">OpenSMILES</a> was an effort to resolve some of the ambiguities in the SMILES primary literature and documentation. Unfortunately, it adopted the same approach to the <code>aromatic</code> flag as its predecessors:</p>
 <blockquote>
 <p>In an aromatic system, all of the aromatic atoms must be sp2 hybridized, and the number of π electrons must meet Huckel’s 4n+2 criterion When parsing a SMILES, a parser must note the aromatic designation of each atom on input, then when the parsing is complete, the SMILES software must verify that electrons can be assigned without violating the valence rules, consistent with the sp2 markings, the specified or implied hydrogens, external bonds, and charges on the atoms.</p>
 </blockquote>
-<p><a href="https://iupac.org/project/2019-002-2-024/">SMILES+</a> is an IUPAC initiative to formally specify SMILES. In more than two years of development, it has not changed the language around the <code>aromatic</code> flag used in OpenSMILES and inherited from the primary literature.</p>
+<p><a href="https://iupac.org/project/2019-002-2-024/" target="_blank">SMILES+</a> is an IUPAC initiative to formally specify SMILES. In more than two years of development, it has not changed the language around the <code>aromatic</code> flag used in OpenSMILES and inherited from the primary literature.</p>
 <p>Despite multiple citations and ample opportunity to clarify, no source address the underlying problem of how to fill in the substantial blanks in applying Hückel&rsquo;s rule as applied to SMILES.</p>
-<h1 id="moving-forward">Moving Forward</h1>
+
+
+<h1 class="relative group">Moving Forward 
+    <div id="moving-forward" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#moving-forward" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Having built an essential SMILES feature on the shaky ground of Hückel&rsquo;s rule, three paths forward are now open: (1) do nothing; (2) refine Hückel&rsquo;s rule; or (3) replace Hückel&rsquo;s rule with something better.</p>
 <p>Doing nothing is always an option. The current status quo has persisted for decades and may continue to work for several more. However, leaving this issue open will undermine any attempts to standardize SMILES, just as it did with OpenSMILES.</p>
-<p>Alternatively, we can think of ways to adapt Hückel&rsquo;s rule. For example, Platt <a href="https://doi.org/10.1063/1.1740414">introduced</a> a &ldquo;perimeter rule&rdquo; as a way to deal with fused benzenoid systems:</p>
+<p>Alternatively, we can think of ways to adapt Hückel&rsquo;s rule. For example, Platt <a href="https://doi.org/10.1063/1.1740414" target="_blank">introduced</a> a &ldquo;perimeter rule&rdquo; as a way to deal with fused benzenoid systems:</p>
 <blockquote>
 <p>We define this group of hydrocarbons as follows. Every planar conjugated system has certain carbon atoms at the edge of the system which we may call &ldquo;perimeter carbons.&rdquo; In a cata-condensed system or in a polyene, every carbon is on the perimeter (Fig. 6, hexatriene, anthracene). In a pericondensed system such as pyrene, there are additional carbons inside. If the perimeter carbons were removed, some or all of these additional carbons would lie on the new perimeter. These we may call &ldquo;second-perimeter carbons.&rdquo; If the system is large enough, we may remove these carbons also, and have &ldquo;third-perimeter carbons&rdquo; within, and so on.</p>
 </blockquote>
-<p>As <a href="https://doi.org/10.1021/cr9903656">noted by Randić</a>, however, counterexamples to this approach are not hard to find.</p>
-<p>Mostly forgotten by organic chemistry and cheminformatics, <a href="https://doi.org/10.3389/fchem.2013.00022">Clar&rsquo;s Sextet Rule</a> offers another approach. As noted by Solà in a 2013 review:</p>
+<p>As <a href="https://doi.org/10.1021/cr9903656" target="_blank">noted by Randić</a>, however, counterexamples to this approach are not hard to find.</p>
+<p>Mostly forgotten by organic chemistry and cheminformatics, <a href="https://doi.org/10.3389/fchem.2013.00022" target="_blank">Clar&rsquo;s Sextet Rule</a> offers another approach. As noted by Solà in a 2013 review:</p>
 <blockquote>
 <p>Clar&rsquo;s rule states that the Kekulé resonance structure with the largest number of disjoint aromatic π-sextets, i.e., benzene-like moieties, is the most important for characterization of properties of polycyclic aromatic hydrocarbons (PAHs). Aromatic π-sextets are defined as six π-electrons localized in a single benzene-like ring separated from adjacent rings by formal CC single bonds.</p>
 </blockquote>
 <p>Unfortunately Clar&rsquo;s Rule creates a situation not unlike the one arising from a <a href="/articles/2020/08/31/a-smallest-set-of-smallest-rings/">Smallest Set of Smallest Rings</a>: non-uniqueness. Multiple Clar structures are possible for some molecules.</p>
 <p>In their current form, Clar&rsquo;s sextet and Platt&rsquo;s perimeter may alleviate some friction between SMILES and Hückel&rsquo;s rule, but the issues of electron counting, geometry, and hybridization remain.</p>
-<h1 id="replacing-hückels-rule">Replacing Hückel&rsquo;s Rule</h1>
+
+
+<h1 class="relative group">Replacing Hückel&rsquo;s Rule 
+    <div id="replacing-h%C3%BCckels-rule" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#replacing-h%C3%BCckels-rule" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>An alternative to tweaking Hückel&rsquo;s rule is to replace it altogether. Cutting the cord has the advantage of specificity. Rules for setting the <code>aromatic</code> flag could reflect the needs of SMILES itself, rather than those of other applications as is currently the case.</p>
 <p>The first step is to recall the original purpose of the <code>aromatic</code> flag: to enable canonicalization. Unless a bonding arrangement interferes with canonicalization, there&rsquo;s little reason for automated writers to set the <code>aromatic</code> flag at all. And as <a href="/articles/2021/06/30/writing-aromatic-smiles/">noted previously</a>, setting the <code>aromatic</code> flag isn&rsquo;t even necessary for canonicalization. Pure valence bond representations can be canonicalized using similar procedures to those used when setting the <code>aromatic</code> flag.</p>
 <p>Nevertheless, some writers will insist on setting the <code>aromatic</code> flag. The question then becomes, what specific guidance for doing so will ensure that the resulting string can be faithfully interpreted by all SMILES readers?</p>
 <p>This is where the delocalization subgraph can come in. Think of it as a way to encode a <em><a href="/articles/2019/04/02/the-maximum-matching-problem/">perfect matching</a></em>, without specifying one in particular. As explained previously, a perfect matching is a subgraph in which every node has degree one. Chemists will immediately recognize the connection to electron delocalization in the sense that the edges of a perfect matching over a delocalization subgraph become double bonds. Moreover, this process is reversible.</p>
 <!-- raw HTML omitted -->
 <p>This just leaves the problem of constructing a delocalization subgraph from a valence bond graph. Only cyclic subgraphs cause the kind of <a href="/articles/2021/06/17/delocalization-induced-molecular-equality/">electron delocalization</a> relevant to SMILES canonicalization. So a reasonable starting point would be to start with the set of all cycles.</p>
-<p>The only cycles of interest would be those consisting entirely of alternating single and double bonds. It turns out that this concept maps directly to the <em>conjugated circuit</em>. As explained in <a href="https://doi.org/10.1021/cr9903656">Milan Randić&rsquo;s landmark 2003 review on the topic</a>:</p>
+<p>The only cycles of interest would be those consisting entirely of alternating single and double bonds. It turns out that this concept maps directly to the <em>conjugated circuit</em>. As explained in <a href="https://doi.org/10.1021/cr9903656" target="_blank">Milan Randić&rsquo;s landmark 2003 review on the topic</a>:</p>
 <blockquote>
 <p>Conjugated circuits are those circuits within an individual Kekule ́ valence structure in which there is a regular alternation of CC double and CC single bonds.</p>
 </blockquote>
-<p>Conjugated circuits have been the topic of <a href="https://doi.org/10.1016/0097-8485(90)80038-4">much theoretical study</a>. For the purposes of SMILES, however, the definition alone suffices. Gone are the useless (and almost universally ignored) constraints around 3D coordinates, hybridization models, singular cycles, and electron counting imposed by Hückel&rsquo;s rule. In its place is a procedure requiring just two pieces of of information already carried by all molecular graphs:</p>
+<p>Conjugated circuits have been the topic of <a href="https://doi.org/10.1016/0097-8485%2890%2980038-4" target="_blank">much theoretical study</a>. For the purposes of SMILES, however, the definition alone suffices. Gone are the useless (and almost universally ignored) constraints around 3D coordinates, hybridization models, singular cycles, and electron counting imposed by Hückel&rsquo;s rule. In its place is a procedure requiring just two pieces of of information already carried by all molecular graphs:</p>
 <ol>
 <li>The set of all cycles.</li>
 <li>A method to identify single/double bond alternation.</li>
 </ol>
 <p>An algorithm for setting the <code>aromatic</code> flag given a Kekulé valence bond graph could be developed as follows. For each cycle in the set of all cycles, check for single/double bond alternation. If found, add all atoms of the cycle to the delocalization subgraph. &ldquo;Alternation&rdquo; can be grounded mathematically through the concept of <a href="/articles/2020/08/31/a-smallest-set-of-smallest-rings/">symmetric difference</a>, which coincidentally pops up in the context of cycle basis.</p>
-<h1 id="chemical-meaning">Chemical Meaning</h1>
+
+
+<h1 class="relative group">Chemical Meaning 
+    <div id="chemical-meaning" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#chemical-meaning" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Why does any of this matter? Clearly there&rsquo;s enough consensus around how to apply Hückel&rsquo;s rule in SMILES to have gotten us this far. Why not let things be?</p>
-<p>As mentioned previously, standardization is one reason. Aromaticity was perhaps the <a href="https://sourceforge.net/p/blueobelisk/mailman/blueobelisk-smiles/">single most-discussed topic</a> in the OpenSMILES effort. Ultimately, the problems caused by linking the <code>aromatic</code> flag to Hückel&rsquo;s rule could not be resolved. Any future attempts at standardization are likely to meet a similar fate until a better-suited model for the <code>aromatic</code> flag can be found.</p>
+<p>As mentioned previously, standardization is one reason. Aromaticity was perhaps the <a href="https://sourceforge.net/p/blueobelisk/mailman/blueobelisk-smiles/" target="_blank">single most-discussed topic</a> in the OpenSMILES effort. Ultimately, the problems caused by linking the <code>aromatic</code> flag to Hückel&rsquo;s rule could not be resolved. Any future attempts at standardization are likely to meet a similar fate until a better-suited model for the <code>aromatic</code> flag can be found.</p>
 <p>A secondary problem is <em>how</em> SMILES are being used in practice. Consider this admittedly small survey I recently ran on Twitter:</p>
 <!-- raw HTML omitted -->
-<p>The third option in my survey was meant to ask if the <code>aromatic</code> flag was specifically being used to convey information not available through the Kekulé valence bond graph. Half of respondent&rsquo;s said &ldquo;yes.&rdquo; Yet as we&rsquo;ve seen, such a use directly contradicts both the letter and spirit of the rules for setting the <code>aromatic</code> flag. It&rsquo;s possible that the question was misunderstood, but I don&rsquo;t think so because this view was also expressed during the OpenSMILES discussions. Consider this passage from <a href="https://sourceforge.net/p/blueobelisk/mailman/message/843610/">the mailing list</a>:</p>
+<p>The third option in my survey was meant to ask if the <code>aromatic</code> flag was specifically being used to convey information not available through the Kekulé valence bond graph. Half of respondent&rsquo;s said &ldquo;yes.&rdquo; Yet as we&rsquo;ve seen, such a use directly contradicts both the letter and spirit of the rules for setting the <code>aromatic</code> flag. It&rsquo;s possible that the question was misunderstood, but I don&rsquo;t think so because this view was also expressed during the OpenSMILES discussions. Consider this passage from <a href="https://sourceforge.net/p/blueobelisk/mailman/message/843610/" target="_blank">the mailing list</a>:</p>
 <blockquote>
 <p>&hellip; Dave [Weininger] seems to be emphasizing canonicalization in answering this question [about the purpose of the aromatic flag, quoted earlier], but having worked with him for six years, I heard him explain aromaticity many times, and the purpose was not for canonical SMILES.  It was, as this quote says, to reflect the underlying uniformity of the bonds in aromatic systems (Dave calles [sic] it &ldquo;symmetry&rdquo; in this quote, but that&rsquo;s a bit inaccurate).  Canonical SMILES are just one reflection of that underlying uniformity.</p>
 </blockquote>
 <p>The problem with an ambiguous specification is that it encourages, even forces, users and software developers to find their own meaning.</p>
-<p>All of which brings us to interpretation — in particular <a href="/articles/2021/02/10/fast-hydrogen-counting-hydrogens-in-smiles/">the assignment of implicit hydrogens</a>. The <code>aromatic</code> flag can directly influence implicit hydrogen count. For example, the rules for computing atomic hydrogen counts in benzene (<code>c1ccccc1</code>) are different from the rules for computing atomic hydrogen counts in cyclohexane (<code>C1CCCCCC1</code>). In the former case, we must account for one implicit degree of unsaturation. The math happens to be easy in the case of benzene vs. cyclohexane. But disagreements about the meaning of the <code>aromatic</code> flag (or lack of explicit guidance around how to process it) will lead to <a href="https://baoilleach.blogspot.com/2020/10/the-smiles-reading-benchmark-two-years.html">different hydrogen counts</a> in the more complex cases likely to be seen in the wild.</p>
-<h1 id="conclusion">Conclusion</h1>
+<p>All of which brings us to interpretation — in particular <a href="/articles/2021/02/10/fast-hydrogen-counting-hydrogens-in-smiles/">the assignment of implicit hydrogens</a>. The <code>aromatic</code> flag can directly influence implicit hydrogen count. For example, the rules for computing atomic hydrogen counts in benzene (<code>c1ccccc1</code>) are different from the rules for computing atomic hydrogen counts in cyclohexane (<code>C1CCCCCC1</code>). In the former case, we must account for one implicit degree of unsaturation. The math happens to be easy in the case of benzene vs. cyclohexane. But disagreements about the meaning of the <code>aromatic</code> flag (or lack of explicit guidance around how to process it) will lead to <a href="https://baoilleach.blogspot.com/2020/10/the-smiles-reading-benchmark-two-years.html" target="_blank">different hydrogen counts</a> in the more complex cases likely to be seen in the wild.</p>
+
+
+<h1 class="relative group">Conclusion 
+    <div id="conclusion" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#conclusion" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Hückel&rsquo;s rule has served chemistry well, but it is poorly-suited as the foundation for assigning and interpreting the SMILES <code>aromatic</code> flag. Until this situation is corrected, it will be impossible to describe SMILES at the level of detail needed for high compatibility across software implementations. Fortunately, it&rsquo;s possible to replace Hückel&rsquo;s rule with an alternative better suited to the demands of a molecular representation format.</p>
-<ul class="pa0">
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+          
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_posts\/2021-07-14-the-trouble-with-huckel.md"
+        var oid_likes = "likes_posts\/2021-07-14-the-trouble-with-huckel.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
   
-</ul>
-<div class="mt6 instapaper_ignoref">
-      
-      
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/articles/2021/06/30/writing-aromatic-smiles/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Writing Aromatic SMILES</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2021-06-30T17:00:00&#43;00:00">June 30, 2021</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/articles/2021/07/28/running-the-rdkit-postgres-cartridge-with-docker/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Running the RDKit Postgres Cartridge with Docker</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2021-07-28T14:50:00&#43;00:00">July 28, 2021</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
       </div>
     </div>
-
-    <aside class="w-30-l mt6-l">
-
+  
 
 
+    
+  </footer>
+</article>
 
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
-    &copy;  Depth-First 2024 
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top" title="Scroll to top">
+    &uarr;
   </a>
-    <div><div class="ananke-socials"></div>
 </div>
-  </div>
-</footer>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
 
-  </body>
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2024
+      
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="http://localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
 </html>

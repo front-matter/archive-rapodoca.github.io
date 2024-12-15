@@ -1,372 +1,1427 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Depth-First</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.139.4">
-    
-    
-    
-    
-      <meta name="robots" content="noindex, nofollow">
-    
-    
-      <meta name="author" content = "Richard L. Apodaca">
-    
-
-    
-<link rel="stylesheet" href="/ananke/css/main.min.css" >
-
-
-
-    
-
-    
-      
-
-    
-
-    
-    
-      <link href="/articles/index.xml" rel="alternate" type="application/rss+xml" title="Depth-First" />
-      <link href="/articles/index.xml" rel="feed" type="application/rss+xml" title="Depth-First" />
-      
-    
-
-    
-      <link rel="canonical" href="http://localhost:1313/articles/">
-    
-
-    <meta property="og:url" content="http://localhost:1313/articles/">
+<html lang="en-us" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en-us" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>Posts &middot; Depth-First</title>
+  <meta name="title" content="Posts &middot; Depth-First" />
+  
+  
+  
+  
+  
+  <link rel="canonical" href="http://localhost:1313/articles/" />
+  
+  <link rel="alternate" type="application/rss+xml" href="/articles/index.xml" title="Depth-First" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.e27868ab1485f7ed7b06b122b4980bd38b19526eb8f7de885181204d28f04a0c47e9c334eff19a06c0278eb2ff8415b983a5d0fb80fd6b5680c926457cc61c57.css"
+    integrity="sha512-4nhoqxSF9&#43;17BrEitJgL04sZUm64996IUYEgTSjwSgxH6cM07/GaBsAnjrL/hBW5g6XQ&#43;4D9a1aAySZFfMYcVw==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.c178288131a2f1ad46910438db47ac5f7e1c48cf949e49f6dc3310c8ec9660e23fe505805eba4e2e73711335808500360d773a2b64322feb35df52856edca286.js"
+    integrity="sha512-wXgogTGi8a1GkQQ420esX34cSM&#43;Unkn23DMQyOyWYOI/5QWAXrpOLnNxEzWAhQA2DXc6K2QyL&#43;s131KFbtyihg==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/articles/">
   <meta property="og:site_name" content="Depth-First">
   <meta property="og:title" content="Posts">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="website">
 
-  <meta itemprop="name" content="Posts">
-  <meta itemprop="datePublished" content="2024-05-24T23:15:00+00:00">
-  <meta itemprop="dateModified" content="2024-05-24T23:15:00+00:00">
+  
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Posts">
 
-	
-  </head><body class="ma0 avenir bg-near-white development">
+  
+  
+
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">Depth-First</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+ <header>
+  
+  <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">Posts</h1>
+  <div class="mt-1 mb-2 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+</div>
+
+
+  </div>
+  
+  
+  </header>
+  <section class="mt-0 prose flex max-w-full flex-col dark:prose-invert lg:flex-row">
+    
+    <div class="min-w-0 min-h-0 max-w-prose">
+      
+    </div>
+
+
+
+
+  </section>
+  
+
+    
+    
+    
+    
+    
 
     
 
-  <header>
-    <div class="pb3-m pb6-l bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+    <section class="space-y-10 w-full">
       
-        Depth-First
-      
-    </a>
-    <div class="flex-l items-center">
-      
+        
+        
+        <h2 class="mt-12 text-2xl font-bold text-neutral-700 first:mt-8 dark:text-neutral-300">
+          2010
+        </h2>
+        
+        
+        
 
-      
-      <div class="ananke-socials"></div>
 
-    </div>
-  </div>
-</nav>
 
-      <div class="tc-l pv3 ph3 ph4-ns">
-        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
-          Posts
-        </h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2010/07/14/symposium-recent-progress-in-chemical-structure-representation/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2010/07/14/symposium-recent-progress-in-chemical-structure-representation/">Symposium: Recent Progress in Chemical Structure Representation</div>
+        
+        
         
       </div>
-    </div>
-  </header>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
 
 
-    <main class="pb7" role="main">
-      
-  <article class="pa3 pa4-ns nested-copy-line-height">
-    <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy mid-gray"></section>
-    <section class="flex-ns flex-wrap justify-around mt5">
-      
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2010/07/14/symposium-recent-progress-in-chemical-structure-representation/" class="link black dim">
-        Symposium: Recent Progress in Chemical Structure Representation
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>I&rsquo;d like to invite everyone who will be in Boston for the <a href="http://portal.acs.org/portal/PublicWebSite/meetings/fall2010/index.htm">Fall 2010 ACS Meeting</a> to a symposium on <a href="http://abstracts.acs.org/chem/240nm/program/divisionindex.php?act=presentations&amp;val=Recent+Progress+in+Chemical+Structure+Representation&amp;ses=Recent+Progress+in+Chemical+Structure+Representation&amp;prog=23771">recent progress in chemical structure representation</a> that I&rsquo;m organizing. The lineup features a mix of academic and industrial scientists, with topics ranging from graphics to file formats/line notations to bioinformatics integration.</p>
-<p>The symposium takes place on Wednesday August 25, 2010 at the Boston Convention Center:</p>
-<h1 id="am-session">AM Session</h1>
-<ul>
-<li>9:00 AM <strong>Introductory Remarks</strong> Yours Truly</li>
-<li>9:05 AM <strong>Chemical structure representation in the DuPont Chemical Information Management Solutions database: Challenges posed by complex materials in a diversified science company</strong> Mark A. Andrews, <a href="http://dupont.com">DuPont</a></li>
-<li>9:35 AM <strong>From deposition to application: Technologies for storing and exploiting crystal structure data</strong> Colin R. Groom, <a href="http://www.ccdc.cam.ac.uk/">Cambridge Crystallographic Data Centre</a></li>
-<li>10:05 AM <strong>Recent IUPAC recommendations for chemical structure representation: An overview</strong> Jonathan Brecher, <a href="http://www.cambridgesoft.com/">CambridgeSoft Corporation</a></li>
-<li>10:35 AM <strong>Intermission</strong></li>
-<li>10:50 AM <strong>Orbital development kit</strong> <a href="http://chem-bla-ics.blogspot.com">Egon Willighagen</a>, <a href="http://www.uu.se/en/">Uppsala University</a></li>
-<li>11:20 AM <strong>Line notations as unique identifiers</strong> Krisztina Boda, <a href="http://eyesopen.com">OpenEye Scientific Software</a></li>
-</ul>
-<h1 id="pm-session">PM Session</h1>
-<ul>
-<li>2:00 PM <strong>Status of the InChI and InChIKey algorithms</strong> Stephen Heller, <a href="http://www.nist.gov/index.html">NIST</a></li>
-<li>2:30 PM <strong>Self-contained sequence representation (SCSR): Bridging the gap between bioinformatics and cheminformatics</strong> Keith T. Taylor, <a href="http://symyx.com">Symyx Technologies Inc</a></li>
-<li>3:00 PM <strong>Intermission</strong></li>
-<li>3:15 PM <strong>Representation of Markush structures: From molecules toward patents</strong> Szabolcs Csepregi, <a href="http://chemcaxon.com">ChemAxon Ltd</a></li>
-<li>3:45 PM <strong>CSRML: A new markup language definition for chemical substructure representation</strong> Christof H. Schwab, <a href="http://www.molecular-networks.com/">Molecular Networks GmbH</a></li>
-</ul>
-    </div>
-    <a href="/articles/2010/07/14/symposium-recent-progress-in-chemical-structure-representation/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2010-07-14T00:00:00&#43;00:00">July 14, 2010</time><span class="px-2 text-primary-500">&middot;</span><span>230 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">2 mins</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2010/07/01/the-elephant-in-the-room-should-chemical-abstracts-service-become-a-for-profit-company/" class="link black dim">
-        The Elephant in the Room: Should Chemical Abstracts Service Become a For-Profit Company?
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>What role, if any, does a profit-making entity have in a non-profit organization? That&rsquo;s the question many have been asking for some time about Chemical Abstracts Service (CAS) and its relationship to the American Chemical Society (ACS).</p>
-<h1 id="too-big-to-be-non-profit">Too Big to Be Non-Profit?</h1>
-<p>I was again reminded of this question after having finally been <a href="http://depth-first.com/articles/2010/06/29/linkedin-forums-how-do-i-despise-thee-let-me-count-the-ways">granted access to the ACS LinkedIn Group</a>. In a recent thread discussing the <a href="http://portal.acs.org:80/preview/fileFetch/C/CNBP_025065/pdf/CNBP_025065.pdf">the most recent (and possibly final) loss by the ACS in its protracted legal battle against LeadScope</a>, one participant <a href="http://www.linkedin.com/groups?mostPopular=&amp;gid=51209">wrote</a>:</p>
     </div>
-    <a href="/articles/2010/07/01/the-elephant-in-the-room-should-chemical-abstracts-service-become-a-for-profit-company/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2010/07/01/the-elephant-in-the-room-should-chemical-abstracts-service-become-a-for-profit-company/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2010/07/01/the-elephant-in-the-room-should-chemical-abstracts-service-become-a-for-profit-company/">The Elephant in the Room: Should Chemical Abstracts Service Become a For-Profit Company?</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2010-07-01T00:00:00&#43;00:00">July 1, 2010</time><span class="px-2 text-primary-500">&middot;</span><span>470 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">3 mins</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2010/06/30/help-us-solve-a-mechanistic-mystery-benzimidazole-formation-using-sodium-metabisulfite/" class="link black dim">
-        Help Us Solve a Mechanistic Mystery: Benzimidazole Formation using Sodium Metabisulfite
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>If you&rsquo;re a synthetic chemist, you may have seen seen (or run) this reaction before:</p>
-<p><img src="http://img511.imageshack.us/img511/2245/benzimidazole.png" alt="Benzimidazole" title="Benzimidazole"></p>
-<p>It&rsquo;s the oxidative conversion of aromatic diamines and aromatic aldehydes into benzimidazoles. One common way of performing this reaction is in the presence of <a href="http://en.wikipedia.org/wiki/Sodium_metabisulfite">sodium metabisulfite</a>. The question is: what&rsquo;s the role of the sodium metabisulfite and what&rsquo;s the oxidant?</p>
-<p>Over at <a href="http://lab.chempedia.com">Chempedia Lab</a>, this question about <a href="http://lab.chempedia.com/questions/200/sodium-metabisulfite-in-benzimidazole-formation">the role of sodium metabisulfite in benzimidazole formation</a> stands as an excellent example of why the service was created. Five answers have been posted, three of which are starting to get lengthy discussions associated with them. Four Chempedia Lab users have been involved so far in coming up with an answer. New papers have been brought into the discussion.</p>
     </div>
-    <a href="/articles/2010/06/30/help-us-solve-a-mechanistic-mystery-benzimidazole-formation-using-sodium-metabisulfite/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2010/06/30/help-us-solve-a-mechanistic-mystery-benzimidazole-formation-using-sodium-metabisulfite/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2010/06/30/help-us-solve-a-mechanistic-mystery-benzimidazole-formation-using-sodium-metabisulfite/">Help Us Solve a Mechanistic Mystery: Benzimidazole Formation using Sodium Metabisulfite</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2010-06-30T00:00:00&#43;00:00">June 30, 2010</time><span class="px-2 text-primary-500">&middot;</span><span>216 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">2 mins</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2010/06/29/linkedin-forums-how-do-i-despise-thee-let-me-count-the-ways/" class="link black dim">
-        LinkedIn Forums, How Do I Despise Thee? Let Me Count The Ways
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>Yesterday I got this interesting tidbit posted by Bill Town to the <a href="https://listserv.indiana.edu/cgi-bin/wa-iub.exe?A2=ind1006&amp;L=CHMINF-L&amp;P=R12455">CHMINF-L mailing list</a>:</p>
-<blockquote>
-<p>From: Bill Town &lt;###@###.com&gt;</p>
-<p>Subject: [CHMINF-L] FW: New comment on &ldquo;ACS Loses Appeal of Leadscope Case&rdquo;</p>
-<p>To: <a href="mailto:CHMINF-L@LISTSERV.INDIANA.EDU">CHMINF-L@LISTSERV.INDIANA.EDU</a></p>
-<p>Date: Monday, June 28, 2010, 9:44 PM</p>
-<p>This is becoming a very active discussion on LinkedIn Groups</p>
-</blockquote>
-<h1 id="the-topic-at-hand">The Topic at Hand</h1>
-<p>For those who may not have seen it, the American Chemical Society (ACS) <a href="http://portal.acs.org:80/preview/fileFetch/C/CNBP_025065/pdf/CNBP_025065.pdf">lost the most recent (and possibly final) round</a> in its <a href="http://depth-first.com/articles/2008/03/28/acs-loses-27-million-case-against-leadscope">ongoing legal conflict with LeadScope</a>. By the ACS&rsquo; own accounting, this loss could cost the society $40 Million in penalties, fees, and interest.</p>
     </div>
-    <a href="/articles/2010/06/29/linkedin-forums-how-do-i-despise-thee-let-me-count-the-ways/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2010/06/29/linkedin-forums-how-do-i-despise-thee-let-me-count-the-ways/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2010/06/29/linkedin-forums-how-do-i-despise-thee-let-me-count-the-ways/">LinkedIn Forums, How Do I Despise Thee? Let Me Count The Ways</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2010-06-29T00:00:00&#43;00:00">June 29, 2010</time><span class="px-2 text-primary-500">&middot;</span><span>608 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">3 mins</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2010/06/28/latest-ctfile-formats-specification-available-now-from-symyx/" class="link black dim">
-        Latest CTFile Formats Specification Available Now from Symyx
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p><a href="http://www.symyx.com/downloads/public/ctfile/ctfile.pdf">The latest version of the CTFile format specification</a> is now available for download. This version, printed in June 2010, covers both the widely-used V2000 molfile format and the newer V3000 format.</p>
-<p>The specification references no fewer than six times another document titled <em>Symyx Chemical Representation</em>, which apparently contains important information for implementing molfile readers/writers. Unfortunately, I  have not been able to locate it anywhere.</p>
     </div>
-    <a href="/articles/2010/06/28/latest-ctfile-formats-specification-available-now-from-symyx/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2010/06/28/latest-ctfile-formats-specification-available-now-from-symyx/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2010/06/28/latest-ctfile-formats-specification-available-now-from-symyx/">Latest CTFile Formats Specification Available Now from Symyx</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2010-06-28T00:00:00&#43;00:00">June 28, 2010</time><span class="px-2 text-primary-500">&middot;</span><span>64 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">1 min</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2010/06/25/1981-time-capsule-the-future-of-newspaper-publication/" class="link black dim">
-        1981 Time Capsule: The Future of Newspaper Publication
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <!-- raw HTML omitted -->
-<p>Favorite quote: near the end - &ldquo;For the moment at least, this fellow isn&rsquo;t worried about being out of a job.&rdquo; It&rsquo;s funny how right and wrong that idea was at the same time.</p>
     </div>
-    <a href="/articles/2010/06/25/1981-time-capsule-the-future-of-newspaper-publication/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2010/06/25/1981-time-capsule-the-future-of-newspaper-publication/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2010/06/25/1981-time-capsule-the-future-of-newspaper-publication/">1981 Time Capsule: The Future of Newspaper Publication</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2010-06-25T00:00:00&#43;00:00">June 25, 2010</time><span class="px-2 text-primary-500">&middot;</span><span>34 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">1 min</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2010/06/24/the-avalanche-of-low-quality-research/" class="link black dim">
-        The Avalanche of Low-Quality Research?
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>Do we scientist publish too much? I ran across a recent <a href="http://chronicle.com/article/We-Must-Stop-the-Avalanche-of/65890/?sid=at">plea to stop the avalanche of low-quality scientific research papers</a> by Mark Bauerlein, Mohamed Gad-el-Hak, Wayne Grody, Bill McKelvey, and Stanley W. Trimble that suggests we do.</p>
-<p>The article takes aim at &lsquo;redundant, inconsequential, and outright poor research&rsquo; papers:</p>
-<blockquote>
-<p>&hellip; Consider this tally from Science two decades ago: Only 45 percent of the articles published in the 4,500 top scientific journals were cited within the first five years after publication. &hellip; In a 2009 article in Online Information Review, Péter Jacsó found that 40.6 percent of the articles published in the top science and social-science journals (the figures do not include the humanities) were cited in the period 2002 to 2006.</p>
     </div>
-    <a href="/articles/2010/06/24/the-avalanche-of-low-quality-research/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2010/06/24/the-avalanche-of-low-quality-research/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2010/06/24/the-avalanche-of-low-quality-research/">The Avalanche of Low-Quality Research?</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2010-06-24T00:00:00&#43;00:00">June 24, 2010</time><span class="px-2 text-primary-500">&middot;</span><span>836 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">4 mins</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2010/06/22/what-about-chempedia/" class="link black dim">
-        What About Chempedia?
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>Every great website requires two things: great content and people interested in using it. Getting there is remarkably difficult, as the countless millions of failed websites and services can attest to.</p>
-<p><a href="http://chempedia.com">Chempedia</a> is a public-facing chemical substance registry. In plain English, it offers the ability for anyone to assign a unique identifier and one or more names to a pure organic substance. Every substance has a summary page (for example, <a href="http://chempedia.com/substances/2-7151-3159-6129">serotonin</a>) and the system is searchable both by <a href="http://chempedia.com/queries/new">structure/substructure</a> and by name/identitifer. Unique to Chempedia is its <a href="http://chempedia.com/about/peer-review">review system</a>, in which the user community assigns points to both substance namings and users, setting the stage for game mechanics-inspired features such as a <a href="http://chempedia.com/users">leaderboard</a>.</p>
     </div>
-    <a href="/articles/2010/06/22/what-about-chempedia/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2010/06/22/what-about-chempedia/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2010/06/22/what-about-chempedia/">What About Chempedia?</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2010-06-22T00:00:00&#43;00:00">June 22, 2010</time><span class="px-2 text-primary-500">&middot;</span><span>283 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">2 mins</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2010/06/18/html-5-mobile-devices-and-chemistry/" class="link black dim">
-        HTML 5, Mobile Devices, and Chemistry
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <!-- raw HTML omitted -->
-<p>The dream of building desktop-like Web applications based on commodity Web browsers is starting to look more and more feasible. <a href="http://en.wikipedia.org/wiki/HTML5">HTML 5</a> represents not just another evolution of Web standards, but for the first time a viable starting point for applications that blur the distinctions between thick and thin clients.</p>
-<p>Ordinarily, new HTML features don&rsquo;t get a whole lot of attention until Microsoft decides whether to join in and how big a mess to make of it. But this time seems different. For one thing, market share for Internet Explorer <a href="http://en.wikipedia.org/wiki/Usage_share_of_web_browsers">continues its multi-year slide</a>. For another, the only two mobile device platforms that matter (iPhone/iPad and Android) have embraced HTML 5 with gusto. For still another, developing native apps on these mobile platforms will require massive re-tooling by existing players (not to mention a massive amount of certainty that they are backing the right one).</p>
     </div>
-    <a href="/articles/2010/06/18/html-5-mobile-devices-and-chemistry/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2010/06/18/html-5-mobile-devices-and-chemistry/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2010/06/18/html-5-mobile-devices-and-chemistry/">HTML 5, Mobile Devices, and Chemistry</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2010-06-18T00:00:00&#43;00:00">June 18, 2010</time><span class="px-2 text-primary-500">&middot;</span><span>226 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">2 mins</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2010/06/09/what-goes-around-comes-around-university-of-california-threatens-system-wide-boycott-of-nature-publishing-group/" class="link black dim">
-        What Goes Around Comes Around: University of California Threatens System-Wide Boycott of Nature Publishing Group
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>In what&rsquo;s unlikely be the last incident of its kind, the University of California is preparing its faculty and students for what could be a system-wide boycott of Nature Publishing Group. In a <a href="http://libraries.ucsd.edu/collections/Nature_Faculty_Letter-June_2010.pdf">letter addressed to UC Divisional Chairs and UC Faculty</a>, Laine Farley, Executive Director of the California Digital Library and others have taken a strong stand against a proposed 400% increase in the cost of subscriptions from NPG:</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>See also the story about the potential boycott in <a href="http://chronicle.com/article/U-of-California-Tries-Just/65823/">The Chronicle of Higher Education</a>.</p>
     </div>
-    <a href="/articles/2010/06/09/what-goes-around-comes-around-university-of-california-threatens-system-wide-boycott-of-nature-publishing-group/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2010/06/09/what-goes-around-comes-around-university-of-california-threatens-system-wide-boycott-of-nature-publishing-group/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2010/06/09/what-goes-around-comes-around-university-of-california-threatens-system-wide-boycott-of-nature-publishing-group/">What Goes Around Comes Around: University of California Threatens System-Wide Boycott of Nature Publishing Group</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2010-06-09T00:00:00&#43;00:00">June 9, 2010</time><span class="px-2 text-primary-500">&middot;</span><span>188 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">1 min</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
+      
+    </div>
+  </a>
+
+        
+        
       
     </section>
-    <ul class="pagination pagination-default">
-      <li class="page-item">
-        <a href="/articles/" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="/articles/page/27/" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="/articles/page/26/" aria-label="Page 26" class="page-link" role="button">26</a>
-      </li>
-      <li class="page-item">
-        <a href="/articles/page/27/" aria-label="Page 27" class="page-link" role="button">27</a>
-      </li>
-      <li class="page-item active">
-        <a aria-current="page" aria-label="Page 28" class="page-link" role="button">28</a>
-      </li>
-      <li class="page-item">
-        <a href="/articles/page/29/" aria-label="Page 29" class="page-link" role="button">29</a>
-      </li>
-      <li class="page-item">
-        <a href="/articles/page/30/" aria-label="Page 30" class="page-link" role="button">30</a>
-      </li>
-      <li class="page-item">
-        <a href="/articles/page/29/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="/articles/page/92/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
-      </li>
-    </ul></article>
 
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
-    &copy;  Depth-First 2024 
-  </a>
-    <div><div class="ananke-socials"></div>
-</div>
+    
+
+  
+
+    <ul class="flex flex-row mt-8 justify-center">
+    <li>
+      <a
+          href="/articles/page/27/"
+          class="mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          rel="prev"
+      >&larr;</a>
+    </li>
+    <li>
+          <a
+              href="/articles/"
+              class=" mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          >1</a>
+      </li><li class="page-item ">
+          <span class="page-link" aria-hidden="true">&hellip;</span>
+        </li><li>
+          <a
+              href="/articles/page/26/"
+              class=" mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          >26</a>
+      </li><li>
+          <a
+              href="/articles/page/27/"
+              class=" mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          >27</a>
+      </li><li>
+          <a
+              href="/articles/page/28/"
+              class="
+          bg-primary-200 dark:bg-primary-400 dark:text-neutral-800
+         mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          >28</a>
+      </li><li>
+          <a
+              href="/articles/page/29/"
+              class=" mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          >29</a>
+      </li><li>
+          <a
+              href="/articles/page/30/"
+              class=" mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          >30</a>
+      </li><li class="page-item ">
+          <span class="page-link" aria-hidden="true">&hellip;</span>
+        </li><li>
+          <a
+              href="/articles/page/92/"
+              class=" mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          >92</a>
+      </li>
+    <li>
+      <a
+          href="/articles/page/29/"
+          class="mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          rel="next"
+      >&rarr;</a>
+    </li>
+    
+  </ul>
+
+  
+      
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2024
+      
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
   </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
 </footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="http://localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
 
-  </body>
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
 </html>

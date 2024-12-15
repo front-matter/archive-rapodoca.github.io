@@ -1,42 +1,70 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Parsing InChI: It&#39;s Complicated | Depth-First</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="SMILES and InChI may look like two solutions to the same problem, but looks can be deceiving.">
-    <meta name="generator" content="Hugo 0.139.4">
-    
-    
-    
-    
-      <meta name="robots" content="noindex, nofollow">
-    
-    
-      <meta name="author" content = "Richard L. Apodaca">
-    
-
-    
-<link rel="stylesheet" href="/ananke/css/main.min.css" >
-
-
-
-    
-
-    
-      
-
-    
-
-    
-
-    
-      <link rel="canonical" href="http://localhost:1313/articles/2021/03/10/parsing-inchi-its-complicated/">
-    
-
-    <meta property="og:url" content="http://localhost:1313/articles/2021/03/10/parsing-inchi-its-complicated/">
+<html lang="en-us" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en-us" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>Parsing InChI: It&#39;s Complicated &middot; Depth-First</title>
+  <meta name="title" content="Parsing InChI: It&#39;s Complicated &middot; Depth-First" />
+  
+  <meta name="description" content="SMILES and InChI may look like two solutions to the same problem, but looks can be deceiving." />
+  
+  
+  
+  <link rel="canonical" href="http://localhost:1313/articles/2021/03/10/parsing-inchi-its-complicated/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.e27868ab1485f7ed7b06b122b4980bd38b19526eb8f7de885181204d28f04a0c47e9c334eff19a06c0278eb2ff8415b983a5d0fb80fd6b5680c926457cc61c57.css"
+    integrity="sha512-4nhoqxSF9&#43;17BrEitJgL04sZUm64996IUYEgTSjwSgxH6cM07/GaBsAnjrL/hBW5g6XQ&#43;4D9a1aAySZFfMYcVw==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.c178288131a2f1ad46910438db47ac5f7e1c48cf949e49f6dc3310c8ec9660e23fe505805eba4e2e73711335808500360d773a2b64322feb35df52856edca286.js"
+    integrity="sha512-wXgogTGi8a1GkQQ420esX34cSM&#43;Unkn23DMQyOyWYOI/5QWAXrpOLnNxEzWAhQA2DXc6K2QyL&#43;s131KFbtyihg==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/articles/2021/03/10/parsing-inchi-its-complicated/">
   <meta property="og:site_name" content="Depth-First">
   <meta property="og:title" content="Parsing InChI: It&#39;s Complicated">
   <meta property="og:description" content="SMILES and InChI may look like two solutions to the same problem, but looks can be deceiving.">
@@ -46,91 +74,389 @@
     <meta property="article:published_time" content="2021-03-10T16:00:00+00:00">
     <meta property="article:modified_time" content="2021-03-10T16:00:00+00:00">
 
-  <meta itemprop="name" content="Parsing InChI: It&#39;s Complicated">
-  <meta itemprop="description" content="SMILES and InChI may look like two solutions to the same problem, but looks can be deceiving.">
-  <meta itemprop="datePublished" content="2021-03-10T16:00:00+00:00">
-  <meta itemprop="dateModified" content="2021-03-10T16:00:00+00:00">
-  <meta itemprop="wordCount" content="1536">
+  
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Parsing InChI: It&#39;s Complicated">
   <meta name="twitter:description" content="SMILES and InChI may look like two solutions to the same problem, but looks can be deceiving.">
 
-	
-  </head><body class="ma0 avenir bg-near-white development">
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "Parsing InChI: It\u0027s Complicated",
+    "headline": "Parsing InChI: It\u0027s Complicated",
+    
+    "abstract": "SMILES and InChI may look like two solutions to the same problem, but looks can be deceiving.",
+    "inLanguage": "en-us",
+    "url" : "http:\/\/localhost:1313\/articles\/2021\/03\/10\/parsing-inchi-its-complicated\/",
+    "author" : {
+      "@type": "Person",
+      "name": ""
+    },
+    "copyrightYear": "2021",
+    "dateCreated": "2021-03-10T16:00:00\u002b00:00",
+    "datePublished": "2021-03-10T16:00:00\u002b00:00",
+    
+    "dateModified": "2021-03-10T16:00:00\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1543"
+  }]
+  </script>
+
+
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">Depth-First</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      Parsing InChI: It's Complicated
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2021-03-10T16:00:00&#43;00:00">March 10, 2021</time><span class="px-2 text-primary-500">&middot;</span><span>1543 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">8 mins</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
 
     
-   
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
   
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
-      
-        Depth-First
-      
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      <div class="ananke-socials"></div>
-
-    </div>
+  <div class="place-self-center">
+    
+    
+    <div class="text-2xl sm:text-lg">
+</div>
   </div>
-</nav>
+</div>
 
-    </div>
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
   </header>
-
-
-
-    <main class="pb7" role="main">
-      
   
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
-    <header class="mt4 w-100">
-      <aside class="instapaper_ignoref b helvetica tracked ttu">
-          
-        Posts
-      </aside><div id="sharing" class="mt3 ananke-socials"></div>
-<h1 class="f1 athelas mt3 mb1">Parsing InChI: It&#39;s Complicated</h1>
-      
-      <p class="tracked">
-        By <strong>Richard L. Apodaca</strong>
-      </p>
-      
-      
-      
-      <time class="f6 mv4 dib tracked" datetime="2021-03-10T16:00:00Z">March 10, 2021</time>
-      
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+    
 
-      
-      
-    </header>
-    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>InChI and SMILES stand as the two de facto standard line notations for cheminformatics. A <a href="/articles/2007/03/14/eleven-qualities-of-the-perfect-line-notation-for-the-web/">line notation</a> represents a molecular graph as a compact string of characters without newlines. Given its similarity to SMILES, a reasonable assumption would be that InChI can be parsed to regenerate the molecular graph that created it. With few exceptions, this is not the case. This article explains why.</p>
-<h1 id="anatomy-of-an-inchi">Anatomy of an InChI</h1>
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p>InChI and SMILES stand as the two de facto standard line notations for cheminformatics. A <a href="/articles/2007/03/14/eleven-qualities-of-the-perfect-line-notation-for-the-web/">line notation</a> represents a molecular graph as a compact string of characters without newlines. Given its similarity to SMILES, a reasonable assumption would be that InChI can be parsed to regenerate the molecular graph that created it. With few exceptions, this is not the case. This article explains why.</p>
+
+
+<h1 class="relative group">Anatomy of an InChI 
+    <div id="anatomy-of-an-inchi" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#anatomy-of-an-inchi" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>To understand the problem, it&rsquo;s helpful to know a few things about how InChI is structured.</p>
-<p>An InChI is composed of <em>layers</em>. The <a href="https://www.inchi-trust.org/download/104/InChI_TechMan.pdf">InChI Technical Manual</a> notes that there are five InChI layers, &ldquo;each representing a different class of structural information.&rdquo; A layer is composed of one or more <em>sublayers</em>. A sublayer begins with the forward slash character (<code>/</code>) and ends with either a second forward slash or the end of the string. Every sublayer except for the first begins with a single character signifying its purpose. The sequence of characters leading up to the first forward slash is called the <em>prefix</em>. The prefix contains metadata, but nothing specific to any molecular graph.</p>
+<p>An InChI is composed of <em>layers</em>. The <a href="https://www.inchi-trust.org/download/104/InChI_TechMan.pdf" target="_blank">InChI Technical Manual</a> notes that there are five InChI layers, &ldquo;each representing a different class of structural information.&rdquo; A layer is composed of one or more <em>sublayers</em>. A sublayer begins with the forward slash character (<code>/</code>) and ends with either a second forward slash or the end of the string. Every sublayer except for the first begins with a single character signifying its purpose. The sequence of characters leading up to the first forward slash is called the <em>prefix</em>. The prefix contains metadata, but nothing specific to any molecular graph.</p>
 <p>Consider the InChI for methanol.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>InChI=1S/CH4O/c1-2/h2H,1H3
 </span></span></code></pre></div><p>This InChI encodes three sublayers:</p>
 <ul>
-<li><code>CH4O</code>. The &ldquo;formula&rdquo; sublayer encoding elemental composition as <a href="https://en.wikipedia.org/wiki/Chemical_formula#Hill_system">Hill notation</a>. This sublayer appears first in all InChIs.</li>
+<li><code>CH4O</code>. The &ldquo;formula&rdquo; sublayer encoding elemental composition as <a href="https://en.wikipedia.org/wiki/Chemical_formula#Hill_system" target="_blank">Hill notation</a>. This sublayer appears first in all InChIs.</li>
 <li><code>c1-2</code>. The &ldquo;connections&rdquo; sublayer encoding the sigma framework of a molecular graph. The first character (<code>c</code>) stands for &ldquo;connections.&rdquo; The remainder of the sublayer encodes a graph using continuous integer ids as node labels and the dash character (<code>-</code>) to denote edges.</li>
 <li><code>h2H,1H3</code>. The &ldquo;fixed&rdquo; hydrogens sublayer. An atom id is followed by a hydrogen count, with each entry separated by a comma (<code>,</code>). Sometimes, a range of ids is used. What&rsquo;s reported here are <a href="/articles/2019/11/06/virtual-hydrogens/">virtual hydrogen</a> counts. The sublayer&rsquo;s first character (&lsquo;h&rsquo;) stands for &ldquo;hydrogens.&rdquo;</li>
 </ul>
 <p>InChI builds up atomic specifications stepwise through each sublayer. To do this, each atom is assigned an integer id. When a sublayer needs to update an atomic specification, it references the atomic id. For example, the connections sublayer defines a mutual connection between ids 1 and 2. Likewise, the fixed hydrogens sublayer tells us that atom 2 has one virtual hydrogen and atom 1 has three.</p>
 <p>You may have guessed which atom is which in the case of methanol. If so, the trap has been set.</p>
-<h1 id="atomic-attributes">Atomic Attributes</h1>
+
+
+<h1 class="relative group">Atomic Attributes 
+    <div id="atomic-attributes" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#atomic-attributes" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Using the information contained in each sublayer, it&rsquo;s possible to compile an <em>atomic attribute table</em>. An atomic attribute table lists all of the information about an atom, identified by its id, as revealed by the layers of an InChI. Building an atomic attribute table makes it possible to see which information is and isn&rsquo;t conveyed by the corresponding InChI.</p>
 <p>Methanol&rsquo;s InChI (<code>InChI=1S/CH4O/c1-2/h2H,1H3</code>) yields the following atomic attribute table:</p>
 <!-- raw HTML omitted -->
 <p>Using the table allows some conclusions to be drawn. Atom 1 has three virtual hydrogens and is connected to atom 2. Atom 2 has one virtual hydrogen and is connected to atom 1.</p>
 <p>However, the table is silent on the crucial question of which element is mapped to which atom id. To fill in this blank, we might turn to the formula sublayer (<code>CH4O</code>). It tells us there are two heavy atoms (carbon and oxygen). Combining this information with a simple valence model yields the elemental assignment: 1(C); 2(O).</p>
 <p>Although we can deduce which elements go with each atom index, no InChI layer explicitly conveys this information. Therein lies the problem.</p>
-<h1 id="ambiguous-elemental-mapping">Ambiguous Elemental Mapping</h1>
+
+
+<h1 class="relative group">Ambiguous Elemental Mapping 
+    <div id="ambiguous-elemental-mapping" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#ambiguous-elemental-mapping" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>An InChI&rsquo;s formula sublayer conveys the identity and count of all elements, but says nothing about their mapping to atom ids. In the case of methanol, we can fall back to hydrogen counts and valence rules to deduce the assignment. But in many cases that kind of deduction won&rsquo;t be possible.</p>
 <p>To illustrate where things start to get off track, consider methylsilane.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>InChI=1S/CH6Si/c1-2/h1-2H3
@@ -144,7 +470,18 @@
 <p>This table describes a three atom chain, with atom 3 inside and atoms 1 and 2 outside. Atom 3 has two virtual hydrogens and atoms 1 and 2 each have three.</p>
 <p>But this table says nothing about the element associated with each atom. Does the table describe dimethylsilane (atom 3 is silicon) or ethylsilane (atom 3 is carbon)? Without an in-depth understanding of the <a href="/articles/2006/08/12/inchi-canonicalization-algorithm/">InChI canonicalization algorithm</a>, there&rsquo;s no way to know. Even then, it may not be possible to say with certainty.</p>
 <p>In other words, the problem is not so much the parsing of an InChI. Instead, the problem is that parsing an InChI can yield not a single molecular representation, but more than one.</p>
-<h1 id="other-layer-failures">Other Layer Failures</h1>
+
+
+<h1 class="relative group">Other Layer Failures 
+    <div id="other-layer-failures" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#other-layer-failures" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Clearly, the InChI formula sublayer by itself lacks the detail needed to unambiguously map every atom id to an element. But this is not the only limitation. At least three other commonly-used InChI features will present similar problems:</p>
 <ul>
 <li>Charge sublayer. The charge sublayer reports overall molecular charge, not the formal charge associated with particular atom ids. Take, for example, methoxide anion (<code>InChI=1S/CH3O/c1-2/h1H3/q-1</code>).</li>
@@ -152,53 +489,262 @@
 <li>Metal disconnection. Chemists can debate whether the carbon-metal bond in methyllithium (<code>InChI=1S/CH3.Li/h1H3;</code>) is covalent or not. For its part, standard InChI will treat this bond as ionic and so it will be absent from the connections sublayer.</li>
 </ul>
 <p>Could these limitations be overcome in certain cases to yield a single unique molecular graph? Of course. But as we saw before, even slightly more complex molecules will become difficult to impossible to nail down.</p>
-<h1 id="the-trap">The Trap</h1>
+
+
+<h1 class="relative group">The Trap 
+    <div id="the-trap" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#the-trap" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>InChI&rsquo;s similarity to SMILES sets up a seductive trap. As bait, the trap uses the incorrect assumption that InChI itself provides sufficient information to generate a single molecular graph. Driven by this fallacy, it seems reasonable to use InChI not only as a unique identifier, but as the primary representation. The former is what InChI was designed for, but the latter leads to trouble.</p>
 <p>This trap has ensnared a few database designers and users. Consider two public examples:</p>
 <ul>
-<li>An RDKit user generated the InChI for a propargyl carbene represented by the SMILES <code>[CH]C#C</code>. However, parsing the resulting InChI yielded a molecule with incorrect hydrogen counts and a pentavalent carbon to boot (SMILES <code>[CH-]=C=[CH3+]</code>). (<a href="https://github.com/rdkit/rdkit/issues/542">link</a>)</li>
-<li>A CDK user attempted to parse an InChI but found that it was not possible to assign hydrogen atoms. The user noted: &ldquo;I don&rsquo;t really have any alternative to reading InChis, since I was given a database of molecules as a table of InChi strings.&rdquo; (<a href="https://github.com/cdk/cdk/issues/475">link</a>)</li>
+<li>An RDKit user generated the InChI for a propargyl carbene represented by the SMILES <code>[CH]C#C</code>. However, parsing the resulting InChI yielded a molecule with incorrect hydrogen counts and a pentavalent carbon to boot (SMILES <code>[CH-]=C=[CH3+]</code>). (<a href="https://github.com/rdkit/rdkit/issues/542" target="_blank">link</a>)</li>
+<li>A CDK user attempted to parse an InChI but found that it was not possible to assign hydrogen atoms. The user noted: &ldquo;I don&rsquo;t really have any alternative to reading InChis, since I was given a database of molecules as a table of InChi strings.&rdquo; (<a href="https://github.com/cdk/cdk/issues/475" target="_blank">link</a>)</li>
 </ul>
-<p>For years, the InChI project has <a href="http://www.hellers.com/steve/pub-talks/toronto-7-14.pdf">cautioned</a> users that:</p>
+<p>For years, the InChI project has <a href="http://www.hellers.com/steve/pub-talks/toronto-7-14.pdf" target="_blank">cautioned</a> users that:</p>
 <blockquote>
 <p>InChI is not a replacement for any existing internal structure representations. (We do not start religious wars. ) InChI is in ADDITION to what one uses internally. Its value to student or scientist is in FINDING and LINKING information.</p>
 </blockquote>
 <p>In other words, bare InChIs are to be used for molecular identification, but not for molecular representation. Although this guidance is helpful, it explains neither the distinction being made nor the validity of the guidance. What&rsquo;s needed to drive the point home are specific examples of failure when using InChI outside the scope of its intended role.</p>
-<h1 id="avoiding-the-trap">Avoiding the Trap</h1>
+
+
+<h1 class="relative group">Avoiding the Trap 
+    <div id="avoiding-the-trap" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#avoiding-the-trap" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Given the problems of parsing InChIs, what&rsquo;s a database creator or user to do? A few options are available. One is to be sure the database contains the information needed to generate a sufficiently detailed molecular representation.</p>
 <p>For example, a full-featured representation can be stored alongside the InChI. Both SMILES and Molfile would be candidates. However, InChI can readily be generated from either of these representations. In that case, why store the InChI at all? One reason would be to allow fast exact structure search through indexing. If this is the use case, then it could be argued that InChI Key should be used, not InChI itself. But if that&rsquo;s not a use case, then storing InChIs may not make much sense.</p>
 <p>Alternatively, InChI Auxiliary Information (&ldquo;AuxInfo&rdquo;) can be stored. This sparsely-documented type of metadata is both read and written by the InChI software. Given AuxInfo, InChI works much like SMILES and Molfile. The tradeoff is storage space and additional complexity.</p>
 <p>Neither of these approaches will be available to a user forced to extract molecular graphs from an existing database using just InChI. Fortunately, InChI&rsquo;s intended role as a molecular identifier can be called into service. Many public databases store InChIs along with molfiles and/or SMILES. These mappings can be used to retroactively patch a database containing only InChIs. Of course, this approach relies on the InChI of interest being present in public databases. The more unique the collection, the less viable this lookup approach becomes.</p>
-<h1 id="conclusion">Conclusion</h1>
+
+
+<h1 class="relative group">Conclusion 
+    <div id="conclusion" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#conclusion" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Superficial similarities between InChI and SMILES can lead to the erroneous conclusion that InChI can be read and written like SMILES. This article covers some of the ways this assumption can fail. Three approaches to dealing with the problem are presented.</p>
-<ul class="pa0">
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+          
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_posts\/2021-03-10-parsing-inchi-its-complicated.md"
+        var oid_likes = "likes_posts\/2021-03-10-parsing-inchi-its-complicated.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
   
-</ul>
-<div class="mt6 instapaper_ignoref">
-      
-      
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/articles/2021/03/03/purr-a-smiles-toolkit-for-rust/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Purr: A SMILES Toolkit for Rust</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2021-03-03T17:00:00&#43;00:00">March 3, 2021</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/articles/2021/03/25/running-inchi-anywhere-with-webassembly/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Running InChI Anywhere with WebAssembly</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2021-03-25T17:30:00&#43;00:00">March 25, 2021</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
       </div>
     </div>
-
-    <aside class="w-30-l mt6-l">
-
+  
 
 
+    
+  </footer>
+</article>
 
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
-    &copy;  Depth-First 2024 
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top" title="Scroll to top">
+    &uarr;
   </a>
-    <div><div class="ananke-socials"></div>
 </div>
-  </div>
-</footer>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
 
-  </body>
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2024
+      
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="http://localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
 </html>

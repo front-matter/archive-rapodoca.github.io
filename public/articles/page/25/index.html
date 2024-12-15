@@ -1,343 +1,1427 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Depth-First</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.139.4">
-    
-    
-    
-    
-      <meta name="robots" content="noindex, nofollow">
-    
-    
-      <meta name="author" content = "Richard L. Apodaca">
-    
-
-    
-<link rel="stylesheet" href="/ananke/css/main.min.css" >
-
-
-
-    
-
-    
-      
-
-    
-
-    
-    
-      <link href="/articles/index.xml" rel="alternate" type="application/rss+xml" title="Depth-First" />
-      <link href="/articles/index.xml" rel="feed" type="application/rss+xml" title="Depth-First" />
-      
-    
-
-    
-      <link rel="canonical" href="http://localhost:1313/articles/">
-    
-
-    <meta property="og:url" content="http://localhost:1313/articles/">
+<html lang="en-us" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en-us" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>Posts &middot; Depth-First</title>
+  <meta name="title" content="Posts &middot; Depth-First" />
+  
+  
+  
+  
+  
+  <link rel="canonical" href="http://localhost:1313/articles/" />
+  
+  <link rel="alternate" type="application/rss+xml" href="/articles/index.xml" title="Depth-First" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.e27868ab1485f7ed7b06b122b4980bd38b19526eb8f7de885181204d28f04a0c47e9c334eff19a06c0278eb2ff8415b983a5d0fb80fd6b5680c926457cc61c57.css"
+    integrity="sha512-4nhoqxSF9&#43;17BrEitJgL04sZUm64996IUYEgTSjwSgxH6cM07/GaBsAnjrL/hBW5g6XQ&#43;4D9a1aAySZFfMYcVw==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.c178288131a2f1ad46910438db47ac5f7e1c48cf949e49f6dc3310c8ec9660e23fe505805eba4e2e73711335808500360d773a2b64322feb35df52856edca286.js"
+    integrity="sha512-wXgogTGi8a1GkQQ420esX34cSM&#43;Unkn23DMQyOyWYOI/5QWAXrpOLnNxEzWAhQA2DXc6K2QyL&#43;s131KFbtyihg==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/articles/">
   <meta property="og:site_name" content="Depth-First">
   <meta property="og:title" content="Posts">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="website">
 
-  <meta itemprop="name" content="Posts">
-  <meta itemprop="datePublished" content="2024-05-24T23:15:00+00:00">
-  <meta itemprop="dateModified" content="2024-05-24T23:15:00+00:00">
+  
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Posts">
 
-	
-  </head><body class="ma0 avenir bg-near-white development">
+  
+  
+
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">Depth-First</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+ <header>
+  
+  <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">Posts</h1>
+  <div class="mt-1 mb-2 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+</div>
+
+
+  </div>
+  
+  
+  </header>
+  <section class="mt-0 prose flex max-w-full flex-col dark:prose-invert lg:flex-row">
+    
+    <div class="min-w-0 min-h-0 max-w-prose">
+      
+    </div>
+
+
+
+
+  </section>
+  
+
+    
+    
+    
+    
+    
 
     
 
-  <header>
-    <div class="pb3-m pb6-l bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+    <section class="space-y-10 w-full">
       
-        Depth-First
-      
-    </a>
-    <div class="flex-l items-center">
-      
+        
+        
+        <h2 class="mt-12 text-2xl font-bold text-neutral-700 first:mt-8 dark:text-neutral-300">
+          2010
+        </h2>
+        
+        
+        
 
-      
-      <div class="ananke-socials"></div>
 
-    </div>
-  </div>
-</nav>
 
-      <div class="tc-l pv3 ph3 ph4-ns">
-        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
-          Posts
-        </h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2010/10/22/cheminformatics-data-pipelining-with-knime-creating-a-custom-node-for-generating-inchis-and-inchi-keys/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2010/10/22/cheminformatics-data-pipelining-with-knime-creating-a-custom-node-for-generating-inchis-and-inchi-keys/">Cheminformatics Data Pipelining with KNIME - Creating a Custom Node for Generating InChIs and InChI Keys</div>
+        
+        
         
       </div>
-    </div>
-  </header>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
 
 
-    <main class="pb7" role="main">
-      
-  <article class="pa3 pa4-ns nested-copy-line-height">
-    <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy mid-gray"></section>
-    <section class="flex-ns flex-wrap justify-around mt5">
-      
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2010/10/22/cheminformatics-data-pipelining-with-knime-creating-a-custom-node-for-generating-inchis-and-inchi-keys/" class="link black dim">
-        Cheminformatics Data Pipelining with KNIME - Creating a Custom Node for Generating InChIs and InChI Keys
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>KNIME is a graphical programming environment that many are considering for use in cheminformatics. One of the limitations of KNIME at the present is its relative lack of low-level cheminforamtics software components (nodes) compared to Pipeline Pilot, for example. Previous articles have <a href="/articles/2010/10/11/cheminformatics-data-pipelining-with-knime-getting-started">introduced KNIME as a tool for cheminformatics</a> and outlined a method for <a href="/articles/2010/10/14/cheminformatics-data-pipelining-with-knime-configuring-a-node-developer-environment-on-ubuntu-linux">creating a KNIME node developer environment</a>. This article shows how to create a custom KNIME node for generating Standard InChIs and InChI Keys.</p>
-    </div>
-    <a href="/articles/2010/10/22/cheminformatics-data-pipelining-with-knime-creating-a-custom-node-for-generating-inchis-and-inchi-keys/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2010-10-22T00:00:00&#43;00:00">October 22, 2010</time><span class="px-2 text-primary-500">&middot;</span><span>997 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">5 mins</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2010/10/20/how-to-enable-exact-structure-search-and-substructure-search-for-your-chemical-database/" class="link black dim">
-        How to Enable Exact Structure Search and Substructure Search for Your Chemical Database
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>It&rsquo;s a simple and increasingly common question: how can I enable users to search my website by chemical structure? Text search can be done relatively easily, but chemical exact structure and substructure search are considerably more complex. This article offers a high-level overview for non-experts of what&rsquo;s needed to create a structure-searchable chemical database.</p>
-<h1 id="the-components">The Components</h1>
-<ol>
-<li><strong>Web Application Framework.</strong> This is the high-level software on which your current site is built or will be built. Popular packages include: <a href="http://www.php.net/">PHP</a>; <a href="http://rubyonrails.org/">Ruby on Rails</a>; <a href="http://www.asp.net/">ASP .NET</a>; and <a href="http://www.djangoproject.com/">Django</a>.</li>
-<li><strong>A Database.</strong> There are many varieties to choose from. SQL flavors include <a href="http://mysql.com/">MySQL</a> and <a href="http://www.postgresql.org/">PostgreSQL</a>. NoSQL flavors include <a href="/articles/2009/04/22/couchdb-for-chemistry/">CouchDB</a>.</li>
-<li><strong>Machine-Readable Structure Representations.</strong> A number of formats have been developed over the years. Due to its nearly universal support by software packages, one of the most widely-used is <a href="/articles/2010/06/28/latest-ctfile-formats-specification-available-now-from-symyx/">molfile</a>.</li>
-<li><strong>Structure Canonicalizer.</strong>  This software is used for fast exact structure search. A canonicalizer converts a chemical structure into a unique string of text that can be stored and searched using standard database technologies. <a href="http://en.wikipedia.org/wiki/International_Chemical_Identifier">InChI</a> should be the default choice.</li>
-<li><strong>Fingerprint Generator.</strong> Converting chemical structures into fixed-length binary fingerprints, this software is used to pre-screen structures during substructure search. The reason is simple: substructure search is computationally expensive and good fingerprints can eliminate many unnecessary substructure searches. A number of open source packages are suitable, including: <a href="http://metamolecular.com/mx">MX</a>; <a href="http://sourceforge.net/apps/mediawiki/cdk/index.php?title=Main_Page">CDK</a>; <a href="http://openbabel.org/wiki/Main_Page">OpenBabel</a>; <a href="http://rdkit.org/">RDKit</a> and a few closed-source offerings.</li>
-<li><strong>Substructure Matcher.</strong> Performs substructure matching through atom-by-atom search (ABAS). This software is used after an initial fingerprint screen. Although fingerprints never generate a false negative, they can and do generate false positives. A substructure matcher ensures no false positives get presented to your users. Packages that can generate fingerprints can usually perform substructure matches as well.</li>
-<li><strong>Chemical Structure Editor.</strong> Allows chemists to draw structures to be searched. A few <a href="/articles/2006/08/21/four-free-2-d-structure-editors-for-web-applications/">free structure editors</a> are available. One ergonomic and fast-loading commercial product is <a href="http://chemwriter.com">ChemWriter</a>, which is sold by <a href="http://metamolecular.com">my company</a>.</li>
-</ol>
-<h1 id="workflow">Workflow</h1>
-<p>Felix, a user of your site, wants to search for indole substructures. Browsing to the &ldquo;search&rdquo; page, he draws indole using a structure editor and clicks the &ldquo;Substructure Search&rdquo; button. A JavaScript handler extracts the structure Felix drew into a hidden text field, then the form gets POSTED to your server. For details, see <a href="http://chemwriter.com/articles/posting-a-molfile-in-a-form">Posting a Molfile in a Form</a>.</p>
     </div>
-    <a href="/articles/2010/10/20/how-to-enable-exact-structure-search-and-substructure-search-for-your-chemical-database/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2010/10/20/how-to-enable-exact-structure-search-and-substructure-search-for-your-chemical-database/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2010/10/20/how-to-enable-exact-structure-search-and-substructure-search-for-your-chemical-database/">How to Enable Exact Structure Search and Substructure Search for Your Chemical Database</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2010-10-20T00:00:00&#43;00:00">October 20, 2010</time><span class="px-2 text-primary-500">&middot;</span><span>641 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">4 mins</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2010/10/19/the-fda-unique-ingredient-identifier-unii/" class="link black dim">
-        The FDA Unique Ingredient Identifier (UNII)
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>Did you know that United States Food and Drug Administration (FDA) maintains a Substance Registration System (SRS) that aims to centralize information on every ingredient contained in domestically-marketed foods, drugs, and medical devices? A central component of this system is the Unique Ingredient Identifier (UNII). The key documentation and resources on this system are scattered and extremely difficult to locate. This article summarizes some of the more important points about the SRS/UNII initiative from the perspective of cheminformatics.</p>
     </div>
-    <a href="/articles/2010/10/19/the-fda-unique-ingredient-identifier-unii/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2010/10/19/the-fda-unique-ingredient-identifier-unii/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2010/10/19/the-fda-unique-ingredient-identifier-unii/">The FDA Unique Ingredient Identifier (UNII)</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2010-10-19T00:00:00&#43;00:00">October 19, 2010</time><span class="px-2 text-primary-500">&middot;</span><span>664 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">4 mins</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2010/10/18/a-lightweight-and-portable-java-interface-to-inchi/" class="link black dim">
-        A Lightweight and Portable Java Interface to InChI
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>If you work in cheminformatics and you use Java, you&rsquo;ll eventually face the problem of <a href="http://depth-first.com/articles/2008/12/10/mr-inchi-tear-down-this-wall">how to generate InChIs in Java</a>. This blog has covered a few approaches to integrating InChI over the years, including the use of <a href="http://depth-first.com/articles/2006/09/16/taking-a-swig-of-inchi">SWIG to statically link to the InChI code</a> and <a href="http://depth-first.com/articles/2007/12/03/from-c-source-code-to-platform-independent-executable-jarfile-using-nestedvm-to-build-jinchi">NestedVM to compile the InChI C source into Java bytecode</a>. NestedVM ports much better than SWIG, but at the price of a  performance penalty on the order of 10-20 fold. What if we could have the best of both performance and portability when using InChI with Java? This article shows one way to do it.</p>
     </div>
-    <a href="/articles/2010/10/18/a-lightweight-and-portable-java-interface-to-inchi/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2010/10/18/a-lightweight-and-portable-java-interface-to-inchi/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2010/10/18/a-lightweight-and-portable-java-interface-to-inchi/">A Lightweight and Portable Java Interface to InChI</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2010-10-18T00:00:00&#43;00:00">October 18, 2010</time><span class="px-2 text-primary-500">&middot;</span><span>558 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">3 mins</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2010/10/16/freeform-natural-laws-from-experimental-data/" class="link black dim">
-        Freeform Natural Laws from Experimental Data
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <!-- raw HTML omitted -->
-<p>More online is available <a href="http://ccsl.mae.cornell.edu/natural_laws">here</a>. This is not just an example of fascinating research. The group at Cornell demonstrates how easy it is to reach a wide audience using what the Web offers cheaply or for free. Few in chemistry have caught on to this simple idea.</p>
-<p>Thanks to <a href="http://friendfeed.com/mattodd/cf061e11/distilling-free-form-natural-laws-from">Mat Todd</a> for the heads up.</p>
     </div>
-    <a href="/articles/2010/10/16/freeform-natural-laws-from-experimental-data/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2010/10/16/freeform-natural-laws-from-experimental-data/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2010/10/16/freeform-natural-laws-from-experimental-data/">Freeform Natural Laws from Experimental Data</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2010-10-16T00:00:00&#43;00:00">October 16, 2010</time><span class="px-2 text-primary-500">&middot;</span><span>55 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">1 min</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2010/10/14/cheminformatics-data-pipelining-with-knime-configuring-a-node-developer-environment-on-ubuntu-linux/" class="link black dim">
-        Cheminformatics Data Pipelining with KNIME - Configuring a Node Developer Environment on Ubuntu Linux
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>The previous article in this series <a href="http://localhost:4000/articles/2010/10/11/cheminformatics-data-pipelining-with-knime-getting-started">introduced KNIME as a data pipelining engine for cheminformatics</a>. One of the conclusions from that article was that the possibilities for doing interesting things with an out-of-the-box KNIME installation were somewhat limited. This article briefly describes how to set up a KNIME developer environment in preparation for creating our own custom KNIME cheminformatics nodes.</p>
-<h1 id="the-system">The System</h1>
-<p>Although the KNIME workbench is offered as a Mac OS X version, the KNIME SDK is only offered on Windows and Linux. Given that I only run Macs for development, this presents a problem. The solution in my case was to install Ubuntu on <a href="http://www.virtualbox.org/">VirtualBox</a>.</p>
     </div>
-    <a href="/articles/2010/10/14/cheminformatics-data-pipelining-with-knime-configuring-a-node-developer-environment-on-ubuntu-linux/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2010/10/14/cheminformatics-data-pipelining-with-knime-configuring-a-node-developer-environment-on-ubuntu-linux/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2010/10/14/cheminformatics-data-pipelining-with-knime-configuring-a-node-developer-environment-on-ubuntu-linux/">Cheminformatics Data Pipelining with KNIME - Configuring a Node Developer Environment on Ubuntu Linux</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2010-10-14T00:00:00&#43;00:00">October 14, 2010</time><span class="px-2 text-primary-500">&middot;</span><span>516 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">3 mins</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2010/10/12/poster-at-the-cdd-community-meeting/" class="link black dim">
-        Poster at the CDD Community Meeting
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>Are you involved in Drug Discovery? Are you interested in how new technologies could change the rules of the game? Will you be in San Francisco on October 21st?</p>
-<p>Then you might consider registering (free) for the <a href="http://www.acteva.com/booking.cfm?bevaID=204012&amp;CFID=25637656&amp;CFTOKEN=61705806">4th Annual Collaborative Drug Discovery Community Meeting</a>. This will be my first CDD Community Meeting, but I&rsquo;m looking forward to it. Past meetings have brought together a diverse group from science, business, and philanthropy - and this meeting looks set to do the same.</p>
     </div>
-    <a href="/articles/2010/10/12/poster-at-the-cdd-community-meeting/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2010/10/12/poster-at-the-cdd-community-meeting/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2010/10/12/poster-at-the-cdd-community-meeting/">Poster at the CDD Community Meeting</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2010-10-12T00:00:00&#43;00:00">October 12, 2010</time><span class="px-2 text-primary-500">&middot;</span><span>109 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">1 min</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2010/10/11/cheminformatics-data-pipelining-with-knime-getting-started/" class="link black dim">
-        Cheminformatics Data Pipelining with KNIME - Getting Started
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>Whether you consider visual workflow/data pipelining environments like <a href="http://accelrys.com/products/pipeline-pilot/">Pipeline Pilot</a> useful or not, there&rsquo;s no denying they&rsquo;re popular. Within the last few years, <a href="http://www.knime.org/">KNIME</a> has joined Pipeline Pilot as a widely-used visual programming platform. But unlike Pipeline Pilot, KNIME is released under an open source license, which makes it interesting from the perspective of <a href="http://en.wikipedia.org/wiki/Disruptive_technology">disruptive technology</a>. This article, the first in a series, examines KNIME as a tool for cheminformatics data pipelining.</p>
-<h1 id="knime-for-cheminformatics">KNIME for Cheminformatics</h1>
-<p>In a blog post earlier this year, <a href="http://dalkescientific.com/">Andrew Dalke</a> presented a <a href="http://dalkescientific.com/writings/diary/archive/2010/03/16/knime_and_beginners.html">summary of his experiences with KNIME</a>. Considering that visual programming environments like KNIME are more accessible to &ldquo;non-programmers&rdquo; and from this a significant amount of their attraction derives, Dalke attempted to do some simple things with KNIME - and pretty much failed:</p>
     </div>
-    <a href="/articles/2010/10/11/cheminformatics-data-pipelining-with-knime-getting-started/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2010/10/11/cheminformatics-data-pipelining-with-knime-getting-started/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2010/10/11/cheminformatics-data-pipelining-with-knime-getting-started/">Cheminformatics Data Pipelining with KNIME - Getting Started</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2010-10-11T00:00:00&#43;00:00">October 11, 2010</time><span class="px-2 text-primary-500">&middot;</span><span>597 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">3 mins</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2010/10/08/the-acs-journal-publishing-agreement-and-the-other-path-forward/" class="link black dim">
-        The ACS Journal Publishing Agreement and the Other Path Forward
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>If you&rsquo;ve ever published in an ACS journal, you may remember <a href="http://pubs.acs.org/userimages/ContentEditor/1218205118705/interactive_copyright.pdf">a short form</a> you need to fill out in which you transfer copyright to the ACS. Well, the rules are apparently set to change in the next few weeks. Read on to find out how.</p>
-<h1 id="the-acs-journal-publishing-agreement">The ACS Journal Publishing Agreement</h1>
-<p>This month the ACS will start replacing the ACS Copyright Status Form with a <a href="http://pubs.acs.org/userimages/ContentEditor/1285231362937/jpa_user_guide.pdf">Journal Publishing Agreement</a> (JPA) (<a href="http://pubs.acs.org/page/4authors/jpa/index.html">announcement</a>). Unlike the previous Copyright Status Form, the JPA grants back to authors specific rights:</p>
     </div>
-    <a href="/articles/2010/10/08/the-acs-journal-publishing-agreement-and-the-other-path-forward/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2010/10/08/the-acs-journal-publishing-agreement-and-the-other-path-forward/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2010/10/08/the-acs-journal-publishing-agreement-and-the-other-path-forward/">The ACS Journal Publishing Agreement and the Other Path Forward</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2010-10-08T00:00:00&#43;00:00">October 8, 2010</time><span class="px-2 text-primary-500">&middot;</span><span>574 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">3 mins</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/articles/2010/10/07/software-downsizing/" class="link black dim">
-        Software Downsizing
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>You may have noticed some changes to Depth-First recently. This post highlights some of these changes, particularly in the parts you can&rsquo;t see.</p>
-<h1 id="whats-wrong-with-blogging-software">What&rsquo;s Wrong With Blogging Software?</h1>
-<p>In its four-year history, Depth-First has run off of two blogging systems. The first was an ancient, lovable beast called <a href="http://blog.typosphere.org/">Typo</a>. The second was a custom-built replacement called <a href="http://depth-first.com/articles/2010/01/05/out-with-the-old-or-at-least-the-stuff-that-prevents-progress/">Hubbub</a> that I wrote, partly to teach myself about some newer technologies.</p>
-<p>There are probably hundreds, if not thousands of blogging systems in existence, with Wordpress and Movable Type being two popular choices. They all work in more or less the same way - you post your articles through an admin interface to a Web application running on a server.</p>
     </div>
-    <a href="/articles/2010/10/07/software-downsizing/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
+  </a>
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a class="flex flex-wrap article " href="/articles/2010/10/07/software-downsizing/">
+    <div class=" mt-3 md:mt-0">
+      <div class="items-center text-left text-xl font-semibold">
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/2010/10/07/software-downsizing/">Software Downsizing</div>
+        
+        
+        
+      </div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-400">
+        
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2010-10-07T00:00:00&#43;00:00">October 7, 2010</time><span class="px-2 text-primary-500">&middot;</span><span>608 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">3 mins</span>
+  
+
+  
+  
 </div>
 
-        </div>
+
+
+
+
+
+
+
+      </div>
+      
+    </div>
+  </a>
+
+        
+        
       
     </section>
-    <ul class="pagination pagination-default">
-      <li class="page-item">
-        <a href="/articles/" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="/articles/page/24/" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="/articles/page/23/" aria-label="Page 23" class="page-link" role="button">23</a>
-      </li>
-      <li class="page-item">
-        <a href="/articles/page/24/" aria-label="Page 24" class="page-link" role="button">24</a>
-      </li>
-      <li class="page-item active">
-        <a aria-current="page" aria-label="Page 25" class="page-link" role="button">25</a>
-      </li>
-      <li class="page-item">
-        <a href="/articles/page/26/" aria-label="Page 26" class="page-link" role="button">26</a>
-      </li>
-      <li class="page-item">
-        <a href="/articles/page/27/" aria-label="Page 27" class="page-link" role="button">27</a>
-      </li>
-      <li class="page-item">
-        <a href="/articles/page/26/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="/articles/page/92/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
-      </li>
-    </ul></article>
 
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
-    &copy;  Depth-First 2024 
-  </a>
-    <div><div class="ananke-socials"></div>
-</div>
+    
+
+  
+
+    <ul class="flex flex-row mt-8 justify-center">
+    <li>
+      <a
+          href="/articles/page/24/"
+          class="mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          rel="prev"
+      >&larr;</a>
+    </li>
+    <li>
+          <a
+              href="/articles/"
+              class=" mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          >1</a>
+      </li><li class="page-item ">
+          <span class="page-link" aria-hidden="true">&hellip;</span>
+        </li><li>
+          <a
+              href="/articles/page/23/"
+              class=" mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          >23</a>
+      </li><li>
+          <a
+              href="/articles/page/24/"
+              class=" mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          >24</a>
+      </li><li>
+          <a
+              href="/articles/page/25/"
+              class="
+          bg-primary-200 dark:bg-primary-400 dark:text-neutral-800
+         mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          >25</a>
+      </li><li>
+          <a
+              href="/articles/page/26/"
+              class=" mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          >26</a>
+      </li><li>
+          <a
+              href="/articles/page/27/"
+              class=" mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          >27</a>
+      </li><li class="page-item ">
+          <span class="page-link" aria-hidden="true">&hellip;</span>
+        </li><li>
+          <a
+              href="/articles/page/92/"
+              class=" mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          >92</a>
+      </li>
+    <li>
+      <a
+          href="/articles/page/26/"
+          class="mx-1 block min-w-[1.8rem] rounded text-center hover:bg-primary-600 hover:text-neutral"
+          rel="next"
+      >&rarr;</a>
+    </li>
+    
+  </ul>
+
+  
+      
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2024
+      
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
   </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
 </footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="http://localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
 
-  </body>
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
 </html>

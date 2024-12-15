@@ -1,42 +1,70 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Abstract Syntax Trees for SMILES | Depth-First</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="Designing a suite of power tools for SMILES manipulation in Rust.">
-    <meta name="generator" content="Hugo 0.139.4">
-    
-    
-    
-    
-      <meta name="robots" content="noindex, nofollow">
-    
-    
-      <meta name="author" content = "Richard L. Apodaca">
-    
-
-    
-<link rel="stylesheet" href="/ananke/css/main.min.css" >
-
-
-
-    
-
-    
-      
-
-    
-
-    
-
-    
-      <link rel="canonical" href="http://localhost:1313/articles/2020/12/14/abstract-syntax-trees-for-smiles/">
-    
-
-    <meta property="og:url" content="http://localhost:1313/articles/2020/12/14/abstract-syntax-trees-for-smiles/">
+<html lang="en-us" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en-us" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>Abstract Syntax Trees for SMILES &middot; Depth-First</title>
+  <meta name="title" content="Abstract Syntax Trees for SMILES &middot; Depth-First" />
+  
+  <meta name="description" content="Designing a suite of power tools for SMILES manipulation in Rust." />
+  
+  
+  
+  <link rel="canonical" href="http://localhost:1313/articles/2020/12/14/abstract-syntax-trees-for-smiles/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.e27868ab1485f7ed7b06b122b4980bd38b19526eb8f7de885181204d28f04a0c47e9c334eff19a06c0278eb2ff8415b983a5d0fb80fd6b5680c926457cc61c57.css"
+    integrity="sha512-4nhoqxSF9&#43;17BrEitJgL04sZUm64996IUYEgTSjwSgxH6cM07/GaBsAnjrL/hBW5g6XQ&#43;4D9a1aAySZFfMYcVw==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.c178288131a2f1ad46910438db47ac5f7e1c48cf949e49f6dc3310c8ec9660e23fe505805eba4e2e73711335808500360d773a2b64322feb35df52856edca286.js"
+    integrity="sha512-wXgogTGi8a1GkQQ420esX34cSM&#43;Unkn23DMQyOyWYOI/5QWAXrpOLnNxEzWAhQA2DXc6K2QyL&#43;s131KFbtyihg==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/articles/2020/12/14/abstract-syntax-trees-for-smiles/">
   <meta property="og:site_name" content="Depth-First">
   <meta property="og:title" content="Abstract Syntax Trees for SMILES">
   <meta property="og:description" content="Designing a suite of power tools for SMILES manipulation in Rust.">
@@ -46,75 +74,362 @@
     <meta property="article:published_time" content="2020-12-14T21:00:00+00:00">
     <meta property="article:modified_time" content="2020-12-14T21:00:00+00:00">
 
-  <meta itemprop="name" content="Abstract Syntax Trees for SMILES">
-  <meta itemprop="description" content="Designing a suite of power tools for SMILES manipulation in Rust.">
-  <meta itemprop="datePublished" content="2020-12-14T21:00:00+00:00">
-  <meta itemprop="dateModified" content="2020-12-14T21:00:00+00:00">
-  <meta itemprop="wordCount" content="3119">
+  
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Abstract Syntax Trees for SMILES">
   <meta name="twitter:description" content="Designing a suite of power tools for SMILES manipulation in Rust.">
 
-	
-  </head><body class="ma0 avenir bg-near-white development">
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "Abstract Syntax Trees for SMILES",
+    "headline": "Abstract Syntax Trees for SMILES",
+    
+    "abstract": "Designing a suite of power tools for SMILES manipulation in Rust.",
+    "inLanguage": "en-us",
+    "url" : "http:\/\/localhost:1313\/articles\/2020\/12\/14\/abstract-syntax-trees-for-smiles\/",
+    "author" : {
+      "@type": "Person",
+      "name": ""
+    },
+    "copyrightYear": "2020",
+    "dateCreated": "2020-12-14T21:00:00\u002b00:00",
+    "datePublished": "2020-12-14T21:00:00\u002b00:00",
+    
+    "dateModified": "2020-12-14T21:00:00\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "3131"
+  }]
+  </script>
+
+
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">Depth-First</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      Abstract Syntax Trees for SMILES
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2020-12-14T21:00:00&#43;00:00">December 14, 2020</time><span class="px-2 text-primary-500">&middot;</span><span>3131 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">15 mins</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
 
     
-   
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
   
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
-      
-        Depth-First
-      
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      <div class="ananke-socials"></div>
-
-    </div>
+  <div class="place-self-center">
+    
+    
+    <div class="text-2xl sm:text-lg">
+</div>
   </div>
-</nav>
+</div>
 
-    </div>
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
   </header>
-
-
-
-    <main class="pb7" role="main">
-      
   
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
-    <header class="mt4 w-100">
-      <aside class="instapaper_ignoref b helvetica tracked ttu">
-          
-        Posts
-      </aside><div id="sharing" class="mt3 ananke-socials"></div>
-<h1 class="f1 athelas mt3 mb1">Abstract Syntax Trees for SMILES</h1>
-      
-      <p class="tracked">
-        By <strong>Richard L. Apodaca</strong>
-      </p>
-      
-      
-      
-      <time class="f6 mv4 dib tracked" datetime="2020-12-14T21:00:00Z">December 14, 2020</time>
-      
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+    
 
-      
-      
-    </header>
-    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>SMILES is the de facto standard for information exchange in cheminformatics. But despite this language&rsquo;s prominent role, low-level tools and documentation remain sparse and incomplete. Recent articles here have highlighted the development of <a href="/articles/2020/04/20/smiles-formal-grammar/">a SMILES grammar</a> and <a href="/articles/2020/05/25/lets-build-a-smiles-parser-in-rust/">a parser implementation in Rust</a>. This article extends that theme by introducing another powerful tool for the analysis and manipulation of SMILES using Rust.</p>
-<h1 id="blazingly-fast-smiles-processing">Blazingly Fast SMILES Processing</h1>
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p>SMILES is the de facto standard for information exchange in cheminformatics. But despite this language&rsquo;s prominent role, low-level tools and documentation remain sparse and incomplete. Recent articles here have highlighted the development of <a href="/articles/2020/04/20/smiles-formal-grammar/">a SMILES grammar</a> and <a href="/articles/2020/05/25/lets-build-a-smiles-parser-in-rust/">a parser implementation in Rust</a>. This article extends that theme by introducing another powerful tool for the analysis and manipulation of SMILES using Rust.</p>
+
+
+<h1 class="relative group">Blazingly Fast SMILES Processing 
+    <div id="blazingly-fast-smiles-processing" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#blazingly-fast-smiles-processing" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Strings offer a convenient format in which to encode SMILES, but this convenience comes at a cost. Reading and writing SMILES requires nontrivial string manipulation, validation, and interpretation steps. One option is to reach for a cheminformatics toolkit. But this general-purpose approach necessarily incurs overhead, and potentially a great deal of it. Sometimes the performance hit won&rsquo;t matter. But sometimes it will. When it does, it&rsquo;s nice to have options.</p>
-<p>Andrew Dalke discusses this problem in <em><a href="http://www.dalkescientific.com/writings/diary/archive/2016/03/28/find_element_in_smiles.html">Fun with SMILES I: Does an element exist?</a></em>. There he explores the ways that valid SMILES strings can be directly manipulated. The emphasis on raw strings necessarily limits the range of possible applications to atom/bond screening. For example, we can test whether a particular atom or set of atoms is found within a SMILES string. But that still leaves a lot of problems on the table, including: semantic validation; hydrogen counting; stereochemical analysis; and so on.</p>
+<p>Andrew Dalke discusses this problem in <em><a href="http://www.dalkescientific.com/writings/diary/archive/2016/03/28/find_element_in_smiles.html" target="_blank">Fun with SMILES I: Does an element exist?</a></em>. There he explores the ways that valid SMILES strings can be directly manipulated. The emphasis on raw strings necessarily limits the range of possible applications to atom/bond screening. For example, we can test whether a particular atom or set of atoms is found within a SMILES string. But that still leaves a lot of problems on the table, including: semantic validation; hydrogen counting; stereochemical analysis; and so on.</p>
 <p>Between raw string manipulation and a full-blown cheminformatics toolkit lies a set of tools that I think has gone mostly ignored. And the advantages of working at that level extend beyond performance boosts.</p>
-<h1 id="abstract-syntax-trees">Abstract Syntax Trees</h1>
+
+
+<h1 class="relative group">Abstract Syntax Trees 
+    <div id="abstract-syntax-trees" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#abstract-syntax-trees" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>We can bridge the gap between raw strings and powerful in-memory representations with an <em>abstract syntax tree</em> (AST). An AST is a treelike data structure that captures the ways that a language&rsquo;s elements relate to each other, while ignoring syntactic details. The tree contains three kinds of nodes, which are characterized by the presence or absence of parents and children:</p>
 <ul>
 <li><strong>Root Node</strong>. No parent and zero or more children.</li>
@@ -123,16 +438,38 @@
 </ul>
 <p>The overall structure of an AST is recursive. An interior node can be detached from its parent to yield the root of a new tree. The process is reversible. This means that iteration and/or recursion can be used to assemble complex ASTs from simpler fragments.</p>
 <p>Abstract syntax trees stand in contrast to concrete syntax trees (aka &ldquo;parse trees&rdquo;). The main difference is focus. Whereas a parse tree encodes relationships between tokens, an AST focuses on the relationship between language elements. For example, SMILES requires certain atoms to be wrapped in square brackets (<code>[</code> and <code>]</code>). A parse tree would include the brackets, but an AST would not.</p>
-<p>For more on abstract syntax trees, see <em><a href="https://ruslanspivak.com/lsbasi-part7/">Let’s Build A Simple Interpreter. Part 7: Abstract Syntax Trees</a></em>.</p>
-<h1 id="rust-as-an-abstract-syntax-tree-design-language">Rust as an Abstract Syntax Tree Design Language</h1>
+<p>For more on abstract syntax trees, see <em><a href="https://ruslanspivak.com/lsbasi-part7/" target="_blank">Let’s Build A Simple Interpreter. Part 7: Abstract Syntax Trees</a></em>.</p>
+
+
+<h1 class="relative group">Rust as an Abstract Syntax Tree Design Language 
+    <div id="rust-as-an-abstract-syntax-tree-design-language" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#rust-as-an-abstract-syntax-tree-design-language" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Rust lends itself remarkably well to the formulation of abstract syntax trees. For one thing, static typing provides rigorous validation at compile time at no cost. If implemented with care, an AST offers the valuable property of <em>infallibility</em>; it will literally be impossible to construct a syntactically invalid AST. This constraint eliminates complexity and inefficiency that would otherwise occur through runtime checks.</p>
-<p>But beyond static typing, Rust supports a highly refined type system. In particular, Rust includes <a href="https://doc.rust-lang.org/std/keyword.enum.html">algebraic types</a> out of the box. Although they&rsquo;re called &ldquo;enums,&rdquo; they go far beyond the enums found in most other languages. For one thing, Rust&rsquo;s enums can hold data either as tuples, or as structs.</p>
+<p>But beyond static typing, Rust supports a highly refined type system. In particular, Rust includes <a href="https://doc.rust-lang.org/std/keyword.enum.html" target="_blank">algebraic types</a> out of the box. Although they&rsquo;re called &ldquo;enums,&rdquo; they go far beyond the enums found in most other languages. For one thing, Rust&rsquo;s enums can hold data either as tuples, or as structs.</p>
 <p>Better still, Rust supports these custom enum types through a a rich syntax that includes the <code>match</code> keyword. Among other benefits, these constructs enable efficient branching, early return, and safe unwrapping of tuple and struct enums. The examples that follow later illustrate some of the possibilities.</p>
 <p>In a nutshell, Rust&rsquo;s type system makes it possible to represent any valid SMILES string as a compiler-validated live data structure. The next few sections make the idea more concrete by presenting parts of a SMILES AST individually. We start with some simple leaf nodes, working our way up to interior/root nodes.</p>
-<p>A <a href="https://github.com/rapodaca/smiles_ast">project containing the full source</a> is available.</p>
-<h1 id="the-chemical-elements">The Chemical Elements</h1>
+<p>A <a href="https://github.com/rapodaca/smiles_ast" target="_blank">project containing the full source</a> is available.</p>
+
+
+<h1 class="relative group">The Chemical Elements 
+    <div id="the-chemical-elements" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#the-chemical-elements" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Consider the ways in which a SMILES aliphatic atom might be represented. An aliphatic atom conforms to a set of <a href="/articles/2020/06/08/hydrogen-suppression-in-smiles/">valence rules</a>, can be written without brackets, and must derive from an element found in the set: &ldquo;B&rdquo;; &ldquo;C&rdquo;; &ldquo;N&rdquo;; &ldquo;O&rdquo;; &ldquo;S&rdquo;; &ldquo;P&rdquo;; &ldquo;F&rdquo;; &ldquo;Cl&rdquo;; &ldquo;Br&rdquo;; &ldquo;I&rdquo;; &ldquo;At&rdquo;; and &ldquo;Ts.&rdquo;</p>
-<p>Rust&rsquo;s <a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a> type is one candidate, but there are two problems. First, a <code>String</code> is expensive relative the purpose it would serve, namely identification. Second, <code>String</code> can&rsquo;t constrain its values to just the aliphatic subset elements. We&rsquo;d constantly find ourselves checking for membership at runtime, defeating the goals of blazingly fast SMILES processing and clarifying syntax. We need something better.</p>
+<p>Rust&rsquo;s <a href="https://doc.rust-lang.org/std/string/struct.String.html" target="_blank"><code>String</code></a> type is one candidate, but there are two problems. First, a <code>String</code> is expensive relative the purpose it would serve, namely identification. Second, <code>String</code> can&rsquo;t constrain its values to just the aliphatic subset elements. We&rsquo;d constantly find ourselves checking for membership at runtime, defeating the goals of blazingly fast SMILES processing and clarifying syntax. We need something better.</p>
 <p>Enter <code>enum</code>, with which the set of aliphatic atom kinds can be represented as:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Aliphatic</span> {
 </span></span><span style="display:flex;"><span>    B, C, N, O, S, P, F, Cl, Br, I, At, Ts
@@ -174,7 +511,18 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
 </span></span></code></pre></div><p><code>BracketAromatic</code> appears to be a superset of <code>Aromatic</code>, so it might be tempting to capture this relationship with some kind of &ldquo;is-a&rdquo; relationship. However, this makes little sense semantically. Other than a superficial resemblance, <code>BracketAromatic</code> and <code>Aromatic</code> mean very different things and occur in completely different contexts.</p>
 <p>Dividing atom kinds into separate <code>Aromatic</code> and <code>Aliphatic</code> enums may seem wasteful. Why not use an aromatic boolean flag instead? It may not be obvious, but this would actually be a step backward because it would allow the expression of invalid states. For example, we might set the aromaticity flag to <code>true</code> on an atom kind of fluorine. SMILES specifically disallows this state. Once again we&rsquo;d be forced to use runtime checks, exactly the approach we&rsquo;re trying to avoid. By defining separate aromatic and aliphatic atom kinds, it becomes impossible to ever express the illegal state in the first place.</p>
-<h1 id="bond-kinds">Bond Kinds</h1>
+
+
+<h1 class="relative group">Bond Kinds 
+    <div id="bond-kinds" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bond-kinds" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>The set of possible SMILES bond kinds can be represented by the following enum:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">BondKind</span> {
 </span></span><span style="display:flex;"><span>    Elided,
@@ -189,7 +537,18 @@
 </span></span></code></pre></div><p>This is mostly straightforward. The expected bond orders are all there: <code>Single</code>; <code>Double</code>; <code>Triple</code>; and <code>Quadruple</code>. Also present is the <code>Aromatic</code> bond kind, which has <a href="/articles/2020/02/10/a-comprehensive-treatment-of-aromaticity-in-the-smiles-language/">additional semantics</a>. <code>Up</code> and <code>Down</code> correspond to the SMILES directional bonds used in double bond conformation. In strings they are encoded by the forward slash (&rsquo;/&rsquo;) and backslash (&rsquo;\&rsquo;) characters, respectively.</p>
 <p>The presence of an <code>Elided</code> bond kind might be more surprising because it never appears in a SMILES string. For example, the bond between the two carbons in <code>CC</code> is elided, but the one in <code>C-C</code> is not. It may seem that an optional <code>BondKind</code> (i.e., <code>Option&lt;BondKind&gt;</code>) would be appropriate here, but there are two reasons to avoid it. First, it complicates the processing of bonds by requiring an additional Some/None check. More importantly, it makes little sense semantically. An elided bond is most certainly there, just not explicitly.</p>
 <p>Notice the absence of a <code>Dot</code> variant, which is what an optional bond kind of <code>None</code> would actually imply: literally no bond. We&rsquo;ll come back to this point later.</p>
-<h1 id="bracketsymbol">BracketSymbol</h1>
+
+
+<h1 class="relative group">BracketSymbol 
+    <div id="bracketsymbol" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bracketsymbol" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>The enums <code>Aromatic</code> and <code>Aliphatic</code> fully specify an atomic identity. As such, these leaf nodes can be used without further qualification. However, SMILES allows for customization of properties such as isotope, charge, and hydrogen count. For that we&rsquo;ll need an interior node.</p>
 <p>Wrapping an element symbol in bracket characters (<code>[</code> and <code>]</code>) in a SMILES string signals intent to customize one or more atomic properties. This makes a much wider range of atomic symbols and properties possible. To represent these choices, we introduce <code>BracketSymbol</code>. SMILES support three distinct kinds of bracket symbol: star (unknown); element (a chemical element symbol); and aromatic. The following enum captures the relationships between these language elements:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">BracketSymbol</span> {
@@ -212,7 +571,18 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>The <code>Star</code> variant is used when some atomic properties are defined, but the element is not. In SMILES strings, it would appear as <code>[*]</code>. It might seem like a good idea to instead represent the <code>Star</code> variant as an optional <code>BracketSymbol</code> (i.e., <code>Option&lt;BracketSymbol&gt;</code>). Although this would be semantically consistent, it would increase the complexity of using <code>BracketSymbol</code>. For this reason, the simpler approach of defining a <code>BracketAtom::Star</code> variant is used.</p>
-<h1 id="atomkind">AtomKind</h1>
+
+
+<h1 class="relative group">AtomKind 
+    <div id="atomkind" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#atomkind" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>SMILES supports four distinct kinds of atom: a bare star (<code>*</code>); aliphatic (e.g., <code>N</code>); aromatic: (e.g., <code>n</code>); and bracket (e.g., <code>[N]</code> or <code>[n]</code>). These are all captured by the <code>AtomKind</code> type:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">AtomKind</span> {
 </span></span><span style="display:flex;"><span>    Star,
@@ -256,7 +626,18 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Parity::Counterclockwise <span style="color:#f92672">=&gt;</span> unimplemented!() <span style="color:#75715e">// @ parity
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h1 id="atom">Atom</h1>
+</span></span></code></pre></div>
+
+<h1 class="relative group">Atom 
+    <div id="atom" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#atom" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Having defined the properties of an atom, it&rsquo;s possible to specify <code>Atom</code> itself with the following struct:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Atom</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> kind: <span style="color:#a6e22e">AtomKind</span>,
@@ -264,7 +645,18 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>This formulation requires every SMILES atom to have exactly one <code>AtomKind</code>, which itself must be selected from one of exactly four choices: star; aliphatic; aromatic; or bracket. It&rsquo;s impossible to construct or even encounter an invalid atom because it&rsquo;s impossible to make invalid versions of its two required components <code>AtomKind</code> and <code>Link</code>.</p>
 <p>By itself, <code>Atom</code> acts like a root node in that it has no parent. However, an Atom can become an interior node through association with a <code>Link</code>, as described in the next section.</p>
-<h1 id="link">Link</h1>
+
+
+<h1 class="relative group">Link 
+    <div id="link" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#link" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>A SMILES <code>Atom</code> connects to its children through the <code>Link</code> enum. This enum allows for two variants: (1) parent and child are connected through a bond (<code>Link::Bond</code>); and (2) parent and child are disconnected with no bond between them (<code>Link::Split</code>).</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Link</span> {
 </span></span><span style="display:flex;"><span>    Bond {  <span style="color:#75715e">// e.g., CC, C-C, C=C, etc
@@ -305,55 +697,264 @@
 </span></span><span style="display:flex;"><span>        })
 </span></span><span style="display:flex;"><span>    ]
 </span></span><span style="display:flex;"><span>};
-</span></span></code></pre></div><p>Notice how the Rust compiler enforces the rules of SMILES syntax. For example, the string <code>C.1CC1</code> is <a href="http://opensmiles.org/opensmiles.html#_disconnected_structures">not a valid SMILES</a> because the dot character may not separate an atom and an rnum. There is no way to compile a Rust program with the corresponding AST because <code>Link::Split</code> takes a value of type <code>Atom</code> only.</p>
-<h1 id="uses-of-a-smiles-abstract-syntax-tree">Uses of a SMILES Abstract Syntax Tree</h1>
+</span></span></code></pre></div><p>Notice how the Rust compiler enforces the rules of SMILES syntax. For example, the string <code>C.1CC1</code> is <a href="http://opensmiles.org/opensmiles.html#_disconnected_structures" target="_blank">not a valid SMILES</a> because the dot character may not separate an atom and an rnum. There is no way to compile a Rust program with the corresponding AST because <code>Link::Split</code> takes a value of type <code>Atom</code> only.</p>
+
+
+<h1 class="relative group">Uses of a SMILES Abstract Syntax Tree 
+    <div id="uses-of-a-smiles-abstract-syntax-tree" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#uses-of-a-smiles-abstract-syntax-tree" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>An AST offers a high-level view of a language that&rsquo;s difficult to obtain any other way. Omitting minor syntactic details brings fundamental relationships between language elements into sharp focus. This perspective clarifies the language, which can be seen from a perspective unburdened by low-level concerns over character selection and placement.</p>
-<p>But this is just a start. With an AST implemented in a type safe language, flexible processing becomes possible. We can, for example implement readers and writers for new SMILES syntaxes. A case in point is <a href="/articles/2019/03/19/chemical-line-notations-for-deep-learning-deepsmiles-and-beyond/">DeepSMILES</a>, which modifies SMILES syntax while retaining its semantics. Another would be <a href="https://arxiv.org/ct?url=https%3A%2F%2Fdx.doi.org%2F10.1088%2F2632-2153%2Faba947&amp;v=cd51ce2f">SELFIES</a> and similar approaches. Developing readers and writers for such SMILES variants becomes easier given an AST.</p>
+<p>But this is just a start. With an AST implemented in a type safe language, flexible processing becomes possible. We can, for example implement readers and writers for new SMILES syntaxes. A case in point is <a href="/articles/2019/03/19/chemical-line-notations-for-deep-learning-deepsmiles-and-beyond/">DeepSMILES</a>, which modifies SMILES syntax while retaining its semantics. Another would be <a href="https://arxiv.org/ct?url=https%3A%2F%2Fdx.doi.org%2F10.1088%2F2632-2153%2Faba947&amp;v=cd51ce2f" target="_blank">SELFIES</a> and similar approaches. Developing readers and writers for such SMILES variants becomes easier given an AST.</p>
 <p>One form of SMILES customization that has received a lot of attention is canonicalization. Without an AST, the ordering of atoms must take place at the level of the cheminformatics toolkit, which may or may not share the same set of features as SMILES. Given an AST, canonicalization can take place on a data structure that will by definition be directly writable as a string.</p>
-<p>ASTs can also help improve the quality of readers and writers. On one hand, they provide a clean boundary between semantics and syntax. This kind of segregation makes implementations easier to write, test, and reason about. On the other hand, an AST makes it possible to create a data structure that&rsquo;s guaranteed to be syntactically valid. That guarantee comes from <a href="https://neilmadden.blog/2020/11/25/parse-dont-type-check/">making it impossible to represent invalid states</a>.</p>
+<p>ASTs can also help improve the quality of readers and writers. On one hand, they provide a clean boundary between semantics and syntax. This kind of segregation makes implementations easier to write, test, and reason about. On the other hand, an AST makes it possible to create a data structure that&rsquo;s guaranteed to be syntactically valid. That guarantee comes from <a href="https://neilmadden.blog/2020/11/25/parse-dont-type-check/" target="_blank">making it impossible to represent invalid states</a>.</p>
 <p>Useful though they may be, ASTs have their limits — especially for SMILES. Trees can be unwieldy for some operations compared to graphs. The AST presented here, for example, gives an <code>Atom</code> knowledge of its children only. It has has no information about its parent or even whether one exists. Even simple molecular property determinations such as valence require walking the entire tree to build secondary state. For some applications this will be no problem at all. For others, a somewhat higher level representation would be better.</p>
 <p>On option would be to introduce an <em>intermediate representation</em>. An intermediate representation transforms an AST in one or more useful ways. In the case of a SMILES, an IR might provide a more graph-like API. This could offer a stepping-stone toward a full molecular graph as found in a cheminformatics toolkit, but without the overhead.</p>
 <p>A more flexible approach would be to support customizable traversal followers. The follower would accumulate state as the AST is traversed. Traversal could occur in depth-first or breadth-first order, and could use pre-order or post-order processing to generate more sophisticated representations in linear time complexity. Separating AST traversal and analysis in this way would then support a wide range of analyses.</p>
-<h1 id="other-work">Other Work</h1>
+
+
+<h1 class="relative group">Other Work 
+    <div id="other-work" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#other-work" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Low-level tools for SMILES manipulation are not common, but some examples have appeared over the years:</p>
 <ul>
-<li><a href="https://github.com/johnmay/beam">Beam</a>. As noted by the README, the purpose of the library is &ldquo;&hellip; to elegantly handle the SMILES™ syntax and as fast as possible.&rdquo; Both input and output are supported. Beam is written in Java and has been integrated into the <a href="https://github.com/cdk/cdk">Chemistry Development Kit</a>.</li>
-<li><a href="https://github.com/timvdm/Smiley">Smiley</a>. A C++ library that parses SMILES and SMARTS.</li>
-<li><a href="https://pypi.org/project/pysmiles/">pysmiles</a>. A SMILES reader/writer combination written in Python.</li>
-<li><a href="https://crates.io/crates/purr">Purr</a>. A Rust crate for reading SMILES written by yours truly.</li>
-<li><a href="https://github.com/caseykneale/OpenSMILES.jl">OpenSMILES.jl</a>. A more recent parser written in Julia.</li>
+<li><a href="https://github.com/johnmay/beam" target="_blank">Beam</a>. As noted by the README, the purpose of the library is &ldquo;&hellip; to elegantly handle the SMILES™ syntax and as fast as possible.&rdquo; Both input and output are supported. Beam is written in Java and has been integrated into the <a href="https://github.com/cdk/cdk" target="_blank">Chemistry Development Kit</a>.</li>
+<li><a href="https://github.com/timvdm/Smiley" target="_blank">Smiley</a>. A C++ library that parses SMILES and SMARTS.</li>
+<li><a href="https://pypi.org/project/pysmiles/" target="_blank">pysmiles</a>. A SMILES reader/writer combination written in Python.</li>
+<li><a href="https://crates.io/crates/purr" target="_blank">Purr</a>. A Rust crate for reading SMILES written by yours truly.</li>
+<li><a href="https://github.com/caseykneale/OpenSMILES.jl" target="_blank">OpenSMILES.jl</a>. A more recent parser written in Julia.</li>
 </ul>
 <p>None of these projects defines or uses a type safe abstract syntax tree of the kind described in this article.</p>
-<h1 id="conclusion">Conclusion</h1>
+
+
+<h1 class="relative group">Conclusion 
+    <div id="conclusion" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#conclusion" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>The SMILES language is much more complex that it might appear at first glance. This complexity makes direct string manipulation useful in only a handful of cases. Cheminformatics toolkits offer a wide range of functionality, but at the cost of suboptimal performance. Abstract syntax trees implemented in fast, type safe languages such as Rust address a problem area that has not been widely explored to date: efficient low-level tools for SMILES manipulation. More than this, a well-crafted abstract syntax tree can capture and reveal subtle language concepts that are difficult to convey through examples or even grammars.</p>
-<ul class="pa0">
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+          
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_posts\/2020-12-14-an-abstract-syntatx-tree-for-smiles.md"
+        var oid_likes = "likes_posts\/2020-12-14-an-abstract-syntatx-tree-for-smiles.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
   
-</ul>
-<div class="mt6 instapaper_ignoref">
-      
-      
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/articles/2020/10/26/a-workbench-for-machine-learning-in-chemistry/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >A Workbench for Machine Learning in Chemistry</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2020-10-26T16:00:00&#43;00:00">October 26, 2020</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/articles/2020/12/22/smiles-formal-grammar-revisited/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >SMILES Formal Grammar Revisited</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2020-12-22T18:00:00&#43;00:00">December 22, 2020</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
       </div>
     </div>
-
-    <aside class="w-30-l mt6-l">
-
+  
 
 
+    
+  </footer>
+</article>
 
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
-    &copy;  Depth-First 2024 
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top" title="Scroll to top">
+    &uarr;
   </a>
-    <div><div class="ananke-socials"></div>
 </div>
-  </div>
-</footer>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
 
-  </body>
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2024
+      
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="http://localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
 </html>

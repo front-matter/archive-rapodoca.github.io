@@ -1,42 +1,70 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Rethinking Tautomer Representation | Depth-First</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="A unified approach to dealing with tautomers and electron delocalization.">
-    <meta name="generator" content="Hugo 0.139.4">
-    
-    
-    
-    
-      <meta name="robots" content="noindex, nofollow">
-    
-    
-      <meta name="author" content = "Richard L. Apodaca">
-    
-
-    
-<link rel="stylesheet" href="/ananke/css/main.min.css" >
-
-
-
-    
-
-    
-      
-
-    
-
-    
-
-    
-      <link rel="canonical" href="http://localhost:1313/articles/2022/12/21/rethinking-tautomer-representation/">
-    
-
-    <meta property="og:url" content="http://localhost:1313/articles/2022/12/21/rethinking-tautomer-representation/">
+<html lang="en-us" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en-us" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>Rethinking Tautomer Representation &middot; Depth-First</title>
+  <meta name="title" content="Rethinking Tautomer Representation &middot; Depth-First" />
+  
+  <meta name="description" content="A unified approach to dealing with tautomers and electron delocalization." />
+  
+  
+  
+  <link rel="canonical" href="http://localhost:1313/articles/2022/12/21/rethinking-tautomer-representation/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.e27868ab1485f7ed7b06b122b4980bd38b19526eb8f7de885181204d28f04a0c47e9c334eff19a06c0278eb2ff8415b983a5d0fb80fd6b5680c926457cc61c57.css"
+    integrity="sha512-4nhoqxSF9&#43;17BrEitJgL04sZUm64996IUYEgTSjwSgxH6cM07/GaBsAnjrL/hBW5g6XQ&#43;4D9a1aAySZFfMYcVw==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.c178288131a2f1ad46910438db47ac5f7e1c48cf949e49f6dc3310c8ec9660e23fe505805eba4e2e73711335808500360d773a2b64322feb35df52856edca286.js"
+    integrity="sha512-wXgogTGi8a1GkQQ420esX34cSM&#43;Unkn23DMQyOyWYOI/5QWAXrpOLnNxEzWAhQA2DXc6K2QyL&#43;s131KFbtyihg==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/articles/2022/12/21/rethinking-tautomer-representation/">
   <meta property="og:site_name" content="Depth-First">
   <meta property="og:title" content="Rethinking Tautomer Representation">
   <meta property="og:description" content="A unified approach to dealing with tautomers and electron delocalization.">
@@ -46,71 +74,347 @@
     <meta property="article:published_time" content="2022-12-21T22:20:00+00:00">
     <meta property="article:modified_time" content="2022-12-21T22:20:00+00:00">
 
-  <meta itemprop="name" content="Rethinking Tautomer Representation">
-  <meta itemprop="description" content="A unified approach to dealing with tautomers and electron delocalization.">
-  <meta itemprop="datePublished" content="2022-12-21T22:20:00+00:00">
-  <meta itemprop="dateModified" content="2022-12-21T22:20:00+00:00">
-  <meta itemprop="wordCount" content="1818">
+  
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Rethinking Tautomer Representation">
   <meta name="twitter:description" content="A unified approach to dealing with tautomers and electron delocalization.">
 
-	
-  </head><body class="ma0 avenir bg-near-white development">
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "Rethinking Tautomer Representation",
+    "headline": "Rethinking Tautomer Representation",
+    
+    "abstract": "A unified approach to dealing with tautomers and electron delocalization.",
+    "inLanguage": "en-us",
+    "url" : "http:\/\/localhost:1313\/articles\/2022\/12\/21\/rethinking-tautomer-representation\/",
+    "author" : {
+      "@type": "Person",
+      "name": ""
+    },
+    "copyrightYear": "2022",
+    "dateCreated": "2022-12-21T22:20:00\u002b00:00",
+    "datePublished": "2022-12-21T22:20:00\u002b00:00",
+    
+    "dateModified": "2022-12-21T22:20:00\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1828"
+  }]
+  </script>
+
+
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">Depth-First</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      Rethinking Tautomer Representation
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2022-12-21T22:20:00&#43;00:00">December 21, 2022</time><span class="px-2 text-primary-500">&middot;</span><span>1828 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">9 mins</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
 
     
-   
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
   
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
-      
-        Depth-First
-      
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      <div class="ananke-socials"></div>
-
-    </div>
+  <div class="place-self-center">
+    
+    
+    <div class="text-2xl sm:text-lg">
+</div>
   </div>
-</nav>
+</div>
 
-    </div>
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
   </header>
-
-
-
-    <main class="pb7" role="main">
-      
   
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
-    <header class="mt4 w-100">
-      <aside class="instapaper_ignoref b helvetica tracked ttu">
-          
-        Posts
-      </aside><div id="sharing" class="mt3 ananke-socials"></div>
-<h1 class="f1 athelas mt3 mb1">Rethinking Tautomer Representation</h1>
-      
-      <p class="tracked">
-        By <strong>Richard L. Apodaca</strong>
-      </p>
-      
-      
-      
-      <time class="f6 mv4 dib tracked" datetime="2022-12-21T22:20:00Z">December 21, 2022</time>
-      
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+    
 
-      
-      
-    </header>
-    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>If ever there was a perennial problem in cheminformatics, it would be tautomerism. Dealing with it consistently and in a chemically relevant way is much harder than appearances might suggest. The problem is multi-faceted, requiring not just a rigorous definition of a slippery concept, but methods to pinpoint molecular features leading to tautomerism. These problems get most of the attention, but tautomer representation, a problem of equal importance, gets almost none. This article takes a closer look at tautomer representation and proposes an unconventional approach.</p>
-<h1 id="proposal">Proposal</h1>
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p>If ever there was a perennial problem in cheminformatics, it would be tautomerism. Dealing with it consistently and in a chemically relevant way is much harder than appearances might suggest. The problem is multi-faceted, requiring not just a rigorous definition of a slippery concept, but methods to pinpoint molecular features leading to tautomerism. These problems get most of the attention, but tautomer representation, a problem of equal importance, gets almost none. This article takes a closer look at tautomer representation and proposes an unconventional approach.</p>
+
+
+<h1 class="relative group">Proposal 
+    <div id="proposal" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#proposal" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Tautomerism complicates the comparison of molecular representations for equivalence. Here&rsquo;a a procedure that solves this problem:</p>
 <ol>
 <li>Find all tautomeric groups. A tautomeric group is a set of connected atoms and bonds capable of giving tautomers.</li>
@@ -121,7 +425,18 @@
 <p>For now, consider the example of 4-methylimidazole. Imagine that an organization&rsquo;s business rules consider imidazole tautomers to be equivalent. However, direct comparison of the tautomers of 4-methylimidazole erroneously finds them to be non-equivalent. The expected result can be obtained via the procedure outlined above.</p>
 <!-- raw HTML omitted -->
 <p>The remainder of this article describes the procedure in detail.</p>
-<h1 id="bond-demotion">Bond Demotion</h1>
+
+
+<h1 class="relative group">Bond Demotion 
+    <div id="bond-demotion" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bond-demotion" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Demotion reduces a bond&rsquo;s order by one while adjusting atomic properties to maintain the original constitution. Any bond can be demoted, but this article focuses on use with tautomer representation.</p>
 <p>Demotion consists of the following steps:</p>
 <ol>
@@ -129,95 +444,359 @@
 <li>Reduce bond order by one. If the resulting bond order is zero, delete the bond.</li>
 <li>Remove conformational descriptors, if any, from the demoted bond.</li>
 </ol>
-<p>The following examples (expressed as <a href="https://doi.org/10.26434/chemrxiv-2022-01ltp">Balsa strings</a>) illustrate demotion:</p>
+<p>The following examples (expressed as <a href="https://doi.org/10.26434/chemrxiv-2022-01ltp" target="_blank">Balsa strings</a>) illustrate demotion:</p>
 <ul>
 <li><code>*N[H]</code> → <code>*[NH].[H]</code></li>
 <li><code>*[C@](F)(Cl)[H]</code> → <code>*[C](F)(Cl).[H]</code></li>
 <li><code>*/C=C/*</code> → <code>*[CH][CH]*</code></li>
 <li><code>*C#C*</code> → <code>*[C]=[C]*</code></li>
 </ul>
-<h1 id="the-vb-model">The VB Model</h1>
+
+
+<h1 class="relative group">The VB Model 
+    <div id="the-vb-model" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#the-vb-model" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Most widely-used small molecule representation build on the Valence Bond (VB) model. This model views a covalent bond as composed of two atoms and 2<em>n</em> shared electrons, where <em>n</em> is an integer greater than zero. In other words, a covalent bond is little more than an edge of a molecular graph labeled with an electron count or bond order.</p>
-<p>The VB model fits enough accumulated experimental evidence to still be relevant after <a href="https://doi.org/10.1021/ja02261a002">a century of use</a>. But it&rsquo;s far from perfect.</p>
-<h1 id="electron-delocalization">Electron Delocalization</h1>
-<p>As George Box famously noted, <a href="https://en.wikipedia.org/wiki/All_models_are_wrong">&ldquo;All models are wrong, but some are useful.&rdquo;</a>. Despite its enormous success, the VB model is wrong in some pretty spectacular ways.</p>
+<p>The VB model fits enough accumulated experimental evidence to still be relevant after <a href="https://doi.org/10.1021/ja02261a002" target="_blank">a century of use</a>. But it&rsquo;s far from perfect.</p>
+
+
+<h1 class="relative group">Electron Delocalization 
+    <div id="electron-delocalization" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#electron-delocalization" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>As George Box famously noted, <a href="https://en.wikipedia.org/wiki/All_models_are_wrong" target="_blank">&ldquo;All models are wrong, but some are useful.&rdquo;</a>. Despite its enormous success, the VB model is wrong in some pretty spectacular ways.</p>
 <p>The most glaring example is <em>electron delocalization</em> (&ldquo;delocalization&rdquo;). <a href="/articles/2021/06/17/delocalization-induced-molecular-equality/">A previous article</a> defined delocalization as &ldquo;&hellip;the phenomenon in which the electrons of a VB representation can be distributed over more than one bond, among two or more atoms, or across some combination of atoms and bonds.&rdquo;</p>
 <p>Consider 1,2-difluorobenzene. Two VB representations are possible, but they are almost universally considered equivalent. The diagrams depict six electrons localized across three double bond. Nevertheless, the experimental evidence overwhelmingly supports a view in which those six electrons are shared equally among the six ring atoms.</p>
 <!-- raw HTML omitted -->
 <p>Delocalization of electrons around an alternating cyclic path, as in 1,2-difluorobenzene, is an important failure mode for the VB model. But there are others.</p>
-<h1 id="what-is-tautomerism-anyway">What is Tautomerism, Anyway?</h1>
+
+
+<h1 class="relative group">What is Tautomerism, Anyway? 
+    <div id="what-is-tautomerism-anyway" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#what-is-tautomerism-anyway" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Despite its importance to chemistry and related fields, there&rsquo;s a lot of disagreement about what exactly tautomerism is. Fortunately, there&rsquo;s also a nugget of agreement as well.</p>
-<p>Perhaps the most influential tautomer definition is the one embedded within the InChI software. <a href="https://doi.org/10.1186/s13321-015-0068-4">The 2015 description</a> defines tautomerism in InChI as one of two possible structural transformations:</p>
+<p>Perhaps the most influential tautomer definition is the one embedded within the InChI software. <a href="https://doi.org/10.1186/s13321-015-0068-4" target="_blank">The 2015 description</a> defines tautomerism in InChI as one of two possible structural transformations:</p>
 <ol>
 <li><code>M=Q-ZH</code> ↔ <code>MH-Q=Z</code></li>
 <li><code>M=Q-Z⊖</code> ↔ <code>M⊖-Q=Z</code></li>
 </ol>
 <p>where M and Z are elements in one of several possible valence states, Q is a neutral atom, and H is any isotope of hydrogen.</p>
-<p>InChI&rsquo;s approach was clearly influenced by <a href="https://doi.org/10.1021/ci60021a007">the definition of tautomerism developed at CAS in the late 1970s</a>, although the connection could have been made more clear. The CAS system is based on &ldquo;&hellip; algorithmically recognizing tautomeric and alternating bond structures, replacing the explicit single and double bonds with special normalized bonds, and associating the migrating tautomeric hydrogen with groups of atoms rather than just single atoms.&rdquo; Both <a href="/articles/2021/05/19/standard-inchi/">Standard InChI</a> and CAS disregard keto-enol tautomerism, allowing each form to be treated as a distinct entity.</p>
+<p>InChI&rsquo;s approach was clearly influenced by <a href="https://doi.org/10.1021/ci60021a007" target="_blank">the definition of tautomerism developed at CAS in the late 1970s</a>, although the connection could have been made more clear. The CAS system is based on &ldquo;&hellip; algorithmically recognizing tautomeric and alternating bond structures, replacing the explicit single and double bonds with special normalized bonds, and associating the migrating tautomeric hydrogen with groups of atoms rather than just single atoms.&rdquo; Both <a href="/articles/2021/05/19/standard-inchi/">Standard InChI</a> and CAS disregard keto-enol tautomerism, allowing each form to be treated as a distinct entity.</p>
 <p>The CAS authors define tautomerism as: &ldquo;&hellip; a state of equilibrium in which a mobile group, typically a hydrogen, migrates between atoms with concurrent changes in bonding. The basic generic tautomeric structure is:&rdquo;</p>
 <!-- raw HTML omitted -->
 <p>The CAS definition also supported the generalized tautomeric structural motif in which double bonds intervene between M and Q, and in which branching can occur.</p>
 <p>For completeness, two reviews published in 2010 are often cited in the context of tautomerism:</p>
 <ul>
-<li><em><a href="https://doi.org/10.1007/s10822-010-9329-5">So you think you understand tautomerism?</a></em>. Many examples of tautomerism are presented, and approaches to tautomerism are classified as either &ldquo;local&rdquo; or &ldquo;global.&rdquo;</li>
-<li><em><a href="https://doi.org/10.1007/s10822-010-9338-4">Tautomerism in chemical information management systems</a></em>. Summarizes the tautomer policies of more than two dozen software vendors.</li>
+<li><em><a href="https://doi.org/10.1007/s10822-010-9329-5" target="_blank">So you think you understand tautomerism?</a></em>. Many examples of tautomerism are presented, and approaches to tautomerism are classified as either &ldquo;local&rdquo; or &ldquo;global.&rdquo;</li>
+<li><em><a href="https://doi.org/10.1007/s10822-010-9338-4" target="_blank">Tautomerism in chemical information management systems</a></em>. Summarizes the tautomer policies of more than two dozen software vendors.</li>
 </ul>
 <p>Tautomerism is sometimes erroneously identified with hydrogen &ldquo;motion&rdquo; or &ldquo;movement.&rdquo; Even the term &ldquo;migration&rdquo; conjures and image of atoms moving from one relative position in space to another. But as the definitions from CAS and InChI make clear, the coordinates of atoms are not only irrelevant but undefined in many cases.</p>
 <p>A better term for what happens in tautomerism is <em>rebonding</em>. Rebonding changes the bond order between two atoms in a representation. The common thread among all tautomer definitions is the rebonding of one or more groups of atoms. This can take place with or without atomic motion. Cheminformatics often deals with representations that lack coordinates, or whose coordinates are merely aesthetic in nature. To require motion as part of a tautomer definition implies the existence of information that doesn&rsquo;t necessarily exist.</p>
 <p>Bond demotion works as a technique for dealing with tautomerism because tautomerism is fundamentally a process of rebonding.</p>
-<h1 id="tautomerism-and-molecular-equivalence">Tautomerism and Molecular Equivalence</h1>
+
+
+<h1 class="relative group">Tautomerism and Molecular Equivalence 
+    <div id="tautomerism-and-molecular-equivalence" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#tautomerism-and-molecular-equivalence" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Tautomerism is especially troublesome in the context of <em>molecular equivalence</em> (&ldquo;equivalence&rdquo;). Two representations are said to be equivalent if they encode the same molecule. An equivalence check is a fundamental operation when building molecule collections, which appear in a wide range of guises.</p>
 <p>The example that started this article showed how tautomeric forms viewed as equivalent in one context can nevertheless be viewed as non-equivalent in other contexts. Tautomerism undermines the goal of building a collection of unique molecule by masking equivalence relationships. But this is is really just another form of the one with 1,2-difluorobenzene.The root cause in both cases was electron delocalization.</p>
 <p>False non-equivalence signals like those presented by 1,2,-difluorobenzene can be address by ignoring bond order in favor of atomic valence (aka &ldquo;bond order sum&rdquo;). Doing so removes bond order from consideration, thereby suppressing false negatives.</p>
 <p>This shift in perspective can be approached from several directions. One of the simplest is to demote all double bonds. The result is a representation devoid of double bonds, yet nevertheless consistent with constitution of the original molecule. A useful side-effect of this approach is that it translates well to <a href="/articles/2022/12/07/naive-balsa-canonicalization/">string canonicalization</a>.</p>
 <!-- raw HTML omitted -->
 <p>Bond demotion solves the problem in cases such as 1,2-difluorobenzene, but it also works for tautomerism.</p>
-<h1 id="whats-the-actual-problem">What&rsquo;s the Actual Problem?</h1>
+
+
+<h1 class="relative group">What&rsquo;s the Actual Problem? 
+    <div id="whats-the-actual-problem" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#whats-the-actual-problem" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>It&rsquo;s tempting to think of the delocalization problem as resulting from some missing capability. To account for bonds that are not single, double, or triple, a new bond type might be introduced. Indeed, a recurring issue with the V2000 molfile format is the misappropriation of bond type 4 for just this purpose. The biggest problem with adding bond types is the massive community investment (software, databases, validation, etc.) in representation systems that would not understand it.</p>
 <p>Bond demotion offers a compatible path forward. Rather than adding a feature, one or more features can be selectively disabled — in this case bond order. The result is a representation that can be processed by existing software. <a href="/articles/2022/09/21/dealing-with-delocalization/">A previous article</a> explains the idea in more detail.</p>
 <p>From this perspective, the problem with th VB model isn&rsquo;t lack of features. Rather, it&rsquo;s that indiscriminate use of certain features leads to overspecification. A double bond drawn between the fluorene-bearing carbons of 1,2,-difluorobenzene means something quite different than one drawn between the fluorine-bearing carbons of 1,2-difluoroethene.</p>
-<h1 id="tautomerism-as-a-special-case-of-electron-delocalization">Tautomerism as a Special Case of Electron Delocalization</h1>
+
+
+<h1 class="relative group">Tautomerism as a Special Case of Electron Delocalization 
+    <div id="tautomerism-as-a-special-case-of-electron-delocalization" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#tautomerism-as-a-special-case-of-electron-delocalization" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Tautomerism can be viewed as a special case of electron delocalization, at least in the context of molecular equivalence comparisons. The distinguishing trait for tautomerism is the rebonding of single bonds. Under this model, the delocalization in both 1,2-difluorobenzene and 4-methylimidazole are merely two sides of the same coin.</p>
 <p>The main practical advantage is to allow equal treatment of two structural phenomena that previously had to be treated differently.</p>
-<h1 id="objections">Objections</h1>
+
+
+<h1 class="relative group">Objections 
+    <div id="objections" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#objections" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>An understandable objection to this approach invokes the concept of &ldquo;energy barrier.&rdquo; The two valence bond forms of a molecule like 1,2-difluorobenzene exist in superposition with each other — without an energy barrier. In contrast, the two valence bond forms of 4-methylimidazole are potentially distinct species which can be observed and/or isolated. In other words, tautomeric forms are separated by an energy barrier.</p>
-<p>Wikipedia captures this nuance with <a href="https://en.wikipedia.org/wiki/Tautomer">the following caveat</a>:</p>
+<p>Wikipedia captures this nuance with <a href="https://en.wikipedia.org/wiki/Tautomer" target="_blank">the following caveat</a>:</p>
 <blockquote>
 <p>Care should be taken not to confuse tautomers with depictions of &ldquo;contributing structures&rdquo; in chemical resonance. Tautomers are distinct chemical species that can be distinguished by their differing atomic connectivities, molecular geometries, and physicochemical and spectroscopic properties, whereas resonance forms are merely alternative Lewis structure (valence bond theory) depictions of a single chemical species, whose true structure is best described as the &ldquo;average&rdquo; of the idealized, hypothetical geometries implied by these resonance forms.</p>
 </blockquote>
 <p>Granted, but I&rsquo;d propose that the utility of this distinction depends on context. The valence bond model fails in either case, and in exactly the same way. No single VB representation fits observation. The valence bond model over-constrains electronic structure, leading to purely artifactual non-equivalence.</p>
 <p>This line of thinking can be taken one step further by considering another similarity: electron delocalization <em>always</em> involves an estimation of energy barrier, whether tautomerism is involved or not. Consider &ldquo;anti-aromatic&rdquo; systems such as cyclobutadienes and cyclooctatetraenes. In principle the single and double bonds have different lengths and do not &ldquo;rapidly&rdquo; interconvert. Without knowing more about context, it&rsquo;s impossible to distinguish observable isomers from artifactual electron localization.</p>
 <p>Finally, this proposal says nothing about <em>how</em> to identify tautomeric features. It merely offers some tools for dealing with the consequences of finding one.</p>
-<h1 id="conclusion">Conclusion</h1>
+
+
+<h1 class="relative group">Conclusion 
+    <div id="conclusion" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#conclusion" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Tautomerism and electron delocalization are often treated as separate phenomena. In many contexts, there&rsquo;s good reason to do so. However, molecular equivalence determination is not one of them. An alternative model is proposed that views tautomerism as a special case of electron delocalization. The same simple yet powerful tool, bond demotion, can then be applied uniformly regardless of the form electron delocalization takes.</p>
-<ul class="pa0">
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+          
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_posts\/2022-12-21-rethinking-tautomer-representation.md"
+        var oid_likes = "likes_posts\/2022-12-21-rethinking-tautomer-representation.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
   
-</ul>
-<div class="mt6 instapaper_ignoref">
-      
-      
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/articles/2022/12/07/naive-balsa-canonicalization/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Naive Balsa Canonicalization</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-12-07T15:00:00&#43;00:00">December 7, 2022</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/articles/2023/01/11/extending-the-v3000-molfile-format-with-user-specified-collections/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Extending the V3000 Molfile Format with User-Specified Collections</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2023-01-11T15:00:00&#43;00:00">January 11, 2023</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
       </div>
     </div>
-
-    <aside class="w-30-l mt6-l">
-
+  
 
 
+    
+  </footer>
+</article>
 
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
-    &copy;  Depth-First 2024 
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top" title="Scroll to top">
+    &uarr;
   </a>
-    <div><div class="ananke-socials"></div>
 </div>
-  </div>
-</footer>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
 
-  </body>
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2024
+      
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="http://localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
 </html>

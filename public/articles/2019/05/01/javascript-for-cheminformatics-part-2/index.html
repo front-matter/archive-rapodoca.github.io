@@ -1,42 +1,70 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>JavaScript for Cheminformatics, Part 2 | Depth-First</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="Once barely regarded as a real programming language, JavaScript&rsquo;s role in chemistry is growing quickly.">
-    <meta name="generator" content="Hugo 0.139.4">
-    
-    
-    
-    
-      <meta name="robots" content="noindex, nofollow">
-    
-    
-      <meta name="author" content = "Richard L. Apodaca">
-    
-
-    
-<link rel="stylesheet" href="/ananke/css/main.min.css" >
-
-
-
-    
-
-    
-      
-
-    
-
-    
-
-    
-      <link rel="canonical" href="http://localhost:1313/articles/2019/05/01/javascript-for-cheminformatics-part-2/">
-    
-
-    <meta property="og:url" content="http://localhost:1313/articles/2019/05/01/javascript-for-cheminformatics-part-2/">
+<html lang="en-us" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en-us" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>JavaScript for Cheminformatics, Part 2 &middot; Depth-First</title>
+  <meta name="title" content="JavaScript for Cheminformatics, Part 2 &middot; Depth-First" />
+  
+  <meta name="description" content="Once barely regarded as a real programming language, JavaScript&#39;s role in chemistry is growing quickly." />
+  
+  
+  
+  <link rel="canonical" href="http://localhost:1313/articles/2019/05/01/javascript-for-cheminformatics-part-2/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.e27868ab1485f7ed7b06b122b4980bd38b19526eb8f7de885181204d28f04a0c47e9c334eff19a06c0278eb2ff8415b983a5d0fb80fd6b5680c926457cc61c57.css"
+    integrity="sha512-4nhoqxSF9&#43;17BrEitJgL04sZUm64996IUYEgTSjwSgxH6cM07/GaBsAnjrL/hBW5g6XQ&#43;4D9a1aAySZFfMYcVw==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.c178288131a2f1ad46910438db47ac5f7e1c48cf949e49f6dc3310c8ec9660e23fe505805eba4e2e73711335808500360d773a2b64322feb35df52856edca286.js"
+    integrity="sha512-wXgogTGi8a1GkQQ420esX34cSM&#43;Unkn23DMQyOyWYOI/5QWAXrpOLnNxEzWAhQA2DXc6K2QyL&#43;s131KFbtyihg==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/articles/2019/05/01/javascript-for-cheminformatics-part-2/">
   <meta property="og:site_name" content="Depth-First">
   <meta property="og:title" content="JavaScript for Cheminformatics, Part 2">
   <meta property="og:description" content="Once barely regarded as a real programming language, JavaScript’s role in chemistry is growing quickly.">
@@ -46,143 +74,518 @@
     <meta property="article:published_time" content="2019-05-01T11:00:00+00:00">
     <meta property="article:modified_time" content="2019-05-01T11:00:00+00:00">
 
-  <meta itemprop="name" content="JavaScript for Cheminformatics, Part 2">
-  <meta itemprop="description" content="Once barely regarded as a real programming language, JavaScript’s role in chemistry is growing quickly.">
-  <meta itemprop="datePublished" content="2019-05-01T11:00:00+00:00">
-  <meta itemprop="dateModified" content="2019-05-01T11:00:00+00:00">
-  <meta itemprop="wordCount" content="3066">
+  
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="JavaScript for Cheminformatics, Part 2">
   <meta name="twitter:description" content="Once barely regarded as a real programming language, JavaScript’s role in chemistry is growing quickly.">
 
-	
-  </head><body class="ma0 avenir bg-near-white development">
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "JavaScript for Cheminformatics, Part 2",
+    "headline": "JavaScript for Cheminformatics, Part 2",
+    
+    "abstract": "Once barely regarded as a real programming language, JavaScript\u0026rsquo;s role in chemistry is growing quickly.",
+    "inLanguage": "en-us",
+    "url" : "http:\/\/localhost:1313\/articles\/2019\/05\/01\/javascript-for-cheminformatics-part-2\/",
+    "author" : {
+      "@type": "Person",
+      "name": ""
+    },
+    "copyrightYear": "2019",
+    "dateCreated": "2019-05-01T11:00:00\u002b00:00",
+    "datePublished": "2019-05-01T11:00:00\u002b00:00",
+    
+    "dateModified": "2019-05-01T11:00:00\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "3084"
+  }]
+  </script>
+
+
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">Depth-First</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      JavaScript for Cheminformatics, Part 2
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2019-05-01T11:00:00&#43;00:00">May 1, 2019</time><span class="px-2 text-primary-500">&middot;</span><span>3084 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">15 mins</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
 
     
-   
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
   
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
-      
-        Depth-First
-      
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      <div class="ananke-socials"></div>
-
-    </div>
+  <div class="place-self-center">
+    
+    
+    <div class="text-2xl sm:text-lg">
+</div>
   </div>
-</nav>
+</div>
 
-    </div>
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
   </header>
-
-
-
-    <main class="pb7" role="main">
-      
   
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
-    <header class="mt4 w-100">
-      <aside class="instapaper_ignoref b helvetica tracked ttu">
-          
-        Posts
-      </aside><div id="sharing" class="mt3 ananke-socials"></div>
-<h1 class="f1 athelas mt3 mb1">JavaScript for Cheminformatics, Part 2</h1>
-      
-      <p class="tracked">
-        By <strong>Richard L. Apodaca</strong>
-      </p>
-      
-      
-      
-      <time class="f6 mv4 dib tracked" datetime="2019-05-01T11:00:00Z">May 1, 2019</time>
-      
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+    
 
-      
-      
-    </header>
-    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Back in the summer of 2008 I published a post about <a href="/articles/2008/07/15/javascript-for-cheminformatics/">JavaScript&rsquo;s current and future roles in chemistry</a>. In it, I cataloged the then-available smattering of chemistry software that had been written in JavaScript. I also said that despite poor performance and primitive tooling, JavaScript was uniquely positioned as a foundation for important chemistry software.</p>
-<p>Since then, <em>a lot</em> has happened. This article recaps some highlights. It also speculates about possible future roles for JavaScript in chemistry. A <a href="https://doi.org/10.1186/s13321-019-0331-1">recent review</a> by another author presents a different perspective.</p>
-<h1 id="performance-blasts-off">Performance Blasts Off</h1>
-<p>The most notable difference between the JavaScript of 2008 and today&rsquo;s Javascript is performance. A few months after my first post on JavaScript, Google announced the release of its new JavaScript runtime, <a href="/articles/2008/09/05/chrome-and-a-v8-javascript-takes-a-giant-leap-forward">V8</a>. This runtime demonstrated a 10-fold speed improvement over the state of the art. The introduction of V8 and its associated browser, Chrome, fundamentally changed the browser landscape. An intense competition between browser vendors ensued. But unlike the costly and counterproductive browser wars of the 1990s, the goal this time around was to run programs written in a <a href="https://www.w3schools.com/js/js_versions.asp">now-standardized language</a> <em>faster</em> than competitors. The result has been a <a href="https://v8.dev/blog/10-years">nearly continuous sequence of performance improvements</a> for V8 and the other JavaScript runtimes.</p>
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p>Back in the summer of 2008 I published a post about <a href="/articles/2008/07/15/javascript-for-cheminformatics/">JavaScript&rsquo;s current and future roles in chemistry</a>. In it, I cataloged the then-available smattering of chemistry software that had been written in JavaScript. I also said that despite poor performance and primitive tooling, JavaScript was uniquely positioned as a foundation for important chemistry software.</p>
+<p>Since then, <em>a lot</em> has happened. This article recaps some highlights. It also speculates about possible future roles for JavaScript in chemistry. A <a href="https://doi.org/10.1186/s13321-019-0331-1" target="_blank">recent review</a> by another author presents a different perspective.</p>
+
+
+<h1 class="relative group">Performance Blasts Off 
+    <div id="performance-blasts-off" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#performance-blasts-off" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>The most notable difference between the JavaScript of 2008 and today&rsquo;s Javascript is performance. A few months after my first post on JavaScript, Google announced the release of its new JavaScript runtime, <a href="/articles/2008/09/05/chrome-and-a-v8-javascript-takes-a-giant-leap-forward">V8</a>. This runtime demonstrated a 10-fold speed improvement over the state of the art. The introduction of V8 and its associated browser, Chrome, fundamentally changed the browser landscape. An intense competition between browser vendors ensued. But unlike the costly and counterproductive browser wars of the 1990s, the goal this time around was to run programs written in a <a href="https://www.w3schools.com/js/js_versions.asp" target="_blank">now-standardized language</a> <em>faster</em> than competitors. The result has been a <a href="https://v8.dev/blog/10-years" target="_blank">nearly continuous sequence of performance improvements</a> for V8 and the other JavaScript runtimes.</p>
 <p>Today it&rsquo;s common for microbenchmarks to reveal a performance deficit of between two- and five-fold for code written in JavaScript versus comparable code written in C/C++.</p>
 <!-- raw HTML omitted -->
-<h1 id="browsers-blossom">Browsers Blossom</h1>
-<p>The introduction of Chrome was followed by renewed, concerted efforts toward full adoption of existing Web standards by browser vendors, and the creation of new standards. These efforts gained additional momentum through <a href="https://www.apple.com/hotnews/thoughts-on-flash/">Apple&rsquo;s refusal</a> to integrate either Flash or Java into its mobile products, and its aggressive promotion of standards-based alternatives.</p>
+
+
+<h1 class="relative group">Browsers Blossom 
+    <div id="browsers-blossom" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#browsers-blossom" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>The introduction of Chrome was followed by renewed, concerted efforts toward full adoption of existing Web standards by browser vendors, and the creation of new standards. These efforts gained additional momentum through <a href="https://www.apple.com/hotnews/thoughts-on-flash/" target="_blank">Apple&rsquo;s refusal</a> to integrate either Flash or Java into its mobile products, and its aggressive promotion of standards-based alternatives.</p>
 <p>Today&rsquo;s modern browsers support all of these standards. They include:</p>
 <ul>
 <li><strong>HTML5.</strong> Introduces semantic markup, vastly increased capabilities for CSS, standardizes SVG for vector graphics, introduces the Canvas tag for dynamic raster graphics, adds audio and video elements, and includes other innovations.</li>
 <li><strong>WebGL.</strong> Supports GPU-accelerated graphics.</li>
 <li><strong>Web Components.</strong> Enables the creation of developer-defined HTML elements that behave nearly indistinguishably from native ones.</li>
 </ul>
-<p>Perhaps the most important innovation introduced by Chrome was auto-update, a system now used by every modern browser. Long gone are the days when Web developers had to wait years before reliably deploying new features. The result was the long overdue <a href="https://techcommunity.microsoft.com/t5/Windows-IT-Pro-Blog/The-perils-of-using-Internet-Explorer-as-your-default-browser/ba-p/331732">death spiral of Internet Explorer</a>, and a much deeper commitment to the timely implementation of standards among browser vendors.</p>
+<p>Perhaps the most important innovation introduced by Chrome was auto-update, a system now used by every modern browser. Long gone are the days when Web developers had to wait years before reliably deploying new features. The result was the long overdue <a href="https://techcommunity.microsoft.com/t5/Windows-IT-Pro-Blog/The-perils-of-using-Internet-Explorer-as-your-default-browser/ba-p/331732" target="_blank">death spiral of Internet Explorer</a>, and a much deeper commitment to the timely implementation of standards among browser vendors.</p>
 <p>The stability and standards-compliance of today&rsquo;s browsers makes them a much more useful platform on which to build the kinds of rich, graphically-intensive user interfaces required by chemistry.</p>
-<h1 id="deployment-options-multiply">Deployment Options Multiply</h1>
-<p>One year after the release of Chrome, the V8 runtime was re-packaged into a browser-less configuration called <a href="https://nodejs.org/en/">Node.js</a>. Similar repackaging of other JavaScript runtimes such as <a href="https://developer.apple.com/documentation/javascriptcore">JavaScriptCore</a> (Safari), <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey">SpiderMonkey</a> (Firefox), and <a href="https://github.com/Microsoft/ChakraCore">ChakraCore</a> (Edge) has led to the penetration of JavaScript into nearly every crevice of the end-user software ecosystem. Noteworthy examples include:</p>
+
+
+<h1 class="relative group">Deployment Options Multiply 
+    <div id="deployment-options-multiply" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#deployment-options-multiply" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>One year after the release of Chrome, the V8 runtime was re-packaged into a browser-less configuration called <a href="https://nodejs.org/en/" target="_blank">Node.js</a>. Similar repackaging of other JavaScript runtimes such as <a href="https://developer.apple.com/documentation/javascriptcore" target="_blank">JavaScriptCore</a> (Safari), <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey" target="_blank">SpiderMonkey</a> (Firefox), and <a href="https://github.com/Microsoft/ChakraCore" target="_blank">ChakraCore</a> (Edge) has led to the penetration of JavaScript into nearly every crevice of the end-user software ecosystem. Noteworthy examples include:</p>
 <ul>
-<li><a href="https://expressjs.com">Express</a>, a fast and lightweight Web server.</li>
-<li>NoSQL databases including <a href="https://www.mongodb.com">MongoDB</a> and <a href="http://couchdb.apache.org">CouchDB</a>.</li>
-<li><a href="https://plv8.github.io">PLV8</a>, a trusted JavaScript language extension for PostgreSQL.</li>
-<li><a href="https://electronjs.org">Electron</a>, a framework for building native, cross-platform desktop applications.</li>
-<li><a href="https://facebook.github.io/react-native/">React Native</a>, a framework for building native, cross-platform mobile applications.</li>
+<li><a href="https://expressjs.com" target="_blank">Express</a>, a fast and lightweight Web server.</li>
+<li>NoSQL databases including <a href="https://www.mongodb.com" target="_blank">MongoDB</a> and <a href="http://couchdb.apache.org" target="_blank">CouchDB</a>.</li>
+<li><a href="https://plv8.github.io" target="_blank">PLV8</a>, a trusted JavaScript language extension for PostgreSQL.</li>
+<li><a href="https://electronjs.org" target="_blank">Electron</a>, a framework for building native, cross-platform desktop applications.</li>
+<li><a href="https://facebook.github.io/react-native/" target="_blank">React Native</a>, a framework for building native, cross-platform mobile applications.</li>
 </ul>
 <p>These ever-increasing deployment options mean that code originally targeted for the Web browser can be re-purposed for completely different environments including native desktop and mobile applications, databases, and Web servers.</p>
-<h1 id="javascript-the-universal-compilation-target">JavaScript: The Universal Compilation Target</h1>
+
+
+<h1 class="relative group">JavaScript: The Universal Compilation Target 
+    <div id="javascript-the-universal-compilation-target" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#javascript-the-universal-compilation-target" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Chemistry applications often require sophisticated interactions with complex data structures such as molecular structures. In 2008, no software for doing so was available. However, a comment left on my original article was the first spark of a fire that continues to this day: cross-compilation.</p>
 <blockquote>
 <p>I think GWT(Google Web Toolkit) is a good starting point. It has the ability of running &ldquo;Java code&rdquo; as javascript generated by a special java2js complier.
 -<!-- raw HTML omitted --><!-- raw HTML omitted -->Duan Lian<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 </blockquote>
 <p>Duan <a href="/articles/2009/01/06/javascript-for-cheminformatics-cross-compiling-java-to-javascript-with-gwt-revisited/">later showed</a> that a lightweight cheminformatics library I had written in Java could be cross-compiled to JavaScript. He even built a simple 2D structure viewer using this approach. Eventually, Duan developed this early work into <a href="/articles/2009/02/16/mx-at-work-building-a-pure-javascript-chemical-structure-editor/">jsMolEdit</a>.</p>
-<p>jsMolEdit used Google&rsquo;s <a href="http://www.gwtproject.org">Google Web Toolkit</a> (GWT), a Java to JavaScript cross-compiler. Since the release of GWT, <a href="https://github.com/jashkenas/coffeescript/wiki/List-of-languages-that-compile-to-JS#ruby">many tools</a> for transforming source code from a variety of languages into JavaScript have been created. Supported languages now include: Ruby; Python; Erlang; Perl; Scala; C#; Lisp; Haskell; Smalltalk; C; C++; and Go.</p>
-<p>Seeing the abundance of cross-compilers capable of producing JavaScript, Scot Hanselman <a href="https://www.hanselman.com/blog/JavaScriptIsAssemblyLanguageForTheWebSematicMarkupIsDeadCleanVsMachinecodedHTML.aspx">noted</a> that &ldquo;JavaScript is Assembly Language for the Web,&rdquo; and <a href="https://www.hanselman.com/blog/JavaScriptisAssemblyLanguagefortheWebPart2MadnessorjustInsanity.aspx">he wasn&rsquo;t far off the mark</a>.</p>
-<h1 id="webassembly">WebAssembly</h1>
+<p>jsMolEdit used Google&rsquo;s <a href="http://www.gwtproject.org" target="_blank">Google Web Toolkit</a> (GWT), a Java to JavaScript cross-compiler. Since the release of GWT, <a href="https://github.com/jashkenas/coffeescript/wiki/List-of-languages-that-compile-to-JS#ruby" target="_blank">many tools</a> for transforming source code from a variety of languages into JavaScript have been created. Supported languages now include: Ruby; Python; Erlang; Perl; Scala; C#; Lisp; Haskell; Smalltalk; C; C++; and Go.</p>
+<p>Seeing the abundance of cross-compilers capable of producing JavaScript, Scot Hanselman <a href="https://www.hanselman.com/blog/JavaScriptIsAssemblyLanguageForTheWebSematicMarkupIsDeadCleanVsMachinecodedHTML.aspx" target="_blank">noted</a> that &ldquo;JavaScript is Assembly Language for the Web,&rdquo; and <a href="https://www.hanselman.com/blog/JavaScriptisAssemblyLanguagefortheWebPart2MadnessorjustInsanity.aspx" target="_blank">he wasn&rsquo;t far off the mark</a>.</p>
+
+
+<h1 class="relative group">WebAssembly 
+    <div id="webassembly" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#webassembly" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>JavaScript was never designed as an assembly language, but the explosion of transpilers demonstrated an acute need for such functionality. Back in 1995 when Java was the new kid on the block, it was a widely held developer view that Java applets, running within the a browser plugin, could play the role of a universal runtime (&ldquo;write once, run anywhere&rdquo; was the slogan). However, years of mismanagement of the Java plugin by Sun then by Oracle made the realization of this vision impossible. JavaScript became by default the only option for a cross-browser, multi-language runtime.</p>
-<p>Based on clearly-demonstrated need, a consortium of groups began work on the WebAssembly standard (aka &ldquo;Wasm&rdquo;) in 2015. The <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts">Mozilla Developer Site</a> describes WebAssembly as follows:</p>
+<p>Based on clearly-demonstrated need, a consortium of groups began work on the WebAssembly standard (aka &ldquo;Wasm&rdquo;) in 2015. The <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts" target="_blank">Mozilla Developer Site</a> describes WebAssembly as follows:</p>
 <blockquote>
 <p>WebAssembly is a low-level assembly-like language with a compact binary format that runs with near-native performance and provides languages with low-level memory models such as C++ and Rust with a compilation target so that they can run on the web. (Note that WebAssembly has the high-level goal of supporting languages with garbage-collected memory models in the future.)</p>
 </blockquote>
-<p>WebAssembly is a relatively new and rapidly-evolving technology. As of November 2017, all major browsers (Safari, Firefox, Edge, Chrome, and Opera) supported WebAssembly by default. Bi-directional interoperability between JavaScript and WebAssembly is possible, as is DOM manipulation, but not natively. Interfacing WebAssembly with the browser environment therefore requires some glue code, the generation of which can fortunately be automated. Rust offers the best support for this tooling through its <a href="https://github.com/rustwasm/wasm-bindgen">wasm-bindgen</a> and <a href="https://rustwasm.github.io/2018/09/26/announcing-web-sys.html">web-sys</a> crates, respectively. At least one proposal for a <a href="https://github.com/WebAssembly/gc">WebAssembly garbage collector</a> is in progress, and would pave the road for JVM language support. Following a now-familiar pattern, <a href="https://github.com/appcypher/awesome-wasm-runtimes">standalone WebAssembly runtimes</a> have begun to appear, hinting at ubiquitous use of the interpreter as a secure compile target.</p>
-<h1 id="the-language-evolves">The Language Evolves</h1>
+<p>WebAssembly is a relatively new and rapidly-evolving technology. As of November 2017, all major browsers (Safari, Firefox, Edge, Chrome, and Opera) supported WebAssembly by default. Bi-directional interoperability between JavaScript and WebAssembly is possible, as is DOM manipulation, but not natively. Interfacing WebAssembly with the browser environment therefore requires some glue code, the generation of which can fortunately be automated. Rust offers the best support for this tooling through its <a href="https://github.com/rustwasm/wasm-bindgen" target="_blank">wasm-bindgen</a> and <a href="https://rustwasm.github.io/2018/09/26/announcing-web-sys.html" target="_blank">web-sys</a> crates, respectively. At least one proposal for a <a href="https://github.com/WebAssembly/gc" target="_blank">WebAssembly garbage collector</a> is in progress, and would pave the road for JVM language support. Following a now-familiar pattern, <a href="https://github.com/appcypher/awesome-wasm-runtimes" target="_blank">standalone WebAssembly runtimes</a> have begun to appear, hinting at ubiquitous use of the interpreter as a secure compile target.</p>
+
+
+<h1 class="relative group">The Language Evolves 
+    <div id="the-language-evolves" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#the-language-evolves" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Beyond runtime environment upgrades, JavaScript the language has undergone major improvements. The most sweeping of these falls under the umbrella &ldquo;ECMAScript 6&rdquo; (ES6). Noteworthy new features of ES6 include:</p>
 <ul>
 <li><strong>Destructuring.</strong> Greatly simplified syntax for manipulating the properties of both arrays and objects.</li>
 <li><strong>Arrow Functions.</strong> Simplified function declaration syntax that clarifies the meaning of &ldquo;this.&rdquo;</li>
 <li><strong>Class Notation.</strong> Syntax overlay for generating class-like data structures (but see <a href="/articles/2019/03/04/class-free-object-oriented-programming/">this caveat</a>).</li>
 </ul>
-<p>Still more improvements have made their way to all major JavaScript implementations. Vastly improved support for source code composition comes by way of <a href="https://flaviocopes.com/es-modules/">ES Modules</a>. All major browsers currently support this system, and support on Node.js is slowly but surely being finalized. <code>async</code>/<code>await</code> replaces <a href="https://blog.hellojs.org/asynchronous-javascript-from-callback-hell-to-async-and-await-9b9ceb63c8e8">&ldquo;Callback Hell&rdquo;</a> with notation that looks indistinguishable from traditional code save for two new keywords.</p>
-<h1 id="ui-tooling-proliferates">UI Tooling Proliferates</h1>
-<p>For years, JavaScript languished as an application development language due to its lack of good high-level UI tooling. This situation has changed dramatically within the last few years with the appearance of many mature frameworks. Paradoxically, this abundance has lead to a backlash known as <a href="https://dev.to/banesag/javascript-fatigue--bhh">&ldquo;JS Fatigue&rdquo;</a>.</p>
-<p>The noise around competing UI systems can be distracting, but fortunately most frameworks and toolkits are at this point are merely re-working the same handful of ideas. By far, the most influential of these is <a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754">&ldquo;Reactive Programming&rdquo;</a>, which was popularized by <a href="https://reactjs.org">React</a>. A firm grounding in Reactive Programming will go far in building a fast, functional user interface.</p>
-<h1 id="developer-tools-abound">Developer Tools Abound</h1>
+<p>Still more improvements have made their way to all major JavaScript implementations. Vastly improved support for source code composition comes by way of <a href="https://flaviocopes.com/es-modules/" target="_blank">ES Modules</a>. All major browsers currently support this system, and support on Node.js is slowly but surely being finalized. <code>async</code>/<code>await</code> replaces <a href="https://blog.hellojs.org/asynchronous-javascript-from-callback-hell-to-async-and-await-9b9ceb63c8e8" target="_blank">&ldquo;Callback Hell&rdquo;</a> with notation that looks indistinguishable from traditional code save for two new keywords.</p>
+
+
+<h1 class="relative group">UI Tooling Proliferates 
+    <div id="ui-tooling-proliferates" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#ui-tooling-proliferates" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>For years, JavaScript languished as an application development language due to its lack of good high-level UI tooling. This situation has changed dramatically within the last few years with the appearance of many mature frameworks. Paradoxically, this abundance has lead to a backlash known as <a href="https://dev.to/banesag/javascript-fatigue--bhh" target="_blank">&ldquo;JS Fatigue&rdquo;</a>.</p>
+<p>The noise around competing UI systems can be distracting, but fortunately most frameworks and toolkits are at this point are merely re-working the same handful of ideas. By far, the most influential of these is <a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754" target="_blank">&ldquo;Reactive Programming&rdquo;</a>, which was popularized by <a href="https://reactjs.org" target="_blank">React</a>. A firm grounding in Reactive Programming will go far in building a fast, functional user interface.</p>
+
+
+<h1 class="relative group">Developer Tools Abound 
+    <div id="developer-tools-abound" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#developer-tools-abound" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>In 2008, the state of JavaScript developer tools was for the most part abysmal. The introduction of Chrome changed that. For the first time Web developers had at their fingertips a rich suite of debugging and profiling tools that over time began to rival that of any other language.</p>
-<p>In 2015 Microsoft introduced <a href="https://code.visualstudio.com">Visual Studio Code</a>, a multi-language source code editor (written in a superset of JavaScript called <a href="https://www.typescriptlang.org">Typescript</a>). Among other essential features such as fast startup, smooth response, and a streamlined yet full-featured user interface, it offers a built-in <a href="https://depth-first.com/articles/2019/01/17/debugging-es-modules-with-mocha-in-vs-code/">debugger</a> for JavaScript running outside the browser.</p>
-<h1 id="applications-arrive">Applications Arrive</h1>
-<p>In early 2011 <a href="https://metamolecular.com">my company</a> released <a href="https://depth-first.com/articles/2011/01/12/ten-reasons-to-use-chemwriter-in-your-next-web-application/">ChemWriter 2</a>, a chemical structure editor written entirely in JavaScript. Our first customer, eMolecules, continues to deploy the software on its <a href="https://emolecules.com">home page</a>.</p>
-<p>Started in late 2009, ChemWriter 2 was built using tools that can charitably called &ldquo;awkward.&rdquo; To give an idea of the challenges, consider the default deployment environment. Internet Explorer 6, given its entrenched position in large organizations, was the de facto runtime. Its JavaScript performance was awful, so every new ChemWriter feature needed to be rigorously optimized and tediously tested across the entire sorry lineup of Microsoft browsers. Notorious for quirks in both its <a href="https://css-tricks.com/ie-css-bugs-thatll-get-you-every-time/">HTML layout and DOM</a>, IE set the frustration standard for a generation of Web developers. Its vector graphics system, <a href="https://depth-first.com/articles/2008/06/06/the-other-vector-graphics-markup-language/">VML</a>, barely worked and there was no support for SVG. Google&rsquo;s Closure library and compiler were used to mitigate these inconsistencies. <a href="https://chemwriter.com">ChemWriter 3</a>, the current iteration, dropped support for IE6 altogether but continued its use of Google Closure. Today, most of Closure&rsquo;s functionality has been rendered redundant by advances in the Web browser platform.</p>
+<p>In 2015 Microsoft introduced <a href="https://code.visualstudio.com" target="_blank">Visual Studio Code</a>, a multi-language source code editor (written in a superset of JavaScript called <a href="https://www.typescriptlang.org" target="_blank">Typescript</a>). Among other essential features such as fast startup, smooth response, and a streamlined yet full-featured user interface, it offers a built-in <a href="https://depth-first.com/articles/2019/01/17/debugging-es-modules-with-mocha-in-vs-code/" target="_blank">debugger</a> for JavaScript running outside the browser.</p>
+
+
+<h1 class="relative group">Applications Arrive 
+    <div id="applications-arrive" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#applications-arrive" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>In early 2011 <a href="https://metamolecular.com" target="_blank">my company</a> released <a href="https://depth-first.com/articles/2011/01/12/ten-reasons-to-use-chemwriter-in-your-next-web-application/" target="_blank">ChemWriter 2</a>, a chemical structure editor written entirely in JavaScript. Our first customer, eMolecules, continues to deploy the software on its <a href="https://emolecules.com" target="_blank">home page</a>.</p>
+<p>Started in late 2009, ChemWriter 2 was built using tools that can charitably called &ldquo;awkward.&rdquo; To give an idea of the challenges, consider the default deployment environment. Internet Explorer 6, given its entrenched position in large organizations, was the de facto runtime. Its JavaScript performance was awful, so every new ChemWriter feature needed to be rigorously optimized and tediously tested across the entire sorry lineup of Microsoft browsers. Notorious for quirks in both its <a href="https://css-tricks.com/ie-css-bugs-thatll-get-you-every-time/" target="_blank">HTML layout and DOM</a>, IE set the frustration standard for a generation of Web developers. Its vector graphics system, <a href="https://depth-first.com/articles/2008/06/06/the-other-vector-graphics-markup-language/" target="_blank">VML</a>, barely worked and there was no support for SVG. Google&rsquo;s Closure library and compiler were used to mitigate these inconsistencies. <a href="https://chemwriter.com" target="_blank">ChemWriter 3</a>, the current iteration, dropped support for IE6 altogether but continued its use of Google Closure. Today, most of Closure&rsquo;s functionality has been rendered redundant by advances in the Web browser platform.</p>
 <p>Other advanced chemistry tools and applications have been released over the years. Noteworthy examples include:</p>
 <ul>
-<li><a href="https://chemapps.stolaf.edu/jmol/jsmol/jsmol.htm">JSmol</a> and several other 3D molecular visualization tools</li>
-<li><a href="https://web.chemdoodle.com">ChemDoodle Web Components</a></li>
-<li><a href="https://peter-ertl.com/jsme/">JSME</a></li>
-<li><a href="https://chemaxon.com/products/marvin-js">Marvin JS</a></li>
-<li><a href="https://www.perkinelmer.com/product/chemdraw-direct-chemdrawdi">ChemDrawJS</a></li>
-<li><a href="http://molmatinf.com/webmolkit.html">WebMolKit</a></li>
-<li><a href="http://partridgejiang.github.io/Kekule.js/">Kekule.js</a></li>
-<li><a href="https://github.com/epam/ketcher">Ketcher</a></li>
-<li><a href="https://github.com/reymond-group/smilesDrawer">smilesDrawer</a></li>
-<li><a href="https://github.com/rdkit/RDKitjs">RDKit.js</a></li>
-<li><a href="http://metamolecular.com/inchi-js">InChI.js</a></li>
+<li><a href="https://chemapps.stolaf.edu/jmol/jsmol/jsmol.htm" target="_blank">JSmol</a> and several other 3D molecular visualization tools</li>
+<li><a href="https://web.chemdoodle.com" target="_blank">ChemDoodle Web Components</a></li>
+<li><a href="https://peter-ertl.com/jsme/" target="_blank">JSME</a></li>
+<li><a href="https://chemaxon.com/products/marvin-js" target="_blank">Marvin JS</a></li>
+<li><a href="https://www.perkinelmer.com/product/chemdraw-direct-chemdrawdi" target="_blank">ChemDrawJS</a></li>
+<li><a href="http://molmatinf.com/webmolkit.html" target="_blank">WebMolKit</a></li>
+<li><a href="http://partridgejiang.github.io/Kekule.js/" target="_blank">Kekule.js</a></li>
+<li><a href="https://github.com/epam/ketcher" target="_blank">Ketcher</a></li>
+<li><a href="https://github.com/reymond-group/smilesDrawer" target="_blank">smilesDrawer</a></li>
+<li><a href="https://github.com/rdkit/RDKitjs" target="_blank">RDKit.js</a></li>
+<li><a href="http://metamolecular.com/inchi-js" target="_blank">InChI.js</a></li>
 </ul>
-<h1 id="a-continuing-unmet-need">A Continuing Unmet Need</h1>
+
+
+<h1 class="relative group">A Continuing Unmet Need 
+    <div id="a-continuing-unmet-need" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#a-continuing-unmet-need" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>In 2008 I noted <a href="/articles/2008/07/15/javascript-for-cheminformatics/">crucial lack of cheminformatics tooling written in JavaScript</a>:</p>
 <blockquote>
 <p>So, one answer to the question of what would be the most useful JavaScript tool for cheminformatics could be: a low-level cheminformatics toolkit that understands chemical structures and their associated graph operations.</p>
@@ -200,67 +603,331 @@
 </ul>
 <p>For various reasons, none of the currently-available JavaScript packages hit all of these points. Most of them were conceived as applications, not developer toolkits. As such their core functionality can only be reused with great effort. The three packages that might serve in this capacity (Kekule.js, RDKit.js, and WebMolKit) miss on one or more points including lack of ES module support, lack of unit tests, slow startup time, convoluted build process, or the use of restrictive licensing terms.</p>
 <p>This gap hampers the future development of chemistry applications. Without robust, general-purpose cheminformatics tooling, each application will be forced to invent its own, a daunting prospect in any setting but even more so in the relatively constrained environment of the Web browser.</p>
-<h1 id="the-trouble-with-foreign-code">The Trouble with Foreign Code</h1>
+
+
+<h1 class="relative group">The Trouble with Foreign Code 
+    <div id="the-trouble-with-foreign-code" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#the-trouble-with-foreign-code" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Presented with the lack of a general-purpose, JavaScript-native cheminformatics toolkit, some developers have resorted to cross-compiled foreign code. Examples include:</p>
 <ul>
-<li><a href="https://github.com/rdkit/RDKitjs">RDKit.js</a>, compiled from <a href="https://www.rdkit.org">RDKit</a></li>
-<li><a href="https://github.com/metamolecular/inchi-js">InChI.js</a>, cross-compiled from <a href="https://iupac.org/who-we-are/divisions/division-details/inchi/">InChI</a></li>
-<li><a href="https://partridgejiang.github.io/cheminfo-to-web/demos/items/OpenBabel/openBabelDemo.html">Cheminfo-to-web</a>, cross-compiled from <a href="http://openbabel.org/wiki/Main_Page">Open Babel</a></li>
-<li><a href="https://cheminfo.github.io/openchemlib-js/docs/index.html">OpenChemLib JS</a> cross-compiled from <a href="https://github.com/Actelion/openchemlib">Openchemlib</a></li>
+<li><a href="https://github.com/rdkit/RDKitjs" target="_blank">RDKit.js</a>, compiled from <a href="https://www.rdkit.org" target="_blank">RDKit</a></li>
+<li><a href="https://github.com/metamolecular/inchi-js" target="_blank">InChI.js</a>, cross-compiled from <a href="https://iupac.org/who-we-are/divisions/division-details/inchi/" target="_blank">InChI</a></li>
+<li><a href="https://partridgejiang.github.io/cheminfo-to-web/demos/items/OpenBabel/openBabelDemo.html" target="_blank">Cheminfo-to-web</a>, cross-compiled from <a href="http://openbabel.org/wiki/Main_Page" target="_blank">Open Babel</a></li>
+<li><a href="https://cheminfo.github.io/openchemlib-js/docs/index.html" target="_blank">OpenChemLib JS</a> cross-compiled from <a href="https://github.com/Actelion/openchemlib" target="_blank">Openchemlib</a></li>
 </ul>
-<p>Node.js enables another mode of interfacing with native code through the <a href="https://github.com/node-ffi/node-ffi">foreign function interface</a> (FFI). Examples include <a href="https://github.com/epam/indigo-node">Indigo Node</a> and <a href="https://github.com/mohebifar/openbabel-node">OpenBabel Node</a>. However, this approach won&rsquo;t work for browser JavaScript, which can&rsquo;t interface with native binaries.</p>
+<p>Node.js enables another mode of interfacing with native code through the <a href="https://github.com/node-ffi/node-ffi" target="_blank">foreign function interface</a> (FFI). Examples include <a href="https://github.com/epam/indigo-node" target="_blank">Indigo Node</a> and <a href="https://github.com/mohebifar/openbabel-node" target="_blank">OpenBabel Node</a>. However, this approach won&rsquo;t work for browser JavaScript, which can&rsquo;t interface with native binaries.</p>
 <p>If deploying to a browser, one of the most persistent problems with cross-compilation will be performance. In the case of InChI JS, I&rsquo;ve noticed performance hit of between two and tenfold. For one-off functions, this is hardly a problem, but at scale, the performance gap can quickly make certain operations impractical. Fixing these problems requires an enormous amount of skill. Memory bugs can be virtually impossible to track down given the lack of good tooling.</p>
 <p>The size of the compiled output also quickly leads to problems, a situation I call &ldquo;the big blob problem&rdquo;. Although internet connections and browsers are fast today, it&rsquo;s not uncommon to load a megabyte or more of JavaScript from a cross-compiled foreign library. On top of everything else a page needs to load, including a sophisticated user interface, the overhead can quickly lead to noticeable performance defects, particularly on handheld devices.</p>
 <p>WebAssembly appears able to mitigate the big blob problem through various optimization settings. Perhaps concerted efforts along these lines could bear fruit.</p>
-<p>But even if they do, another problem will remain for many application developers. JavaScript is rapidly standardizing on <a href="https://flaviocopes.com/es-modules/">ES Modules</a> as the single mode of distribution for the browser and anywhere JavaScript runs. Under this system, active code (often broken down to the single function level) is injected into an application. Doing so many times throughout an application creates a dependency graph that can be used to define distribution bundles containing only necessary code. A big library blob, as produced from cross-compilation, typically includes vastly more code than will be used by a given application. Although specialty bundles can be prepared, this represents an imperfect workaround at best.</p>
-<p>Even if the big blob problem can be addressed and it eventually becomes possible to compile WebAssembly at the appropriate ES module level of granularity, two more problems will remain. First, JavaScript and any cross-compiled code will be operating at arm&rsquo;s length from each other. Efficiently passing rich objects between the two environments is currently an area of active research, <a href="https://hacks.mozilla.org/2018/10/calls-between-javascript-and-webassembly-are-finally-fast-%F0%9F%8E%89/">especially in Rust</a>, but there is as yet no good solution to this problem. Second, debugging cross-compiled native code within the context of a running browser application will present challenges for the foreseeable future.</p>
-<h1 id="predictions">Predictions</h1>
+<p>But even if they do, another problem will remain for many application developers. JavaScript is rapidly standardizing on <a href="https://flaviocopes.com/es-modules/" target="_blank">ES Modules</a> as the single mode of distribution for the browser and anywhere JavaScript runs. Under this system, active code (often broken down to the single function level) is injected into an application. Doing so many times throughout an application creates a dependency graph that can be used to define distribution bundles containing only necessary code. A big library blob, as produced from cross-compilation, typically includes vastly more code than will be used by a given application. Although specialty bundles can be prepared, this represents an imperfect workaround at best.</p>
+<p>Even if the big blob problem can be addressed and it eventually becomes possible to compile WebAssembly at the appropriate ES module level of granularity, two more problems will remain. First, JavaScript and any cross-compiled code will be operating at arm&rsquo;s length from each other. Efficiently passing rich objects between the two environments is currently an area of active research, <a href="https://hacks.mozilla.org/2018/10/calls-between-javascript-and-webassembly-are-finally-fast-%f0%9f%8e%89/" target="_blank">especially in Rust</a>, but there is as yet no good solution to this problem. Second, debugging cross-compiled native code within the context of a running browser application will present challenges for the foreseeable future.</p>
+
+
+<h1 class="relative group">Predictions 
+    <div id="predictions" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#predictions" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>What was considered impossible in 2008, the deployment of rich browser application interfaces for chemistry - without plugins, is now feasible and becoming routine. JavaScript was finally taken seriously and the results are sometimes astounding. This leaves the intriguing question of where all of this is headed. Below I offer some speculations.</p>
-<h2 id="1-incremental-innovation">1. Incremental Innovation</h2>
+
+
+<h2 class="relative group">1. Incremental Innovation 
+    <div id="1-incremental-innovation" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-incremental-innovation" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
 <p>The HTML5/ES platform is now very mature, with a vast installed base, a thriving developer community, and a fortress of implemented standards. Calls for stabilization and optimization will likely dominate discussions in working groups going forward. Laggards and fence-sitters will be jumping in with full force, further motivating a conservative approach to future API changes.</p>
 <p>Following a now-familiar &ldquo;backfill&rdquo; pattern, new APIs are likely to be introduced only to facilitate those things already being done by many developers through add-on libraries and other workarounds.</p>
-<h2 id="2-webassembly-is-a-big-deal">2. WebAssembly is a Big Deal</h2>
+
+
+<h2 class="relative group">2. WebAssembly is a Big Deal 
+    <div id="2-webassembly-is-a-big-deal" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-webassembly-is-a-big-deal" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
 <p>Most of the improvements to JavaScript and the browser for the foreseeable future will be driven by the intense interest in WebAssembly. Described by its creators as a &ldquo;proof-of-concept,&rdquo; the first iteration of WebAssembly has rapidly been embraced as a potential replacement for JavaScript. Given the lengths that some developers will go to avoid writing JavaScript, it seems likely that the next big push will be to bring WebAssembly up to par with JavaScript as a first-class browser citizen capable of full, fast manipulation of the DOM and all other Web APIs. Interoperability between JavaScript and WebAssembly is already emerging as a critically-needed capability.</p>
 <p>WebAssembly&rsquo;s ability to run as a securely sandboxed alternative to native compile targets, together with its widespread deployment even at this early stage, hints at a future in which WebAssembly becomes a standard target for most compiled languages.</p>
 <p>It seems obvious at this point that within the near-term many groups will attempt to compile critical computational chemistry libraries, many of which are written in Fortran and C, to WebAssembly. This will lead to an abundance of high-powered chemistry functionality with relatively little in the way of user interface to power it.</p>
-<h2 id="3-performance-gains">3. Performance Gains</h2>
+
+
+<h2 class="relative group">3. Performance Gains 
+    <div id="3-performance-gains" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#3-performance-gains" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
 <p>The long history of JavaScript performance gains may show signs of slowing, but not stopping. Whereas early runtime optimizations focused on microbenchmarks, today&rsquo;s benchmarks emphasize whole-page rendering performance. It&rsquo;s difficult to imagine another large performance gain like the one introduced by V8 on the horizon, but this should not be discounted too quickly. For example, the intense research around WebAssembly may lead to fundamentally more efficient ways of implementing the JavaScript runtime.</p>
-<h2 id="4-wither-desktop-software">4. Wither Desktop Software?</h2>
+
+
+<h2 class="relative group">4. Wither Desktop Software? 
+    <div id="4-wither-desktop-software" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#4-wither-desktop-software" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
 <p>The dual forces of ever-better Web browser performance and relentless diffusion of the Web technology stack can be expected to exert a major influence on the way chemists use computers. It&rsquo;s still way too early proclaim the death of desktop software, but the time is rapidly approaching when chemists won&rsquo;t be able to tell the difference between using a website and running a thick client.</p>
-<h2 id="5-new-kinds-of-applications">5. New Kinds of Applications</h2>
+
+
+<h2 class="relative group">5. New Kinds of Applications 
+    <div id="5-new-kinds-of-applications" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#5-new-kinds-of-applications" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
 <p>As browser applications begin to reach, and possibly exceed, performance parity with desktop applications, I expect new generes of chemistry software to appear. I don&rsquo;t know exactly what form they&rsquo;ll take or what problems they solve, but I suspect they&rsquo;ll inject an unprecedented level of collaboration and simplification into existing workflows.</p>
-<p>Consider the case of <a href="https://www.solidworks.com">SolidWorks</a> vs. <a href="https://www.onshape.com">OnShape</a>. SolidWorks has been the industry standard for 3D mechanical modeling for years. It&rsquo;s an extremely complicated, computationally-demanding application. In 2015 OnShape released the first public beta of its eponymously-titled browser-based alternative to SolidWorks. Not only does OnShape support the most useful core functionality of SolidWorks, but in most cases it does so far better through a streamlined, carefully constructed interface. Rendering performance is at least as good as that of SolidWorks. However, the biggest reason to use OnShape is not the smooth motion, streamlined interface, or sheer joy of flushing a convoluted, bug-riddled installation procedure. The best part is how OnShape brings collaboration and revision control to a product genre that previously treated it as an afterthought. Whereas teams used to struggle with how to collaborate on designs using SolidWorks, collaboration falls out as a natural consequence of using OnShape.</p>
+<p>Consider the case of <a href="https://www.solidworks.com" target="_blank">SolidWorks</a> vs. <a href="https://www.onshape.com" target="_blank">OnShape</a>. SolidWorks has been the industry standard for 3D mechanical modeling for years. It&rsquo;s an extremely complicated, computationally-demanding application. In 2015 OnShape released the first public beta of its eponymously-titled browser-based alternative to SolidWorks. Not only does OnShape support the most useful core functionality of SolidWorks, but in most cases it does so far better through a streamlined, carefully constructed interface. Rendering performance is at least as good as that of SolidWorks. However, the biggest reason to use OnShape is not the smooth motion, streamlined interface, or sheer joy of flushing a convoluted, bug-riddled installation procedure. The best part is how OnShape brings collaboration and revision control to a product genre that previously treated it as an afterthought. Whereas teams used to struggle with how to collaborate on designs using SolidWorks, collaboration falls out as a natural consequence of using OnShape.</p>
 <!-- raw HTML omitted -->
-<h1 id="conclusions">Conclusions</h1>
+
+
+<h1 class="relative group">Conclusions 
+    <div id="conclusions" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#conclusions" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Its first release written in a matter of days by a then-obscure company, JavaScript may be the most unlikely success story in all of software. Having emerged from a dark period lasting until the mid-2000s, today&rsquo;s JavaScript is a full-featured programming language wrapped in a rich, mass-deployed environment. Chemistry has been extremely slow to follow the direction charted by the rest of the software industry, but glimpses into the future are everywhere.</p>
-<ul class="pa0">
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+          
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_posts\/2019-05-01-javascript-for-cheminformatics-part-2.md"
+        var oid_likes = "likes_posts\/2019-05-01-javascript-for-cheminformatics-part-2.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
   
-</ul>
-<div class="mt6 instapaper_ignoref">
-      
-      
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/articles/2019/04/12/the-smiles-substructure-search-fallacy/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >The SMILES Substructure Search Fallacy</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2019-04-12T13:20:00&#43;00:00">April 12, 2019</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/articles/2019/05/15/compiling-inchi-to-webassembly-part-1-hello-inchi/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Compiling InChI to WebAssembly Part 1: Hello InChI</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2019-05-15T13:30:00&#43;00:00">May 15, 2019</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
       </div>
     </div>
-
-    <aside class="w-30-l mt6-l">
-
+  
 
 
+    
+  </footer>
+</article>
 
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
-    &copy;  Depth-First 2024 
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top" title="Scroll to top">
+    &uarr;
   </a>
-    <div><div class="ananke-socials"></div>
 </div>
-  </div>
-</footer>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
 
-  </body>
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2024
+      
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="http://localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
 </html>

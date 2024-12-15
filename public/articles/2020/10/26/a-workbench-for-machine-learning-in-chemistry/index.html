@@ -1,42 +1,70 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>A Workbench for Machine Learning in Chemistry | Depth-First</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="Kick the tires on a short, hackable aqueous solubility predictor built from a DeepChem graph convolutional network.">
-    <meta name="generator" content="Hugo 0.139.4">
-    
-    
-    
-    
-      <meta name="robots" content="noindex, nofollow">
-    
-    
-      <meta name="author" content = "Richard L. Apodaca">
-    
-
-    
-<link rel="stylesheet" href="/ananke/css/main.min.css" >
-
-
-
-    
-
-    
-      
-
-    
-
-    
-
-    
-      <link rel="canonical" href="http://localhost:1313/articles/2020/10/26/a-workbench-for-machine-learning-in-chemistry/">
-    
-
-    <meta property="og:url" content="http://localhost:1313/articles/2020/10/26/a-workbench-for-machine-learning-in-chemistry/">
+<html lang="en-us" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en-us" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>A Workbench for Machine Learning in Chemistry &middot; Depth-First</title>
+  <meta name="title" content="A Workbench for Machine Learning in Chemistry &middot; Depth-First" />
+  
+  <meta name="description" content="Kick the tires on a short, hackable aqueous solubility predictor built from a DeepChem graph convolutional network." />
+  
+  
+  
+  <link rel="canonical" href="http://localhost:1313/articles/2020/10/26/a-workbench-for-machine-learning-in-chemistry/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.e27868ab1485f7ed7b06b122b4980bd38b19526eb8f7de885181204d28f04a0c47e9c334eff19a06c0278eb2ff8415b983a5d0fb80fd6b5680c926457cc61c57.css"
+    integrity="sha512-4nhoqxSF9&#43;17BrEitJgL04sZUm64996IUYEgTSjwSgxH6cM07/GaBsAnjrL/hBW5g6XQ&#43;4D9a1aAySZFfMYcVw==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.c178288131a2f1ad46910438db47ac5f7e1c48cf949e49f6dc3310c8ec9660e23fe505805eba4e2e73711335808500360d773a2b64322feb35df52856edca286.js"
+    integrity="sha512-wXgogTGi8a1GkQQ420esX34cSM&#43;Unkn23DMQyOyWYOI/5QWAXrpOLnNxEzWAhQA2DXc6K2QyL&#43;s131KFbtyihg==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/articles/2020/10/26/a-workbench-for-machine-learning-in-chemistry/">
   <meta property="og:site_name" content="Depth-First">
   <meta property="og:title" content="A Workbench for Machine Learning in Chemistry">
   <meta property="og:description" content="Kick the tires on a short, hackable aqueous solubility predictor built from a DeepChem graph convolutional network.">
@@ -46,73 +74,360 @@
     <meta property="article:published_time" content="2020-10-26T16:00:00+00:00">
     <meta property="article:modified_time" content="2020-10-26T16:00:00+00:00">
 
-  <meta itemprop="name" content="A Workbench for Machine Learning in Chemistry">
-  <meta itemprop="description" content="Kick the tires on a short, hackable aqueous solubility predictor built from a DeepChem graph convolutional network.">
-  <meta itemprop="datePublished" content="2020-10-26T16:00:00+00:00">
-  <meta itemprop="dateModified" content="2020-10-26T16:00:00+00:00">
-  <meta itemprop="wordCount" content="1320">
+  
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="A Workbench for Machine Learning in Chemistry">
   <meta name="twitter:description" content="Kick the tires on a short, hackable aqueous solubility predictor built from a DeepChem graph convolutional network.">
 
-	
-  </head><body class="ma0 avenir bg-near-white development">
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "A Workbench for Machine Learning in Chemistry",
+    "headline": "A Workbench for Machine Learning in Chemistry",
+    
+    "abstract": "Kick the tires on a short, hackable aqueous solubility predictor built from a DeepChem graph convolutional network.",
+    "inLanguage": "en-us",
+    "url" : "http:\/\/localhost:1313\/articles\/2020\/10\/26\/a-workbench-for-machine-learning-in-chemistry\/",
+    "author" : {
+      "@type": "Person",
+      "name": ""
+    },
+    "copyrightYear": "2020",
+    "dateCreated": "2020-10-26T16:00:00\u002b00:00",
+    "datePublished": "2020-10-26T16:00:00\u002b00:00",
+    
+    "dateModified": "2020-10-26T16:00:00\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1328"
+  }]
+  </script>
+
+
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">Depth-First</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      A Workbench for Machine Learning in Chemistry
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2020-10-26T16:00:00&#43;00:00">October 26, 2020</time><span class="px-2 text-primary-500">&middot;</span><span>1328 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">7 mins</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
 
     
-   
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
   
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
-      
-        Depth-First
-      
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      <div class="ananke-socials"></div>
-
-    </div>
+  <div class="place-self-center">
+    
+    
+    <div class="text-2xl sm:text-lg">
+</div>
   </div>
-</nav>
+</div>
 
-    </div>
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
   </header>
-
-
-
-    <main class="pb7" role="main">
-      
   
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
-    <header class="mt4 w-100">
-      <aside class="instapaper_ignoref b helvetica tracked ttu">
-          
-        Posts
-      </aside><div id="sharing" class="mt3 ananke-socials"></div>
-<h1 class="f1 athelas mt3 mb1">A Workbench for Machine Learning in Chemistry</h1>
-      
-      <p class="tracked">
-        By <strong>Richard L. Apodaca</strong>
-      </p>
-      
-      
-      
-      <time class="f6 mv4 dib tracked" datetime="2020-10-26T16:00:00Z">October 26, 2020</time>
-      
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+    
 
-      
-      
-    </header>
-    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Machine learning has made major inroads into molecular property prediction over the last few years. But with the deluge of techniques and tools comes an increased need to recast what works well into a form usable by non-experts. <a href="https://deepchem.io">DeepChem</a> is a toolchain designed to do just that. This article presents a short, simple code example demonstrating how to use DeepChem to train and use a deep convolutional network to predict aqueous solubility.</p>
-<h1 id="deepchem-installation">DeepChem Installation</h1>
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p>Machine learning has made major inroads into molecular property prediction over the last few years. But with the deluge of techniques and tools comes an increased need to recast what works well into a form usable by non-experts. <a href="https://deepchem.io" target="_blank">DeepChem</a> is a toolchain designed to do just that. This article presents a short, simple code example demonstrating how to use DeepChem to train and use a deep convolutional network to predict aqueous solubility.</p>
+
+
+<h1 class="relative group">DeepChem Installation 
+    <div id="deepchem-installation" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#deepchem-installation" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>A previous article described <a href="/articles/2020/09/14/getting-started-with-deepchem/">the setup of a DeepChem environment</a>. The approach is based on Anaconda, and includes everything needed to access all of DeepChem&rsquo;s rich functionality.</p>
-<h1 id="the-code">The Code</h1>
+
+
+<h1 class="relative group">The Code 
+    <div id="the-code" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#the-code" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Using DeepChem to make predictions can be broken down into four broad steps:</p>
 <ol>
 <li>Build a data set.</li>
@@ -120,63 +435,118 @@
 <li>Evaluate the model.</li>
 <li>Use the model.</li>
 </ol>
-<p>DeepChem simplifies the reduction of these steps to working code. The following 13 lines, adapted from the excellent book <em><a href="https://www.oreilly.com/library/view/deep-learning-for/9781492039822/">Deep Learning for the Life Sciences</a></em>, are enough to build and use a graph convolutional network for aqueous solubility predictions.</p>
+<p>DeepChem simplifies the reduction of these steps to working code. The following 13 lines, adapted from the excellent book <em><a href="https://www.oreilly.com/library/view/deep-learning-for/9781492039822/" target="_blank">Deep Learning for the Life Sciences</a></em>, are enough to build and use a graph convolutional network for aqueous solubility predictions.</p>
 <!-- raw HTML omitted -->
 <p>The remaining sections detail each step in the process.</p>
-<h1 id="build-the-dataset">Build the Dataset</h1>
-<p>DeepChem comes pre-loaded with a number of sample data sets. The one used here here was assembled for the paper <em><a href="https://dx.doi.org/10.1021/ci034243x">ESOL: Estimating Aqueous Solubility Directly from Molecular Structure</a></em>. This 1,128-record set commonly goes by the author&rsquo;s name, Delaney. Crucial for the task at hand, each record in the Delaney set contains both an experimentally-determined aqueous solubility measurement and a SMILES string representing the molecular species. Aqueous solubility is expressed as the base-10 logarithm of solubility in units of moles per liter (logS).</p>
+
+
+<h1 class="relative group">Build the Dataset 
+    <div id="build-the-dataset" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#build-the-dataset" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>DeepChem comes pre-loaded with a number of sample data sets. The one used here here was assembled for the paper <em><a href="https://dx.doi.org/10.1021/ci034243x" target="_blank">ESOL: Estimating Aqueous Solubility Directly from Molecular Structure</a></em>. This 1,128-record set commonly goes by the author&rsquo;s name, Delaney. Crucial for the task at hand, each record in the Delaney set contains both an experimentally-determined aqueous solubility measurement and a SMILES string representing the molecular species. Aqueous solubility is expressed as the base-10 logarithm of solubility in units of moles per liter (logS).</p>
 <p>Looking at the first function call, however, it&rsquo;s clear that <code>load_delaney</code> is doing more than just loading raw data:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tasks, datasets, transformers <span style="color:#f92672">=</span> dc<span style="color:#f92672">.</span>molnet<span style="color:#f92672">.</span>load_delaney(featurizer<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;GraphConv&#39;</span>)
 </span></span></code></pre></div><p>Let&rsquo;s start with the return value, which is a tuple of three elements:</p>
 <ul>
 <li><strong><code>tasks</code></strong>: a single-member list containing the value &ldquo;measured log solubility in mols per litre&rdquo;. This string appears as a heading in the source CSV file. It&rsquo;s the column containing the values that the model will be trained on.</li>
 <li><strong><code>datasets</code></strong>: a list of three subsets of the Delaney set (see more below).</li>
-<li><strong><code>transformers</code></strong>: a list whose only member is a <a href="https://deepchem.readthedocs.io/en/latest/transformers.html?highlight=normalizationtransformer#deepchem.trans.NormalizationTransformer"><code>NormalizationTransformer</code></a>. A DeepChem <code>Transformer</code> ensures that numerical values fit within specific ranges. <code>NormalizationTransformer</code> applies a transform to each value that ensures a mean of zero and unit standard deviation for the set. This type of transformation is an example of a more general process called <a href="https://en.wikipedia.org/wiki/Feature_scaling">feature scaling</a>.</li>
+<li><strong><code>transformers</code></strong>: a list whose only member is a <a href="https://deepchem.readthedocs.io/en/latest/transformers.html?highlight=normalizationtransformer#deepchem.trans.NormalizationTransformer" target="_blank"><code>NormalizationTransformer</code></a>. A DeepChem <code>Transformer</code> ensures that numerical values fit within specific ranges. <code>NormalizationTransformer</code> applies a transform to each value that ensures a mean of zero and unit standard deviation for the set. This type of transformation is an example of a more general process called <a href="https://en.wikipedia.org/wiki/Feature_scaling" target="_blank">feature scaling</a>.</li>
 </ul>
 <p><code>datasets</code> contains not a single dataset but <em>three</em> of them, all of the same shape. For convenience, we spread them over three different variables:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>train_dataset, valid_dataset, test_dataset <span style="color:#f92672">=</span> datasets
 </span></span></code></pre></div><p>Each dataset serves a specific purpose:</p>
 <ul>
 <li><strong><code>train_dataset</code></strong>: Used for training.</li>
-<li><strong><code>valid_dataset</code></strong>: Used for automated hyperparameter tuning. A hyperparameter is a value used during training that isn&rsquo;t part of the model. Test data can&rsquo;t be used to train hyperparameters because it can only be used for validation. To avoid this problem, a <a href="https://en.wikipedia.org/wiki/Training,_validation,_and_test_sets#Validation_dataset">validation set</a> is used to probe the trained model&rsquo;s response to changes in hyperparameters.</li>
+<li><strong><code>valid_dataset</code></strong>: Used for automated hyperparameter tuning. A hyperparameter is a value used during training that isn&rsquo;t part of the model. Test data can&rsquo;t be used to train hyperparameters because it can only be used for validation. To avoid this problem, a <a href="https://en.wikipedia.org/wiki/Training,_validation,_and_test_sets#Validation_dataset" target="_blank">validation set</a> is used to probe the trained model&rsquo;s response to changes in hyperparameters.</li>
 <li><strong><code>test_dataset</code></strong>: Used to evaluate the performance of a model after training.</li>
 </ul>
-<p>Each dataset is an instance of DeepChem&rsquo;s <a href="https://deepchem.readthedocs.io/en/latest/datasets.html#diskdataset"><code>DiskDataset</code></a> class. This data structure is designed to handle sets of 100 GB or larger.</p>
+<p>Each dataset is an instance of DeepChem&rsquo;s <a href="https://deepchem.readthedocs.io/en/latest/datasets.html#diskdataset" target="_blank"><code>DiskDataset</code></a> class. This data structure is designed to handle sets of 100 GB or larger.</p>
 <p>Let&rsquo;s have another look at the call to <code>load_delaney</code>:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tasks, datasets, transformers <span style="color:#f92672">=</span> dc<span style="color:#f92672">.</span>molnet<span style="color:#f92672">.</span>load_delaney(featurizer<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;GraphConv&#39;</span>)
-</span></span></code></pre></div><p>The named parameter <code>featurizer</code> tells <code>load_delaney</code> which kind of post-processing will be applied to the molecule obtained after parsing a SMILES. Setting the featurizer to &ldquo;GraphConv&rdquo; tells DeepChem to apply its <a href="https://deepchem.readthedocs.io/en/latest/featurizers.html?highlight=featurizer#convmolfeaturizer"><code>ConvMolFeaturizer</code></a> to input molecules during training.  An alternative would be <a href="https://deepchem.readthedocs.io/en/latest/featurizers.html?highlight=featurizers#weavefeaturizer"><code>Weave</code></a>.</p>
-<h1 id="train-the-model">Train the Model</h1>
-<p>With training, validation, and test data sets in hand, a model can be trained. We begin by constructing an instance of <a href="https://deepchem.readthedocs.io/en/latest/models.html?highlight=graphconvmodel#graphconvmodel"><code>GraphConvModel</code></a>. This class represents a graph convolutional network as described by Duvenaud in <em><a href="https://arxiv.org/abs/1509.09292">Convolutional Networks on Graphs for Learning Molecular Fingerprints</a></em>.</p>
+</span></span></code></pre></div><p>The named parameter <code>featurizer</code> tells <code>load_delaney</code> which kind of post-processing will be applied to the molecule obtained after parsing a SMILES. Setting the featurizer to &ldquo;GraphConv&rdquo; tells DeepChem to apply its <a href="https://deepchem.readthedocs.io/en/latest/featurizers.html?highlight=featurizer#convmolfeaturizer" target="_blank"><code>ConvMolFeaturizer</code></a> to input molecules during training.  An alternative would be <a href="https://deepchem.readthedocs.io/en/latest/featurizers.html?highlight=featurizers#weavefeaturizer" target="_blank"><code>Weave</code></a>.</p>
+
+
+<h1 class="relative group">Train the Model 
+    <div id="train-the-model" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#train-the-model" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>With training, validation, and test data sets in hand, a model can be trained. We begin by constructing an instance of <a href="https://deepchem.readthedocs.io/en/latest/models.html?highlight=graphconvmodel#graphconvmodel" target="_blank"><code>GraphConvModel</code></a>. This class represents a graph convolutional network as described by Duvenaud in <em><a href="https://arxiv.org/abs/1509.09292" target="_blank">Convolutional Networks on Graphs for Learning Molecular Fingerprints</a></em>.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>model <span style="color:#f92672">=</span> dc<span style="color:#f92672">.</span>models<span style="color:#f92672">.</span>GraphConvModel(n_tasks<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;regression&#39;</span>, dropout<span style="color:#f92672">=</span><span style="color:#ae81ff">0.2</span>)
 </span></span></code></pre></div><p>The constructor call passes three named parameters:</p>
 <ul>
 <li><strong><code>n_task</code></strong>: The number of tasks to perform. In data sets containing more than one input value (which is not the case here), a value greater than one is acceptable.</li>
 <li><strong><code>mode</code></strong>: Use <code>regression</code> to model continuous numerical values, or <code>classification</code> for labels.</li>
-<li><strong><code>dropout</code></strong>: A value from 0 to 1.0 that tells <code>GraphConvModel</code> what percentage of nodes should be disregarded. Increasing <a href="https://machinelearningmastery.com/dropout-for-regularizing-deep-neural-networks/">dropout</a> is a technique to reduce the tendency of deep networks to overfit on training data.</li>
+<li><strong><code>dropout</code></strong>: A value from 0 to 1.0 that tells <code>GraphConvModel</code> what percentage of nodes should be disregarded. Increasing <a href="https://machinelearningmastery.com/dropout-for-regularizing-deep-neural-networks/" target="_blank">dropout</a> is a technique to reduce the tendency of deep networks to overfit on training data.</li>
 </ul>
 <p>Additional parameters describing model behavior can also be passed. For example, the size and number of layers and number of atom features can both be specified.</p>
 <p>After construction, the model can be trained with the following line which yields a warning on my system containing the text &ldquo;UserWarning: Converting sparse IndexedSlices to a dense Tensor of unknown shape. This may consume a large amount of memory.&rdquo;:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>model<span style="color:#f92672">.</span>fit(train_dataset, nb_epoch<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>) <span style="color:#75715e"># =&gt; 0.11707531929016113</span>
 </span></span></code></pre></div><p>On my system, this step takes about 30 seconds.</p>
-<p>The first parameter is the previously-created training dataset. The second parameter, <code>nb_epoch</code>, is the number of <a href="https://machinelearningmastery.com/difference-between-a-batch-and-an-epoch/">epochs</a> to train for. The number of epochs, a hyperparameter, defines how many times the model will be trained with the training set. More epochs require more compute resources, and there will be a point of diminishing returns. One way to find it is to create a <a href="https://en.wikipedia.org/wiki/Learning_curve_(machine_learning)">&ldquo;learning curve,&rdquo;</a> in which epoch count is plotted against error.</p>
-<p><a href="https://deepchem.readthedocs.io/en/latest/models.html?highlight=graphconvmodel#deepchem.models.KerasModel.fit"><code>GraphConvModel#fit</code></a> conveniently returns a numerical value representing &ldquo;the average loss over the most recent checkpoint interval.&rdquo; Lower values indicate a better fitting final model.</p>
-<h1 id="evaluate-the-model">Evaluate the Model</h1>
+<p>The first parameter is the previously-created training dataset. The second parameter, <code>nb_epoch</code>, is the number of <a href="https://machinelearningmastery.com/difference-between-a-batch-and-an-epoch/" target="_blank">epochs</a> to train for. The number of epochs, a hyperparameter, defines how many times the model will be trained with the training set. More epochs require more compute resources, and there will be a point of diminishing returns. One way to find it is to create a <a href="https://en.wikipedia.org/wiki/Learning_curve_%28machine_learning%29" target="_blank">&ldquo;learning curve,&rdquo;</a> in which epoch count is plotted against error.</p>
+<p><a href="https://deepchem.readthedocs.io/en/latest/models.html?highlight=graphconvmodel#deepchem.models.KerasModel.fit" target="_blank"><code>GraphConvModel#fit</code></a> conveniently returns a numerical value representing &ldquo;the average loss over the most recent checkpoint interval.&rdquo; Lower values indicate a better fitting final model.</p>
+
+
+<h1 class="relative group">Evaluate the Model 
+    <div id="evaluate-the-model" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#evaluate-the-model" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>The trained model can now be evaluated by comparing the error in the training and test sets.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>metric <span style="color:#f92672">=</span> dc<span style="color:#f92672">.</span>metrics<span style="color:#f92672">.</span>Metric(dc<span style="color:#f92672">.</span>metrics<span style="color:#f92672">.</span>pearson_r2_score)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>print(model<span style="color:#f92672">.</span>evaluate(train_dataset, [metric], transformers)) <span style="color:#75715e"># =&gt; {&#39;pearson_r2_score&#39;: 0.9110650179980299}</span>
 </span></span><span style="display:flex;"><span>print(model<span style="color:#f92672">.</span>evaluate(test_dataset, [metric], transformers)) <span style="color:#75715e"># =&gt; {&#39;pearson_r2_score&#39;: 0.759322765543715}</span>
 </span></span></code></pre></div><p>Unoptimized test error for this convolutional network approach (0.759) compares favorably with the <a href="/articles/2020/09/14/getting-started-with-deepchem/">previously-described</a> random forest approach (0.362). However, the difference in error between training and test sets (0.911 vs. 0.759) for the convolutional network suggests overfitting.</p>
-<h1 id="use-the-model">Use the Model</h1>
+
+
+<h1 class="relative group">Use the Model 
+    <div id="use-the-model" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#use-the-model" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Having built, trained, and evaluated the model, we can now use it to predict the aqueous solubility of unknown molecules.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>featurizer <span style="color:#f92672">=</span> dc<span style="color:#f92672">.</span>feat<span style="color:#f92672">.</span>ConvMolFeaturizer()
 </span></span><span style="display:flex;"><span>smiles <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;c1c(O)cccc1O&#39;</span>, <span style="color:#e6db74">&#39;c1c(F)cccc1O&#39;</span>, <span style="color:#e6db74">&#39;c1c(Cl)cccc1O&#39;</span>]
 </span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> featurizer<span style="color:#f92672">.</span>featurize([Chem<span style="color:#f92672">.</span>MolFromSmiles(s) <span style="color:#66d9ef">for</span> s <span style="color:#f92672">in</span> smiles])
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>model<span style="color:#f92672">.</span>predict_on_batch(x) <span style="color:#75715e"># =&gt; array([[2.0801175], [1.3159559], [1.3712412]], dtype=float32)</span>
-</span></span></code></pre></div><p>Although the trend seems right, the magnitude appears off. Water itself is only 55 M, so anything in the range of 100 M should raise eyebrows. Wikipedia reports a solubility for m-cresol (first SMILES) of 2.35 g/L, which translates to logS of -1.66. Clearly, there&rsquo;s a lot of room for future work here. For some ideas, have a look at Pat Walters&rsquo; article <em><a href="http://practicalcheminformatics.blogspot.com/2018/09/predicting-aqueous-solubility-its.html">Predicting Aqueous Solubility - It&rsquo;s Harder Than It Looks</a></em>.</p>
+</span></span></code></pre></div><p>Although the trend seems right, the magnitude appears off. Water itself is only 55 M, so anything in the range of 100 M should raise eyebrows. Wikipedia reports a solubility for m-cresol (first SMILES) of 2.35 g/L, which translates to logS of -1.66. Clearly, there&rsquo;s a lot of room for future work here. For some ideas, have a look at Pat Walters&rsquo; article <em><a href="http://practicalcheminformatics.blogspot.com/2018/09/predicting-aqueous-solubility-its.html" target="_blank">Predicting Aqueous Solubility - It&rsquo;s Harder Than It Looks</a></em>.</p>
 <p>Notice that a <code>ConvMolFeaturizer</code> is used to transform RDKit molecules into a form suitable for use by the model. This is the same transformation that was applied to RDKit molecules to train the model.</p>
-<h1 id="experiments">Experiments</h1>
+
+
+<h1 class="relative group">Experiments 
+    <div id="experiments" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#experiments" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>This article presents a compact but complete deep learning workbench. Setting aside issues of error, applicability to the problem domain, and interpretation, several questions can be addressed, including:</p>
 <ul>
 <li>How does the number of epochs (<code>nb_epoch</code>) affect time to train and error?</li>
@@ -185,39 +555,226 @@
 <li>What method does <code>load_delaney</code> use to divide the full set into training, validation, and test sets? Can you do better?</li>
 <li>How does GraphConv differ from Weave in performance?</li>
 <li>How does the performance of graph convolution compare with similarly-constructed approaches such as random forest?</li>
-<li>How would you replace the Delaney set with other solubility sets such as those found in <a href="https://doi.org/10.1038/s41597-019-0151-1">SqSolDB</a>?</li>
-<li>How well do the predictions made by the various methods match <a href="https://doi.org/10.1186/s13321-017-0250-y">your intuition</a>?</li>
+<li>How would you replace the Delaney set with other solubility sets such as those found in <a href="https://doi.org/10.1038/s41597-019-0151-1" target="_blank">SqSolDB</a>?</li>
+<li>How well do the predictions made by the various methods match <a href="https://doi.org/10.1186/s13321-017-0250-y" target="_blank">your intuition</a>?</li>
 </ul>
-<h1 id="conclusion">Conclusion</h1>
+
+
+<h1 class="relative group">Conclusion 
+    <div id="conclusion" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#conclusion" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>One of the best ways to learn new technologies is to build a simple work bench. When learning new programming languages, the first work bench often consists of a simple &ldquo;Hello, World!&rdquo; program. This article describes something analogous: a 13-line program that trains and evaluates a deep graph convolutional network for aqueous solubility prediction.</p>
-<ul class="pa0">
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+          
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_posts\/2020-10-26-a-workbench-for-machine-learning-in-chemistry.md"
+        var oid_likes = "likes_posts\/2020-10-26-a-workbench-for-machine-learning-in-chemistry.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
   
-</ul>
-<div class="mt6 instapaper_ignoref">
-      
-      
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/articles/2020/10/19/smiles-reading-performance-rdkit-vs-chemcore/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >SMILES Reading Performance: RDKit vs ChemCore</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2020-10-19T15:00:00&#43;00:00">October 19, 2020</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/articles/2020/12/14/abstract-syntax-trees-for-smiles/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Abstract Syntax Trees for SMILES</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2020-12-14T21:00:00&#43;00:00">December 14, 2020</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
       </div>
     </div>
-
-    <aside class="w-30-l mt6-l">
-
+  
 
 
+    
+  </footer>
+</article>
 
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
-    &copy;  Depth-First 2024 
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top" title="Scroll to top">
+    &uarr;
   </a>
-    <div><div class="ananke-socials"></div>
 </div>
-  </div>
-</footer>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
 
-  </body>
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2024
+      
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="http://localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
 </html>

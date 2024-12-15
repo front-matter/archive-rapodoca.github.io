@@ -1,42 +1,70 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Graphs in Rust: An Introduction to Petgraph | Depth-First</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="Discussion and code examples for Rust&rsquo;s most popular graph library.">
-    <meta name="generator" content="Hugo 0.139.4">
-    
-    
-    
-    
-      <meta name="robots" content="noindex, nofollow">
-    
-    
-      <meta name="author" content = "Richard L. Apodaca">
-    
-
-    
-<link rel="stylesheet" href="/ananke/css/main.min.css" >
-
-
-
-    
-
-    
-      
-
-    
-
-    
-
-    
-      <link rel="canonical" href="http://localhost:1313/articles/2020/02/03/graphs-in-rust-an-introduction-to-petgraph/">
-    
-
-    <meta property="og:url" content="http://localhost:1313/articles/2020/02/03/graphs-in-rust-an-introduction-to-petgraph/">
+<html lang="en-us" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en-us" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>Graphs in Rust: An Introduction to Petgraph &middot; Depth-First</title>
+  <meta name="title" content="Graphs in Rust: An Introduction to Petgraph &middot; Depth-First" />
+  
+  <meta name="description" content="Discussion and code examples for Rust&#39;s most popular graph library." />
+  
+  
+  
+  <link rel="canonical" href="http://localhost:1313/articles/2020/02/03/graphs-in-rust-an-introduction-to-petgraph/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.e27868ab1485f7ed7b06b122b4980bd38b19526eb8f7de885181204d28f04a0c47e9c334eff19a06c0278eb2ff8415b983a5d0fb80fd6b5680c926457cc61c57.css"
+    integrity="sha512-4nhoqxSF9&#43;17BrEitJgL04sZUm64996IUYEgTSjwSgxH6cM07/GaBsAnjrL/hBW5g6XQ&#43;4D9a1aAySZFfMYcVw==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.c178288131a2f1ad46910438db47ac5f7e1c48cf949e49f6dc3310c8ec9660e23fe505805eba4e2e73711335808500360d773a2b64322feb35df52856edca286.js"
+    integrity="sha512-wXgogTGi8a1GkQQ420esX34cSM&#43;Unkn23DMQyOyWYOI/5QWAXrpOLnNxEzWAhQA2DXc6K2QyL&#43;s131KFbtyihg==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/articles/2020/02/03/graphs-in-rust-an-introduction-to-petgraph/">
   <meta property="og:site_name" content="Depth-First">
   <meta property="og:title" content="Graphs in Rust: An Introduction to Petgraph">
   <meta property="og:description" content="Discussion and code examples for Rust’s most popular graph library.">
@@ -46,85 +74,383 @@
     <meta property="article:published_time" content="2020-02-03T14:00:00+00:00">
     <meta property="article:modified_time" content="2020-02-03T14:00:00+00:00">
 
-  <meta itemprop="name" content="Graphs in Rust: An Introduction to Petgraph">
-  <meta itemprop="description" content="Discussion and code examples for Rust’s most popular graph library.">
-  <meta itemprop="datePublished" content="2020-02-03T14:00:00+00:00">
-  <meta itemprop="dateModified" content="2020-02-03T14:00:00+00:00">
-  <meta itemprop="wordCount" content="2015">
+  
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Graphs in Rust: An Introduction to Petgraph">
   <meta name="twitter:description" content="Discussion and code examples for Rust’s most popular graph library.">
 
-	
-  </head><body class="ma0 avenir bg-near-white development">
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "Graphs in Rust: An Introduction to Petgraph",
+    "headline": "Graphs in Rust: An Introduction to Petgraph",
+    
+    "abstract": "Discussion and code examples for Rust\u0026rsquo;s most popular graph library.",
+    "inLanguage": "en-us",
+    "url" : "http:\/\/localhost:1313\/articles\/2020\/02\/03\/graphs-in-rust-an-introduction-to-petgraph\/",
+    "author" : {
+      "@type": "Person",
+      "name": ""
+    },
+    "copyrightYear": "2020",
+    "dateCreated": "2020-02-03T14:00:00\u002b00:00",
+    "datePublished": "2020-02-03T14:00:00\u002b00:00",
+    
+    "dateModified": "2020-02-03T14:00:00\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "2022"
+  }]
+  </script>
+
+
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">Depth-First</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      Graphs in Rust: An Introduction to Petgraph
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2020-02-03T14:00:00&#43;00:00">February 3, 2020</time><span class="px-2 text-primary-500">&middot;</span><span>2022 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">10 mins</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
 
     
-   
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
   
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
-      
-        Depth-First
-      
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      <div class="ananke-socials"></div>
-
-    </div>
+  <div class="place-self-center">
+    
+    
+    <div class="text-2xl sm:text-lg">
+</div>
   </div>
-</nav>
+</div>
 
-    </div>
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
   </header>
-
-
-
-    <main class="pb7" role="main">
-      
   
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
-    <header class="mt4 w-100">
-      <aside class="instapaper_ignoref b helvetica tracked ttu">
-          
-        Posts
-      </aside><div id="sharing" class="mt3 ananke-socials"></div>
-<h1 class="f1 athelas mt3 mb1">Graphs in Rust: An Introduction to Petgraph</h1>
-      
-      <p class="tracked">
-        By <strong>Richard L. Apodaca</strong>
-      </p>
-      
-      
-      
-      <time class="f6 mv4 dib tracked" datetime="2020-02-03T14:00:00Z">February 3, 2020</time>
-      
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+    
 
-      
-      
-    </header>
-    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Graphs are ubiquitous in science and technology. As such, many software projects use graphs in one form or another. Here I discuss <a href="https://docs.rs/petgraph/0.5.0/petgraph/">Petgraph</a>, a general-purpose graph library written in Rust. The main features of Petgraph are illustrated with short code samples.</p>
-<h1 id="about-petgraph">About Petgraph</h1>
-<p>Started in 2014, Petgraph is Rust&rsquo;s most popular graph library. According to <a href="https://crates.io/crates/petgraph">crates.io</a>, Petgraph has been downloaded over 2.1 million times. <a href="https://crates.io/crates/petgraph/reverse_dependencies">Dozens of projects</a> use it as a dependency.</p>
-<p>Other than <a href="https://docs.rs/petgraph/0.5.0/petgraph/">rustdoc</a>, documentation on Petgraph is thin. There&rsquo;s an especially acute lack of code examples. A notable exception is the two-part series by Timothy Hobbs:</p>
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p>Graphs are ubiquitous in science and technology. As such, many software projects use graphs in one form or another. Here I discuss <a href="https://docs.rs/petgraph/0.5.0/petgraph/" target="_blank">Petgraph</a>, a general-purpose graph library written in Rust. The main features of Petgraph are illustrated with short code samples.</p>
+
+
+<h1 class="relative group">About Petgraph 
+    <div id="about-petgraph" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#about-petgraph" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>Started in 2014, Petgraph is Rust&rsquo;s most popular graph library. According to <a href="https://crates.io/crates/petgraph" target="_blank">crates.io</a>, Petgraph has been downloaded over 2.1 million times. <a href="https://crates.io/crates/petgraph/reverse_dependencies" target="_blank">Dozens of projects</a> use it as a dependency.</p>
+<p>Other than <a href="https://docs.rs/petgraph/0.5.0/petgraph/" target="_blank">rustdoc</a>, documentation on Petgraph is thin. There&rsquo;s an especially acute lack of code examples. A notable exception is the two-part series by Timothy Hobbs:</p>
 <ul>
-<li><a href="https://timothy.hobbs.cz/rust-play/petgraph_review.html">petgraph review/tutorial</a></li>
-<li><a href="https://timothy.hobbs.cz/rust-play/petgraph-internals.html">petgraph review: internals</a></li>
+<li><a href="https://timothy.hobbs.cz/rust-play/petgraph_review.html" target="_blank">petgraph review/tutorial</a></li>
+<li><a href="https://timothy.hobbs.cz/rust-play/petgraph-internals.html" target="_blank">petgraph review: internals</a></li>
 </ul>
-<h1 id="overview">Overview</h1>
+
+
+<h1 class="relative group">Overview 
+    <div id="overview" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#overview" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Petgraph consists of three main components:</p>
 <ol>
 <li><strong>Data structures.</strong> Includes four graph implementations representing performance and functionality trade-offs.</li>
 <li><strong>Traversals.</strong> Breadth- and depth-first traversals are implemented as Rust iterators.</li>
 <li><strong>Graph algorithms.</strong> Includes isomorphism and several variants on connected components.</li>
 </ol>
-<h1 id="hello-graph">Hello, Graph</h1>
+
+
+<h1 class="relative group">Hello, Graph 
+    <div id="hello-graph" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#hello-graph" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>The most broadly-useful graph implementation is <code>Graph</code>, which is backed by an adjacency list. Create a <code>Graph</code> like so:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> petgraph::graph::Graph;
 </span></span><span style="display:flex;"><span>
@@ -197,7 +523,7 @@
 </span></span><span style="display:flex;"><span>    assert_eq!(graph.edge_weight(cost_1).unwrap(), <span style="color:#f92672">&amp;</span><span style="color:#ae81ff">250</span>);
 </span></span><span style="display:flex;"><span>    assert_eq!(graph.edge_weight(cost_2).unwrap(), <span style="color:#f92672">&amp;</span><span style="color:#ae81ff">1099</span>);
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>It&rsquo;s often useful to depict a graph. Petgraph supports <a href="https://graphviz.gitlab.io/_pages/doc/info/lang.html">DOT</a>, a graph language specification used by many visualization tools including <a href="https://graphviz.orv">Graphviz</a>. An <a href="http://viz-js.com">online viewer (Vis.js)</a> is available. DOT is also a useful debugging format on its own.</p>
+</span></span></code></pre></div><p>It&rsquo;s often useful to depict a graph. Petgraph supports <a href="https://graphviz.gitlab.io/_pages/doc/info/lang.html" target="_blank">DOT</a>, a graph language specification used by many visualization tools including <a href="https://graphviz.orv" target="_blank">Graphviz</a>. An <a href="http://viz-js.com" target="_blank">online viewer (Vis.js)</a> is available. DOT is also a useful debugging format on its own.</p>
 <p>The example above can be updated to print a DOT representation of the graph.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> petgraph::prelude::Graph;
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> petgraph::dot::Dot;
@@ -225,7 +551,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>This yields the image:</p>
 <!-- raw HTML omitted -->
-<p>An alternative, JSON-based debug format is available through the optional <a href="https://serde.rs">Serde</a> integration. Activate it by adding the following to your <code>Cargo.toml</code> file:</p>
+<p>An alternative, JSON-based debug format is available through the optional <a href="https://serde.rs" target="_blank">Serde</a> integration. Activate it by adding the following to your <code>Cargo.toml</code> file:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[<span style="color:#a6e22e">dependencies</span>]
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">serde_json</span> = <span style="color:#e6db74">&#34;1.0.45&#34;</span>
 </span></span><span style="display:flex;"><span>
@@ -270,10 +596,21 @@
 </span></span><span style="display:flex;"><span>    ]
 </span></span><span style="display:flex;"><span>  ]
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h1 id="graph-implementations">Graph Implementations</h1>
+</span></span></code></pre></div>
+
+<h1 class="relative group">Graph Implementations 
+    <div id="graph-implementations" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#graph-implementations" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Petgraph supports four graph implementations. Their main difference lies in the data structure backing the graph. This can lead to different memory and time performance depending on the situation. As discussed shortly, however, the APIs of these graphs are not necessarily compatible with all uses.</p>
-<p><a href="https://docs.rs/petgraph/0.5.0/petgraph/graph/struct.Graph.html"><code>Graph</code></a> is backed with an <a href="https://en.wikipedia.org/wiki/Adjacency_list">adjacency list</a>. There is no restriction on node or edge type. Nodes and edges are accessed through <code>NodeIndex</code> and <code>EdgeIndex</code> values, respectively. These values in turn allow access to an underlying numerical index. As noted previously, these indexes are not stable under removal operations. <code>Graph</code> enjoys the most support among Petgraph algorithms.</p>
-<p>Like <code>Graph</code>, <a href="https://docs.rs/petgraph/0.5.0/petgraph/stable_graph/struct.StableGraph.html">StableGraph</a> is backed with an adjacency list. Unlike <code>Graph</code>, removing nodes or edges from a <code>StableGraph</code> will not invalidate existing indexes.</p>
+<p><a href="https://docs.rs/petgraph/0.5.0/petgraph/graph/struct.Graph.html" target="_blank"><code>Graph</code></a> is backed with an <a href="https://en.wikipedia.org/wiki/Adjacency_list" target="_blank">adjacency list</a>. There is no restriction on node or edge type. Nodes and edges are accessed through <code>NodeIndex</code> and <code>EdgeIndex</code> values, respectively. These values in turn allow access to an underlying numerical index. As noted previously, these indexes are not stable under removal operations. <code>Graph</code> enjoys the most support among Petgraph algorithms.</p>
+<p>Like <code>Graph</code>, <a href="https://docs.rs/petgraph/0.5.0/petgraph/stable_graph/struct.StableGraph.html" target="_blank">StableGraph</a> is backed with an adjacency list. Unlike <code>Graph</code>, removing nodes or edges from a <code>StableGraph</code> will not invalidate existing indexes.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> petgraph::stable_graph::StableGraph;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
@@ -292,7 +629,7 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    assert_eq!(indexes[<span style="color:#ae81ff">0</span>].index(), <span style="color:#ae81ff">1</span>); <span style="color:#75715e">// PASS!
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><p>The counterintuitively-named <a href="https://docs.rs/petgraph/0.5.0/petgraph/graphmap/struct.GraphMap.html"><code>GraphMap</code></a> is backed with a Map, using nodes as keys. Nodes must implement <code>Copy</code>, <code>Eq</code>, <code>Ord</code>, and <code>Hash</code>. Node membership tests, a feature missing from <code>Graph</code> but present in <code>StableGraph</code>, execute in constant time.</p>
+</span></span></code></pre></div><p>The counterintuitively-named <a href="https://docs.rs/petgraph/0.5.0/petgraph/graphmap/struct.GraphMap.html" target="_blank"><code>GraphMap</code></a> is backed with a Map, using nodes as keys. Nodes must implement <code>Copy</code>, <code>Eq</code>, <code>Ord</code>, and <code>Hash</code>. Node membership tests, a feature missing from <code>Graph</code> but present in <code>StableGraph</code>, execute in constant time.</p>
 <p>Unlike the other three graph implementations, <code>GraphMap</code> can work directly with with node and edge labels rather than intermediate handles.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::hash::Hash;
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> petgraph::graphmap::UnGraphMap;
@@ -317,7 +654,7 @@
 </span></span><span style="display:flex;"><span>    assert!(graph.contains_edge(<span style="color:#f92672">&amp;</span>bedford_falls, <span style="color:#f92672">&amp;</span>tinsel_town));
 </span></span><span style="display:flex;"><span>    assert!(graph.contains_edge(<span style="color:#f92672">&amp;</span>tinsel_town, <span style="color:#f92672">&amp;</span>bedford_falls));
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><a href="https://docs.rs/petgraph/0.5.0/petgraph/csr/struct.Csr.html">Csr</a>, is the fourth graph implementation supported by Petgraph. Short for <em>Compressed Sparse Row</em> (aka <a href="https://en.wikipedia.org/wiki/Sparse_matrix">sparse matrix</a>), CSR is an efficient method for representing sparse matrix data such as that used in most graphs. This results in reduced memory requirement with fast edge lookup. There are no restrictions on node or edge type. However, the API for <code>Csr</code> is the most restricted of all the graph types.</p>
+</span></span></code></pre></div><p><a href="https://docs.rs/petgraph/0.5.0/petgraph/csr/struct.Csr.html" target="_blank">Csr</a>, is the fourth graph implementation supported by Petgraph. Short for <em>Compressed Sparse Row</em> (aka <a href="https://en.wikipedia.org/wiki/Sparse_matrix" target="_blank">sparse matrix</a>), CSR is an efficient method for representing sparse matrix data such as that used in most graphs. This results in reduced memory requirement with fast edge lookup. There are no restrictions on node or edge type. However, the API for <code>Csr</code> is the most restricted of all the graph types.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> petgraph::csr::Csr;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
@@ -329,7 +666,18 @@
 </span></span><span style="display:flex;"><span>    assert!(graph.contains_edge(a, b));
 </span></span><span style="display:flex;"><span>    assert!(<span style="color:#f92672">!</span>graph.contains_edge(b, a));
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h1 id="traversal">Traversal</h1>
+</span></span></code></pre></div>
+
+<h1 class="relative group">Traversal 
+    <div id="traversal" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#traversal" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Three forms of traversal are supported: breadth-first; depth-first; and depth-first post-order. All are implemented as iterators, and all account for edge directionality.</p>
 <p>A depth-first traversal can be executed like so:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> petgraph::Graph;
@@ -419,12 +767,23 @@
 </span></span><span style="display:flex;"><span>[2]  2 0 3 1 4
 </span></span><span style="display:flex;"><span>[3]  3 4 0 2 1
 </span></span><span style="display:flex;"><span>[4]  4 3 0 2 1
-</span></span></code></pre></div><h1 id="algorithms">Algorithms</h1>
-<p>Petgraph supports a number of graph algorithms, as documented in the <a href="https://docs.rs/petgraph/0.5.0/petgraph/algo/index.html"><code>algo</code></a> package. A few algorithms will be highlighted here. However, a warning from the documentation should be kept in mind:</p>
+</span></span></code></pre></div>
+
+<h1 class="relative group">Algorithms 
+    <div id="algorithms" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#algorithms" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>Petgraph supports a number of graph algorithms, as documented in the <a href="https://docs.rs/petgraph/0.5.0/petgraph/algo/index.html" target="_blank"><code>algo</code></a> package. A few algorithms will be highlighted here. However, a warning from the documentation should be kept in mind:</p>
 <blockquote>
 <p>It is a goal to gradually migrate the algorithms to be based on graph traits so that they are generally applicable. For now, some of these still require the Graph type.</p>
 </blockquote>
-<p><a href="https://en.wikipedia.org/wiki/Graph_isomorphism">Isomorphism</a> checks can be used to answer questions about graph equivalence and embedding. For this purpose, Petgraph offers the <code>is_isomorphic</code> function:</p>
+<p><a href="https://en.wikipedia.org/wiki/Graph_isomorphism" target="_blank">Isomorphism</a> checks can be used to answer questions about graph equivalence and embedding. For this purpose, Petgraph offers the <code>is_isomorphic</code> function:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> petgraph::Graph;
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> petgraph::algo;
 </span></span><span style="display:flex;"><span>
@@ -479,7 +838,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Here, the closure <code>test_nodes</code> passed to <code>is_isomorphic_matching</code> fails unless both nodes being compared have <code>value</code> properties greater than 42. The test succeeds for the <code>g1</code> to <code>g1</code> comparison, but fails when comparing <code>g1</code> to <code>g2</code> because only one node complies the the <code>value</code> requirement.</p>
 <p>Both <code>is_isomorphic</code> and <code>is_isomorphic_matching</code> functions require a <code>Graph</code> implementation.</p>
-<p><a href="https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm">Dijkstra&rsquo;s algorithm</a> is a well-known procedure for finding the shortest paths between nodes. The function <a href="https://docs.rs/petgraph/0.5.0/petgraph/algo/fn.dijkstra.html"><code>dijkstra</code></a> can be used as follows:</p>
+<p><a href="https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm" target="_blank">Dijkstra&rsquo;s algorithm</a> is a well-known procedure for finding the shortest paths between nodes. The function <a href="https://docs.rs/petgraph/0.5.0/petgraph/algo/fn.dijkstra.html" target="_blank"><code>dijkstra</code></a> can be used as follows:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> petgraph::Graph;
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> petgraph::algo;
 </span></span><span style="display:flex;"><span>
@@ -516,41 +875,228 @@
 <li><strong>has_path_connecting</strong> Returns true if two nodes are reachable through some path.</li>
 <li><strong>is_cyclic_directed</strong> Returns true if a graph contains at least one cycle in the directed sense.</li>
 <li><strong>is_cyclic_undirected</strong> Returns true if a graph contains at least one cycle.</li>
-<li><strong>kosaraju_scc</strong> Returns a vector of strongly connected components using <a href="https://en.wikipedia.org/wiki/Kosaraju%27s_algorithm">Kosaraju&rsquo;s algorithm</a>.</li>
+<li><strong>kosaraju_scc</strong> Returns a vector of strongly connected components using <a href="https://en.wikipedia.org/wiki/Kosaraju%27s_algorithm" target="_blank">Kosaraju&rsquo;s algorithm</a>.</li>
 <li><strong>min_spanning_tree</strong> Returns a tree for each connected component.</li>
-<li><strong>tarjan_scc</strong> Returns a vector of strongly connected components using <a href="https://en.wikipedia.org/wiki/Kosaraju%27s_algorithm">Tarjan&rsquo;s algorithm</a>.</li>
+<li><strong>tarjan_scc</strong> Returns a vector of strongly connected components using <a href="https://en.wikipedia.org/wiki/Kosaraju%27s_algorithm" target="_blank">Tarjan&rsquo;s algorithm</a>.</li>
 <li><strong>toposort</strong> Returns a Vector of nodes in topological order.</li>
 </ul>
-<h1 id="conclusion">Conclusion</h1>
+
+
+<h1 class="relative group">Conclusion 
+    <div id="conclusion" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#conclusion" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Petgraph supports many of the capabilities needed in projects using graphs. There are four graph implementations, breadth- and depth-first traversal, and 14 graph algorithms. The use of iterators for traversals offers great flexibility and power. Unfortunately, the graph implementations lack a common interface, and some algorithms are incompatible with certain graph implementations. Provided that the algorithms of interest are available for the required graph implementation, Petgraph may be a good choice.</p>
-<ul class="pa0">
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+          
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_posts\/2020-02-03-graphs-in-rust-an-introduction-to-petgraph.md"
+        var oid_likes = "likes_posts\/2020-02-03-graphs-in-rust-an-introduction-to-petgraph.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
   
-</ul>
-<div class="mt6 instapaper_ignoref">
-      
-      
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/articles/2020/01/27/rust-ownership-by-example/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Rust Ownership by Example</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2020-01-27T14:00:00&#43;00:00">January 27, 2020</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/articles/2020/02/10/a-comprehensive-treatment-of-aromaticity-in-the-smiles-language/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >A Comprehensive Treatment of Aromaticity in the SMILES Language</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2020-02-10T14:00:00&#43;00:00">February 10, 2020</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
       </div>
     </div>
-
-    <aside class="w-30-l mt6-l">
-
+  
 
 
+    
+  </footer>
+</article>
 
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
-    &copy;  Depth-First 2024 
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top" title="Scroll to top">
+    &uarr;
   </a>
-    <div><div class="ananke-socials"></div>
 </div>
-  </div>
-</footer>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
 
-  </body>
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2024
+      
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="http://localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
 </html>

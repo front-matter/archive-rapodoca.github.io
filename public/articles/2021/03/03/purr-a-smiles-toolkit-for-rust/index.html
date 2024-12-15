@@ -1,42 +1,70 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Purr: A SMILES Toolkit for Rust | Depth-First</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="Pulling back the covers on a new way to work with SMILES.">
-    <meta name="generator" content="Hugo 0.139.4">
-    
-    
-    
-    
-      <meta name="robots" content="noindex, nofollow">
-    
-    
-      <meta name="author" content = "Richard L. Apodaca">
-    
-
-    
-<link rel="stylesheet" href="/ananke/css/main.min.css" >
-
-
-
-    
-
-    
-      
-
-    
-
-    
-
-    
-      <link rel="canonical" href="http://localhost:1313/articles/2021/03/03/purr-a-smiles-toolkit-for-rust/">
-    
-
-    <meta property="og:url" content="http://localhost:1313/articles/2021/03/03/purr-a-smiles-toolkit-for-rust/">
+<html lang="en-us" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en-us" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>Purr: A SMILES Toolkit for Rust &middot; Depth-First</title>
+  <meta name="title" content="Purr: A SMILES Toolkit for Rust &middot; Depth-First" />
+  
+  <meta name="description" content="Pulling back the covers on a new way to work with SMILES." />
+  
+  
+  
+  <link rel="canonical" href="http://localhost:1313/articles/2021/03/03/purr-a-smiles-toolkit-for-rust/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.e27868ab1485f7ed7b06b122b4980bd38b19526eb8f7de885181204d28f04a0c47e9c334eff19a06c0278eb2ff8415b983a5d0fb80fd6b5680c926457cc61c57.css"
+    integrity="sha512-4nhoqxSF9&#43;17BrEitJgL04sZUm64996IUYEgTSjwSgxH6cM07/GaBsAnjrL/hBW5g6XQ&#43;4D9a1aAySZFfMYcVw==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.c178288131a2f1ad46910438db47ac5f7e1c48cf949e49f6dc3310c8ec9660e23fe505805eba4e2e73711335808500360d773a2b64322feb35df52856edca286.js"
+    integrity="sha512-wXgogTGi8a1GkQQ420esX34cSM&#43;Unkn23DMQyOyWYOI/5QWAXrpOLnNxEzWAhQA2DXc6K2QyL&#43;s131KFbtyihg==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/articles/2021/03/03/purr-a-smiles-toolkit-for-rust/">
   <meta property="og:site_name" content="Depth-First">
   <meta property="og:title" content="Purr: A SMILES Toolkit for Rust">
   <meta property="og:description" content="Pulling back the covers on a new way to work with SMILES.">
@@ -46,75 +74,351 @@
     <meta property="article:published_time" content="2021-03-03T17:00:00+00:00">
     <meta property="article:modified_time" content="2021-03-03T17:00:00+00:00">
 
-  <meta itemprop="name" content="Purr: A SMILES Toolkit for Rust">
-  <meta itemprop="description" content="Pulling back the covers on a new way to work with SMILES.">
-  <meta itemprop="datePublished" content="2021-03-03T17:00:00+00:00">
-  <meta itemprop="dateModified" content="2021-03-03T17:00:00+00:00">
-  <meta itemprop="wordCount" content="2370">
+  
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Purr: A SMILES Toolkit for Rust">
   <meta name="twitter:description" content="Pulling back the covers on a new way to work with SMILES.">
 
-	
-  </head><body class="ma0 avenir bg-near-white development">
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "Purr: A SMILES Toolkit for Rust",
+    "headline": "Purr: A SMILES Toolkit for Rust",
+    
+    "abstract": "Pulling back the covers on a new way to work with SMILES.",
+    "inLanguage": "en-us",
+    "url" : "http:\/\/localhost:1313\/articles\/2021\/03\/03\/purr-a-smiles-toolkit-for-rust\/",
+    "author" : {
+      "@type": "Person",
+      "name": ""
+    },
+    "copyrightYear": "2021",
+    "dateCreated": "2021-03-03T17:00:00\u002b00:00",
+    "datePublished": "2021-03-03T17:00:00\u002b00:00",
+    
+    "dateModified": "2021-03-03T17:00:00\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "2378"
+  }]
+  </script>
+
+
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">Depth-First</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      Purr: A SMILES Toolkit for Rust
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2021-03-03T17:00:00&#43;00:00">March 3, 2021</time><span class="px-2 text-primary-500">&middot;</span><span>2378 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">12 mins</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
 
     
-   
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
   
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
-      
-        Depth-First
-      
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      <div class="ananke-socials"></div>
-
-    </div>
+  <div class="place-self-center">
+    
+    
+    <div class="text-2xl sm:text-lg">
+</div>
   </div>
-</nav>
+</div>
 
-    </div>
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
   </header>
-
-
-
-    <main class="pb7" role="main">
-      
   
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
-    <header class="mt4 w-100">
-      <aside class="instapaper_ignoref b helvetica tracked ttu">
-          
-        Posts
-      </aside><div id="sharing" class="mt3 ananke-socials"></div>
-<h1 class="f1 athelas mt3 mb1">Purr: A SMILES Toolkit for Rust</h1>
-      
-      <p class="tracked">
-        By <strong>Richard L. Apodaca</strong>
-      </p>
-      
-      
-      
-      <time class="f6 mv4 dib tracked" datetime="2021-03-03T17:00:00Z">March 3, 2021</time>
-      
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+    
 
-      
-      
-    </header>
-    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>Simplified Molecular Input Line Entry System (SMILES) is the de facto standard for compact molecular representation in cheminformatics. Due to this role, users have come to expect SMILES support in the software packages they use. Developers have responded to the demand with a wide range of products capable of reading and writing SMILES. These products form a broad network of tools that can in principle work together through a common language.</p>
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p>Simplified Molecular Input Line Entry System (SMILES) is the de facto standard for compact molecular representation in cheminformatics. Due to this role, users have come to expect SMILES support in the software packages they use. Developers have responded to the demand with a wide range of products capable of reading and writing SMILES. These products form a broad network of tools that can in principle work together through a common language.</p>
 <p>Last year, <a href="/articles/2020/01/20/cheminformatics-in-rust/">I speculated</a> that Rust could play an important role in the future of cheminformatics. SMILES support is an important part of that vision, especially in the short term. Users needing functionality not present in a new platform can get it from older platforms, with SMILES serving as a serialization format.</p>
 <p>Lack of functionality is both the biggest weakness and greatest strength of a new platform. There may be few features, but there is also no legacy code to maintain. Users of a new platform tend to be more tolerant of breaking changes, making iterations less disruptive. To the extent that SMILES still has something new to uncover, it&rsquo;s likely to emerge from new cheminformatics platforms.</p>
 <p>With these ideas in mind, this article introduces Purr, a suite of tools for reading, writing, and manipulating SMILES in Rust.</p>
-<h1 id="quickstart">Quickstart</h1>
-<p>After <a href="https://www.rust-lang.org/tools/install">installed the Rust toolchain</a>, create a new project.</p>
+
+
+<h1 class="relative group">Quickstart 
+    <div id="quickstart" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#quickstart" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>After <a href="https://www.rust-lang.org/tools/install" target="_blank">installed the Rust toolchain</a>, create a new project.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cargo new hello_purr <span style="color:#f92672">&amp;&amp;</span> cd hello_purr
 </span></span></code></pre></div><p>Next, edit <code>Cargo.toml</code> to look like this:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[<span style="color:#a6e22e">package</span>]
@@ -163,8 +467,19 @@
 </span></span></code></pre></div><p>The <code>read</code> function transforms a SMILES string into instructions for a <code>Builder</code> argument. <code>Builder</code> transforms the method calls it receives into a representation that can be obtained through its <code>build</code> method. There will be more to say about the methods <code>Builder</code> implements later. For now, the important idea is that <code>read</code> can generate many different output types. The decision of which one will be produced occurs at runtime.</p>
 <p><code>Builder</code> returns a vector of atoms (<code>Vec&lt;Atom&gt;</code>) from its <code>build</code> method. As we&rsquo;ll see later, <code>Atom</code> supports data access and methods useful for assigning chemical meaning to the SMILES that was parsed.</p>
 <p>To allow errors to be intercepted, <code>read</code> and the <code>build</code> method of <code>Builder</code> return <code>Result</code> types. <code>read</code> also supports an optional parameter that can be used to relate molecular features to cursors within the original SMILES string.</p>
-<h1 id="overview">Overview</h1>
-<p>Like all SMILES implementations, Purr speaks a dialect of SMILES. Purr&rsquo;s dialect is based on the one presented in the <a href="http://opensmiles.org/opensmiles.html">OpenSMILES</a> specification. Although OpenSMILES is the most detailed SMILES specification to date, it has limitations. In cases of contradictory or incomplete OpenSMILES guidance, Purr draws from other sources in roughly this order: Daylight&rsquo;s online documentation; peer-reviewed publications; books; blog posts; mailing list discussions; and personal communications. In rare cases, Purr has introduced some new rules.</p>
+
+
+<h1 class="relative group">Overview 
+    <div id="overview" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#overview" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>Like all SMILES implementations, Purr speaks a dialect of SMILES. Purr&rsquo;s dialect is based on the one presented in the <a href="http://opensmiles.org/opensmiles.html" target="_blank">OpenSMILES</a> specification. Although OpenSMILES is the most detailed SMILES specification to date, it has limitations. In cases of contradictory or incomplete OpenSMILES guidance, Purr draws from other sources in roughly this order: Daylight&rsquo;s online documentation; peer-reviewed publications; books; blog posts; mailing list discussions; and personal communications. In rare cases, Purr has introduced some new rules.</p>
 <p>By default and by design, Purr enforces only syntax when reading or writing SMILES. The syntax of strings is checked by a hand-crafted <a href="/articles/2019/01/22/scanner-driven-parser-development/">recursive descent parser</a>. The parser is itself based on a <a href="/articles/2020/12/21/smiles-formal-grammar-revisited/">formal grammar</a> that has undergone several revisions over the years. But sematic errors such as <a href="/articles/2020/03/16/formal-charge-and-bond-order-are-side-effects/">negative implied valence electron count</a>, negative implied neutron count, and mismatched or unbalanced ring closure bonds are not checked by default. Purr does offer the tools needed to perform such checks if desired.</p>
 <p>This pay-as-you-go approach is seen throughout Purr. If you don&rsquo;t need a service, you shouldn&rsquo;t have to pay for it — either with performance or complexity.</p>
 <p>The cornerstone of Purr&rsquo;s design is the <code>Follower</code> trait. <code>Follower</code> defines four methods relating SMILES features to actions: <code>root</code>; <code>extend</code>; <code>join</code>; and <code>pop</code>.</p>
@@ -220,7 +535,18 @@
 </span></span><span style="display:flex;"><span>    follower.extend(BondKind::Elided, AtomKind::Aliphatic(Aliphatic::N));
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p><code>Follower</code> decouples the traversal of a SMILES representation from the use of the features that are discovered along the way. This means that the same traversal function can yield a variety of different products, and these products can be chosen at runtime. This is how Purr makes good on its pay-as-you-go promise. An example of the flexibility of this approach can be seen when reading SMILES strings.</p>
-<h1 id="reading-smiles">Reading SMILES</h1>
+
+
+<h1 class="relative group">Reading SMILES 
+    <div id="reading-smiles" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#reading-smiles" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>The <code>read</code> function accepts a SMILES string representation and a value of type <code>Follower</code>. After the function returns, the product built by the <code>Follower</code> can be used. For example, we can count the number of atomic nodes (explicit atoms) in a SMILES string as like so.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// src/main.rs
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">use</span> purr::walk::Follower;
@@ -359,7 +685,18 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
 </span></span><span style="display:flex;"><span>    Ok(())
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h1 id="writing-smiles">Writing SMILES</h1>
+</span></span></code></pre></div>
+
+<h1 class="relative group">Writing SMILES 
+    <div id="writing-smiles" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#writing-smiles" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Adjacency representations can be obtained in one of three ways:</p>
 <ol>
 <li>from a <code>Builder</code> using <code>read</code>, as shown in the previous section;</li>
@@ -389,7 +726,18 @@
 </span></span><span style="display:flex;"><span>    Ok(())
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Both <code>read</code> and <code>walk</code> accept a parameter of type <code>Follower</code>. This blurs the distinction between reading and writing a SMILES representation. Both processes are just transformations. For example, the <code>Counter</code> type from the previous section can be combined with <code>walk</code>. When <code>read</code> and <code>walk</code> are paired with the same <code>Follower</code>, string and adjacency SMILES representations become functionally equivalent.</p>
-<h1 id="using-smiles">Using SMILES</h1>
+
+
+<h1 class="relative group">Using SMILES 
+    <div id="using-smiles" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#using-smiles" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>It&rsquo;s often important to do more than just read and write SMILES representations. Purr supports sophisticated analyses through the <code>Atom</code> and <code>Bond</code> types.</p>
 <p><code>Atom</code> provides methods to query valence and bonding relationships. For example, <a href="/articles/2021/02/10/fast-hydrogen-counting-hydrogens-in-smiles/">suppressed hydrogen count</a> can be computed as follows.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// src/main.rs
@@ -444,54 +792,263 @@
 </span></span><span style="display:flex;"><span>    assert_eq!(bond.is_aromatic(), <span style="color:#66d9ef">false</span>);
 </span></span><span style="display:flex;"><span>    assert_eq!(bond.is_directional(), <span style="color:#66d9ef">false</span>)
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h1 id="other-work">Other Work</h1>
+</span></span></code></pre></div>
+
+<h1 class="relative group">Other Work 
+    <div id="other-work" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#other-work" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Two other Rust crates support working with SMILES to varying degrees:</p>
 <ul>
-<li><a href="https://github.com/hobofan/smiles-parser">smiles-parser</a>. Based on the <a href="https://github.com/Geal/nom">nom</a> parser combinator.</li>
-<li><a href="https://gitlab.com/acetylene/acetylene-parser">acetylene-parser</a>. Appears to be inactive.</li>
+<li><a href="https://github.com/hobofan/smiles-parser" target="_blank">smiles-parser</a>. Based on the <a href="https://github.com/Geal/nom" target="_blank">nom</a> parser combinator.</li>
+<li><a href="https://gitlab.com/acetylene/acetylene-parser" target="_blank">acetylene-parser</a>. Appears to be inactive.</li>
 </ul>
 <p>According to the available documentation, neither project is currently as full-featured as Purr.</p>
 <p>In addition to these projects, three other dedicated SMILES libraries have been developed over the years.</p>
 <ul>
-<li><a href="https://github.com/timvdm/Smiley">Smiley</a>. A SMILES/SMARTS parser written in C++. Smiley has been <a href="https://open-babel.readthedocs.io/en/latest/FileFormats/SMILES_format_using_Smiley_parser.html">integrated</a> into Open Babel.</li>
-<li><a href="https://github.com/johnmay/beam">Beam</a>. A Java library &ldquo;dedicated to parsing and generating&rdquo; SMILES. Beam has been integrated into the <a href="https://cdk.github.io">Chemistry Development Kit</a>.</li>
-<li><a href="http://frowns.sourceforge.net">Frowns</a>. A Python library written in Python. Frowns has not been active for some time.</li>
+<li><a href="https://github.com/timvdm/Smiley" target="_blank">Smiley</a>. A SMILES/SMARTS parser written in C++. Smiley has been <a href="https://open-babel.readthedocs.io/en/latest/FileFormats/SMILES_format_using_Smiley_parser.html" target="_blank">integrated</a> into Open Babel.</li>
+<li><a href="https://github.com/johnmay/beam" target="_blank">Beam</a>. A Java library &ldquo;dedicated to parsing and generating&rdquo; SMILES. Beam has been integrated into the <a href="https://cdk.github.io" target="_blank">Chemistry Development Kit</a>.</li>
+<li><a href="http://frowns.sourceforge.net" target="_blank">Frowns</a>. A Python library written in Python. Frowns has not been active for some time.</li>
 </ul>
-<h1 id="is-this-necessary">Is This Necessary?</h1>
+
+
+<h1 class="relative group">Is This Necessary? 
+    <div id="is-this-necessary" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#is-this-necessary" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>It may seem like overkill for a library to focus just on reading, writing, and manipulating SMILES. After all, SMILES is a simple language and most toolkits offer the ability to work with SMILES anyway.</p>
 <p>Not so fast. First, as several articles here and elsewhere have demonstrated, SMILES <em>syntax</em> may be simple, but its <em>semantics</em> are both extremely complex and incompletely documented. Projects like Smiley, Beam, and Purr that deal exclusively with SMILES shine a spotlight on the numerous subtleties present in the language.</p>
 <p>Second, Rust&rsquo;s package manager Cargo makes it trivial to assemble software components like Purr into a cohesive whole. Although most modern languages have package managers, the problem is that there are too many of them (Python, I&rsquo;m looking at you). Rust is different. Cargo is both ubiquitous and unique. There is no competition in the Rust package manager space. This feature has already been used to integrate Purr with <a href="/articles/2020/06/01/chemcore-a-cheminformatics-toolkit-for-rust/">ChemCore</a>, a cheminformatics toolkit for Rust.</p>
 <p>Third, as I&rsquo;ll highlight on this blog from time to time, you can do a lot in cheminformatics without a toolkit. Purr in particular offers enough functionality that it can be used on its own to solve some problems. It&rsquo;s not inconceivable that a set of crates linking directly to Purr (and bypassing ChemCore) might eventually become available. Purr&rsquo;s avoidance of build dependencies makes it a good candidate for projects trying to avoid bloat.</p>
-<h1 id="conclusion">Conclusion</h1>
+
+
+<h1 class="relative group">Conclusion 
+    <div id="conclusion" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#conclusion" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Purr is a new Rust toolkit that supports reading, writing, and manipulating SMILES. All OpenSMILES language features are supported. Although the most likely path is for Purr to be integrated into a cheminformatics toolkit, it can also be used by itself as a zero-dependency dependency. As such, the design and implementation of Purr may offer useful pointers to what a new cheminformatics platform built on Rust might look like.</p>
-<ul class="pa0">
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+          
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_posts\/2021-03-03-purr-a-smiles-toolkit-for-rust.md"
+        var oid_likes = "likes_posts\/2021-03-03-purr-a-smiles-toolkit-for-rust.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
   
-</ul>
-<div class="mt6 instapaper_ignoref">
-      
-      
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/articles/2021/02/10/fast-hydrogen-counting-in-smiles/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Fast Hydrogen Counting in SMILES</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2021-02-10T19:30:00&#43;00:00">February 10, 2021</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/articles/2021/03/10/parsing-inchi-its-complicated/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Parsing InChI: It's Complicated</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2021-03-10T16:00:00&#43;00:00">March 10, 2021</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
       </div>
     </div>
-
-    <aside class="w-30-l mt6-l">
-
+  
 
 
+    
+  </footer>
+</article>
 
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
-    &copy;  Depth-First 2024 
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top" title="Scroll to top">
+    &uarr;
   </a>
-    <div><div class="ananke-socials"></div>
 </div>
-  </div>
-</footer>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
 
-  </body>
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2024
+      
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="http://localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
 </html>

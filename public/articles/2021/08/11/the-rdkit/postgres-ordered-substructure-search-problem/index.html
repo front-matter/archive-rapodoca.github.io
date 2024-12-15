@@ -1,42 +1,70 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>The RDKit/Postgres Ordered Substructure Search Problem | Depth-First</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="Diagnosis and partial solution to a thorny performance issue affecting simple queries.">
-    <meta name="generator" content="Hugo 0.139.4">
-    
-    
-    
-    
-      <meta name="robots" content="noindex, nofollow">
-    
-    
-      <meta name="author" content = "Richard L. Apodaca">
-    
-
-    
-<link rel="stylesheet" href="/ananke/css/main.min.css" >
-
-
-
-    
-
-    
-      
-
-    
-
-    
-
-    
-      <link rel="canonical" href="http://localhost:1313/articles/2021/08/11/the-rdkit/postgres-ordered-substructure-search-problem/">
-    
-
-    <meta property="og:url" content="http://localhost:1313/articles/2021/08/11/the-rdkit/postgres-ordered-substructure-search-problem/">
+<html lang="en-us" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en-us" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>The RDKit/Postgres Ordered Substructure Search Problem &middot; Depth-First</title>
+  <meta name="title" content="The RDKit/Postgres Ordered Substructure Search Problem &middot; Depth-First" />
+  
+  <meta name="description" content="Diagnosis and partial solution to a thorny performance issue affecting simple queries." />
+  
+  
+  
+  <link rel="canonical" href="http://localhost:1313/articles/2021/08/11/the-rdkit/postgres-ordered-substructure-search-problem/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.e27868ab1485f7ed7b06b122b4980bd38b19526eb8f7de885181204d28f04a0c47e9c334eff19a06c0278eb2ff8415b983a5d0fb80fd6b5680c926457cc61c57.css"
+    integrity="sha512-4nhoqxSF9&#43;17BrEitJgL04sZUm64996IUYEgTSjwSgxH6cM07/GaBsAnjrL/hBW5g6XQ&#43;4D9a1aAySZFfMYcVw==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.c178288131a2f1ad46910438db47ac5f7e1c48cf949e49f6dc3310c8ec9660e23fe505805eba4e2e73711335808500360d773a2b64322feb35df52856edca286.js"
+    integrity="sha512-wXgogTGi8a1GkQQ420esX34cSM&#43;Unkn23DMQyOyWYOI/5QWAXrpOLnNxEzWAhQA2DXc6K2QyL&#43;s131KFbtyihg==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/articles/2021/08/11/the-rdkit/postgres-ordered-substructure-search-problem/">
   <meta property="og:site_name" content="Depth-First">
   <meta property="og:title" content="The RDKit/Postgres Ordered Substructure Search Problem">
   <meta property="og:description" content="Diagnosis and partial solution to a thorny performance issue affecting simple queries.">
@@ -46,79 +74,366 @@
     <meta property="article:published_time" content="2021-08-11T15:00:00+00:00">
     <meta property="article:modified_time" content="2021-08-11T15:00:00+00:00">
 
-  <meta itemprop="name" content="The RDKit/Postgres Ordered Substructure Search Problem">
-  <meta itemprop="description" content="Diagnosis and partial solution to a thorny performance issue affecting simple queries.">
-  <meta itemprop="datePublished" content="2021-08-11T15:00:00+00:00">
-  <meta itemprop="dateModified" content="2021-08-11T15:00:00+00:00">
-  <meta itemprop="wordCount" content="2522">
+  
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="The RDKit/Postgres Ordered Substructure Search Problem">
   <meta name="twitter:description" content="Diagnosis and partial solution to a thorny performance issue affecting simple queries.">
 
-	
-  </head><body class="ma0 avenir bg-near-white development">
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "The RDKit\/Postgres Ordered Substructure Search Problem",
+    "headline": "The RDKit\/Postgres Ordered Substructure Search Problem",
+    
+    "abstract": "Diagnosis and partial solution to a thorny performance issue affecting simple queries.",
+    "inLanguage": "en-us",
+    "url" : "http:\/\/localhost:1313\/articles\/2021\/08\/11\/the-rdkit\/postgres-ordered-substructure-search-problem\/",
+    "author" : {
+      "@type": "Person",
+      "name": ""
+    },
+    "copyrightYear": "2021",
+    "dateCreated": "2021-08-11T15:00:00\u002b00:00",
+    "datePublished": "2021-08-11T15:00:00\u002b00:00",
+    
+    "dateModified": "2021-08-11T15:00:00\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "2532"
+  }]
+  </script>
+
+
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">Depth-First</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      The RDKit/Postgres Ordered Substructure Search Problem
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2021-08-11T15:00:00&#43;00:00">August 11, 2021</time><span class="px-2 text-primary-500">&middot;</span><span>2532 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">12 mins</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
 
     
-   
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
   
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
-      
-        Depth-First
-      
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      <div class="ananke-socials"></div>
-
-    </div>
+  <div class="place-self-center">
+    
+    
+    <div class="text-2xl sm:text-lg">
+</div>
   </div>
-</nav>
+</div>
 
-    </div>
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
   </header>
-
-
-
-    <main class="pb7" role="main">
-      
   
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
-    <header class="mt4 w-100">
-      <aside class="instapaper_ignoref b helvetica tracked ttu">
-          
-        Posts
-      </aside><div id="sharing" class="mt3 ananke-socials"></div>
-<h1 class="f1 athelas mt3 mb1">The RDKit/Postgres Ordered Substructure Search Problem</h1>
-      
-      <p class="tracked">
-        By <strong>Richard L. Apodaca</strong>
-      </p>
-      
-      
-      
-      <time class="f6 mv4 dib tracked" datetime="2021-08-11T15:00:00Z">August 11, 2021</time>
-      
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+    
 
-      
-      
-    </header>
-    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p><a href="/articles/2021/07/28/rdkit-postgres-cartridge/">The RDKit Postgres extension</a> (&ldquo;the extension&rdquo;) enables fast chemical substructure queries in plain SQL. Convenience is the main selling point of this utility, which allows low-level data processing to stay within the database layer of an application. While evaluating RDKit for use in a revamped commercial product, I uncovered an easily-detected, show-stopping performance issue that to my knowledge has never been documented before. This article summarizes what I found, and presents a workaround that may or may not be suitable for production environments.</p>
-<p>Before we begin, a disclaimer: I don&rsquo;t know what I don&rsquo;t know. It&rsquo;s quite possible that I&rsquo;m missing something too obvious to document. Or that I&rsquo;m misunderstanding the issues entirely. Keep these points (and <a href="https://en.wikipedia.org/wiki/Ward_Cunningham#%22Cunningham's_Law%22">Cunningham&rsquo;s Law</a>) in mind when reading the following account.</p>
-<h1 id="the-goal">The Goal</h1>
-<p>The goal of this study was to use the extension to search a collection of 100,000 small molecules by substructure, ordering the results by increasing molecular weight. Such a query could be used with a large database backing an online structure search system in which some scalar, such as molecular weight, is associated with relevance. Sorting allows the most relevant hits to appear first, which can be crucial when techniques such as <a href="https://use-the-index-luke.com/no-offset">keyset pagination</a> are used.</p>
-<h1 id="the-system">The System</h1>
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p><a href="/articles/2021/07/28/rdkit-postgres-cartridge/">The RDKit Postgres extension</a> (&ldquo;the extension&rdquo;) enables fast chemical substructure queries in plain SQL. Convenience is the main selling point of this utility, which allows low-level data processing to stay within the database layer of an application. While evaluating RDKit for use in a revamped commercial product, I uncovered an easily-detected, show-stopping performance issue that to my knowledge has never been documented before. This article summarizes what I found, and presents a workaround that may or may not be suitable for production environments.</p>
+<p>Before we begin, a disclaimer: I don&rsquo;t know what I don&rsquo;t know. It&rsquo;s quite possible that I&rsquo;m missing something too obvious to document. Or that I&rsquo;m misunderstanding the issues entirely. Keep these points (and <a href="https://en.wikipedia.org/wiki/Ward_Cunningham#%22Cunningham%27s_Law%22" target="_blank">Cunningham&rsquo;s Law</a>) in mind when reading the following account.</p>
+
+
+<h1 class="relative group">The Goal 
+    <div id="the-goal" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#the-goal" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>The goal of this study was to use the extension to search a collection of 100,000 small molecules by substructure, ordering the results by increasing molecular weight. Such a query could be used with a large database backing an online structure search system in which some scalar, such as molecular weight, is associated with relevance. Sorting allows the most relevant hits to appear first, which can be crucial when techniques such as <a href="https://use-the-index-luke.com/no-offset" target="_blank">keyset pagination</a> are used.</p>
+
+
+<h1 class="relative group">The System 
+    <div id="the-system" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#the-system" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>A table having 100,000 rows was prepared using a procedure similar to the one <a href="/articles/2021/07/28/rdkit-postgres-cartridge/">previously reported</a> and described in detail at the end of this article. The specifications for the DBMS itself were:</p>
 <ul>
 <li>Postgres 12.3</li>
 <li>RDKit extension 0.74.0 compiled for Linux</li>
-<li>database run in Docker from <a href="https://hub.docker.com/r/mcs07/postgres-rdkit">this image</a></li>
+<li>database run in Docker from <a href="https://hub.docker.com/r/mcs07/postgres-rdkit" target="_blank">this image</a></li>
 <li>stock install with no customizations</li>
 </ul>
 <p>The table contained the following columns and indexes:</p>
@@ -137,7 +452,18 @@
 </span></span></span></code></pre></div><p>Query timings were those reported Postgres:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">\</span>timing
 </span></span><span style="display:flex;"><span><span style="color:#75715e">-- Timing is on.
-</span></span></span></code></pre></div><h1 id="ordered-and-unordered-substructure-search">Ordered and Unordered Substructure Search</h1>
+</span></span></span></code></pre></div>
+
+<h1 class="relative group">Ordered and Unordered Substructure Search 
+    <div id="ordered-and-unordered-substructure-search" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#ordered-and-unordered-substructure-search" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Substructure-only queries were uniformly fast, typically executing within 10 ms regardless of the SMILES used. Benzene was tested as a particularly tough case in that <a href="/articles/2008/10/02/fast-substructure-search-using-open-source-tools-part-1-fingerprints-and-databases/">fingerprint prescreening</a> is likely to filter few candidates.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> mol, mw <span style="color:#66d9ef">FROM</span> molecules <span style="color:#66d9ef">WHERE</span> mol<span style="color:#f92672">@&gt;</span><span style="color:#e6db74">&#39;c1ccccc1&#39;</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">25</span>;
 </span></span><span style="display:flex;"><span><span style="color:#75715e">--                            mol                            |   mw    
@@ -157,8 +483,19 @@
 </span></span></span></code></pre></div><p>In general, the more feature-rich the query SMILES, the faster the query. This didn&rsquo;t always correlate with molecular weight. For example, a search for acyl chlorides (<code>C(=O)Cl</code>) finished with comparable times in unordered and ordered form (5.96 ms and 6.30 ms, respectively).</p>
 <p>The slow ordered query response for benzene and other simple substructures appears to scale linearly with the number of records. Given a table of 1M rows (10x larger), the ordered benzene query returned in 25 seconds (10x slower), whereas the unordered benzene query returned in fewer than 10 ms. Response times longer than one second represent the upper bound of acceptable performance for the system I&rsquo;m looking at. Such poor performance for ordered substructure queries is unexpected in light of the fast responses seen across the board with unordered queries.</p>
 <p>Something is causing Postgres to do the wrong thing, but what is it?</p>
-<h1 id="diagnosis-attempts">Diagnosis Attempts</h1>
-<p>Postgres comes with a suite of tools for diagnosing performance issues. In particular, <a href="https://www.postgresql.org/docs/12/sql-explain.html"><code>EXPLAIN ANALYZE</code></a> can give insights into specific steps used to execute a query, including the indexes and algorithms used.</p>
+
+
+<h1 class="relative group">Diagnosis Attempts 
+    <div id="diagnosis-attempts" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#diagnosis-attempts" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>Postgres comes with a suite of tools for diagnosing performance issues. In particular, <a href="https://www.postgresql.org/docs/12/sql-explain.html" target="_blank"><code>EXPLAIN ANALYZE</code></a> can give insights into specific steps used to execute a query, including the indexes and algorithms used.</p>
 <p>For example, running <code>EXPLAIN ANALYZE</code> on an unordered benzene substructure query revealed that Postgres used the RDKit index as expected:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">EXPLAIN</span> <span style="color:#66d9ef">ANALYZE</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> mol, mw <span style="color:#66d9ef">FROM</span> molecules <span style="color:#66d9ef">WHERE</span> mol<span style="color:#f92672">@&gt;</span><span style="color:#e6db74">&#39;c1ccccc1&#39;</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">25</span>;
@@ -170,7 +507,7 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">--  Planning Time: 0.081 ms
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">--  Execution Time: 1.698 ms
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- (5 rows)
-</span></span></span></code></pre></div><p>The <a href="https://www.postgresql.org/docs/9.3/index-scanning.html">Index Scan</a> node tells us that that <code>molecules_mol</code> index is being used, as expected.</p>
+</span></span></span></code></pre></div><p>The <a href="https://www.postgresql.org/docs/9.3/index-scanning.html" target="_blank">Index Scan</a> node tells us that that <code>molecules_mol</code> index is being used, as expected.</p>
 <p>A different kind of report resulted from running <code>EXPLAIN ANALYZE</code> on the same substructure query, but ordered by molecular weight:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">EXPLAIN</span> <span style="color:#66d9ef">ANALYZE</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> mol, mw <span style="color:#66d9ef">FROM</span> molecules <span style="color:#66d9ef">WHERE</span> mol<span style="color:#f92672">@&gt;</span><span style="color:#e6db74">&#39;c1ccccc1&#39;</span> <span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> mw <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">25</span>;
@@ -217,18 +554,40 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- (11 rows)
 </span></span></span></code></pre></div><p>Regardless of the substructure query, the planner has decided to favor an outer sort over an index scan to deliver the ordering required by substructure queries. Given a sufficiently precise query (and correspondingly dense fingerprint), that works out well. However, in the case of vague queries with sparse fingerprints, it does not.</p>
 <p>Before explaining the workaround, a few words on things that didn&rsquo;t work are in order.</p>
-<h1 id="things-that-didnt-work">Things that Didn&rsquo;t Work</h1>
+
+
+<h1 class="relative group">Things that Didn&rsquo;t Work 
+    <div id="things-that-didnt-work" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#things-that-didnt-work" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Advice for optimizing Postgres queries often involves increasing memory. Two setting are usually involved:</p>
 <ul>
 <li><code>work_mem</code>. As noted previously, one thing held in working memory is bitmaps. The query planner has already told us that there is plenty of this kind of memory. Unsurprisingly, adjusting <code>work_mem</code> upward had no effect.</li>
-<li><code>shared_buffers</code>. As noted by <a href="https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server">the Wiki</a>, this setting &ldquo;determines how much memory is dedicated to PostgreSQL to use for caching data.&rdquo;</li>
+<li><code>shared_buffers</code>. As noted by <a href="https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server" target="_blank">the Wiki</a>, this setting &ldquo;determines how much memory is dedicated to PostgreSQL to use for caching data.&rdquo;</li>
 </ul>
 <p>To explore the possibility that increasing <code>shared_buffers</code> might persuade Postgres to start using the <code>mw</code> index, <code>shared_buffers</code> was adjusted upward from the default of 128 MB to 2048 MB. This had no effect on the query plan or execution time.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">alter</span> <span style="color:#66d9ef">system</span> <span style="color:#66d9ef">set</span> shared_buffers <span style="color:#66d9ef">to</span> <span style="color:#e6db74">&#39;2048MB&#39;</span>;
 </span></span><span style="display:flex;"><span><span style="color:#75715e">-- exit, then restart
-</span></span></span></code></pre></div><p>Perhaps the query planner needs a two-column index on <code>mw</code> and <code>mol</code>. Although the documentation makes it clear that this should not be necessary, various sources suggest that it could be. Regardless, setting a two column index did not lead to faster queries. Doing this was a little tricky because <code>mw</code> requires a b-tree index whereas <code>mol</code> requires a GIST index. The two types can&rsquo;t ordinarily be mixed in a multicolumn index. However, this can be corrected by installing the <a href="https://www.postgresql.org/docs/9.1/btree-gist.html">btree_gist extension</a>.</p>
-<h1 id="a-workaround">A Workaround</h1>
-<p>If the query planner insists of sorting, is there a way to disable it? It turns out that Postgres supports the boolean parameter <code>enable_sort</code>. According to the <a href="https://www.postgresql.org/docs/9.5/runtime-config-query.html">documentation</a>, <code>enable_sort</code>:</p>
+</span></span></span></code></pre></div><p>Perhaps the query planner needs a two-column index on <code>mw</code> and <code>mol</code>. Although the documentation makes it clear that this should not be necessary, various sources suggest that it could be. Regardless, setting a two column index did not lead to faster queries. Doing this was a little tricky because <code>mw</code> requires a b-tree index whereas <code>mol</code> requires a GIST index. The two types can&rsquo;t ordinarily be mixed in a multicolumn index. However, this can be corrected by installing the <a href="https://www.postgresql.org/docs/9.1/btree-gist.html" target="_blank">btree_gist extension</a>.</p>
+
+
+<h1 class="relative group">A Workaround 
+    <div id="a-workaround" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#a-workaround" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>If the query planner insists of sorting, is there a way to disable it? It turns out that Postgres supports the boolean parameter <code>enable_sort</code>. According to the <a href="https://www.postgresql.org/docs/9.5/runtime-config-query.html" target="_blank">documentation</a>, <code>enable_sort</code>:</p>
 <blockquote>
 <p>Enables or disables the query planner&rsquo;s use of explicit sort steps. It is impossible to suppress explicit sorts entirely, but turning this variable off discourages the planner from using one if there are other methods available. The default is on.</p>
 </blockquote>
@@ -280,26 +639,59 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">--  on
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- (1 row)
 </span></span></span></code></pre></div><p>What about larger databases? The workaround does the trick there as well. In a similarly-constructed database of 1M eMolecules records, unsetting <code>enable_sort</code> results in queries on the order of 10-20 ms compared to queries in the 20-30 second range without the workaround.</p>
-<p>It&rsquo;s possible that the problem lies with the RDKit extension itself. My reading of the documentation suggests that it is the duty of extensions to provide the planner with the information needed to estimate costs. This takes the form of a &ldquo;Scan Provider.&rdquo; Perhaps the extension&rsquo;s Scan Provider is faulty, or not implemented. <a href="https://wiki.postgresql.org/wiki/CustomScanInterface">The Wiki</a> has this to say on the topic:</p>
+<p>It&rsquo;s possible that the problem lies with the RDKit extension itself. My reading of the documentation suggests that it is the duty of extensions to provide the planner with the information needed to estimate costs. This takes the form of a &ldquo;Scan Provider.&rdquo; Perhaps the extension&rsquo;s Scan Provider is faulty, or not implemented. <a href="https://wiki.postgresql.org/wiki/CustomScanInterface" target="_blank">The Wiki</a> has this to say on the topic:</p>
 <blockquote>
 <p>Prior to query execution, the PostgreSQL planner constructs a plan tree that usually consists of built-in plan nodes (IE: SeqScan, HashJoin, etc). The custom-scan interface allows extensions to create a custom-scan provider that implements its own logic, in addition to the built-in nodes, for scanning relations. If a custom-scan node is chosen by the planner, callback functions associated with this custom-scan node shall be invoked during query execution. The custom-scan provider is responsible for returning equivalent result set as built-in logic would, but it is free to scan the relation according to its own logic.</p>
 <p>This chapter explains how to write a custom-scan provider.</p>
 </blockquote>
-<h1 id="other-work">Other Work</h1>
+
+
+<h1 class="relative group">Other Work 
+    <div id="other-work" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#other-work" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Perhaps the most surprising thing about the ordered substructure query problem is that it has never been documented before, at least to my knowledge. I did find hints, but nothing like what&rsquo;s outlined here — not even a recognition of the problem.</p>
 <ul>
-<li><a href="http://rdkit.blogspot.com/2013/11/substructure-fingerprints-and-cartridge.html">Substructure fingerprints and the PostgreSQL cartridge</a>. A blog post from 2013 discussing the performance gains from using fingerprint indexes. However, no discussion of sorting appears.</li>
-<li><a href="http://rdkit.blogspot.com/2013/11/substructure-fingerprints-and-chembl.html">Substructure fingerprints and the PostgreSQL cartridge 2: Application to ChEMBL</a>. Follow up post that also never mentions sorting substructure queries.</li>
-<li><a href="https://sourceforge.net/p/rdkit/mailman/rdkit-discuss/thread/CAKwxoo6m9y2cb65qiotPFwMxCBTP5S%3D2BLQ08XPe-wAUbYNgyw%40mail.gmail.com/#msg32604355">[Rdkit-discuss] Need for speed &ndash; postgresql / rdkit use of indices(/indexes)</a>. An email thread from 2014 discussing slow queries with structures like benzene on unlimited, unordered, large databases. Discusses query plan, the abandonment of indexes, and moderately successful interventions.</li>
+<li><a href="http://rdkit.blogspot.com/2013/11/substructure-fingerprints-and-cartridge.html" target="_blank">Substructure fingerprints and the PostgreSQL cartridge</a>. A blog post from 2013 discussing the performance gains from using fingerprint indexes. However, no discussion of sorting appears.</li>
+<li><a href="http://rdkit.blogspot.com/2013/11/substructure-fingerprints-and-chembl.html" target="_blank">Substructure fingerprints and the PostgreSQL cartridge 2: Application to ChEMBL</a>. Follow up post that also never mentions sorting substructure queries.</li>
+<li><a href="https://sourceforge.net/p/rdkit/mailman/rdkit-discuss/thread/CAKwxoo6m9y2cb65qiotPFwMxCBTP5S%3D2BLQ08XPe-wAUbYNgyw%40mail.gmail.com/#msg32604355" target="_blank">[Rdkit-discuss] Need for speed &ndash; postgresql / rdkit use of indices(/indexes)</a>. An email thread from 2014 discussing slow queries with structures like benzene on unlimited, unordered, large databases. Discusses query plan, the abandonment of indexes, and moderately successful interventions.</li>
 </ul>
-<h1 id="resources">Resources</h1>
+
+
+<h1 class="relative group">Resources 
+    <div id="resources" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#resources" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>For understanding Postgres indexes, query plans, and performance, I can recommend these resources:</p>
 <ul>
-<li><a href="https://github.com/evgeniy-khist/postgresql-performance-essentials">PostgreSQL Performance Essentials in 1 Hour</a></li>
-<li><a href="https://www.youtube.com/watch?v=pq8KHeqS2NU">University of Tübingen DB 2 Course (Internals of Relational Database Systems)</a></li>
+<li><a href="https://github.com/evgeniy-khist/postgresql-performance-essentials" target="_blank">PostgreSQL Performance Essentials in 1 Hour</a></li>
+<li><a href="https://www.youtube.com/watch?v=pq8KHeqS2NU" target="_blank">University of Tübingen DB 2 Course (Internals of Relational Database Systems)</a></li>
 </ul>
-<h1 id="building-the-database">Building the Database</h1>
-<p>The database was built from a subset of the <a href="https://downloads.emolecules.com/free/">eMolecules public download files</a>. First, obtain the raw data:</p>
+
+
+<h1 class="relative group">Building the Database 
+    <div id="building-the-database" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#building-the-database" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>The database was built from a subset of the <a href="https://downloads.emolecules.com/free/" target="_blank">eMolecules public download files</a>. First, obtain the raw data:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget https://downloads.emolecules.com/free/2021-07-01/version.smi.gz
 </span></span></code></pre></div><p>With an unmodified instance of the extension running on Postgres in a Docker container, create the database, extension, and raw data table. Then populate this table with the first 100,000 entries from the eMolecules set.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>createdb emolecules
@@ -343,36 +735,223 @@ emolecules=# select count(*) from raw_data;
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">INDEX</span> molecules_mol <span style="color:#66d9ef">ON</span> molecules <span style="color:#66d9ef">USING</span> gist(mol);
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">INDEX</span> molecules_mw <span style="color:#66d9ef">on</span> molecules <span style="color:#66d9ef">USING</span> btree(mw);
 </span></span></code></pre></div><p>The procedure can be repeated with a higher <code>LIMIT</code> to insert more rows into the <code>molecules</code> table.</p>
-<h1 id="conclusion">Conclusion</h1>
+
+
+<h1 class="relative group">Conclusion 
+    <div id="conclusion" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#conclusion" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>The RDKit Postgres extension can be an extremely useful tool for building data-centric applications. For simple unordered structure queries of the kind presented in tutorials, it performs uniformly well. However, in some situations, the interaction between the extension and the query planner can lead to surprisingly bad performance. This article highlighted one such case. The problem was diagnosed and resolved through a workaround. However, the generality of this solution remains to be seen. It&rsquo;s possible that a more robust solution will require changes to the extension itself, or a different approach altogether.</p>
-<ul class="pa0">
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+          
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_posts\/2021-08-11-the-rdkit-postgres-ordered-substructure-search-problem.md"
+        var oid_likes = "likes_posts\/2021-08-11-the-rdkit-postgres-ordered-substructure-search-problem.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
   
-</ul>
-<div class="mt6 instapaper_ignoref">
-      
-      
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/articles/2021/07/28/running-the-rdkit-postgres-cartridge-with-docker/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Running the RDKit Postgres Cartridge with Docker</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2021-07-28T14:50:00&#43;00:00">July 28, 2021</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/articles/2021/08/25/postgres-extensions-in-rust/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Postgres Extensions in Rust</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2021-08-25T15:00:00&#43;00:00">August 25, 2021</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
       </div>
     </div>
-
-    <aside class="w-30-l mt6-l">
-
+  
 
 
+    
+  </footer>
+</article>
 
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
-    &copy;  Depth-First 2024 
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top" title="Scroll to top">
+    &uarr;
   </a>
-    <div><div class="ananke-socials"></div>
 </div>
-  </div>
-</footer>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
 
-  </body>
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2024
+      
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="http://localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
 </html>

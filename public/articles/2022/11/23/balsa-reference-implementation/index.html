@@ -1,42 +1,70 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Balsa Reference Implementation | Depth-First</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="Pairing theory with practice for better molecular serialization.">
-    <meta name="generator" content="Hugo 0.139.4">
-    
-    
-    
-    
-      <meta name="robots" content="noindex, nofollow">
-    
-    
-      <meta name="author" content = "Richard L. Apodaca">
-    
-
-    
-<link rel="stylesheet" href="/ananke/css/main.min.css" >
-
-
-
-    
-
-    
-      
-
-    
-
-    
-
-    
-      <link rel="canonical" href="http://localhost:1313/articles/2022/11/23/balsa-reference-implementation/">
-    
-
-    <meta property="og:url" content="http://localhost:1313/articles/2022/11/23/balsa-reference-implementation/">
+<html lang="en-us" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en-us" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>Balsa Reference Implementation &middot; Depth-First</title>
+  <meta name="title" content="Balsa Reference Implementation &middot; Depth-First" />
+  
+  <meta name="description" content="Pairing theory with practice for better molecular serialization." />
+  
+  
+  
+  <link rel="canonical" href="http://localhost:1313/articles/2022/11/23/balsa-reference-implementation/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.e27868ab1485f7ed7b06b122b4980bd38b19526eb8f7de885181204d28f04a0c47e9c334eff19a06c0278eb2ff8415b983a5d0fb80fd6b5680c926457cc61c57.css"
+    integrity="sha512-4nhoqxSF9&#43;17BrEitJgL04sZUm64996IUYEgTSjwSgxH6cM07/GaBsAnjrL/hBW5g6XQ&#43;4D9a1aAySZFfMYcVw==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.c178288131a2f1ad46910438db47ac5f7e1c48cf949e49f6dc3310c8ec9660e23fe505805eba4e2e73711335808500360d773a2b64322feb35df52856edca286.js"
+    integrity="sha512-wXgogTGi8a1GkQQ420esX34cSM&#43;Unkn23DMQyOyWYOI/5QWAXrpOLnNxEzWAhQA2DXc6K2QyL&#43;s131KFbtyihg==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/articles/2022/11/23/balsa-reference-implementation/">
   <meta property="og:site_name" content="Depth-First">
   <meta property="og:title" content="Balsa Reference Implementation">
   <meta property="og:description" content="Pairing theory with practice for better molecular serialization.">
@@ -46,71 +74,347 @@
     <meta property="article:published_time" content="2022-11-23T15:00:00+00:00">
     <meta property="article:modified_time" content="2022-11-23T15:00:00+00:00">
 
-  <meta itemprop="name" content="Balsa Reference Implementation">
-  <meta itemprop="description" content="Pairing theory with practice for better molecular serialization.">
-  <meta itemprop="datePublished" content="2022-11-23T15:00:00+00:00">
-  <meta itemprop="dateModified" content="2022-11-23T15:00:00+00:00">
-  <meta itemprop="wordCount" content="1792">
+  
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Balsa Reference Implementation">
   <meta name="twitter:description" content="Pairing theory with practice for better molecular serialization.">
 
-	
-  </head><body class="ma0 avenir bg-near-white development">
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "Balsa Reference Implementation",
+    "headline": "Balsa Reference Implementation",
+    
+    "abstract": "Pairing theory with practice for better molecular serialization.",
+    "inLanguage": "en-us",
+    "url" : "http:\/\/localhost:1313\/articles\/2022\/11\/23\/balsa-reference-implementation\/",
+    "author" : {
+      "@type": "Person",
+      "name": ""
+    },
+    "copyrightYear": "2022",
+    "dateCreated": "2022-11-23T15:00:00\u002b00:00",
+    "datePublished": "2022-11-23T15:00:00\u002b00:00",
+    
+    "dateModified": "2022-11-23T15:00:00\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1804"
+  }]
+  </script>
+
+
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">Depth-First</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      Balsa Reference Implementation
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2022-11-23T15:00:00&#43;00:00">November 23, 2022</time><span class="px-2 text-primary-500">&middot;</span><span>1804 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">9 mins</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
 
     
-   
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
   
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
-      
-        Depth-First
-      
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      <div class="ananke-socials"></div>
-
-    </div>
+  <div class="place-self-center">
+    
+    
+    <div class="text-2xl sm:text-lg">
+</div>
   </div>
-</nav>
+</div>
 
-    </div>
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
   </header>
-
-
-
-    <main class="pb7" role="main">
-      
   
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
-    <header class="mt4 w-100">
-      <aside class="instapaper_ignoref b helvetica tracked ttu">
-          
-        Posts
-      </aside><div id="sharing" class="mt3 ananke-socials"></div>
-<h1 class="f1 athelas mt3 mb1">Balsa Reference Implementation</h1>
-      
-      <p class="tracked">
-        By <strong>Richard L. Apodaca</strong>
-      </p>
-      
-      
-      
-      <time class="f6 mv4 dib tracked" datetime="2022-11-23T15:00:00Z">November 23, 2022</time>
-      
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+    
 
-      
-      
-    </header>
-    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>SMILES is a compact molecular serialization format used widely in cheminformatics and computational chemistry. Even so, the published documentation incompletely describes SMILES, making the implementation of software impossible without some degree of improvisation. <a href="https://doi.org/10.26434/chemrxiv-2022-01ltp">Balsa</a> is a fully-specified language subset created to solve this problem. To bridge theory and practice, work on a Balsa reference implementation is well underway. This article offers a high-level overview of the software.</p>
-<h1 id="about-balsa">About Balsa</h1>
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p>SMILES is a compact molecular serialization format used widely in cheminformatics and computational chemistry. Even so, the published documentation incompletely describes SMILES, making the implementation of software impossible without some degree of improvisation. <a href="https://doi.org/10.26434/chemrxiv-2022-01ltp" target="_blank">Balsa</a> is a fully-specified language subset created to solve this problem. To bridge theory and practice, work on a Balsa reference implementation is well underway. This article offers a high-level overview of the software.</p>
+
+
+<h1 class="relative group">About Balsa 
+    <div id="about-balsa" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#about-balsa" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Balsa seeks to improve SMILES in the following ways:</p>
 <ul>
 <li>Constrain all numerical quantities with upper and lower bounds.</li>
@@ -119,28 +423,61 @@
 <li>Eliminate rarely-used or redundant features.</li>
 <li>Guide the implementation of readers and writers.</li>
 </ul>
-<p>A working paper, <em><a href="https://doi.org/10.26434/chemrxiv-2022-01ltp">Balsa: A Compact Line Notation Based on SMILES</a></em>, details these points. Included is a table summarizing the differences between Balsa and <a href="/articles/2022/06/01/protosmiles/">ProtoSMILES</a>, a SMILES protolanguage.</p>
+<p>A working paper, <em><a href="https://doi.org/10.26434/chemrxiv-2022-01ltp" target="_blank">Balsa: A Compact Line Notation Based on SMILES</a></em>, details these points. Included is a table summarizing the differences between Balsa and <a href="/articles/2022/06/01/protosmiles/">ProtoSMILES</a>, a SMILES protolanguage.</p>
 <!-- raw HTML omitted -->
-<p>Balsa adds no features to SMILES, setting it apart from the two other SMILES documentation efforts (<a href="http://opensmiles.org">OpenSMILES</a> and <a href="https://iupac.org/project/2019-002-2-024/">SMILES+</a>). In other words, Balsa is designed to be <a href="https://www.w3.org/2001/tag/doc/versioning#iddiv371153984">forward compatible</a> with SMILES. This means that SMILES software can correctly process all Balsa output, but Balsa software can correctly process only some SMILES software output.</p>
-<h1 id="balsa-reference-implementation">Balsa Reference Implementation</h1>
-<p>The Balsa reference implementation&rsquo;s source code is available on <a href="https://github.com/metamolecular/balsa">GitHub</a> and the software can be installed through <a href="https://crates.io/crates/balsa">crates.io</a>.</p>
-<p>Wikipedia defines a <a href="https://en.wikipedia.org/wiki/Reference_implementation">reference implementation</a> as:</p>
+<p>Balsa adds no features to SMILES, setting it apart from the two other SMILES documentation efforts (<a href="http://opensmiles.org" target="_blank">OpenSMILES</a> and <a href="https://iupac.org/project/2019-002-2-024/" target="_blank">SMILES+</a>). In other words, Balsa is designed to be <a href="https://www.w3.org/2001/tag/doc/versioning#iddiv371153984" target="_blank">forward compatible</a> with SMILES. This means that SMILES software can correctly process all Balsa output, but Balsa software can correctly process only some SMILES software output.</p>
+
+
+<h1 class="relative group">Balsa Reference Implementation 
+    <div id="balsa-reference-implementation" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#balsa-reference-implementation" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>The Balsa reference implementation&rsquo;s source code is available on <a href="https://github.com/metamolecular/balsa" target="_blank">GitHub</a> and the software can be installed through <a href="https://crates.io/crates/balsa" target="_blank">crates.io</a>.</p>
+<p>Wikipedia defines a <a href="https://en.wikipedia.org/wiki/Reference_implementation" target="_blank">reference implementation</a> as:</p>
 <blockquote>
 <p>&hellip; a program that implements all requirements from a corresponding specification. The reference implementation often accompanies a technical standard, and demonstrates what should be considered the &ldquo;correct&rdquo; behavior of any other implementation of it.</p>
 </blockquote>
-<p>Consistent with this definition, the Balsa reference implementation seeks to demonstrate the correct implementation of all language features. The software is licensed under the liberal <a href="https://opensource.org/licenses/MIT">MIT License</a>. <a href="/articles/2020/01/20/cheminformatics-in-rust/">Rust</a> was selected as the programming language to maximize portability, programmer ergonomics, and type safety.</p>
+<p>Consistent with this definition, the Balsa reference implementation seeks to demonstrate the correct implementation of all language features. The software is licensed under the liberal <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>. <a href="/articles/2020/01/20/cheminformatics-in-rust/">Rust</a> was selected as the programming language to maximize portability, programmer ergonomics, and type safety.</p>
 <p>It&rsquo;s sometimes helpful to distinguish Balsa the language from Balsa the reference implementation. The terms &ldquo;Balsa language&rdquo; and &ldquo;Balsa software&rdquo; will be used, respectively, to do so.</p>
-<h1 id="data-structures">Data Structures</h1>
-<p>One of Rust&rsquo;s many selling points is a powerful type system. When paired with <a href="https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/">type-driven design</a>, errors that would otherwise make their way to run time are instead caught at compile time. Data structures provide the crucial link.</p>
+
+
+<h1 class="relative group">Data Structures 
+    <div id="data-structures" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#data-structures" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>One of Rust&rsquo;s many selling points is a powerful type system. When paired with <a href="https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/" target="_blank">type-driven design</a>, errors that would otherwise make their way to run time are instead caught at compile time. Data structures provide the crucial link.</p>
 <p>Balsa supports two data structure paradigms: <em>molecular graph</em> and <em>molecular tree</em>. A molecular graph typically maps atoms to nodes, and bonds to edges. Popular though this paradigm may be, it is not the most natural expression of the Balsa language. Molecular trees fill this role. A molecular tree is a tree-based data structure in which any two nodes are connected through a continuous path. To enable the interconversion of tree- and graph-based representations, Balsa supports both paradigms.</p>
 <p>For convenience, the software&rsquo;s data structures are named after the terms used in the working paper.</p>
-<h1 id="molecular-tree">Molecular Tree</h1>
+
+
+<h1 class="relative group">Molecular Tree 
+    <div id="molecular-tree" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#molecular-tree" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>The types comprising Balsa&rsquo;s molecular tree data structure can be found in the <code>tree</code> submodule. Perhaps surprisingly, no data structure representing an actual tree is defined. Instead, the top-level data structure <code>tree::Atom</code> is defined. Its presence alone fully defines a molecular tree.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Atom</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> kind: <span style="color:#a6e22e">AtomKind</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> edges: Vec<span style="color:#f92672">&lt;</span>Edge<span style="color:#f92672">&gt;</span>,
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Just two attributes, <code>kind</code> and <code>edges</code> suffice. <code>AtomKind</code> is an enumeration of the kinds of atoms supported by the Balsa language. Just four variants are possible: <code>Star</code>, <code>Shortcut</code>, <code>Selection</code>, and <code>Bracket</code>. The last three of these contain data themselves, an example of Rust&rsquo;s support for <a href="https://jrsinclair.com/articles/2019/algebraic-data-types-what-i-wish-someone-had-explained-about-functional-programming/">sum types</a>. The names of each variant track the names used in the Balsa working paper. <code>edges</code> is an ordered list of edges defining connectivity and bonding.</p>
+</span></span></code></pre></div><p>Just two attributes, <code>kind</code> and <code>edges</code> suffice. <code>AtomKind</code> is an enumeration of the kinds of atoms supported by the Balsa language. Just four variants are possible: <code>Star</code>, <code>Shortcut</code>, <code>Selection</code>, and <code>Bracket</code>. The last three of these contain data themselves, an example of Rust&rsquo;s support for <a href="https://jrsinclair.com/articles/2019/algebraic-data-types-what-i-wish-someone-had-explained-about-functional-programming/" target="_blank">sum types</a>. The names of each variant track the names used in the Balsa working paper. <code>edges</code> is an ordered list of edges defining connectivity and bonding.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">AtomKind</span> {
 </span></span><span style="display:flex;"><span>    Star,
 </span></span><span style="display:flex;"><span>    Shortcut(Shortcut),
@@ -170,7 +507,18 @@
 </span></span><span style="display:flex;"><span>        ]
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>)
-</span></span></code></pre></div><h1 id="molecular-graph">Molecular Graph</h1>
+</span></span></code></pre></div>
+
+<h1 class="relative group">Molecular Graph 
+    <div id="molecular-graph" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#molecular-graph" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>A graph representation is useful when converting to and from graph-based formats. For example, <a href="/articles/2022/11/16/direct-molecular-translation/">direct translation</a> of molfile into Balsa might work better with a graph representation rather than a tree. The <code>graph</code> submodule contains data structures helpful for such translation.</p>
 <p>Perhaps surprisingly, the <code>graph</code> submodule does not contain a top-level data structure representing a molecular graph. Instead, a molecular graph is encoded as an ordered list of <code>graph::Atom</code> values (<code>Vec&lt;graph::Atom&gt;</code>).</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Atom</span> {
@@ -178,7 +526,18 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> bonds: Vec<span style="color:#f92672">&lt;</span>Bond<span style="color:#f92672">&gt;</span>,
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>The two attributes, <code>kind</code> and <code>bonds</code> serve similar roles as in <code>tree::Atom</code>.</p>
-<h1 id="follower">Follower</h1>
+
+
+<h1 class="relative group">Follower 
+    <div id="follower" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#follower" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Tree- or graph-based representations are usually constructed to analyze some aspect of molecular structure. Many analyses will require some form of traversal. For example, writing a Balsa string requires traversal. So does reading a string, if looked at in a certain way. Conversion between graph-based and tree-based representations also requires traversal. Tree-based representations are in particular likely to require traversals for even simple tasks such as molecular weight calculation.</p>
 <p>A depth-first traversal will be suitable in many contexts. Although the underlying algorithm is not complex, it isn&rsquo;t easy to implement, either. Ideally, depth-first traversal would be implemented once, allowing the same traversal to be used in many contexts. In this way traversal can be decoupled from analysis.</p>
 <p>The key to this design is <code>Follower</code>. <code>Follower</code> is a trait that can be implemented by any Rust type. Doing so allows instances of the type to perform an analysis on the depth-first traversal of either a molecular tree or graph.</p>
@@ -200,8 +559,19 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">pop</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p><code>Follower</code> is extremely flexible. Its methods can be called via an actual depth-first traversal, or through a procedure that simulates one. And of course, the work that gets done for each method invocation is entirely up to the implementing type.</p>
-<p>The idea behind follower is easy to confuse with the <a href="https://en.wikipedia.org/wiki/Visitor_pattern">Gang of Four &ldquo;Visitor&rdquo; Pattern</a>. The goal of that mis-named pattern is to implement double-dispatch for languages that don&rsquo;t do so natively. As the authors put it, &ldquo;Visitor lets you define a new operation without changing the classes of the elements on which it operates.&rdquo; That&rsquo;s not quite the intent with <code>Follower</code>, which is to separate the traversal of a data structure from actions to be performed at each step.</p>
-<h1 id="reading-strings">Reading Strings</h1>
+<p>The idea behind follower is easy to confuse with the <a href="https://en.wikipedia.org/wiki/Visitor_pattern" target="_blank">Gang of Four &ldquo;Visitor&rdquo; Pattern</a>. The goal of that mis-named pattern is to implement double-dispatch for languages that don&rsquo;t do so natively. As the authors put it, &ldquo;Visitor lets you define a new operation without changing the classes of the elements on which it operates.&rdquo; That&rsquo;s not quite the intent with <code>Follower</code>, which is to separate the traversal of a data structure from actions to be performed at each step.</p>
+
+
+<h1 class="relative group">Reading Strings 
+    <div id="reading-strings" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#reading-strings" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Reading a Balsa string requires just a string value and a mutable <code>Follower</code> instance. Passing references for both to the <code>read::read</code> function exercises the <code>Follower</code> API. What happens as those method are called depends, of course, on the implementation.</p>
 <p>For example, a tree can be built from a Balsa string by using the <code>Follower</code> implementation defined by <code>tree::Builder</code>.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> string <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;**&#34;</span>;
@@ -214,7 +584,18 @@
 </span></span><span style="display:flex;"><span>    Atom::star(vec![Edge::elided_star(vec![])]),
 </span></span><span style="display:flex;"><span>)
 </span></span></code></pre></div><p>Replacing <code>tree::Builder</code> with <code>graph::Builder</code> allows construction of the graph representation instead.</p>
-<h1 id="writing-strings">Writing Strings</h1>
+
+
+<h1 class="relative group">Writing Strings 
+    <div id="writing-strings" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#writing-strings" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Writing a Balsa string requires a tree or graph representation and a <code>Writer</code> instance. <code>Writer</code> implements the <code>Follower</code> trait, allowing use wherever a <code>Follower</code> works. For example, the following uses the <code>tree::walk</code> function to write a tree representation as a string.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> root <span style="color:#f92672">=</span> tree::Atom::star(vec![tree::Edge::elided_star(vec![])]);
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> writer <span style="color:#f92672">=</span> follow::Writer::new();
@@ -222,7 +603,18 @@
 </span></span><span style="display:flex;"><span>tree::walk(<span style="color:#f92672">&amp;</span>root, <span style="color:#f92672">*</span><span style="color:#66d9ef">mut</span> writer);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>assert_eq!(writer.write(), <span style="color:#e6db74">&#34;**&#34;</span>)
-</span></span></code></pre></div><h1 id="walking-trees-and-graphs">Walking Trees and Graphs</h1>
+</span></span></code></pre></div>
+
+<h1 class="relative group">Walking Trees and Graphs 
+    <div id="walking-trees-and-graphs" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#walking-trees-and-graphs" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Tree and graph representations can be traversed in depth-first order using the <code>tree::walk</code> and <code>graph::walk</code> functions, respectively. Each function takes a reference to a representation and a <code>Follower</code>. On completion, the <code>Follower</code> is interrogated to reveal the analysis. As noted in the previous section, writing strings can be accomplished by pairing a <code>Writer</code> with <code>walk</code>. As another example, consider the transformation of a tree into a graph ( recall that <code>Builder</code> implements <code>Follower</code>):</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> root <span style="color:#f92672">=</span> tree::Atom::star(vec![tree::Edge::elided_star(vec![])]);
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> builder <span style="color:#f92672">=</span> graph::Builder::new();
@@ -236,49 +628,258 @@
 </span></span><span style="display:flex;"><span>        graph::Atom::star(vec![graph::Bond::elided(<span style="color:#ae81ff">0</span>)])
 </span></span><span style="display:flex;"><span>    ]
 </span></span><span style="display:flex;"><span>)
-</span></span></code></pre></div><h1 id="short-term-work">Short-Term Work</h1>
+</span></span></code></pre></div>
+
+<h1 class="relative group">Short-Term Work 
+    <div id="short-term-work" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#short-term-work" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Although Balsa implements all low-level language functionality, some high-level features are currently missing. The two most important pending feature sets to be added in the short term are:</p>
 <ul>
-<li><em>Computing implicit hydrogen count and subvalence</em>. Both <code>graph::Atom</code> and <code>tree::Atom</code> should fully implement the algorithms described in the Balsa working paper. Entries to both can be found in the obsolete <a href="https://github.com/rapodaca/purr">Purr</a> and <a href="https://github.com/rapodaca/dialect.rs">Dialect</a> repositories.</li>
+<li><em>Computing implicit hydrogen count and subvalence</em>. Both <code>graph::Atom</code> and <code>tree::Atom</code> should fully implement the algorithms described in the Balsa working paper. Entries to both can be found in the obsolete <a href="https://github.com/rapodaca/purr" target="_blank">Purr</a> and <a href="https://github.com/rapodaca/dialect.rs" target="_blank">Dialect</a> repositories.</li>
 <li><em>Selection and deselection</em>. Implementing both processes would enable interconversion of selected and deselected forms for use in canonicalization and other <a href="/articles/2021/06/17/delocalization-induced-molecular-equality/">DIME-sensitive</a> applications.</li>
 </ul>
-<h1 id="long-term-work">Long-Term Work</h1>
+
+
+<h1 class="relative group">Long-Term Work 
+    <div id="long-term-work" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#long-term-work" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>The availability of a reference implementation puts some long-term goals within reach, in particular:</p>
 <ul>
 <li>Validation suite. This would consist of an automated test suite containing Balsa string inputs and expected outputs for computations including virtual hydrogen count, bond conformation, atom configuration, and atom connectivity. Using the validation suite, the correctness of other Balsa implementations can be checked.</li>
 <li>Performance benchmarks. Efficient implementations will require some iteration. The reference implementation can be useful here as a benchmark.</li>
-<li>Direct molecular translation. Balsa can be used as a component in a larger suite of tools for <a href="/articles/2022/11/16/direct-molecular-translation/">direct molecular translation</a>. The idea here is to maximize the number of features that can be translated by avoiding intermediate representations. Toward this end, Balsa can be paired with <a href="https://github.com/metamolecular/trey">Trey</a> and other format-specific toolkits yet to be published.</li>
+<li>Direct molecular translation. Balsa can be used as a component in a larger suite of tools for <a href="/articles/2022/11/16/direct-molecular-translation/">direct molecular translation</a>. The idea here is to maximize the number of features that can be translated by avoiding intermediate representations. Toward this end, Balsa can be paired with <a href="https://github.com/metamolecular/trey" target="_blank">Trey</a> and other format-specific toolkits yet to be published.</li>
 </ul>
-<h1 id="conclusion">Conclusion</h1>
+
+
+<h1 class="relative group">Conclusion 
+    <div id="conclusion" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#conclusion" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Balsa is a compact molecular serialization format based on SMILES. A reference implementation supporting all basic operations is now available. Over time, this software can be used to develop other Balsa implementations. Integration into translators and other cheminformatics applications is also possible.</p>
-<ul class="pa0">
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+          
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_posts\/2022-11-23-balsa-reference-implementation.md"
+        var oid_likes = "likes_posts\/2022-11-23-balsa-reference-implementation.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
   
-</ul>
-<div class="mt6 instapaper_ignoref">
-      
-      
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/articles/2022/11/16/direct-molecular-translation/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Direct Molecular Translation</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-11-16T15:00:00&#43;00:00">November 16, 2022</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/articles/2022/12/07/naive-balsa-canonicalization/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Naive Balsa Canonicalization</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-12-07T15:00:00&#43;00:00">December 7, 2022</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
       </div>
     </div>
-
-    <aside class="w-30-l mt6-l">
-
+  
 
 
+    
+  </footer>
+</article>
 
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
-    &copy;  Depth-First 2024 
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top" title="Scroll to top">
+    &uarr;
   </a>
-    <div><div class="ananke-socials"></div>
 </div>
-  </div>
-</footer>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
 
-  </body>
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2024
+      
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="http://localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
 </html>

@@ -1,18 +1,24 @@
 baseURL = 'https://depth-first.com/'
 languageCode = 'en-us'
 title = 'Depth-First'
-theme = ["github.com/theNewDynamic/gohugo-theme-ananke/v2"]
+theme = ["github.com/nunocoracao/blowfish/v2"]
+defaultContentLanguage = "en"
 [permalinks]
-  [permalinks.page]
-    posts = '/articles/:year/:month/:day/:slug/'
-  [permalinks.section]
-    posts = '/articles/'
+[permalinks.page]
+posts = '/articles/:year/:month/:day/:slug/'
+[permalinks.section]
+posts = '/articles/'
 [pagination]
-  pagerSize = 10
+pagerSize = 10
 enableRobotsTXT = true
 [services]
-  [services.rss]
-    limit = -1
+[services.rss]
+limit = -1
 ignoreLogs = ['warning-goldmark-raw-html']
 [params]
-  author = 'Richard L. Apodaca'
+  [author]
+    name = 'Richard L. Apodaca'
+pagination.pagerSize = 10
+outputs.home = ["HTML", "RSS", "JSON"]
+footer.showThemeAttribution = false
+params.copyright = "© 2006-2014 Depth-First"

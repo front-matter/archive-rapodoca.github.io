@@ -1,42 +1,70 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Debugging ES Modules in Node.js and Mocha Using VS Code | Depth-First</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="Integrate in-editor debugging, unit tests, and JavaScript&rsquo;s new module system seamlessly with this simple trick.">
-    <meta name="generator" content="Hugo 0.139.4">
-    
-    
-    
-    
-      <meta name="robots" content="noindex, nofollow">
-    
-    
-      <meta name="author" content = "Richard L. Apodaca">
-    
-
-    
-<link rel="stylesheet" href="/ananke/css/main.min.css" >
-
-
-
-    
-
-    
-      
-
-    
-
-    
-
-    
-      <link rel="canonical" href="http://localhost:1313/articles/2019/01/17/debugging-es-modules-in-node.js-and-mocha-using-vs-code/">
-    
-
-    <meta property="og:url" content="http://localhost:1313/articles/2019/01/17/debugging-es-modules-in-node.js-and-mocha-using-vs-code/">
+<html lang="en-us" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en-us" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>Debugging ES Modules in Node.js and Mocha Using VS Code &middot; Depth-First</title>
+  <meta name="title" content="Debugging ES Modules in Node.js and Mocha Using VS Code &middot; Depth-First" />
+  
+  <meta name="description" content="Integrate in-editor debugging, unit tests, and JavaScript&#39;s new module system seamlessly with this simple trick." />
+  
+  
+  
+  <link rel="canonical" href="http://localhost:1313/articles/2019/01/17/debugging-es-modules-in-node.js-and-mocha-using-vs-code/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.e27868ab1485f7ed7b06b122b4980bd38b19526eb8f7de885181204d28f04a0c47e9c334eff19a06c0278eb2ff8415b983a5d0fb80fd6b5680c926457cc61c57.css"
+    integrity="sha512-4nhoqxSF9&#43;17BrEitJgL04sZUm64996IUYEgTSjwSgxH6cM07/GaBsAnjrL/hBW5g6XQ&#43;4D9a1aAySZFfMYcVw==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.c178288131a2f1ad46910438db47ac5f7e1c48cf949e49f6dc3310c8ec9660e23fe505805eba4e2e73711335808500360d773a2b64322feb35df52856edca286.js"
+    integrity="sha512-wXgogTGi8a1GkQQ420esX34cSM&#43;Unkn23DMQyOyWYOI/5QWAXrpOLnNxEzWAhQA2DXc6K2QyL&#43;s131KFbtyihg==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/articles/2019/01/17/debugging-es-modules-in-node.js-and-mocha-using-vs-code/">
   <meta property="og:site_name" content="Depth-First">
   <meta property="og:title" content="Debugging ES Modules in Node.js and Mocha Using VS Code">
   <meta property="og:description" content="Integrate in-editor debugging, unit tests, and JavaScript’s new module system seamlessly with this simple trick.">
@@ -46,74 +74,350 @@
     <meta property="article:published_time" content="2019-01-17T18:30:00+00:00">
     <meta property="article:modified_time" content="2019-01-17T18:30:00+00:00">
 
-  <meta itemprop="name" content="Debugging ES Modules in Node.js and Mocha Using VS Code">
-  <meta itemprop="description" content="Integrate in-editor debugging, unit tests, and JavaScript’s new module system seamlessly with this simple trick.">
-  <meta itemprop="datePublished" content="2019-01-17T18:30:00+00:00">
-  <meta itemprop="dateModified" content="2019-01-17T18:30:00+00:00">
-  <meta itemprop="wordCount" content="1702">
+  
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Debugging ES Modules in Node.js and Mocha Using VS Code">
   <meta name="twitter:description" content="Integrate in-editor debugging, unit tests, and JavaScript’s new module system seamlessly with this simple trick.">
 
-	
-  </head><body class="ma0 avenir bg-near-white development">
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "Debugging ES Modules in Node.js and Mocha Using VS Code",
+    "headline": "Debugging ES Modules in Node.js and Mocha Using VS Code",
+    
+    "abstract": "Integrate in-editor debugging, unit tests, and JavaScript\u0026rsquo;s new module system seamlessly with this simple trick.",
+    "inLanguage": "en-us",
+    "url" : "http:\/\/localhost:1313\/articles\/2019\/01\/17\/debugging-es-modules-in-node.js-and-mocha-using-vs-code\/",
+    "author" : {
+      "@type": "Person",
+      "name": ""
+    },
+    "copyrightYear": "2019",
+    "dateCreated": "2019-01-17T18:30:00\u002b00:00",
+    "datePublished": "2019-01-17T18:30:00\u002b00:00",
+    
+    "dateModified": "2019-01-17T18:30:00\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1723"
+  }]
+  </script>
+
+
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">Depth-First</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      Debugging ES Modules in Node.js and Mocha Using VS Code
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2019-01-17T18:30:00&#43;00:00">January 17, 2019</time><span class="px-2 text-primary-500">&middot;</span><span>1723 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">9 mins</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+    </div>
 
     
-   
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
   
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
-      
-        Depth-First
-      
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      <div class="ananke-socials"></div>
-
-    </div>
+  <div class="place-self-center">
+    
+    
+    <div class="text-2xl sm:text-lg">
+</div>
   </div>
-</nav>
+</div>
 
-    </div>
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
   </header>
-
-
-
-    <main class="pb7" role="main">
-      
   
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
-    <header class="mt4 w-100">
-      <aside class="instapaper_ignoref b helvetica tracked ttu">
-          
-        Posts
-      </aside><div id="sharing" class="mt3 ananke-socials"></div>
-<h1 class="f1 athelas mt3 mb1">Debugging ES Modules in Node.js and Mocha Using VS Code</h1>
-      
-      <p class="tracked">
-        By <strong>Richard L. Apodaca</strong>
-      </p>
-      
-      
-      
-      <time class="f6 mv4 dib tracked" datetime="2019-01-17T18:30:00Z">January 17, 2019</time>
-      
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+    
 
-      
-      
-    </header>
-    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>The <a href="https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/">ES Module</a> standard defines a way to build and assemble JavaScript modules. Currently supported in modern browsers and Node.js for many months now, ES Modules will over time render various ad-hoc module systems currently in use obsolete. Given their recent emergence from alpha, however, support for ES Modules can vary across tools. This article describes how to use ES modules within a very specific, but common environment: debugging Mocha tests running on Node.js in Microsoft&rsquo;s <a href="https://code.visualstudio.com">Visual Studio Code</a> (VS Code).</p>
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p>The <a href="https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/" target="_blank">ES Module</a> standard defines a way to build and assemble JavaScript modules. Currently supported in modern browsers and Node.js for many months now, ES Modules will over time render various ad-hoc module systems currently in use obsolete. Given their recent emergence from alpha, however, support for ES Modules can vary across tools. This article describes how to use ES modules within a very specific, but common environment: debugging Mocha tests running on Node.js in Microsoft&rsquo;s <a href="https://code.visualstudio.com" target="_blank">Visual Studio Code</a> (VS Code).</p>
 <p>This article was written with no assumptions other than that your system runs Node 11.6+ and VS Code 1.30.2+. If you&rsquo;re familiar with unit testing JavaScript with Mocha and VS Code debugging, skip to the section <a href="#debuggingwithreify">Debugging with Reify</a>.</p>
-<h1 id="why-es-modules">Why ES Modules?</h1>
+
+
+<h1 class="relative group">Why ES Modules? 
+    <div id="why-es-modules" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#why-es-modules" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Most programming languages support freestanding code blocks and low-level dependency management out of the box. Not so JavaScript. A browser&rsquo;s JavaScript runtime dumps all variables into the global scope by default. For most of its existence, the only compositional tool was the order in which <code>&lt;script&gt;</code> tags appeared in the parent HTML document. This situation made it very difficult develop and integrate independent software packages.</p>
-<p>A number of solutions to this problem sprang up. The one adopted by Node.js, <a href="https://blog.risingstack.com/node-js-at-scale-module-system-commonjs-require/">CommonJS</a>, treats each file as an independent module with its own scope. A module can export one or more designated objects for use in other files.</p>
+<p>A number of solutions to this problem sprang up. The one adopted by Node.js, <a href="https://blog.risingstack.com/node-js-at-scale-module-system-commonjs-require/" target="_blank">CommonJS</a>, treats each file as an independent module with its own scope. A module can export one or more designated objects for use in other files.</p>
 <p>For example, a CommonJS module declares what to export by making assignments to its <code>module</code> object:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// name.js
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
@@ -138,7 +442,18 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Hello, &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span>);
 </span></span></code></pre></div><p>ES Modules are now natively supported by all major browsers and Node.js. However, changes to the module system cut across a wide range of tools. This becomes most apparent when tools are forced to work together.</p>
-<h1 id="debugging-in-vs-code">Debugging in VS Code</h1>
+
+
+<h1 class="relative group">Debugging in VS Code 
+    <div id="debugging-in-vs-code" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#debugging-in-vs-code" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>The crown jewel of VS Code is its integrated debugger. Set a breakpoint, run the project in debugger mode, and away you go. Hover over a variable in the source code to get its current value. Experiment in the interactive console. All the functionality of the rich in-browser debugging experience is there.</p>
 <p>It&rsquo;s easy to get started. After installing VS Code, set up a test project containing the file <code>test.js</code>:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// test.js
@@ -147,12 +462,33 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`Sum: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">foo</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">bar</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
 </span></span></code></pre></div><p>Set a breakpoint by left clicking to the left of the line number 3. A filled red circle will appear indicating that the breakpoint has been set. Disable the breakpoint by left-clicking again. Add properties to it by right-clicking.</p>
-<p><img src="/images/posts/20190117/breakpoint.png" alt="Breakpoint" title="Breakpoint"></p>
+<p>
+    <figure>
+      <img class="my-0 rounded-md" loading="lazy" src="/images/posts/20190117/breakpoint.png" alt="Breakpoint" />
+      <figcaption>Breakpoint</figcaption>
+    </figure>
+</p>
 <p>Begin a debugging session by clicking on the bug icon to the left. A green triangle sits to the upper left of the palette. Clicking this button runs the current file in debugger mode. Line 4 will be highlighted, and a debugging menu will appear in the center-top part of the screen. To exit, click the filled red square button.</p>
-<p><img src="/images/posts/20190117/debug-mode.png" alt="Debug Mode" title="Debug Mode"></p>
-<h1 id="automated-testing-with-mocha">Automated Testing with Mocha</h1>
-<p><a href="https://mochajs.org">Mocha</a> is an automated testing framework for Node.js and the browser. It supports nested testing contexts, before/after hooks, and plain text descriptions.</p>
-<p>Mocha can be installed through <a href="https://www.npmjs.com">NPM</a>. To do so, create the file <code>package.json</code> at the top-level of your project. VS Code knows about the structure of this file, and so will attempt to guide you with hints and autocompletion.</p>
+<p>
+    <figure>
+      <img class="my-0 rounded-md" loading="lazy" src="/images/posts/20190117/debug-mode.png" alt="Debug Mode" />
+      <figcaption>Debug Mode</figcaption>
+    </figure>
+</p>
+
+
+<h1 class="relative group">Automated Testing with Mocha 
+    <div id="automated-testing-with-mocha" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#automated-testing-with-mocha" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p><a href="https://mochajs.org" target="_blank">Mocha</a> is an automated testing framework for Node.js and the browser. It supports nested testing contexts, before/after hooks, and plain text descriptions.</p>
+<p>Mocha can be installed through <a href="https://www.npmjs.com" target="_blank">NPM</a>. To do so, create the file <code>package.json</code> at the top-level of your project. VS Code knows about the structure of this file, and so will attempt to guide you with hints and autocompletion.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;devDependencies&#34;</span>: {
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;mocha&#34;</span>: <span style="color:#e6db74">&#34;5.2.0&#34;</span>
@@ -160,7 +496,12 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>(Before creating <code>package.json</code>, it may be necessary to switch contexts by clicking on the document icon on the left tool palette. Right click under <code>test.js</code> and select &ldquo;New File.&rdquo;)</p>
 <p>The shell command <code>npm install</code> installs the dependencies listed in the <code>package.json</code> file. You could use a separate terminal for this, but it&rsquo;s more convenient to use the one build into VS Code. Activate it by pressing ctrl‑` (control-tilde). After installation, your project contains two new items: the <code>node_modules</code> directory and the <code>package-lock.json</code> file. The terminal can be dismissed by again pressing ctrl‑` or clicking the &ldquo;X&rdquo; button.</p>
-<p><img src="/images/posts/20190117/npm-install.png" alt="NPM Install" title="NPM Install"></p>
+<p>
+    <figure>
+      <img class="my-0 rounded-md" loading="lazy" src="/images/posts/20190117/npm-install.png" alt="NPM Install" />
+      <figcaption>NPM Install</figcaption>
+    </figure>
+</p>
 <p>By default Mocha looks for test files in the <code>test</code> directory of your project. Create that directory and add the file <code>mocha.spec.js</code> to it.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// mocha.spec.js
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">assert</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;assert&#39;</span>);
@@ -180,9 +521,25 @@
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Run the test suite by issuing the command <code>npm test</code> from the terminal. This should produce some output ending with the text &ldquo;1 passing&rdquo;.</p>
-<p><img src="/images/posts/20190117/test-success.png" alt="Test Success" title="Test Success"></p>
-<h1 id="debugging-from-a-mocha-test">Debugging from a Mocha Test</h1>
-<p>My workflow relies heavily on test-driven development. The <a href="http://www.javiersaldana.com/tech/2014/11/26/refactoring-the-three-laws-of-tdd.html">two rules</a> I follow are, in order:</p>
+<p>
+    <figure>
+      <img class="my-0 rounded-md" loading="lazy" src="/images/posts/20190117/test-success.png" alt="Test Success" />
+      <figcaption>Test Success</figcaption>
+    </figure>
+</p>
+
+
+<h1 class="relative group">Debugging from a Mocha Test 
+    <div id="debugging-from-a-mocha-test" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#debugging-from-a-mocha-test" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>My workflow relies heavily on test-driven development. The <a href="http://www.javiersaldana.com/tech/2014/11/26/refactoring-the-three-laws-of-tdd.html" target="_blank">two rules</a> I follow are, in order:</p>
 <ol>
 <li>Write only enough of a test to fail.</li>
 <li>Write only enough production code to make the failing test pass.</li>
@@ -204,7 +561,18 @@
 </span></span><span style="display:flex;"><span>  ]
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>To debug a test, toggle back to the <code>mocha.spec.js</code> file. Add a breakpoint at the line with the <code>assert</code> call. Next, toggle to debug mode. This time, choose the &ldquo;Test&rdquo; option from the pulldown and click the run button. VS Code should pause at the breakpoint just as before. The code under test can now be debugged starting from a well-defined state.</p>
-<h1 id="refactoring-to-es-modules">Refactoring to ES Modules</h1>
+
+
+<h1 class="relative group">Refactoring to ES Modules 
+    <div id="refactoring-to-es-modules" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#refactoring-to-es-modules" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p><code>mocha.spec.js</code> runs fine in the default configuration because no ES modules were used. The test can be refactored to use ES Modules as follows:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// mocha.spec.js
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">assert</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;assert&#39;</span>;
@@ -214,22 +582,55 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">assert</span>.<span style="color:#a6e22e">strictEqual</span>(Math.<span style="color:#a6e22e">sign</span>(<span style="color:#f92672">-</span><span style="color:#ae81ff">42</span>), <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
 </span></span><span style="display:flex;"><span>  });
 </span></span><span style="display:flex;"><span>});
-</span></span></code></pre></div><h1 id="debug-fail">Debug Fail</h1>
+</span></span></code></pre></div>
+
+<h1 class="relative group">Debug Fail 
+    <div id="debug-fail" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#debug-fail" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>Unfortunately, running the refactored test with the current debug configuration fails with the following console error:</p>
 <p><code>SyntaxError: Unexpected identifier</code></p>
-<p>Although Node.js 11 supports ES Modules natively, this support is disabled by default. To enable it, Node must be run behind the <a href="https://nodejs.org/api/esm.html"><code>--experimental-modules</code></a> flag. This is the first problem to solve.</p>
+<p>Although Node.js 11 supports ES Modules natively, this support is disabled by default. To enable it, Node must be run behind the <a href="https://nodejs.org/api/esm.html" target="_blank"><code>--experimental-modules</code></a> flag. This is the first problem to solve.</p>
 <p>However, even if the debugging session were started behind the flag, Node.js wouldn&rsquo;t support ES modules. Currently, files invoking ES Modules must use the <code>.mjs</code> (&ldquo;module JavaScript&rdquo; aka Michael Jackson Script) extension. The files written so far all use the <code>.js</code> extension.</p>
 <p>But even after making these changes, we&rsquo;d still be stuck because Mocha doesn&rsquo;t recognize test files using the <code>.msj</code> extension. The error &ldquo;No test files found&rdquo; would be reported. Nor can Mocha currently work with tests that invoke ES Modules.</p>
 <p>A few solutions to this problem have been reported, such as:</p>
 <ul>
-<li><a href="http://www.albertgao.xyz/2016/12/16/how-to-debug-mocha-tests-in-visual-studio-code-with-es5-or-es6/">Transpile with Babel</a>.</li>
-<li><a href="https://github.com/vitalets/mocha-es6-modules">Run mocha-es6-modules</a>.</li>
+<li><a href="http://www.albertgao.xyz/2016/12/16/how-to-debug-mocha-tests-in-visual-studio-code-with-es5-or-es6/" target="_blank">Transpile with Babel</a>.</li>
+<li><a href="https://github.com/vitalets/mocha-es6-modules" target="_blank">Run mocha-es6-modules</a>.</li>
 </ul>
 <p>I&rsquo;d rather not introduce a build system and its attendant complexity where none existed before. I&rsquo;m also not a fan of deviating from widespread practice for testing without good reason. In any case, I wanted something far simpler than any of the published approaches I was able to find.</p>
-<h1 id="reify">Reify</h1>
-<p><a href="https://www.npmjs.com/package/reify">Reify</a> is a Node module that transparently allows ES Modules to be used without the <code>--experimental-modules</code> flag and without transpilation. It can be used when running applications, test suites, and even interactively in a REPL.</p>
+
+
+<h1 class="relative group">Reify 
+    <div id="reify" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#reify" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p><a href="https://www.npmjs.com/package/reify" target="_blank">Reify</a> is a Node module that transparently allows ES Modules to be used without the <code>--experimental-modules</code> flag and without transpilation. It can be used when running applications, test suites, and even interactively in a REPL.</p>
 <p>In a nutshell, Reify is the simple solution that this simple problem demands. The trick is getting it to work with VS Code, Node, and Mocha.</p>
-<h1 id="debugging-with-reify">Debugging with Reify</h1>
+
+
+<h1 class="relative group">Debugging with Reify 
+    <div id="debugging-with-reify" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#debugging-with-reify" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>One more bit of configuration is all it takes to allow the debugging of Mocha tests using ES Modules. Begin by adding the Reify dependency to <code>package.json</code>:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;devDependencies&#34;</span>: {
@@ -258,45 +659,248 @@
 </span></span><span style="display:flex;"><span>  ]
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Launching the VS Code debugger &ldquo;Test&rdquo; task should now allow full debugging functionality.</p>
-<p><img src="/images/posts/20190117/es-module-mocha-debug.png" alt="ES Module Mocha Debug" title="ES Module Mocha Debug"></p>
-<p>Note the use of the older 0.17.3 version of Reify rather than the newer 0.18.1 version. A change was introduced in the 0.18.0 release that breaks Mocha when used with the <code>--watch</code> option. Instead of changes being reflected after Mocha auto-reloads, stale source code continues to be used. The 0.17.3 release is the last version of Reify that can be used with the Mocha <code>--watch</code> option. <a href="https://github.com/benjamn/reify/issues/217">An issue has been filed</a>.</p>
-<h1 id="esm-as-an-alternative-to-reify">ESM as an Alternative to Reify</h1>
-<p>A fork of Reify, <a href="https://www.npmjs.com/package/esm">ESM</a>, serves as a drop-in replacement for Reify. There are two caveats:</p>
+<p>
+    <figure>
+      <img class="my-0 rounded-md" loading="lazy" src="/images/posts/20190117/es-module-mocha-debug.png" alt="ES Module Mocha Debug" />
+      <figcaption>ES Module Mocha Debug</figcaption>
+    </figure>
+</p>
+<p>Note the use of the older 0.17.3 version of Reify rather than the newer 0.18.1 version. A change was introduced in the 0.18.0 release that breaks Mocha when used with the <code>--watch</code> option. Instead of changes being reflected after Mocha auto-reloads, stale source code continues to be used. The 0.17.3 release is the last version of Reify that can be used with the Mocha <code>--watch</code> option. <a href="https://github.com/benjamn/reify/issues/217" target="_blank">An issue has been filed</a>.</p>
+
+
+<h1 class="relative group">ESM as an Alternative to Reify 
+    <div id="esm-as-an-alternative-to-reify" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#esm-as-an-alternative-to-reify" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>A fork of Reify, <a href="https://www.npmjs.com/package/esm" target="_blank">ESM</a>, serves as a drop-in replacement for Reify. There are two caveats:</p>
 <ol>
-<li>A <code>skipFiles</code> entry containing the path to the <code>esm.js</code> file will be needed to get <a href="https://code.visualstudio.com/docs/nodejs/nodejs-debugging#_skipping-uninteresting-code-node-chrome">&ldquo;Just My Code&rdquo;</a> debugging.</li>
+<li>A <code>skipFiles</code> entry containing the path to the <code>esm.js</code> file will be needed to get <a href="https://code.visualstudio.com/docs/nodejs/nodejs-debugging#_skipping-uninteresting-code-node-chrome" target="_blank">&ldquo;Just My Code&rdquo;</a> debugging.</li>
 <li>In a larger project I&rsquo;m working on, ESM adds about 3 seconds delay to the Mocha auto-reload when using its <code>--watch</code> option.</li>
 </ol>
 <p>The latter point is the reason I continue to use Reify.</p>
-<h1 id="conclusions">Conclusions</h1>
+
+
+<h1 class="relative group">Conclusions 
+    <div id="conclusions" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#conclusions" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
 <p>ES Modules can be debugged through Mocha tests on VS Code with Reify. No transpilation, no build system, and no alternative testing frameworks are needed. Simply require Reify through your project&rsquo;s <code>.vscode/settings.json</code> file.</p>
-<ul class="pa0">
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+          
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_posts\/2019-01-17-debugging-es-modules-with-mocha-in-vs-code.md"
+        var oid_likes = "likes_posts\/2019-01-17-debugging-es-modules-with-mocha-in-vs-code.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
   
-</ul>
-<div class="mt6 instapaper_ignoref">
-      
-      
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/articles/2019/01/14/computing-extended-connectivity-fingerprints/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Computing Extended Connectivity Fingerprints</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2019-01-14T16:30:00&#43;00:00">January 14, 2019</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/articles/2019/01/22/scanner-driven-parser-development/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Scanner-Driven Parser Development</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2019-01-22T15:30:00&#43;00:00">January 22, 2019</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
       </div>
     </div>
-
-    <aside class="w-30-l mt6-l">
-
+  
 
 
+    
+  </footer>
+</article>
 
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
-    &copy;  Depth-First 2024 
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top" title="Scroll to top">
+    &uarr;
   </a>
-    <div><div class="ananke-socials"></div>
 </div>
-  </div>
-</footer>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
 
-  </body>
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2024
+      
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="http://localhost:1313/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
 </html>
