@@ -5,6 +5,8 @@
 baseURL = "https://depth-first.com/"
 defaultContentLanguage = "en"
 
+permalinks.page.posts = '/articles/:year/:month/:day/:slug/'
+
 # pluralizeListTitles = "true" # hugo function useful for non-english languages, find out more in  https://gohugo.io/getting-started/configuration/#pluralizelisttitles
 
 enableRobotsTXT = true
